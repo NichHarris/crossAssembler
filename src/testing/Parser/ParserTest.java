@@ -1,6 +1,8 @@
 package testing.Parser;
 
 import src.Assembler;
+
+import java.io.File;
 import java.util.Arrays;
 
 //Ensure Functionality of Parser
@@ -9,7 +11,8 @@ public class ParserTest {
         System.out.println("Test Parser");
 
         //Scan Then Parse Content of File
-        String[] parsedContent = Assembler.Parser("sample.asm");
+        File srcFile = new File("sample.asm");
+        String[] parsedContent = Assembler.Parser(srcFile);
 
         //Actual Contents of File
         String[] actualContent = {"Fct ldc.i3 3", "    ldc.i3 1", "	 add     ; This is a comment", "    ret"};

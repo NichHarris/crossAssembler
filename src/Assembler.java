@@ -1,14 +1,32 @@
 package src;
 
+import java.io.File;
 import java.io.FileInputStream;
 
 public class Assembler {
+
+    private static String srcName = null;
+    private static File srcFile = null;
+
     public static void main(String args[]) throws Exception {
-        //Scans the Command Line Args
-        System.out.println(Scanner(args));
+
+        //Parse the .asm file
+        if (args.length != 1) {
+            System.out.println("Missing .asm file");
+            return;
+        }
+
+        if (args[0] != null) { // Check <src>
+            srcName = args[0];
+            srcFile = new File(srcName);
+            if (!srcFile.canRead()) {
+                System.out.println("Cannot open source file '" + srcName + "'");
+                return;
+            }
+        }
 
         //Parse the Assembly Code
-        String[] ls = Parser("Pgm.asm");
+        String[] ls = Parser(srcFile);
         //LineStatement[] ls = new LineStatement[numLines];
 
         //Splits LineStatements to Perform Lexical Analysis
@@ -54,7 +72,7 @@ public class Assembler {
     }
 
     //Parses - Reads File
-    public static String[] Parser(String f) throws Exception {
+    public static String[] Parser(File f) throws Exception {
         //Read File Using File Input Stream
         FileInputStream file = new FileInputStream(f);
 
