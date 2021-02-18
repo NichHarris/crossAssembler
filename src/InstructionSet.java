@@ -1,5 +1,3 @@
-package src;
-
 import java.util.HashMap;
 
 public class InstructionSet {
@@ -65,12 +63,10 @@ public class InstructionSet {
         instructionSet.put("trap", 0xFF);
     }
 
-//    public HashMap<String, String> getInstructionSet() {
-//        return instructionSet;
-//    }
+    // @TEAM -> Add unit test here for invalid token recognition
 
-    public Integer getCode(String token) {
-        // add unit test here for invalid token recognition
-        return instructionSet.get(token);
+    //Get Instruction Code
+    public Integer getCode(String key) {
+        return instructionSet.get(key);
     }
 }

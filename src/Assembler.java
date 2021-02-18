@@ -5,18 +5,24 @@ import java.io.FileInputStream;
 
 public class Assembler {
 
-    private static String srcName = null;
-    private static File srcFile = null;
+    private static String srcName;
+    private static File srcFile;
 
     public static void main(String args[]) throws Exception {
 
         //Parse the .asm file
-        if (args.length != 1) {
-            System.out.println("Missing .asm file");
+        if (args.length < 1) {
+            System.out.println("Error: Missing .asm file");
             return;
         }
 
-        if (args[0] != null) { // Check <src>
+        if (args.length > 3) {
+            System.out.println("Error: Too Many Arguments in CL");
+            return;
+        }
+
+        // Check <src>
+        if (args[0] != null) {
             srcName = args[0];
             srcFile = new File(srcName);
             if (!srcFile.canRead()) {
@@ -39,10 +45,11 @@ public class Assembler {
         int status = 0;
 
         //No File Provided Error
-        if(options.length < 1) return status = -3;
-
+        //if(options.length < 1) return -3;
         //Too Many Options Enabled Error
-        if(options.length > 3) return status = -2;
+        //if(options.length > 3) return -2;
+
+        boolean found = false;
 
         //Iterate Through Options
         for(String o:options)
@@ -52,14 +59,12 @@ public class Assembler {
                 status = (status <= 0) ? 2 : (status == 3) ? 4 : -1;
             else if(o.equals("-v") || o.equals("--verbose"))
                 status = (status <= 0) ? 3 : (status == 2) ? 4 : -1;
-            else if(o.endsWith(".asm"))
-                continue;
-            else if(!o.endsWith(".asm"))
-                return status = -3;
+            else if(o.endsWith(".asm") && !found)
+                found = true;
             else
-                return status = -1;
+                return -1;
 
-        return status;
+        return found ? status : -3;
 
         // Return Values (Neg = Bad Req, Pos = Good Req)
         // No File Provided: -3

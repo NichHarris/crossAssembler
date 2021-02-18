@@ -1,5 +1,3 @@
-package src;
-
 public class Instruction {
     private String mnemonic;
     public String operand;
@@ -29,6 +27,12 @@ public class Instruction {
 
     public String getOperand() {
         return operand;
+    }
+
+    // TODO: find a workaround without having to create an instructionset object
+    public Integer getCode() {
+        InstructionSet set = new InstructionSet();
+        return set.getCode(mnemonic);
     }
 
     //Check If Operand is Digit (True) or Label (False)

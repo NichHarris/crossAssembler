@@ -15,9 +15,8 @@ public class FileGenerator {
         };
 
         generateListing("test1", lstContent);
+        //generateExec("jmpAsm", "0100 0100 0010 0101 0110");
     }
-
-    // generateExec("jmpAsm", "0100 0100 0010 0101 0110");
 
     public static void generateExec(String fn, String c) throws Exception {
         String fileName = fn;
