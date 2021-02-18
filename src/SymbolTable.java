@@ -68,4 +68,9 @@ public class SymbolTable {
     public HashMap<String, String> getInstructionSet() {
         return instructionSet;
     }
+
+    public String getCode(String token) {
+        // add unit test here for invalid token recognition
+        return instructionSet.get(token);
+    }
 }
