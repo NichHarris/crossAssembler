@@ -78,16 +78,18 @@ public class Assembler {
     public static void Tokenizer(String[] lines) {
         //Split LineStatements into Sub Components Using Whitespace
         String[] subComponents;
+        String assComments;
         for(String l: lines) {
             //Ignore Comments, Remove Extra WhiteSpace Then Split into SubComponents
             subComponents = l.split(";")[0].trim().split("\\s+");
-            
-            LexicalAnalyzer(subComponents);
+            assComments = l.contains(";") ? l.split(";")[1].trim() : "";
+
+            LexicalAnalyzer(subComponents, assComments);
         }
     }
      
     //Lexical Analyzer
-    public static void LexicalAnalyzer(String[] subComponents) {
+    public static void LexicalAnalyzer(String[] subComponents, String comments) {
     		//Perform Lexical Analysis & Detect Errors 
         int len = subComponents.length;
         switch(len) {
@@ -130,6 +132,7 @@ public class Assembler {
         System.out.print("[ ");
         for(String s: subComponents)
             System.out.print("[" + s + "] ");
+        System.out.print("[" + comments + "] ");
         System.out.println("]");
     }
         
