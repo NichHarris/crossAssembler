@@ -19,6 +19,7 @@ public class Listing {
         listing = new String[unit.getLength() + 1];
         listing[0] = String.format("%16s%16s%16s%16s%16s%16s%16s\n", "Line", "Addr", "Code", "Label", "Mne", "Operand", "Comments");
         for (int i = 0; i < unit.getLength(); i++){
+            // TODO: need to manage cases where certain fields (mainly mne) returns null in Instruction before this can work
             line = Integer.toString(i);
             addr = String.format("%1$04X",i); // convert to hex and pad with zeros
             code = Integer.toString(unit.getLine(i).getCode());
