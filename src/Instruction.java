@@ -36,7 +36,7 @@ public class Instruction {
 
     // TODO: find a workaround without having to create an instructionset object
     public Integer getCode() {
-        InstructionSet set = new InstructionSet();
+        SymbolTable set = new SymbolTable();
         return set.getCode(mnemonic);
     }
 

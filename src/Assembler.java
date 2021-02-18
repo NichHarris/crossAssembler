@@ -2,7 +2,6 @@
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Arrays;
 
 public class Assembler {
 
@@ -55,7 +54,7 @@ public class Assembler {
     }
 
     // TODO: Rename to Options? Parser (according to domain dictionary)? Just check for options in here?
-    public static int Scanner(String[] options) throws Exception {
+    public static int OptionsParser(String[] options) throws Exception {
         //Return Type
         int status = 0;
 
@@ -83,26 +82,26 @@ public class Assembler {
         return found ? status : -3;
     }
 
-    // TODO: Need to rename assemblyUnit to something else here
+    // TODO: Need to come up with a more appropriate name, maybe turn this into an IR class
     //Parses - Reads File
-    public static String[] Parser(File f) throws Exception {
+    public static String[] generateIR(File f) throws Exception {
         //Read File Using File Input Stream
         FileInputStream file = new FileInputStream(f);
 
-        //Generate an Assembly Unit
-        String assemblyUnit = "";
+        //Generate an IR
+        String IR = "";
         //Assembly assemblyUnit = new AssemblyUnit("");
 
         int currentChar = file.read();
         while(currentChar > 0) {
-            assemblyUnit += (char)currentChar;
+            IR += (char)currentChar;
             currentChar = file.read();
         }
 
         file.close();
 
         //Create an Array of LineStatements Using EOL
-        return assemblyUnit.split("[\r\n]+");
+        return IR.split("[\r\n]+");
     }
 
     //Tokenizer - Combines Tokens
@@ -128,9 +127,9 @@ public class Assembler {
                 //System.out.println("Mnemonic || Label");
                 //Check in HashSet for Mnemonic
                 //If not, Add Element to Label Table
-                InstructionSet instructSet = new InstructionSet();
+                SymbolTable symbolTable = new SymbolTable();
 
-                int code = instructSet.getCode(subComponents[0]);
+                int code = symbolTable.getCode(subComponents[0]);
 
                 if(code == -1)
                     System.out.println("Error: Mnemonic Not Found");
