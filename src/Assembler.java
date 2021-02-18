@@ -11,7 +11,7 @@ public class Assembler {
     private static File srcFile = null;
 
     public static void main(String args[]) throws Exception {
-        // This is a cool comment :D
+
         //Parse the .asm file
         if (args.length != 1) {
             System.out.println("Missing .asm file");
@@ -102,7 +102,7 @@ public class Assembler {
         for(String l: lines) {
             //Ignore Comments, Remove Extra WhiteSpace Then Split into SubComponents
             subComponents = l.split(";")[0].trim().split("\\s+");
-            
+
             LexicalAnalyzer(subComponents);
         }
     }

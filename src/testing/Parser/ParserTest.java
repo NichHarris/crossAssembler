@@ -1,7 +1,6 @@
 package testing.Parser;
 
 import src.Assembler;
-
 import java.io.File;
 import java.util.Arrays;
 
