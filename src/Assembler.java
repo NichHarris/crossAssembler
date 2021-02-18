@@ -2,7 +2,6 @@ package src;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.Arrays;
 
 public class Assembler {
 
@@ -110,7 +109,7 @@ public class Assembler {
      
     //Lexical Analyzer
     public static void LexicalAnalyzer(String[] subComponents, String comments) {
-    		//Perform Lexical Analysis & Detect Errors 
+        //Perform Lexical Analysis & Detect Errors
         int len = subComponents.length;
         switch(len) {
             //Stack + Inherent Addressing Mode
