@@ -1,4 +1,4 @@
-// aunit.java - AUnit
+package testing;// aunit.java - AUnit
 // Copyright (C) 1996-2020 by Michel de Champlain
 
 import java.io.*;
