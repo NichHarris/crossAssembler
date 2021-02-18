@@ -1,22 +1,32 @@
-package src;
+//package src;
 
 import java.io.File;
 import java.io.FileInputStream;
 
 public class Assembler {
 
-    private static String srcName = null;
-    private static File srcFile = null;
+    private static String srcName;
+    private static File srcFile;
+    public static AssemblyUnit assemblyUnit;
+    public static FileGenerator generator;
 
+    // TODO: try to break components in main() into classes/interfaces as much as possible to make testing easier
     public static void main(String args[]) throws Exception {
 
-        //Parse the .asm file
-        if (args.length != 1) {
-            System.out.println("Missing .asm file");
+        //Check if .asm file not included in CLI arguments
+        if (args.length < 1) {
+            System.out.println("Error: Missing .asm file");
             return;
         }
 
-        if (args[0] != null) { // Check <src>
+        //Check if there's too many CLI arguments
+        if (args.length > 3) {
+            System.out.println("Error: Too Many Arguments in CL");
+            return;
+        }
+
+        //Check <src>
+        if (args[0] != null) {
             srcName = args[0];
             srcFile = new File(srcName);
             if (!srcFile.canRead()) {
@@ -26,23 +36,35 @@ public class Assembler {
         }
 
         //Parse the Assembly Code
-        String[] ls = Parser(srcFile);
-        //LineStatement[] ls = new LineStatement[numLines];
+        String[] ls = generateIR(srcFile);
+
+        //Initialize the AssemblyUnit
+        assemblyUnit = new AssemblyUnit(ls.length);
 
         //Splits LineStatements to Perform Lexical Analysis
-        Tokenizer(ls);
+        Tokenizer(ls, assemblyUnit);
+
+        //Get listing file contents
+        Listing listing = new Listing(assemblyUnit);
+        String[] listingContent = listing.getListing();
+
+        //Generate listing file
+        generator = new FileGenerator(listingContent);
+        generator.generateListing();
     }
 
     // TODO: Rename to Options? Parser (according to domain dictionary)? Just check for options in here?
-    public static int Scanner(String[] options) throws Exception {
+    public static int optionsParser(String[] options) throws Exception {
         //Return Type
         int status = 0;
 
         //No File Provided Error
-        if(options.length < 1) return status = -3;
+        if(options.length < 1) return -3;
 
         //Too Many Options Enabled Error
-        if(options.length > 3) return status = -2;
+        if(options.length > 3) return -2;
+
+        boolean found = false;
 
         //Iterate Through Options
         for(String o:options)
@@ -52,63 +74,51 @@ public class Assembler {
                 status = (status <= 0) ? 2 : (status == 3) ? 4 : -1;
             else if(o.equals("-v") || o.equals("--verbose"))
                 status = (status <= 0) ? 3 : (status == 2) ? 4 : -1;
-            else if(o.endsWith(".asm"))
-                continue;
-            else if(!o.endsWith(".asm"))
-                return status = -3;
+            else if(o.endsWith(".asm") && !found)
+                found = true;
             else
-                return status = -1;
+                return -1;
 
-        return status;
-
-        // Return Values (Neg = Bad Req, Pos = Good Req)
-        // No File Provided: -3
-        // Too Many Options: -2
-        // Invalid Options: -1
-        // No Options: 0
-        // -h Only: 1
-        // -l Only: 2
-        // -v Only: 3
-        // -l -v: 4
+        return found ? status : -3;
     }
 
+    // TODO: Need to come up with a more appropriate name, maybe turn this into an IR class
     //Parses - Reads File
-    public static String[] Parser(File f) throws Exception {
+    public static String[] generateIR(File f) throws Exception {
         //Read File Using File Input Stream
         FileInputStream file = new FileInputStream(f);
 
-        //Generate an Assembly Unit
-        String assemblyUnit = "";
+        //Generate an IR
+        String IR = "";
         //Assembly assemblyUnit = new AssemblyUnit("");
 
         int currentChar = file.read();
         while(currentChar > 0) {
-            assemblyUnit += (char)currentChar;
+            IR += (char)currentChar;
             currentChar = file.read();
         }
 
         file.close();
 
         //Create an Array of LineStatements Using EOL
-        return assemblyUnit.split("[\r\n]+");
+        return IR.split("[\r\n]+");
     }
- 
+
     //Tokenizer - Combines Tokens
-    public static void Tokenizer(String[] lines) {
+    public static void Tokenizer(String[] lines, AssemblyUnit assemblyUnit) {
         //Split LineStatements into Sub Components Using Whitespace
         String[] subComponents;
         String assComments;
-        for(String l: lines) {
+        for(int i = 0; i < lines.length; i++) {
             //Ignore Comments, Remove Extra WhiteSpace Then Split into SubComponents
-            subComponents = l.split(";")[0].trim().split("\\s+");
-            assComments = l.contains(";") ? l.split(";")[1].trim() : "";
-
-            LexicalAnalyzer(subComponents, assComments);
+            subComponents = lines[i].split(";")[0].trim().split("\\s+");
+            assComments = lines[i].contains(";") ? lines[i].split(";")[1].trim() : "";
+            LexicalAnalyzer(assemblyUnit, i, subComponents, assComments);
         }
     }
-     
+
     //Lexical Analyzer
-    public static void LexicalAnalyzer(String[] subComponents, String comments) {
+    public static void LexicalAnalyzer(AssemblyUnit assemblyUnit, int i, String[] subComponents, String comments) {
         //Perform Lexical Analysis & Detect Errors
         int len = subComponents.length;
         switch(len) {
@@ -117,10 +127,23 @@ public class Assembler {
                 //System.out.println("Mnemonic || Label");
                 //Check in HashSet for Mnemonic
                 //If not, Add Element to Label Table
+                SymbolTable symbolTable = new SymbolTable();
 
+                int code = symbolTable.getCode(subComponents[0]);
 
-                //System.out.println("Error: Mnemonic Not Found");
-                //System.out.println("Error: Missing an Operand");
+                if(code == -1)
+                    System.out.println("Error: Mnemonic Not Found");
+                else if(code > 0x1F)
+                    System.out.println("Error: Missing an Operand");
+                else if(code >= 0x00 && code <= 0x1F ) {
+                    //Add LineStatement to AssemblyUnit
+                    assemblyUnit.setLine(i, new Instruction(subComponents[0], ""), comments);
+                    assemblyUnit.setCode(i, code);
+                }
+                //Check if label exists in label table Else Add to Table
+
+                //toHexString
+                //System.out.print(Integer.toBinaryString(code) + " ");
                 break;
             //Immediate Addressing Mode
             case(2):
@@ -139,22 +162,23 @@ public class Assembler {
                 //System.out.println("Label + Mnemonic + Operand");
                 //Add First Element to Label List
                 //Check Second Element in HashSet for Mnemonic
-                //Check Third Element 
+                //Check Third Element
 
                 //System.out.println("Error: Mnemonic Not Found");
                 //System.out.println("Error: Operand is Too Large");
                 //System.out.println("Error: Operand Not Allowed");
                 break;
             default:
-                //System.out.println("Error: Exceeds Possible Number of Elements Per line - " + len);
+                System.out.println("Error: Exceeds Possible Number of Elements Per line");
         }
-        
+
+
         //Prints Out Sub Components
-        System.out.print("{ ");
-        for(String s: subComponents)
-            System.out.print("[" + s + "] ");
-        System.out.print("[" + comments + "] ");
-        System.out.println("}");
+//        System.out.print("{ ");
+//        for(String s: subComponents)
+//            System.out.print("[" + s + "] ");
+//        System.out.print("[" + comments + "] ");
+//        System.out.println("}");
     }
-        
+
 }

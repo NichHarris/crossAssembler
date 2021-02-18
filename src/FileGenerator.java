@@ -4,20 +4,20 @@ import java.io.BufferedOutputStream;
 
 public class FileGenerator {
 
-    public FileGenerator() { }
+    private static String[] lstContent = null;
 
-    public static void main(String[] args) throws Exception {
-        String[] lstContent = {
-                "Line Addr Code          Label         Mne   Operand       Comments",
-                "1    0000 00                          halt",
-                "2    0001 01                          pop",
-                "26   0019 00                          halt"
-        };
-
-        generateListing("test1", lstContent);
+    public FileGenerator(String[] listingContent) {
+        lstContent = listingContent;
     }
 
-    // generateExec("jmpAsm", "0100 0100 0010 0101 0110");
+    /*
+    public static void main(String[] args) throws Exception {
+        String[] lstContent = args;
+
+        //generateListing("test1", lstContent);
+        //generateExec("jmpAsm", "0100 0100 0010 0101 0110");
+    }
+     */
 
     public static void generateExec(String fn, String c) throws Exception {
         String fileName = fn;
@@ -34,13 +34,11 @@ public class FileGenerator {
         bfos.close();
     }
 
-    public static void generateListing(String fn, String[] lbTable) throws Exception {
-        String fileName = fn;
-        String[] lt = lbTable;
+    public static void generateListing() throws Exception {
 
-        FileOutputStream fs = new FileOutputStream(new File(fileName + ".lst"));
+        FileOutputStream fs = new FileOutputStream(new File("listing.lst"));
 
-        for(String l : lt) {
+        for(String l : lstContent) {
             char[] cArr = l.toCharArray();
             for(char c : cArr)
                 fs.write(c);

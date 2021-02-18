@@ -1,5 +1,7 @@
 package testing.Scanner;
 
+// TODO: sort out package dependency issues
+/*
 import src.Assembler;
 
 //Testing File Scanner Functionality
@@ -57,3 +59,4 @@ public class ScannerTest {
         System.out.println(actualCode);
     }
 }
+ */

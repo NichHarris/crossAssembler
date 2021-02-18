@@ -1,8 +1,6 @@
-package src;
-
 public class Instruction {
-    private String mnemonic;
-    public String operand;
+    private String mnemonic = null;
+    public String operand = null;
 
     //Default Constructor
     public Instruction() {}
@@ -11,6 +9,11 @@ public class Instruction {
     public Instruction(String m, String o) {
         mnemonic = m;
         operand = o;
+    }
+
+    //Parameterized Constructor
+    public Instruction(String m) {
+        mnemonic = m;
     }
 
     //Set Mnemonic + Operand
@@ -29,6 +32,12 @@ public class Instruction {
 
     public String getOperand() {
         return operand;
+    }
+
+    // TODO: find a workaround without having to create an instructionset object
+    public Integer getCode() {
+        SymbolTable set = new SymbolTable();
+        return set.getCode(mnemonic);
     }
 
     //Check If Operand is Digit (True) or Label (False)

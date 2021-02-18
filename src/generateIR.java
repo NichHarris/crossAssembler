@@ -1,11 +1,12 @@
 import java.io.File;
 
+// TODO: Not currently in use!
 // TODO: Need to move options parsing in here
-public class Parser {
-
+public class generateIR {
     private static String srcName = null;
     private static File srcFile = null;
-    public Parser(String[] args){
+
+    public generateIR(String[] args){
         //Parse the .asm file
         if (args.length != 1) {
             System.out.println("Missing .asm file");
