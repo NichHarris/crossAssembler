@@ -36,7 +36,7 @@ public class Assembler {
         }
 
         //Parse the Assembly Code
-        String[] ls = Parser(srcFile);
+        String[] ls = generateIR(srcFile);
 
         //Initialize the AssemblyUnit
         assemblyUnit = new AssemblyUnit(ls.length);
@@ -54,7 +54,7 @@ public class Assembler {
     }
 
     // TODO: Rename to Options? Parser (according to domain dictionary)? Just check for options in here?
-    public static int OptionsParser(String[] options) throws Exception {
+    public static int optionsParser(String[] options) throws Exception {
         //Return Type
         int status = 0;
 
