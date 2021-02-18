@@ -4,6 +4,7 @@ import java.lang.reflect.Array;
 //Assembly Unit - Set of LineStatements + EOF
 public class AssemblyUnit {
     private LineStatement[] lines;
+    private Integer[] codes;
 
     //Default Constructor
     public AssemblyUnit() {}
@@ -11,10 +12,11 @@ public class AssemblyUnit {
     //Parameterized Constructor
     public AssemblyUnit(int len) {
         lines = new LineStatement[len];
+        codes = new Integer[len];
     }
 
     //Set LineStatement
-    public void setLine(LineStatement l, int i) {
+    public void setLine(int i, LineStatement l) {
         lines[i] = l;
     }
 
@@ -41,6 +43,10 @@ public class AssemblyUnit {
     //Set LineStatement
     public void setLine(int i, String l, String c) {
         lines[i] = new LineStatement(l, c);
+    }
+
+    public void setCode(int i, int code) {
+        codes[i] = code;
     }
 
     //Get LineStatement

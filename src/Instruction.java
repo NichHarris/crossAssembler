@@ -1,6 +1,6 @@
 public class Instruction {
-    private String mnemonic;
-    public String operand;
+    private String mnemonic = null;
+    public String operand = null;
 
     //Default Constructor
     public Instruction() {}
@@ -9,6 +9,11 @@ public class Instruction {
     public Instruction(String m, String o) {
         mnemonic = m;
         operand = o;
+    }
+
+    //Parameterized Constructor
+    public Instruction(String m) {
+        mnemonic = m;
     }
 
     //Set Mnemonic + Operand
