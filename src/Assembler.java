@@ -117,9 +117,17 @@ public class Assembler {
                 //System.out.println("Mnemonic || Label");
                 //Check in HashSet for Mnemonic
                 //If not, Add Element to Label Table
+                InstructionSet instructSet= new InstructionSet();
 
-                //System.out.println("Error: Mnemonic Not Found");
-                //System.out.println("Error: Missing an Operand");
+                int code = instructSet.getCode(subComponents[0]);
+
+                //Check if label exists in label table
+                if(code == -1)
+                    System.out.println("Error: Mnemonic Not Found");
+                else if(code > 0x1F)
+                    System.out.println("Error: Missing an Operand");
+
+                System.out.println((byte)code);
                 break;
             //Immediate Addressing Mode
             case(2):

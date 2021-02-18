@@ -1,10 +1,11 @@
 package src;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 //Assembly Unit - Set of LineStatements + EOF
 public class AssemblyUnit {
-    private src.LineStatement[] lines;
+    private ArrayList<src.LineStatement> lines;
     private static Array codeList = null;
     private static Array labelList = null;
     private static Array mneList = null;
