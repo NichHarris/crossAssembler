@@ -7,7 +7,7 @@ public class ScannerTest {
     public static void main(String[] args) throws Exception {
         System.out.println("Test Scanner");
 
-        String[] ops = {"-l", "-h", "someFile.asm"};
+        String[] ops = {"-l", "-v", "someFile.asm"};
 
         //Scanner Method
         int statusCode = Assembler.Scanner(ops);

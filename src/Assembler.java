@@ -2,8 +2,6 @@ package src;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class Assembler {
 
@@ -99,17 +97,19 @@ public class Assembler {
     public static void Tokenizer(String[] lines) {
         //Split LineStatements into Sub Components Using Whitespace
         String[] subComponents;
+        String assComments;
         for(String l: lines) {
             //Ignore Comments, Remove Extra WhiteSpace Then Split into SubComponents
             subComponents = l.split(";")[0].trim().split("\\s+");
+            assComments = l.contains(";") ? l.split(";")[1].trim() : "";
 
-            LexicalAnalyzer(subComponents);
+            LexicalAnalyzer(subComponents, assComments);
         }
     }
      
     //Lexical Analyzer
-    public static void LexicalAnalyzer(String[] subComponents) {
-    		//Perform Lexical Analysis & Detect Errors 
+    public static void LexicalAnalyzer(String[] subComponents, String comments) {
+        //Perform Lexical Analysis & Detect Errors
         int len = subComponents.length;
         switch(len) {
             //Stack + Inherent Addressing Mode
@@ -117,23 +117,17 @@ public class Assembler {
                 //System.out.println("Mnemonic || Label");
                 //Check in HashSet for Mnemonic
                 //If not, Add Element to Label Table
-                InstructionSet instructSet= new InstructionSet();
 
-                int code = instructSet.getCode(subComponents[0]);
 
-                //Check if label exists in label table
-                if(code == -1)
-                    System.out.println("Error: Mnemonic Not Found");
-                else if(code > 0x1F)
-                    System.out.println("Error: Missing an Operand");
-
-                System.out.println((byte)code);
+                //System.out.println("Error: Mnemonic Not Found");
+                //System.out.println("Error: Missing an Operand");
                 break;
             //Immediate Addressing Mode
             case(2):
                 //System.out.println("Mnemonic + Operand || Label + Mnemonic");
                 //Check First Element in HashSet for Mnemonic
                 //If not, Add first Element to Label Table & Check Second Element
+
 
                 //System.out.println("Error: Mnemonic Missing/Not Found");
                 //System.out.println("Error: Missing an Operand");
@@ -156,10 +150,11 @@ public class Assembler {
         }
         
         //Prints Out Sub Components
-        System.out.print("[ ");
+        System.out.print("{ ");
         for(String s: subComponents)
             System.out.print("[" + s + "] ");
-        System.out.println("]");
+        System.out.print("[" + comments + "] ");
+        System.out.println("}");
     }
         
 }
