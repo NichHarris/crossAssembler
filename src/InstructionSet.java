@@ -2,11 +2,11 @@ package src;
 
 import java.util.HashMap;
 
-public class SymbolTable {
+public class InstructionSet {
 
     private HashMap<String, String> instructionSet;
 
-    public SymbolTable() {
+    public InstructionSet() {
         //HashMap Containing Instruction Set
         instructionSet = new HashMap<String, String>();
 
