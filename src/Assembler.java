@@ -8,6 +8,7 @@ public class Assembler {
     private static String srcName;
     private static File srcFile;
 
+    // TODO: try to break components in main() into classes/interfaces as much as possible to make testing easier
     public static void main(String args[]) throws Exception {
 
         //Parse the .asm file
