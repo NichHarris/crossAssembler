@@ -23,9 +23,22 @@ public class Listing {
             line = Integer.toString(i);
             addr = String.format("%1$04X",i); // convert to hex and pad with zeros
             code = Integer.toString(unit.getLine(i).getCode());
-            label = unit.getLine(i).getLabel();
-            mne = unit.getLine(i).getInstruction().getMnemonic();
-            operand = unit.getLine(i).getInstruction().getOperand();
+            if (unit.getLine(i).getLabel() == null) {
+                label = "";
+            } else {
+                label = unit.getLine(i).getLabel();
+            }
+            if (unit.getLine(i).getInstruction().getMnemonic() == null) {
+                mne = "";
+            } else {
+                mne = unit.getLine(i).getInstruction().getMnemonic();
+            }
+            if (unit.getLine(i).getInstruction().getOperand() == null) {
+                operand = "";
+            }
+            else {
+                operand = unit.getLine(i).getInstruction().getOperand();
+            }
             comment = unit.getLine(i).getComment();
             listing[i + 1] = String.format("%16s%16s%16s%16s%16s%16s%16s\n", line, addr, code, label, mne, operand, operand);
         }

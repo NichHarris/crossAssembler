@@ -1,4 +1,4 @@
-package src;
+//package src;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -7,6 +7,7 @@ public class Assembler {
 
     private static String srcName;
     private static File srcFile;
+    public AssemblyUnit assembUnit;
 
     // TODO: try to break components in main() into classes/interfaces as much as possible to make testing easier
     public static void main(String args[]) throws Exception {
