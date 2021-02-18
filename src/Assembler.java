@@ -2,6 +2,7 @@ package src;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.lang.reflect.Array;
 import java.util.Arrays;
 
 public class Assembler {
@@ -10,7 +11,7 @@ public class Assembler {
     private static File srcFile = null;
 
     public static void main(String args[]) throws Exception {
-
+        // This is a cool comment :D
         //Parse the .asm file
         if (args.length != 1) {
             System.out.println("Missing .asm file");
