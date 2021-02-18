@@ -2,6 +2,7 @@ package src;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.Arrays;
 
 public class Assembler {
 
@@ -33,6 +34,7 @@ public class Assembler {
         Tokenizer(ls);
     }
 
+    // TODO: Rename to Options? Parser (according to domain dictionary)? Just check for options in here?
     public static int Scanner(String[] options) throws Exception {
         //Return Type
         int status = 0;
@@ -111,7 +113,7 @@ public class Assembler {
         switch(len) {
             //Stack + Inherent Addressing Mode
             case(1):
-                System.out.println("Mnemonic || Label");
+                //System.out.println("Mnemonic || Label");
                 //Check in HashSet for Mnemonic
                 //If not, Add Element to Label Table
 
@@ -120,7 +122,7 @@ public class Assembler {
                 break;
             //Immediate Addressing Mode
             case(2):
-                System.out.println("Mnemonic + Operand || Label + Mnemonic");
+                //System.out.println("Mnemonic + Operand || Label + Mnemonic");
                 //Check First Element in HashSet for Mnemonic
                 //If not, Add first Element to Label Table & Check Second Element
 
@@ -131,7 +133,7 @@ public class Assembler {
                 break;
             //Relative Addressing Mode
             case(3):
-                System.out.println("Label + Mnemonic + Operand");
+                //System.out.println("Label + Mnemonic + Operand");
                 //Add First Element to Label List
                 //Check Second Element in HashSet for Mnemonic
                 //Check Third Element 
@@ -141,7 +143,7 @@ public class Assembler {
                 //System.out.println("Error: Operand Not Allowed");
                 break;
             default:
-                System.out.println("Error: Exceeds Possible Number of Elements Per line - " + len);
+                //System.out.println("Error: Exceeds Possible Number of Elements Per line - " + len);
         }
         
         //Prints Out Sub Components
