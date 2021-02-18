@@ -99,6 +99,7 @@ public class Assembler {
                 //Check in HashSet for Mnemonic
                 //If not, Add Element to Label Table
 
+
                 //System.out.println("Error: Mnemonic Not Found");
                 //System.out.println("Error: Missing an Operand");
                 break;
@@ -107,6 +108,7 @@ public class Assembler {
                 System.out.println("Mnemonic + Operand || Label + Mnemonic");
                 //Check First Element in HashSet for Mnemonic
                 //If not, Add first Element to Label Table & Check Second Element
+
 
                 //System.out.println("Error: Mnemonic Missing/Not Found");
                 //System.out.println("Error: Missing an Operand");
@@ -129,11 +131,11 @@ public class Assembler {
         }
         
         //Prints Out Sub Components
-        System.out.print("[ ");
+        System.out.print("{ ");
         for(String s: subComponents)
             System.out.print("[" + s + "] ");
         System.out.print("[" + comments + "] ");
-        System.out.println("]");
+        System.out.println("}");
     }
         
 }
