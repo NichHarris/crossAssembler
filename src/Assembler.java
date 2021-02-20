@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-
+//Main class for the VM Cross Assembler
 public class Assembler {
 
     //Entrypoint of program execution
@@ -24,6 +22,9 @@ public class Assembler {
             return;
         }
 
+        //Set the options from the
+        Options options = new Options(args);
+
         //Parse the .asm file and get an array of unparsed line statements
         Reader fileContent = new Reader(args[0]);
         String[] assemblyUnit = fileContent.getAssemblyUnit();
@@ -37,12 +38,7 @@ public class Assembler {
         //Perform syntax analysis on tokens
         Parser parser = new Parser(scanner, IR);
 
-        //Generate listing file content
-        Listing listing = new Listing(IR);
-        String[] listingContent = listing.getListing();
-
         //Generate listing file
-        FileGenerator generator = new FileGenerator(listingContent);
-        generator.generateListing();
+        CodeGenerator generator = new CodeGenerator(IR, options);
     }
 }
