@@ -2,15 +2,15 @@ import javax.sound.sampled.Line;
 import java.lang.reflect.Array;
 
 //Assembly Unit - Set of LineStatements + EOF
-public class AssemblyUnit {
+public class InterRep {
     private LineStatement[] lines;
     private Integer[] codes;
 
     //Default Constructor
-    public AssemblyUnit() {}
+    public InterRep() {}
 
     //Parameterized Constructor
-    public AssemblyUnit(int len) {
+    public InterRep(int len) {
         lines = new LineStatement[len];
         codes = new Integer[len];
     }

@@ -1,8 +1,6 @@
-import javax.sound.sampled.Line;
-
 // Need line, addr, code, label, mne, operand, comment
 public class Listing {
-    private AssemblyUnit unit;
+    private InterRep unit;
     private String line;
     private String addr;
     private String code;
@@ -14,7 +12,7 @@ public class Listing {
     private String[] listing;
 
     // Parameterized Constructor
-    public Listing(AssemblyUnit assUnit) {
+    public Listing(InterRep assUnit) {
         unit = assUnit;
         listing = new String[unit.getLength() + 1];
         listing[0] = String.format("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s", "Line", "Addr", "Code", "Label", "Mne", "Operand", "Comments");

@@ -1,12 +1,10 @@
-// TODO: sort out package dependency issues
-import java.io.File;
 import java.util.Arrays;
 
-//Ensure Functionality of Parser
-public class ParserTest {
+//Ensure Functionality of Reader
+public class ReaderTest {
     public static void main(String[] args) throws Exception {
         //Empty File
-        String f1 = "ParseEmptyTest.txt";
+        String f1 = "ReaderEmptyTest.txt";
         String[] ac1 = {};
         testParse(f1, ac1, "Empty File");
 
@@ -20,8 +18,8 @@ public class ParserTest {
         System.out.println("Test Parser - " + caseTitle);
 
         //Scan Then Parse Content of File
-        File srcFile = new File(fileName);
-        String[] parsedContent = Assembler.Parser(srcFile);
+        Reader reader = new Reader(fileName);
+        String[] parsedContent = reader.getAssemblyUnit();
 
         //Actual Contents of File
         String[] actualContent = expected;

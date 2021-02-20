@@ -1,17 +1,16 @@
-import java.io.File;
-import java.io.FileInputStream;
-
 public class Assembler {
 
-    public static File srcFile;
-    public static AssemblyUnit assemblyUnit;
-    public static FileGenerator generator;
-
-    // TODO: try to break components in main() into classes/interfaces as much as possible to make testing easier
-    public static void main(String args[]) throws Exception {
+    // Entrypoint of program execution
+    public static void main(String[] args) throws Exception {
 
         //Check if .asm file not included in CLI arguments
         if (args.length < 1) {
+            System.out.println("Error: Missing .asm file");
+            return;
+        }
+
+        //Check if first argument is a .asm file
+        if (!args[0].split("\\.")[1].equals("asm")) {
             System.out.println("Error: Missing .asm file");
             return;
         }
@@ -22,87 +21,27 @@ public class Assembler {
             return;
         }
 
-        //Check <src>
-        if (args[0] != null) {
-            String srcName = args[0];
-            File srcFile = new File(srcName);
-            if (!srcFile.canRead()) {
-                System.out.println("Cannot open source file '" + srcName + "'");
-                return;
-            }
-        }
-
-        //Parse the Assembly Code
-        String[] ls = generateIR(srcFile);
+        //Parse the .asm file and get an array of unparsed line statements
+        Reader fileContent = new Reader(args[0]);
+        String[] assemblyUnit = fileContent.getAssemblyUnit();
 
         //Initialize the AssemblyUnit
-        assemblyUnit = new AssemblyUnit(ls.length);
+        InterRep IR = new InterRep(assemblyUnit.length);
 
         //Splits LineStatements to Perform Lexical Analysis
-        Tokenizer(ls, assemblyUnit);
+        Scanner(assemblyUnit, IR);
 
         //Get listing file contents
-        Listing listing = new Listing(assemblyUnit);
+        Listing listing = new Listing(IR);
         String[] listingContent = listing.getListing();
 
         //Generate listing file
-        generator = new FileGenerator(listingContent);
+        FileGenerator generator = new FileGenerator(listingContent);
         generator.generateListing();
     }
 
-    // TODO: Rename to Options? Parser (according to domain dictionary)? Just check for options in here?
-    public static int optionsParser(String[] options) throws Exception {
-        //Return Type
-        int status = 0;
-
-        //No File Provided Error
-        if(options.length < 1) return -3;
-
-        //Too Many Options Enabled Error
-        if(options.length > 3) return -2;
-
-        boolean found = false;
-
-        //Iterate Through Options
-        for(String o:options)
-            if(o.equals("-h") || o.equals("--help"))
-                status = (status <= 0) ? 1 : -1;
-            else if(o.equals("-l") || o.equals("--listing"))
-                status = (status <= 0) ? 2 : (status == 3) ? 4 : -1;
-            else if(o.equals("-v") || o.equals("--verbose"))
-                status = (status <= 0) ? 3 : (status == 2) ? 4 : -1;
-            else if(o.endsWith(".asm") && !found)
-                found = true;
-            else
-                return -1;
-
-        return found ? status : -3;
-    }
-
-    // TODO: Need to come up with a more appropriate name, maybe turn this into an IR class
-    //Parses - Reads File
-    public static String[] generateIR(File f) throws Exception {
-        //Read File Using File Input Stream
-        FileInputStream file = new FileInputStream(f);
-
-        //Generate an IR
-        String IR = "";
-        //Assembly assemblyUnit = new AssemblyUnit("");
-
-        int currentChar = file.read();
-        while(currentChar > 0) {
-            IR += (char)currentChar;
-            currentChar = file.read();
-        }
-
-        file.close();
-
-        //Create an Array of LineStatements Using EOL
-        return IR.split("[\r\n]+");
-    }
-
-    //Tokenizer - Combines Tokens
-    public static void Tokenizer(String[] lines, AssemblyUnit assemblyUnit) {
+    //Scanner - Performs Lexical Analysis
+    public static void Scanner(String[] lines, InterRep assemblyUnit) {
         //Split LineStatements into Sub Components Using Whitespace
         String[] subComponents;
         String assComments;
@@ -114,9 +53,9 @@ public class Assembler {
         }
     }
 
-    //Lexical Analyzer
-    public static void LexicalAnalyzer(AssemblyUnit assemblyUnit, int i, String[] subComponents, String comments) {
-        //Perform Lexical Analysis & Detect Errors
+    //Syntax Analyzer
+    public static void LexicalAnalyzer(InterRep assemblyUnit, int i, String[] subComponents, String comments) {
+        //Perform Syntax Analysis & Detect Errors
         int len = subComponents.length;
         switch(len) {
             //Stack + Inherent Addressing Mode
@@ -168,14 +107,6 @@ public class Assembler {
             default:
                 System.out.println("Error: Exceeds Possible Number of Elements Per line");
         }
-
-
-        //Prints Out Sub Components
-//        System.out.print("{ ");
-//        for(String s: subComponents)
-//            System.out.print("[" + s + "] ");
-//        System.out.print("[" + comments + "] ");
-//        System.out.println("}");
     }
 
 }

@@ -1,7 +1,5 @@
-// TODO: sort out package dependency issues
+//TODO: Scanner renamed to Options
 /*
-import src.Assembler;
-
 //Testing File Scanner Functionality
 public class ScannerTest {
     public static void main(String[] args) throws Exception {
