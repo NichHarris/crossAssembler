@@ -1,12 +1,9 @@
-//package src;
-
 import java.io.File;
 import java.io.FileInputStream;
 
 public class Assembler {
 
-    private static String srcName;
-    private static File srcFile;
+    public static File srcFile;
     public static AssemblyUnit assemblyUnit;
     public static FileGenerator generator;
 
@@ -27,8 +24,8 @@ public class Assembler {
 
         //Check <src>
         if (args[0] != null) {
-            srcName = args[0];
-            srcFile = new File(srcName);
+            String srcName = args[0];
+            File srcFile = new File(srcName);
             if (!srcFile.canRead()) {
                 System.out.println("Cannot open source file '" + srcName + "'");
                 return;
