@@ -1,0 +1,24 @@
+Test Scanner - No File Provided
+-3
+-3
+Test Scanner - Too Many Options
+-2
+-2
+Test Scanner - Invalid Option Used
+-1
+-1
+Test Scanner - No Options Enabled
+0
+0
+Test Scanner - Help Enabled
+1
+1
+Test Scanner - Listing Enabled
+2
+2
+Test Scanner - Verbose Enabled
+3
+3
+Test Scanner - Listing and Verbose Enabled
+4
+4
