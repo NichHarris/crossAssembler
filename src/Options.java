@@ -1,3 +1,4 @@
+//Options class used to determine options provided by the developer from the command line
 public class Options {
 
     private static int status = 0;
@@ -27,6 +28,7 @@ public class Options {
         if (!found) { status = -3; }
     }
 
+    //Return the status
     public int getStatus() {
         return status;
     }

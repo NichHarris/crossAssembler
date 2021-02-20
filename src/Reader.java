@@ -4,8 +4,10 @@ import java.io.FileInputStream;
 // Reads file and creates an array of strings, each string representing a line from the source file
 public class Reader {
 
+    //Assembly unit comprised of unparsed line statements from source file
     private String[] assemblyUnit;
 
+    //Parametrized constructor
     public Reader(String filename) throws Exception {
 
         //Open the source file

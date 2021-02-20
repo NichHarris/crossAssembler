@@ -1,9 +1,9 @@
-import javax.sound.sampled.Line;
-import java.lang.reflect.Array;
-
-//Assembly Unit - Set of LineStatements + EOF
+//Intermediate Representation (IR) comprised of parsed LineStatements along with their respective codes
 public class InterRep {
+
+    //Array of line statements and
     private LineStatement[] lines;
+    //Array of associated codes for each instruction
     private Integer[] codes;
 
     //Default Constructor
@@ -15,36 +15,37 @@ public class InterRep {
         codes = new Integer[len];
     }
 
-    //Set LineStatement
+    //Set LineStatement with a LineStatement object
     public void setLine(int i, LineStatement l) {
         lines[i] = l;
     }
 
-    //Set LineStatement
+    //Set LineStatement with a label, Instruction object and comment
     public void setLine(int i, String l, Instruction in, String c) {
         lines[i] = new LineStatement(l, in, c);
     }
 
-    //Set LineStatement
+    //Set LineStatement with an Instruction object and comment
     public void setLine(int i, Instruction in, String c) {
         lines[i] = new LineStatement(in, c);
     }
 
-    //Set LineStatement
+    //Set LineStatement with a label and Instruction object
     public void setLine(int i, String l, Instruction in) {
         lines[i] = new LineStatement(l, in);
     }
 
-    //Set LineStatement
+    //Set LineStatement with a label
     public void setLine(int i, String l) {
         lines[i] = new LineStatement(l);
     }
 
-    //Set LineStatement
+    //Set LineStatement with a label and comment
     public void setLine(int i, String l, String c) {
         lines[i] = new LineStatement(l, c);
     }
 
+    //Set the code of a particular LineStatement
     public void setCode(int i, int code) {
         codes[i] = code;
     }
@@ -54,8 +55,19 @@ public class InterRep {
         return lines[i];
     }
 
-    //Get LineStatements
+    //Get length of LineStatement
     public int getLength() {
         return lines.length;
+    }
+
+    //Returns a String representable of an InterRep object
+    public String toString() {
+        String IR = "";
+        for(int i = 0; i < this.getLength(); i++) {
+            IR = IR.concat(String.format("Line %s: %s", i, lines[i].toString()));
+            IR = IR.concat(String.format(" %s", codes[i]));
+            IR = IR.concat("\n");
+        }
+        return IR;
     }
 }

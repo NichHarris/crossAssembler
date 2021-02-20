@@ -23,7 +23,7 @@ public class FileGenerator {
         String fileName = fn;
         String content = c;
 
-        //Create Ouput Stream + Create Empty File
+        //Create Output Stream + Create Empty File
         BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(new File(fileName + ".txt")));
 
         //Write to File
@@ -35,9 +35,10 @@ public class FileGenerator {
     }
 
     public static void generateListing() throws Exception {
-
+        // Create listing.lst output file
         FileOutputStream fs = new FileOutputStream(new File("listing.lst"));
 
+        // Write to listing.lst file
         for(String l : lstContent) {
             char[] cArr = l.toCharArray();
             for(char c : cArr)
@@ -46,6 +47,7 @@ public class FileGenerator {
             fs.write('\n');
         }
 
+        // Close listing.lst file
         fs.close();
     }
 }

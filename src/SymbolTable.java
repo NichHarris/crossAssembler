@@ -1,8 +1,9 @@
 import java.util.HashMap;
 
+//Symbol Table comprised of all identifier/code associations
 public class SymbolTable {
 
-    private HashMap<String, Integer> symbolTable;
+    private final HashMap<String, Integer> symbolTable;
 
     public SymbolTable() {
         //HashMap Containing Instruction Set

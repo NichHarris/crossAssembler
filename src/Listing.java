@@ -1,6 +1,6 @@
-// Need line, addr, code, label, mne, operand, comment
+//Listing object used to generate listing file content
 public class Listing {
-    private InterRep unit;
+    private InterRep IR;
     private String line;
     private String addr;
     private String code;
@@ -8,79 +8,54 @@ public class Listing {
     private String mne;
     private String operand;
     private String comment;
-    private LineStatement[] fullLine;
     private String[] listing;
 
-    // Parameterized Constructor
-    public Listing(InterRep assUnit) {
-        unit = assUnit;
-        listing = new String[unit.getLength() + 1];
+    //Parameterized Constructor
+    public Listing(InterRep intRep) {
+        //Get the intermediate representation
+        IR = intRep;
+
+        //Initialize a new array of string for setting the listing file contents
+        listing = new String[IR.getLength() + 1];
+
+        //Add listing header to beginning of listing file contents
         listing[0] = String.format("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s", "Line", "Addr", "Code", "Label", "Mne", "Operand", "Comments");
-        for (int i = 0; i < unit.getLength(); i++){
-            // TODO: need to find a better way to manage cases where certain fields returns null in Instruction before this can work
-            // TODO: (contd.) need to decide if we keep data members as null or empty strings in their respective classes
+
+        for (int i = 0; i < IR.getLength(); i++){
             line = Integer.toString(i);
             addr = String.format("%1$04X",i); // convert to hex and pad with zeros
-            code = String.format("%1$02X", unit.getLine(i).getCode());
-            if (unit.getLine(i).getLabel() == null) {
+            code = String.format("%1$02X", IR.getLine(i).getCode());
+            if (IR.getLine(i).getLabel() == null) {
+                //Set label to empty if label is not present
                 label = "";
             } else {
-                label = unit.getLine(i).getLabel();
+                //Set label from line statement
+                label = IR.getLine(i).getLabel();
             }
-            if (unit.getLine(i).getInstruction().getMnemonic() == null) {
+            if (IR.getLine(i).getInstruction().getMnemonic() == null) {
+                //Set empty to string if mnemonic is not present
                 mne = "";
             } else {
-                mne = unit.getLine(i).getInstruction().getMnemonic();
+                //Set mnemonic from line statement
+                mne = IR.getLine(i).getInstruction().getMnemonic();
             }
-            if (unit.getLine(i).getInstruction().getOperand() == null) {
+            if (IR.getLine(i).getInstruction().getOperand() == null) {
+                //Set operand to empty string if operand is not present
                 operand = "";
             }
             else {
-                operand = unit.getLine(i).getInstruction().getOperand();
+                //Set operand from line statement
+                operand = IR.getLine(i).getInstruction().getOperand();
             }
-            comment = unit.getLine(i).getComment();
-            listing[i + 1] = String.format("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s", line, addr, code, label, mne, operand, operand);
+            //Set comment from line statement
+            comment = IR.getLine(i).getComment();
+            //Add line statement components to listing in table format
+            listing[i + 1] = String.format("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s", line, addr, code, label, mne, operand, comment);
         }
     }
 
+    // Get formatted listing string
     public String[] getListing() {
         return listing;
     }
-
-    // TODO: Probably don't need these extra functions
-    /*
-    // Set Addr + Line + Code + Full Line
-    public void setAddr(int a) {
-        addr = a;
-    }
-
-    public void setLine(int l) {
-        line = l;
-    }
-
-    public void setCode(int c) {
-        code = c;
-    }
-
-    public void setLS(LineStatement[] ls) {
-        fullLine = ls;
-    }
-
-    // Get Addr + Line + Code + Full Line
-    public int getAddr() {
-        return addr;
-    }
-
-    public int getLine() {
-       return line;
-    }
-
-    public int getCode() {
-        return code;
-    }
-
-    public LineStatement[] getLS() {
-        return fullLine;
-    }
-     */
 }
