@@ -1,0 +1,34 @@
+Test Parameterized Constructor by outputting line 0
+' 'null null' '
+' 'null null' '
+Test setter with a LineStatement object
+'Fct 'ldr.i3 3' ; Test Comment 1'
+'Fct 'ldr.i3 3' ; Test Comment 1'
+Test setter with Line Statement components label, instruction and comment
+'jmp 'add 5' ; Test Comment 2'
+'jmp 'add 5' ; Test Comment 2'
+Test setter with Line Statement components instruction and comment
+' 'ret 4' ; Test Comment 3'
+' 'ret 4' ; Test Comment 3'
+Test setter with Line Statement components label and instruction
+'FINISH 'halt 2' '
+'FINISH 'halt 2' '
+Test setter with Line Statement component label
+'Fct 'null null' '
+'Fct 'null null' '
+Test setter with Line Statement components label and comment
+'Fct 'null null' ; Test Comment 6'
+'Fct 'null null' ; Test Comment 6'
+Test setter with LineStatement Code
+100
+100
+Test getLine()
+'Fct 'null null' ; Test Comment 6'
+'Fct 'null null' ; Test Comment 6'
+Test getLength()
+1
+1
+Test toString()
+Line 0: 'Fct 'null null' ; Test Comment 6' 100
+Line 0: 'Fct 'null null' ; Test Comment 6' 100
+

@@ -9,7 +9,7 @@ public class InstructionTest {
         instruction1=new Instruction("pop");
         testInstruction("Test Mnemonic only Constructor", "pop null", instruction1.getMnemonic()+" "+instruction1.getOperand());
 
-        //Creating an instruction with both a Mneomic and Operand
+        //Creating an instruction with both a Mnemonic and Operand
         instruction1 = new Instruction ("halt", "i3");
 
         //Testing the Constructor of the class with getOperand() and getMnemonic()
@@ -34,6 +34,7 @@ public class InstructionTest {
     }
 
     public static void testInstruction(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
+        //TestCase Name
         System.out.println(testCaseName);
         // expected value
         System.out.println(expectedOutput);

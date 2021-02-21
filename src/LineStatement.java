@@ -7,7 +7,7 @@ public class LineStatement {
     private String comment = "";
 
     // Default constructor
-    public LineStatement() {}
+    public LineStatement() { instruction = new Instruction();}
 
     //Parametrized constructor for object initialization with label, instruction and comment
     public LineStatement(String l, Instruction in, String c) {
@@ -30,11 +30,13 @@ public class LineStatement {
 
     //Parametrized constructor for object initialization with label
     public LineStatement(String l) {
+        instruction = new Instruction();
         label = l;
     }
 
     //Parametrized constructor for object initialization with label and comments
     public LineStatement(String l, String c) {
+        instruction = new Instruction();
         label = l;
         comment = c;
     }

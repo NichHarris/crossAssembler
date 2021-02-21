@@ -13,49 +13,54 @@ public class InterRep {
     public InterRep(int len) {
         lines = new LineStatement[len];
         codes = new Integer[len];
+        for(int i=0;i<len;i++){
+            lines[i]= new LineStatement();
+            codes[i] = 0;
+        }
     }
 
-    //Set LineStatement with a LineStatement object
+    //1 Set LineStatement with a LineStatement object
     public void setLine(int i, LineStatement l) {
         lines[i] = l;
     }
 
-    //Set LineStatement with a label, Instruction object and comment
+    //2 Set LineStatement with a label, Instruction object and comment
     public void setLine(int i, String l, Instruction in, String c) {
         lines[i] = new LineStatement(l, in, c);
     }
 
-    //Set LineStatement with an Instruction object and comment
+    //3 Set LineStatement with an Instruction object and comment
     public void setLine(int i, Instruction in, String c) {
         lines[i] = new LineStatement(in, c);
     }
 
-    //Set LineStatement with a label and Instruction object
+    //4 Set LineStatement with a label and Instruction object
     public void setLine(int i, String l, Instruction in) {
         lines[i] = new LineStatement(l, in);
     }
 
-    //Set LineStatement with a label
-    public void setLine(int i, String l) {
-        lines[i] = new LineStatement(l);
-    }
+    //5 Set LineStatement with a label
+    public void setLine(int i, String l) { lines[i]= new LineStatement(l);}
 
-    //Set LineStatement with a label and comment
+    //6 Set LineStatement with a label and comment
     public void setLine(int i, String l, String c) {
         lines[i] = new LineStatement(l, c);
     }
 
-    //Set the code of a particular LineStatement
+    //7 Set the code of a particular LineStatement
     public void setCode(int i, int code) {
         codes[i] = code;
     }
 
-    //Get LineStatement
+    //Get code
+    public int getCode(int i){ return codes[i];}
+
+    //8 Get LineStatement
     public LineStatement getLine(int i) {
         return lines[i];
     }
 
-    //Get length of LineStatement
+    //9 Get length of LineStatement
     public int getLength() {
         return lines.length;
     }
