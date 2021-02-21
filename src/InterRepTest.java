@@ -2,6 +2,27 @@ public class InterRepTest {
     public static void main(String[] args) throws Exception {
         InterRep IR = new InterRep();
 
+        //Testing LineStatement with a LineStatement object
+        //TestInterRep("Test setLine()");
+
+        //Set LineStatement with a label, Instruction object and comment
+        //TestInterRep("Test setLine()");
+
+        //Set LineStatement with an Instruction object and comment
+        //TestInterRep("Test setLine()");
+
+        //Set LineStatement with a label and Instruction object
+        //TestInterRep("Test setLine()");
+
+        //Set LineStatement with a label
+        //TestInterRep("Test setLine()");
+
+        //Set LineStatement with a label and comment
+        //TestInterRep("Test setLine()");
+
+        //Set the code of a particular LineStatement
+        //TestInterRep("Test setCode()");
+
         //TestInterRep("Test getLine()");
         //TestInterRep("Test getLength()");
         //TestInterRep("Test toString()");

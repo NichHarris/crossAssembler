@@ -1,13 +1,16 @@
-Test Constructor
+Test Default Constructor
+null null
+null null
+Test Mnemonic only Constructor
 pop null
 pop null
-Test Constructor
+Test Mneomic and Operand Constructor
 halt i3
 halt i3
 Test setMnemonic
 not
 not
-Test setMnemonic
+Test setOperand
 12
 12
 Test getCode
