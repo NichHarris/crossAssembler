@@ -1,0 +1,15 @@
+Test getLabel()
+Fct
+Fct
+Test getInstruction()
+'ldc.i3 3'
+'ldc.i3 3'
+Test getComment()
+
+
+Test getCode()
+144
+144
+Test toString()
+'Fct 'ldc.i3 3' '
+'Fct 'ldc.i3 3' '

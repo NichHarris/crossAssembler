@@ -4,7 +4,7 @@ public class InstructionTest {
         Instruction instruction1 = new Instruction ("not", "12");
 
         //Testing the function getCode() from Instruction Class
-        testInstruction("Test Operand", "12", Integer.toString(instruction1.getCode()));
+        testInstruction("Test getCode", "12", Integer.toString(instruction1.getCode()));
         //Testing the function getDigit() Instruction Class
         testInstruction("Test isDigit", "true", Boolean.toString(instruction1.isDigit()));
         //Testing the function toString() from Instruction Class
