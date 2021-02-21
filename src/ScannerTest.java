@@ -1,5 +1,5 @@
 //TODO: Scanner renamed to Options
-/*go
+/*
 //Testing File Scanner Functionality
 public class ScannerTest {
     public static void main(String[] args) throws Exception {
@@ -55,4 +55,4 @@ public class ScannerTest {
         System.out.println(actualCode);
     }
 }
- */
+*/
