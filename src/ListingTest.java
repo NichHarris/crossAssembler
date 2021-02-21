@@ -1,10 +1,22 @@
 public class ListingTest {
     public static void main(String[] args) throws Exception {
-        String[] arr = {};
-        //Listing lst = new Listing(new InterRep("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s"), "0", "0000", "00", "", "halt", "", "", arr);
+        Reader fileContent = null;
+        try {
+            fileContent = new Reader("parsertest.asm");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String[] assemblyUnit = fileContent.getAssemblyUnit();
+        InterRep IR = new InterRep(assemblyUnit.length);
 
-        //TestListing("Test getListing()", " '%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s' '0' '0000' '00' '' 'halt' '' '' ", lst.getListing().toString());
+        Scanner scanner = new Scanner(assemblyUnit);
+        Parser parser = new Parser(scanner, IR);
+        Listing listing = new Listing(IR);
 
+        String [] ls = listing.getListing();
+
+        String expected = String.format("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s", "0", "0000", "00", "", "halt", "", "");
+        TestListing("Test 1", expected, ls[1]);
     }
 
     public static void TestListing(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
