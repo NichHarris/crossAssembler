@@ -1,8 +1,9 @@
 public class ListingTest {
     public static void main(String[] args) throws Exception {
-       //Listing lst = new Listing("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s","0", "0000", "00", "", "halt", "", "" );
+        String[] arr = {};
+        //Listing lst = new Listing(new InterRep("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s"), "0", "0000", "00", "", "halt", "", "", arr);
 
-        //TestListing("Test getListing()", "'%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s' '0' '0000' '00' '' 'halt' '' '', lst.getListing());
+        //TestListing("Test getListing()", " '%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s' '0' '0000' '00' '' 'halt' '' '' ", lst.getListing().toString());
 
     }
 

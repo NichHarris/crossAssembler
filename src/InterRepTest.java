@@ -1,12 +1,39 @@
 public class InterRepTest {
     public static void main(String[] args) throws Exception {
+        InterRep IR = new InterRep();
 
+        //TestInterRep("Test getLine()");
+        //TestInterRep("Test getLength()");
+        //TestInterRep("Test toString()");
     }
 
-    public static void testInterRep(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
-
+    public static void TestInterRep(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
+        System.out.println(testCaseName);
+        // expected value
+        System.out.println(expectedOutput);
+        // actual output
+        System.out.println(methodOutput);
     }
 
+
+
+
+//    //Parameterized Constructor
+//    public InterRep(int len) {
+//        lines = new LineStatement[len];
+//        codes = new Integer[len];
+//    }
+
+
+//    //Get LineStatement
+//    public LineStatement getLine(int i) {
+//        return lines[i];
+//    }
+//
+//    //Get length of LineStatement
+//    public int getLength() {
+//        return lines.length;
+//    }
 //    //Returns a String representable of an InterRep object
 //    public String toString() {
 //        String IR = "";
