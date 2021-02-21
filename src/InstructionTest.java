@@ -1,7 +1,24 @@
 public class InstructionTest {
     public static void main(String[] args) throws Exception {
-        //Creating two instructions to test with
-        Instruction instruction1 = new Instruction ("not", "12");
+
+        //testing the Mnemonic only Constructor constructor
+        Instruction instruction1=new Instruction("pop");
+        testInstruction("Test Constructor", "pop null", instruction1.getMnemonic()+" "+instruction1.getOperand());
+
+        //Creating an instruction with both a Mneomic and Operand
+        instruction1 = new Instruction ("halt", "i3");
+
+        //Testing the Constructor of the class with getOperand() and getMnemonic()
+        testInstruction("Test Constructor", "halt i3", instruction1.getMnemonic()+" "+instruction1.getOperand());
+
+
+        //Testing setMnemonic(String m) and getMnemonic()
+        instruction1.setMnemonic("not");
+        testInstruction("Test setMnemonic", "not", instruction1.getMnemonic());
+
+        //Testing setOperand(String o) and getOperand()
+        instruction1.setOperand("12");
+        testInstruction("Test setMnemonic", "12", instruction1.getOperand());
 
         //Testing the function getCode() from Instruction Class
         testInstruction("Test getCode", "12", Integer.toString(instruction1.getCode()));
@@ -18,4 +35,25 @@ public class InstructionTest {
         // actual output
         System.out.println(methodOutput);
     }
+
+    /*
+
+    public void setMnemonic(String m) {
+        mnemonic = m;
+    }
+
+    public void  {
+        operand = o;
+    }
+
+    //Get Mnemonic + Operand
+    public String getMnemonic() {
+        return mnemonic;
+    }
+
+    // Get Operand
+    public String getOperand() {
+        return operand;
+    }
+    * */
 }

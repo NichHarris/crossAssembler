@@ -1,4 +1,16 @@
-Test Operand
+Test Constructor
+pop null
+pop null
+Test Constructor
+halt i3
+halt i3
+Test setMnemonic
+not
+not
+Test setMnemonic
+12
+12
+Test getCode
 12
 12
 Test isDigit

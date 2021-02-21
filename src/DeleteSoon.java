@@ -13,5 +13,7 @@ public class DeleteSoon {
         //Parse statements into tokens and comments
         Scanner scanner = new Scanner(assemblyUnit);
         Parser parser = new Parser(scanner, IR);
+
+        System.out.println("Done");
     }
 }
