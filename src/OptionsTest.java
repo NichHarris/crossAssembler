@@ -1,18 +1,17 @@
 public class OptionsTest {
-    public static void main(String[] args) throws Exception {
-//        //Creating two instructions to test with
-//        Instruction instruction1 = new Instruction ("not", "12");
-//
-//        //Testing the function getCode() from Instruction Class
-//        testInstruction("Test getCode", "12", Integer.toString(instruction1.getCode()));
-//        //Testing the function getDigit() Instruction Class
-//        testInstruction("Test isDigit", "true", Boolean.toString(instruction1.isDigit()));
-//        //Testing the function toString() from Instruction Class
-//        testInstruction("Test toString", "'not 12'", instruction1.toString());
+    public static void main(String[] args) throws Exception{
+        //Creating options
+        String[] options = {"-v","-l"};
+
+        Options op = new Options(options);
+
+        //Testing the function isListing() from Options Class
+        testInstruction("Test isListing()", "true", Boolean.toString(op.isListing()));
+        //Testing the function isVerbose() from Options Class
+        testInstruction("Test isVerbose()", "true", Boolean.toString(op.isListing()));
     }
 
     public static void testInstruction(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
-
         System.out.println(testCaseName);
         // expected value
         System.out.println(expectedOutput);
@@ -21,15 +20,3 @@ public class OptionsTest {
     }
 }
 
-
-
-/*
-
-    public boolean isListing(){
-        return listing;
-    }
-    //Get status of verbose option
-    public boolean isVerbose(){
-        return verbose;
-    }
-* */

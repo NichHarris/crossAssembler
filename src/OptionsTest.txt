@@ -1,0 +1,6 @@
+Test isListing()
+true
+true
+Test isVerbose()
+true
+true
