@@ -7,3 +7,72 @@ Test #1
 Test #2
 ' 'dup ' '
 ' 'dup ' '
+Test #3
+' 'exit ' '
+' 'exit ' '
+Test #4
+' 'ret ' '
+' 'ret ' '
+Test #5
+' 'not ' '
+' 'not ' '
+Test #6
+' 'and ' '
+' 'and ' '
+Test #7
+' 'or ' '
+' 'or ' '
+Test #8
+' 'xor ' '
+' 'xor ' '
+Test #9
+' 'neg ' '
+' 'neg ' '
+Test #10
+' 'inc ' '
+' 'inc ' '
+Test #11
+' 'dec ' '
+' 'dec ' '
+Test #12
+' 'add ' '
+' 'add ' '
+Test #13
+' 'sub ' '
+' 'sub ' '
+Test #14
+' 'mul ' '
+' 'mul ' '
+Test #15
+' 'div ' '
+' 'div ' '
+Test #16
+' 'rem ' '
+' 'rem ' '
+Test #17
+' 'shl ' '
+' 'shl ' '
+Test #18
+' 'shr ' '
+' 'shr ' '
+Test #19
+' 'teq ' '
+' 'teq ' '
+Test #20
+' 'tne ' '
+' 'tne ' '
+Test #21
+' 'tlt ' '
+' 'tlt ' '
+Test #22
+' 'tgt ' '
+' 'tgt ' '
+Test #23
+' 'tle ' '
+' 'tle ' '
+Test #24
+' 'tge ' '
+' 'tge ' '
+Test #25
+' 'halt ' '
+' 'halt ' '

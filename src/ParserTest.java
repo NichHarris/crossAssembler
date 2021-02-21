@@ -4,7 +4,7 @@ public class ParserTest {
 
         Reader fileContent = null;
         try {
-            fileContent = new Reader("parsertest.asm");
+            fileContent = new Reader("testfile.asm");
         } catch (Exception e) {
             e.printStackTrace();
         }
