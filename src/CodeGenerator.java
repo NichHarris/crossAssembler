@@ -43,7 +43,7 @@ public class CodeGenerator implements ICodeGenerator {
     public void generateListing(String[] lstContent) {
         // Create listing.lst output file
         try {
-            FileOutputStream fs = new FileOutputStream(new File("listing2.lst"));
+            FileOutputStream fs = new FileOutputStream(new File("listing.lst"));
 
             // Write to listing.lst file
             for(String l : lstContent) {
