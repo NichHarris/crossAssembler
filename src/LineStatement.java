@@ -67,9 +67,9 @@ public class LineStatement implements ILineStatement {
     }
 
     //Returns the code of the mnemonic
-    public Integer getCode() {
-        return instruction.getCode();
-    }
+//    public Integer getCode() {
+//        return instruction.getCode();
+//    }
 
     //Returns a String representable of a LineStatement object
     public String toString() {

@@ -25,15 +25,17 @@ public class Listing implements IListing {
         //Initialize a new array of string for setting the listing file contents
         listing = new String[IR.getLength() + 1];
 
-//        String lstFormat = "%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s";
+        String lstFormat = "%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s";
 
         //Add listing header to beginning of listing file contents
-        listing[0] = String.format("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s", "Line", "Addr", "Code", "Label", "Mne", "Operand", "Comments");
+        listing[0] = String.format(lstFormat, "Line", "Addr", "Code", "Label", "Mne", "Operand", "Comments");
 
         for (int i = 0; i < IR.getLength(); i++){
             line = Integer.toString(i);
             addr = String.format("%1$04X",i); // convert to hex and pad with zeros
-            code = String.format("%1$02X", IR.getLine(i).getCode());
+            code = String.format("%1$02X", IR.getCode(i));
+
+
             if (IR.getLine(i).getLabel() == null) {
                 //Set label to empty if label is not present
                 label = "";
@@ -60,7 +62,7 @@ public class Listing implements IListing {
             //Set comment from line statement
             comment = IR.getLine(i).getComment();
             //Add line statement components to listing in table format
-            listing[i + 1] = String.format("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s", line, addr, code, label, mne, operand, comment);
+            listing[i + 1] = String.format(lstFormat, line, addr, code, label, mne, operand, comment);
         }
     }
 

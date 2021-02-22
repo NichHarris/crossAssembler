@@ -39,12 +39,6 @@ public class Instruction implements IInstruction {
         return operand.matches("[0-9]+");
     }
 
-    //Return the code of the Instruction object's mnemonic
-    public Integer getCode(){
-        ISymbolTable table = new SymbolTable();
-        return table.getCode(mnemonic);
-    }
-
     //Returns a String representable of an Instruction object
     public String toString() {
         return String.format("'%s'", mnemonic + " " + operand);

@@ -41,7 +41,6 @@ public class InterRep implements IInterRep {
         lines[i] = new LineStatement(l, c);
     }
 
-
     //Set the code of a particular LineStatement
     public void setCode(int i, int code) {
         codes[i] = code;
@@ -55,6 +54,11 @@ public class InterRep implements IInterRep {
     //Get length of LineStatement array
     public int getLength() {
         return lines.length;
+    }
+
+    //Returns the code of the mnemonic
+    public int getCode(int i) {
+        return codes[i];
     }
 
     //Returns a String representable of an InterRep object

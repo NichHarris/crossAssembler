@@ -19,9 +19,6 @@ public interface ILineStatement {
     //Get comments
     String getComment();
 
-    //Returns the code of the mnemonic
-    Integer getCode();
-
     //Returns a String representable of a LineStatement object
     String toString();
 }

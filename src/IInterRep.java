@@ -25,6 +25,9 @@ public interface IInterRep {
     //Get LineStatement
     ILineStatement getLine(int i);
 
+    //Returns the code of the mnemonic
+    public int getCode(int i);
+
     //Get length of LineStatements array
     int getLength();
 

@@ -17,7 +17,7 @@ public interface IInstruction {
     boolean isDigit();
 
     //Return the code of the Instruction object's mnemonic
-    public Integer getCode();
+//    public Integer getCode();
 
     //Returns a String representable of an Instruction object
     String toString();
