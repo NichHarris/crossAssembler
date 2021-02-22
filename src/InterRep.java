@@ -22,26 +22,6 @@ public class InterRep implements IInterRep {
         lines[i] = new LineStatement(l, in, c);
     }
 
-    //Set LineStatement with an Instruction object and comment
-    public void setLine(int i, IInstruction in, String c) {
-        lines[i] = new LineStatement(in, c);
-    }
-
-    //Set LineStatement with a label and Instruction object
-    public void setLine(int i, String l, IInstruction in) {
-        lines[i] = new LineStatement(l, in);
-    }
-
-    //Set LineStatement with a label
-    public void setLine(int i, String l) {
-        lines[i] = new LineStatement(l);
-    }
-
-    //Set LineStatement with a label and comment
-    public void setLine(int i, String l, String c) {
-        lines[i] = new LineStatement(l, c);
-    }
-
     //Set the code of a particular LineStatement
     public void setCode(int i, int code) {
         codes[i] = code;

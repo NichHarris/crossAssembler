@@ -4,14 +4,9 @@ public class Instruction implements IInstruction {
     private String operand = null;
 
     //Parameterized constructor with mnemonic and operand
-    public Instruction(String m, String o) {
+    public Instruction(String m,String o) {
         mnemonic = m;
         operand = o;
-    }
-
-    //Parameterized constructor with mnemonic
-    public Instruction(String m) {
-        mnemonic = m;
     }
 
     //Set mnemonic
