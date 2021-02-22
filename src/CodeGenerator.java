@@ -23,7 +23,6 @@ public class CodeGenerator implements ICodeGenerator {
 
     //Generate an executable file
     public void generateExec(String fn, String c) {
-
         try {
             String fileName = fn;
             String content = c;

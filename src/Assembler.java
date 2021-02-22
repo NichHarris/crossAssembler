@@ -10,7 +10,7 @@ public class Assembler {
             return;
         }
 
-        //Check if first argument is a .asm file
+        //Check if first argument is a .asm file - Help Enabled, No File Needed
         if (!args[0].split("\\.")[1].equals("asm")) {
             System.out.println("Error: Missing .asm file");
             return;

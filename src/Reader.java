@@ -11,13 +11,16 @@ public class Reader implements IReader {
 
     //Parametrized constructor
     public Reader(String filename) throws Exception {
-
         //Open the source file
-        File srcFile = new File(filename);
-        if (!srcFile.canRead()) {
-            System.out.println("Error: Unable to open source file '" + filename + "'");
+        try {
+            srcFile = new File(filename);
+            if (!srcFile.canRead()) {
+                throw new Exception("Error: Unable to open source file '" + filename + "'");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
             return;
-        }
+       }
 
         //Read the source file using FileInputStream
         FileInputStream file = new FileInputStream(srcFile);

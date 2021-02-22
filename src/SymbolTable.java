@@ -67,6 +67,6 @@ public class SymbolTable implements ISymbolTable {
 
     //Get Instruction Code
     public Integer getCode(String key) {
-        return symbolTable.get(key);
+        return symbolTable.getOrDefault(key, -1);
     }
 }

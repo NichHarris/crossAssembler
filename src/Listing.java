@@ -7,6 +7,7 @@ public class Listing implements IListing {
     //String identifiers used to construct the listing file content
     private String line;
     private String addr;
+
     private String code;
     private String label;
     private String mne;
@@ -23,6 +24,8 @@ public class Listing implements IListing {
 
         //Initialize a new array of string for setting the listing file contents
         listing = new String[IR.getLength() + 1];
+
+//        String lstFormat = "%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s";
 
         //Add listing header to beginning of listing file contents
         listing[0] = String.format("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s", "Line", "Addr", "Code", "Label", "Mne", "Operand", "Comments");
@@ -53,6 +56,7 @@ public class Listing implements IListing {
                 //Set operand from line statement
                 operand = IR.getLine(i).getInstruction().getOperand();
             }
+
             //Set comment from line statement
             comment = IR.getLine(i).getComment();
             //Add line statement components to listing in table format

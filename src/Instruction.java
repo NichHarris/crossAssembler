@@ -1,7 +1,7 @@
 //Instruction comprised of a mnemonic and (optional) operand
 public class Instruction implements IInstruction {
-    private String mnemonic = null;
-    private String operand = null;
+    private String mnemonic;
+    private String operand;
 
     //Parameterized constructor with mnemonic and operand
     public Instruction(String m, String o) {
@@ -40,7 +40,7 @@ public class Instruction implements IInstruction {
     }
 
     //Return the code of the Instruction object's mnemonic
-    public Integer getCode() {
+    public Integer getCode(){
         ISymbolTable table = new SymbolTable();
         return table.getCode(mnemonic);
     }

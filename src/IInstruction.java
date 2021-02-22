@@ -1,6 +1,6 @@
 //Interface for Instruction class
 public interface IInstruction {
-
+//extends ISymbolTable
     //Set mnemonic
     void setMnemonic(String m);
 

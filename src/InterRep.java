@@ -1,6 +1,5 @@
 //Intermediate Representation (IR) comprised of parsed LineStatements along with their respective codes
 public class InterRep implements IInterRep {
-
     //Array of line statements
     private ILineStatement[] lines;
     //Array of associated codes for each instruction
@@ -42,6 +41,7 @@ public class InterRep implements IInterRep {
         lines[i] = new LineStatement(l, c);
     }
 
+
     //Set the code of a particular LineStatement
     public void setCode(int i, int code) {
         codes[i] = code;
@@ -68,3 +68,9 @@ public class InterRep implements IInterRep {
         return IR;
     }
 }
+
+/*
+  Possible Solution
+  ir.setLine(0, new LineStatement(l,c));
+  line[i] = ls;
+*/
