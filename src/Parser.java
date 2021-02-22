@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
-public class Parser {
+public class Parser implements IParser {
 
     //Parametrized constructor
-    public Parser(Scanner scanner, InterRep IR){
+    public Parser(IScanner scanner, IInterRep IR){
         //Get the list of tokens and comments from the scanner
         ArrayList<String[]> tokensList = scanner.getTokens();
         String[] comments = scanner.getComments();
@@ -18,7 +18,7 @@ public class Parser {
                     //System.out.println("Mnemonic || Label");
                     //Check in HashSet for Mnemonic
                     //If not, Add Element to Label Table
-                    SymbolTable symbolTable = new SymbolTable();
+                    ISymbolTable symbolTable = new SymbolTable();
 
                     //Get hex code from symbol table indexed token
                     int code = symbolTable.getCode(tokensList.get(i)[0]);

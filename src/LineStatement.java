@@ -1,29 +1,26 @@
 //LineStatement object comprised of a label, instruction and comment (all optional fields)
-public class LineStatement {
+public class LineStatement implements ILineStatement {
 
     // Data members representing the label, instruction and comments of a LineStatement Object
     private String label = "";
-    private Instruction instruction = null;
+    private IInstruction instruction = null;
     private String comment = "";
 
-    // Default constructor
-    public LineStatement() {}
-
     //Parametrized constructor for object initialization with label, instruction and comment
-    public LineStatement(String l, Instruction in, String c) {
+    public LineStatement(String l, IInstruction in, String c) {
         label = l;
         instruction = in;
         comment = c;
     }
 
     //Parametrized constructor for object initialization with instruction and comment
-    public LineStatement(Instruction in, String c) {
+    public LineStatement(IInstruction in, String c) {
         instruction = in;
         comment = c;
     }
 
     //Parametrized constructor for object initialization with label and instruction
-    public LineStatement(String l, Instruction in) {
+    public LineStatement(String l, IInstruction in) {
         label = l;
         instruction = in;
     }
@@ -39,37 +36,37 @@ public class LineStatement {
         comment = c;
     }
 
-    //Setter for label
+    //Set label
     public void setLabel(String l) {
         label = l;
     }
 
-    //Setter for instruction
-    public void setInstruction(Instruction in) {
+    //Set instruction
+    public void setInstruction(IInstruction in) {
         instruction = in;
     }
 
-    //Setter for comments
+    //Set comments
     public void setComment(String c) {
         comment = c;
     }
 
-    //Getter for label
+    //Get label
     public String getLabel() {
          return label;
      }
 
-     //Getter for instruction
-     public Instruction getInstruction() {
+     //Get instruction
+     public IInstruction getInstruction() {
          return instruction;
      }
 
-    //Getter for comments
+    //Get comments
     public String getComment() {
         return comment;
     }
 
-    //Returns the code of the instruction
+    //Returns the code of the mnemonic
     public Integer getCode() {
         return instruction.getCode();
     }

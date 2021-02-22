@@ -1,12 +1,17 @@
 //Options class used to determine options provided by the developer from the command line
-public class Options {
+public class Options implements IOptions {
 
     //Listing and verbose flags
-    private boolean listing = false;
-    private boolean verbose = false;
+    private boolean listing;
+    private boolean verbose;
 
     //Default constructor
     public Options(String[] options) throws Exception {
+
+        //Listing and verbose flags
+        listing = false;
+        verbose = false;
+
         //Iterate through command line arguments
         for (String o:options) {
             //Output help details

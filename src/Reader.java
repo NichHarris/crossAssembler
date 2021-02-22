@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileInputStream;
 
 //Reads file and creates an array of strings, each string representing a line from the source file
-public class Reader {
+public class Reader implements IReader {
 
     //Assembly unit comprised of unparsed line statements from source file
     private String[] assemblyUnit;

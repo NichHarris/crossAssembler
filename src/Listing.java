@@ -1,6 +1,10 @@
 //Listing object used to generate listing file content
-public class Listing {
-    private InterRep IR;
+public class Listing implements IListing {
+
+    //InterRep object for which the listing content is derived
+    private IInterRep IR;
+
+    //String identifiers used to construct the listing file content
     private String line;
     private String addr;
     private String code;
@@ -8,10 +12,12 @@ public class Listing {
     private String mne;
     private String operand;
     private String comment;
+
+    //String array in which the listing file content will be written
     private String[] listing;
 
     //Parameterized Constructor
-    public Listing(InterRep intRep) {
+    public Listing(IInterRep intRep) {
         //Get the intermediate representation
         IR = intRep;
 

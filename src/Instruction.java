@@ -1,50 +1,48 @@
-public class Instruction {
+//Instruction comprised of a mnemonic and (optional) operand
+public class Instruction implements IInstruction {
     private String mnemonic = null;
-    public String operand = null;
+    private String operand = null;
 
-    //Default Constructor
-    public Instruction() {}
-
-    //Parameterized Constructor
+    //Parameterized constructor with mnemonic and operand
     public Instruction(String m, String o) {
         mnemonic = m;
         operand = o;
     }
 
-    //Parameterized Constructor
+    //Parameterized constructor with mnemonic
     public Instruction(String m) {
         mnemonic = m;
     }
 
-    //Set Mnemonic + Operand
+    //Set mnemonic
     public void setMnemonic(String m) {
         mnemonic = m;
     }
 
+    //Set operand
     public void setOperand(String o) {
         operand = o;
     }
 
-    //Get Mnemonic + Operand
+    //Get mnemonic
     public String getMnemonic() {
         return mnemonic;
     }
 
-    // Get Operand
+    //Get operand
     public String getOperand() {
         return operand;
     }
 
-    // TODO: find a workaround without having to create a SymbolTable object
-    // Get hex code for mnemonic from SymbolTable
-    public Integer getCode() {
-        SymbolTable set = new SymbolTable();
-        return set.getCode(mnemonic);
-    }
-
-    //Check If Operand is Digit (True) or Label (False)
+    //Check if operand is digit (true) or label (false)
     public boolean isDigit() {
         return operand.matches("[0-9]+");
+    }
+
+    //Return the code of the Instruction object's mnemonic
+    public Integer getCode() {
+        ISymbolTable table = new SymbolTable();
+        return table.getCode(mnemonic);
     }
 
     //Returns a String representable of an Instruction object

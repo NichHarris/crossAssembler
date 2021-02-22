@@ -1,13 +1,10 @@
 //Intermediate Representation (IR) comprised of parsed LineStatements along with their respective codes
-public class InterRep {
+public class InterRep implements IInterRep {
 
-    //Array of line statements and
-    private LineStatement[] lines;
+    //Array of line statements
+    private ILineStatement[] lines;
     //Array of associated codes for each instruction
     private Integer[] codes;
-
-    //Default Constructor
-    public InterRep() {}
 
     //Parameterized Constructor
     public InterRep(int len) {
@@ -16,22 +13,22 @@ public class InterRep {
     }
 
     //Set LineStatement with a LineStatement object
-    public void setLine(int i, LineStatement l) {
+    public void setLine(int i, ILineStatement l) {
         lines[i] = l;
     }
 
     //Set LineStatement with a label, Instruction object and comment
-    public void setLine(int i, String l, Instruction in, String c) {
+    public void setLine(int i, String l, IInstruction in, String c) {
         lines[i] = new LineStatement(l, in, c);
     }
 
     //Set LineStatement with an Instruction object and comment
-    public void setLine(int i, Instruction in, String c) {
+    public void setLine(int i, IInstruction in, String c) {
         lines[i] = new LineStatement(in, c);
     }
 
     //Set LineStatement with a label and Instruction object
-    public void setLine(int i, String l, Instruction in) {
+    public void setLine(int i, String l, IInstruction in) {
         lines[i] = new LineStatement(l, in);
     }
 
@@ -51,11 +48,11 @@ public class InterRep {
     }
 
     //Get LineStatement
-    public LineStatement getLine(int i) {
+    public ILineStatement getLine(int i) {
         return lines[i];
     }
 
-    //Get length of LineStatement
+    //Get length of LineStatement array
     public int getLength() {
         return lines.length;
     }
