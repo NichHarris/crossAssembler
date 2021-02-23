@@ -10,7 +10,7 @@ public class Assembler {
             return;
         }
 
-        //Check if first argument is a .asm file
+        //Check if first argument is a .asm file - Help Enabled, No File Needed
         if (!args[0].split("\\.")[1].equals("asm")) {
             System.out.println("Error: Missing .asm file");
             return;
@@ -23,22 +23,22 @@ public class Assembler {
         }
 
         //Set the options from the
-        Options options = new Options(args);
+        IOptions options = new Options(args);
 
         //Parse the .asm file and get an array of unparsed line statements
-        Reader fileContent = new Reader(args[0]);
+        IReader fileContent = new Reader(args[0]);
         String[] assemblyUnit = fileContent.getAssemblyUnit();
 
         //Initialize the IR
-        InterRep IR = new InterRep(assemblyUnit.length);
+        IInterRep IR = new InterRep(assemblyUnit.length);
 
         //Parse line statements into tokens and comments
-        Scanner scanner = new Scanner(assemblyUnit);
+        IScanner scanner = new Scanner(assemblyUnit);
 
         //Perform syntax analysis on tokens
-        Parser parser = new Parser(scanner, IR);
+        IParser parser = new Parser(scanner, IR);
 
         //Generate listing file
-        CodeGenerator generator = new CodeGenerator(IR, options);
+        ICodeGenerator generator = new CodeGenerator(IR, options);
     }
 }

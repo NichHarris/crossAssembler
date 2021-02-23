@@ -1,10 +1,11 @@
 import java.util.HashMap;
 
 //Symbol Table comprised of all identifier/code associations
-public class SymbolTable {
+public class SymbolTable implements ISymbolTable {
 
     private final HashMap<String, Integer> symbolTable;
 
+    //Default Constructor
     public SymbolTable() {
         //HashMap Containing Instruction Set
         symbolTable = new HashMap<String, Integer>();
@@ -64,10 +65,8 @@ public class SymbolTable {
         symbolTable.put("trap", 0xFF);
     }
 
-    // @TEAM -> Add unit test here for invalid token recognition
-
     //Get Instruction Code
     public Integer getCode(String key) {
-        return symbolTable.get(key);
+        return symbolTable.getOrDefault(key, -1);
     }
 }

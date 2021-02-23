@@ -2,39 +2,41 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.BufferedOutputStream;
 
-//Generates executable file, listing file and label table
-public class CodeGenerator {
+//Generates executable file and listing file
+public class CodeGenerator implements ICodeGenerator {
 
     //Default constructor
-    public CodeGenerator(InterRep IR, Options options) {
+    public CodeGenerator(IInterRep IR, IOptions options) {
         //Generate listing file with label table
         if (options.isVerbose()){
-            Listing listing = new Listing(IR);
+            IListing listing = new Listing(IR);
             String [] lstContent = listing.getListing();
             this.generateListing(lstContent);
         }
         //Generate listing file
         else if (options.isListing()){
-            Listing listing = new Listing(IR);
+            IListing listing = new Listing(IR);
             String [] lstContent = listing.getListing();
             this.generateListing(lstContent);
         }
     }
 
     //Generate an executable file
-    public static void generateExec(String fn, String c) throws Exception {
-        String fileName = fn;
-        String content = c;
+    public void generateExec(String fn, String c) {
+        try {
+            String fileName = fn;
+            String content = c;
 
-        //Create Output Stream + Create Empty File
-        BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(new File(fileName + ".txt")));
+            //Create Output Stream + Create Empty File
+            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(new File(fileName + ".txt")));
 
-        //Write to File
-        byte[] contentB = content.getBytes();
-        for(byte b: contentB)
-            bfos.write(b);
+            //Write to File
+            byte[] contentB = content.getBytes();
+            for(byte b: contentB)
+                bfos.write(b);
 
-        bfos.close();
+            bfos.close();
+        } catch (Exception e) { e.printStackTrace(); }
     }
 
     //Generate a listing file
@@ -54,8 +56,6 @@ public class CodeGenerator {
 
             // Close listing.lst file
             fs.close();
-        } catch (Exception e) {
-            System.err.println("Exception: java.io.FileNotFoundException");
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }

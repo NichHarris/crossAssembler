@@ -2,7 +2,7 @@ import java.io.File;
 import java.io.FileInputStream;
 
 //Reads file and creates an array of strings, each string representing a line from the source file
-public class Reader {
+public class Reader implements IReader {
 
     //Assembly unit comprised of unparsed line statements from source file
     private String[] assemblyUnit;
@@ -11,13 +11,16 @@ public class Reader {
 
     //Parametrized constructor
     public Reader(String filename) throws Exception {
-
         //Open the source file
-        File srcFile = new File(filename);
-        if (!srcFile.canRead()) {
-            System.out.println("Error: Unable to open source file '" + filename + "'");
+        try {
+            srcFile = new File(filename);
+            if (!srcFile.canRead()) {
+                throw new Exception("Error: Unable to open source file '" + filename + "'");
+            }
+        } catch (Exception e) {
+            System.out.println(e);
             return;
-        }
+       }
 
         //Read the source file using FileInputStream
         FileInputStream file = new FileInputStream(srcFile);

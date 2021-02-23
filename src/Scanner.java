@@ -2,12 +2,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 //Scanner - Performs Lexical Analysis on the assembly unit
-public class Scanner {
+public class Scanner implements IScanner {
     private ArrayList<String[]> tokens;
     private String[] comments;
-
-    //Default constructor
-    public Scanner() {}
 
     //Parametrized constructor
     public Scanner(String[] assemblyUnit) {
@@ -33,7 +30,7 @@ public class Scanner {
         return comments;
     }
 
-    //Print method for debugging
+    //Print method for checking tokens
     public void printTokens() {
         for (String[] line: tokens){
             System.out.print(Arrays.toString(line));
