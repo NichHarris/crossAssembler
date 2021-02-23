@@ -9,7 +9,7 @@
  xor 
  neg 
  inc 
- dec 
+ dec
  add 
  sub 
  mul 
