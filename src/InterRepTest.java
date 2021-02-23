@@ -5,10 +5,6 @@ public class InterRepTest {
 //        //**Testing Default constructor //Problem With default constructor lines.length is null giving us a run time error when we try to call InterRep.toString()**
 //        InterRep IR1 = new InterRep();
 //        TestInterRep("Testing Default Constructor","", IR1.toString());
-
-        // Testing Parameterized (initialized above)
-        TestInterRep("Test Parameterized Constructor by outputting line 0", "' 'null null' '", IR.getLine(0).toString());
-
         //1 Testing setter with a Line Statement
         LineStatement ls = new LineStatement("Fct", new Instruction("ldr.i3", "3"), "; Test Comment 1");
         IR.setLine(0, ls);
@@ -18,28 +14,12 @@ public class InterRepTest {
         IR.setLine(0, "jmp", new Instruction("add", "5"), "; Test Comment 2");
         TestInterRep("Test setter with Line Statement components label, instruction and comment", "'jmp 'add 5' ; Test Comment 2'", IR.getLine(0).toString());
 
-        //3 Testing setter with Line Statement (instruction and comment)
-        IR.setLine(0, new Instruction("ret", "4"), "; Test Comment 3");
-        TestInterRep("Test setter with Line Statement components instruction and comment", "' 'ret 4' ; Test Comment 3'", IR.getLine(0).toString());
-
-        //4 Testing setter with Line Statement (label and Instruction)
-        IR.setLine(0, "FINISH", new Instruction("halt", "2"));
-        TestInterRep("Test setter with Line Statement components label and instruction", "'FINISH 'halt 2' '", IR.getLine(0).toString());
-
-        //5 Testing setter with Line Statement (label)
-        IR.setLine(0, "Fct");
-        TestInterRep("Test setter with Line Statement component label", "'Fct 'null null' '", IR.getLine(0).toString());
-
-        //6 Testing setter with Line statement (label and comment)
-        IR.setLine(0, "Fct", "; Test Comment 6");
-        TestInterRep("Test setter with Line Statement components label and comment", "'Fct 'null null' ; Test Comment 6'", IR.getLine(0).toString());
-
         //7 Testing setter with Line Statement code
         IR.setCode(0, 100);
         TestInterRep("Test setter with LineStatement Code", "100", Integer.toString(IR.getCode(0)));
 
         //8 Testing Get LineStatement
-        LineStatement ls1 = IR.getLine(0);
+        ILineStatement ls1 = IR.getLine(0);
         TestInterRep("Test getLine()", "'Fct 'null null' ; Test Comment 6'", ls1.toString());
 
         //9 Testing Get length of LineStatement

@@ -1,4 +1,4 @@
-public class LineStatementTest {
+/*public class LineStatementTest {
     public static void main(String[] args) throws Exception {
         //Testing Default constructor
         LineStatement ls = new LineStatement();
@@ -60,4 +60,4 @@ public class LineStatementTest {
         System.out.println(methodOutput);
     }
 }
-
+*/
