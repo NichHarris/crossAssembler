@@ -6,6 +6,7 @@ public class InterRep implements IInterRep {
     private Integer[] codes;
 
     //Parameterized Constructor
+
     public InterRep(int len) {
         lines = new LineStatement[len];
         codes = new Integer[len];

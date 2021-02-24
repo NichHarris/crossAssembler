@@ -1,58 +1,27 @@
-//TODO: Scanner renamed to Options
-/*
 //Testing File Scanner Functionality
 public class ScannerTest {
     public static void main(String[] args) throws Exception {
-        //No File Provided
-        String[] case1 = {};
-        testScan(case1, -3, "No File Provided");
+        //Multiline File + All Addressing Modes
+        String[] ac2 = {"Fct ldc.i3 3","    ldc.i3 1","    add     ; This is a comment","    ret"};
 
-        //Too Many Options
-        String[] case2 = {"-l", "-v", "-h", "some.asm"};
-        testScan(case2, -2, "Too Many Options");
+        Scanner scan = new Scanner (ac2);
 
-        //Invalid Option Used
-        String[] case3 = {"-l", "-w"};
-        testScan(case3, -1, "Invalid Option Used");
+        // Test getTokens
+        testScanner("Test getTokens", "Fct", scan.getTokens().get(0)[0]);
 
-        //No Options Enabled
-        String[] case4 = {"some.asm"};
-        testScan(case4, 0, "No Options Enabled");
+        // Test getComments
+        testScanner("Test getComments", "This is a comment", scan.getComments()[2]);
 
-        //Help Enabled
-        String[] case5 = {"-h", "some.asm"};
-        testScan(case5, 1, "Help Enabled");
-
-        //Listing Enabled
-        String[] case6 = {"-l", "some.asm"};
-        testScan(case6, 2, "Listing Enabled");
-
-        //Verbose Enabled
-        String[] case7 = {"-v", "some.asm"};
-        testScan(case7, 3, "Verbose Enabled");
-
-        //Listing and Verbose Enabled
-        String[] case8 = {"-v", "-l", "some.asm"};
-        testScan(case8, 4, "Listing and Verbose Enabled");
-
-        //Invalid Option + Too Many Options + No File Found
-        //Invalid Option + Too Many Options
-        //Too Many Options + No File Found
-        //Invalid Option + No File Found
+        // Test printTokens()
+        System.out.println("Test printTokens\n" + "[Fct, ldc.i3, 3][ldc.i3, 1][add][ret]");
+        scan.printTokens();
     }
 
-    public static void testScan(String[] ops, int expected, String caseTitle) throws Exception {
-        System.out.println("Test Scanner - " + caseTitle);
-
-        //Scanner Method
-        int statusCode = Assembler.Scanner(ops);
-
-        //Actual Contents of File
-        int actualCode = expected;
-
-        //Compare toPrint with
-        System.out.println(statusCode);
-        System.out.println(actualCode);
+    public static void testScanner(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
+        System.out.println(testCaseName);
+        // expected value
+        System.out.println(expectedOutput);
+        // actual output
+        System.out.println(methodOutput);
     }
 }
-*/
