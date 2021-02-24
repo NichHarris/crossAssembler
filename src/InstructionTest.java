@@ -25,12 +25,6 @@ public class InstructionTest {
         //Testing the function toString() from Instruction Class
         testInstruction("Test toString", "'not 12'", instruction1.toString());
 
-        //Testing invalid key
-        SymbolTable st = new SymbolTable();
-        testInstruction("Test Invalid Key", "-1", Integer.toString(st.getCode("apple")));
-
-        //Testing valid key
-        testInstruction("Test Valid Key", "0", Integer.toString(st.getCode("halt")));
     }
 
     public static void testInstruction(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
