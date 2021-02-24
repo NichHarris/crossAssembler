@@ -9,7 +9,7 @@ public class InstructionTest {
         instruction1 = new Instruction ("halt", "i3");
 
         //Testing the Constructor of the class with getOperand() and getMnemonic()
-        testInstruction("Test Mneomic and Operand Constructor", "halt i3", instruction1.getMnemonic()+" "+instruction1.getOperand());
+        testInstruction("Test Mnemonic and Operand Constructor", "halt i3", instruction1.getMnemonic()+" "+instruction1.getOperand());
 
         //Testing setMnemonic(String m) and getMnemonic()
         instruction1.setMnemonic("not");
@@ -24,6 +24,13 @@ public class InstructionTest {
 
         //Testing the function toString() from Instruction Class
         testInstruction("Test toString", "'not 12'", instruction1.toString());
+
+        //Testing invalid key
+        SymbolTable st = new SymbolTable();
+        testInstruction("Test Invalid Key", "-1", Integer.toString(st.getCode("apple")));
+
+        //Testing valid key
+        testInstruction("Test Valid Key", "0", Integer.toString(st.getCode("halt")));
     }
 
     public static void testInstruction(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

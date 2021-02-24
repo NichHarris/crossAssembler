@@ -1,10 +1,7 @@
 Test Default Constructor
 null null
 null null
-Test Mnemonic only Constructor
-pop null
-pop null
-Test Mneomic and Operand Constructor
+Test Mnemonic and Operand Constructor
 halt i3
 halt i3
 Test setMnemonic
@@ -13,12 +10,15 @@ not
 Test setOperand
 12
 12
-Test getCode
-12
-12
 Test isDigit
 true
 true
 Test toString
 'not 12'
 'not 12'
+Test Invalid Key
+-1
+-1
+Test Valid Key
+0
+0
