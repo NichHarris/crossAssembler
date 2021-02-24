@@ -6,6 +6,9 @@ public class SymbolTableTest {
 
         //Testing valid key
         testKey("Test Valid Key", "0", Integer.toString(st.getCode("halt")));
+
+        //Test getCode
+        testKey("Test getCode()", "1",Integer.toString(st.getCode("pop")));
     }
 
     public static void testKey(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

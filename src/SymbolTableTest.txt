@@ -4,3 +4,6 @@ Test Invalid Key
 Test Valid Key
 0
 0
+Test getCode()
+1
+1
