@@ -1,8 +1,14 @@
+import java.util.ArrayList;
+
 //Testing File Scanner Functionality
 public class ScannerTest {
     public static void main(String[] args) throws Exception {
         //Multiline File + All Addressing Modes
-        String[] ac2 = {"Fct ldc.i3 3","    ldc.i3 1","    add     ; This is a comment","    ret"};
+        ArrayList<String> ac2 = new ArrayList<>();
+        ac2.add("Fct ldc.i3 3");
+        ac2.add("    ldc.i3 1");
+        ac2.add("    add     ; This is a comment");
+        ac2.add("    ret");
 
         Scanner scan = new Scanner (ac2);
 

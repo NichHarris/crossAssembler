@@ -8,13 +8,13 @@ public class ParserTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String[] assemblyUnit = fileContent.getAssemblyUnit();
-        InterRep IR = new InterRep(assemblyUnit.length);
+        ArrayList<String> assemblyUnit = fileContent.getAssemblyUnit();
+        InterRep IR = new InterRep(assemblyUnit.size());
 
         Scanner scanner = new Scanner(assemblyUnit);
         Parser parser = new Parser(scanner, IR);
 
-        for(int i=0;i<assemblyUnit.length;i++){
+        for(int i=0;i<assemblyUnit.size();i++){
             testParser("Test -Parser Class- getLine #"+i,"' '"+scanner.getTokens().get(i)[0]+" ' '",IR.getLine(i).toString());
         }
     }

@@ -24,7 +24,7 @@ public class Parser implements IParser {
 
                         //Check if no mnemonic is included
                         if(code == -1)
-                            throw new Exception("Error: Mnemonic Not Found at line " + i + 1);
+                            throw new Exception("Error: Mnemonic Not Found at line " + (i + 1));
                             //Check if hex code requires no operand
                         else if(code >= 0x00 && code <= 0x1F) {
                             //Add LineStatement to AssemblyUnit
@@ -64,7 +64,7 @@ public class Parser implements IParser {
                     break;
 
                 default:
-                    System.out.println("Error: Exceeds Possible Number of Elements Per line" + i + 1);
+                    System.out.println("Error: Exceeds Possible Number of Elements Per line" + (i + 1));
             }
         }
     }

@@ -5,15 +5,15 @@ public class MnemonicTest {
 
         //Testing Default constructor
         test1 = new Mnemonic();
-        TestMnemonic("Test -Mnemonic Class- Default Constructor", "null -1",test1.getMnemonic()+" "+Integer.toString(test1.getOpcode()));
+        //TestMnemonic("Test -Mnemonic Class- Default Constructor", "null -1",test1.getMnemonic()+" "+Integer.toString(test1.getOpcode()));
 
         //Testing paramerterized constructor/Integration test?
         //test1 = new Mnemonic("ADD", 45,new Operand("i5"));
-        TestMnemonic("Test -Mnemonic Class- Default Constructor", "ADD 45",test1.getMnemonic()+" "+Integer.toString(test1.getOpcode()));
+        //TestMnemonic("Test -Mnemonic Class- Default Constructor", "ADD 45",test1.getMnemonic()+" "+Integer.toString(test1.getOpcode()));
 
         //Testing setMnemonic and getMnemonic
         test1.setMnemonic("JMP");
-        TestMnemonic("Test -Mnemonic Class- setMnemonic and getMnemonic", "JMP", test1.getMnemonic());
+        //TestMnemonic("Test -Mnemonic Class- setMnemonic and getMnemonic", "JMP", test1.getMnemonic());
 
         //Testing setOpCode and getOpCode()
         test1.setOpcode(12);
@@ -28,7 +28,7 @@ public class MnemonicTest {
         test2.setMnemonic("Halt");
         test2.setOpcode(52);
         //test2.setOperand(new Operand("g2"));
-        TestMnemonic("Test -Mnemonic Class- Integration Test", "Halt 52",test1.getMnemonic()+" "+Integer.toString(test1.getOpcode()));
+        //TestMnemonic("Test -Mnemonic Class- Integration Test", "Halt 52",test1.getMnemonic()+" "+Integer.toString(test1.getOpcode()));
     }
 
     public static void TestMnemonic(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

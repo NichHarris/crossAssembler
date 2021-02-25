@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class ListingTest {
     public static void main(String[] args) throws Exception {
         Reader fileContent = null;
@@ -6,8 +8,8 @@ public class ListingTest {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        String[] assemblyUnit = fileContent.getAssemblyUnit();
-        InterRep IR = new InterRep(assemblyUnit.length);
+        ArrayList<String> assemblyUnit = fileContent.getAssemblyUnit();
+        InterRep IR = new InterRep(assemblyUnit.size());
 
         Scanner scanner = new Scanner(assemblyUnit);
         Parser parser = new Parser(scanner, IR);

@@ -8,7 +8,9 @@ public class CodeGenerator implements ICodeGenerator {
     //Default constructor
     public CodeGenerator(IInterRep IR, IOptions options) {
         //Generate listing file with label table
+        //Options not yet in use
         if (options.isVerbose()){
+            //TODO: Need to implement extra functionality for verbose option
             IListing listing = new Listing(IR);
             String [] lstContent = listing.getListing();
             this.generateListing(lstContent);
@@ -21,7 +23,31 @@ public class CodeGenerator implements ICodeGenerator {
         }
     }
 
+    //Generate a listing file
+    public void generateListing(String[] lstContent) {
+        // Create listing.lst output file
+        try {
+            FileOutputStream fs = new FileOutputStream(new File("listing.lst"));
+
+            // Write to listing.lst file
+            for(String l : lstContent) {
+                char[] cArr = l.toCharArray();
+                for(char c : cArr)
+                    fs.write(c);
+            }
+
+            //Add EOF
+            fs.write('\u001a');
+
+            // Close listing.lst file
+            fs.close();
+
+        } catch (Exception e) { e.printStackTrace(); }
+    }
+
     //Generate an executable file
+    //Not yet in use
+    /*
     public void generateExec(String fn, String c) {
         try {
             String fileName = fn;
@@ -38,24 +64,5 @@ public class CodeGenerator implements ICodeGenerator {
             bfos.close();
         } catch (Exception e) { e.printStackTrace(); }
     }
-
-    //Generate a listing file
-    public void generateListing(String[] lstContent) {
-        // Create listing.lst output file
-        try {
-            FileOutputStream fs = new FileOutputStream(new File("listing.lst"));
-
-            // Write to listing.lst file
-            for(String l : lstContent) {
-                char[] cArr = l.toCharArray();
-                for(char c : cArr)
-                    fs.write(c);
-
-                fs.write('\n');
-            }
-
-            // Close listing.lst file
-            fs.close();
-        } catch (Exception e) { e.printStackTrace(); }
-    }
+    */
 }

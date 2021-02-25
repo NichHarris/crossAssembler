@@ -2,7 +2,9 @@
 public interface ICodeGenerator {
 
     //Generate an executable file
-    void generateExec(String fn, String c);
+    //Not yet in use
+    //void generateExec(String fn, String c);
+
     //Generate a listing file
     void generateListing(String[] lstContent);
 }

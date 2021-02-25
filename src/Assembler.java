@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //Main class for the VM Cross Assembler
 public class Assembler {
 
@@ -27,10 +29,10 @@ public class Assembler {
 
         //Parse the .asm file and get an array of unparsed line statements
         IReader fileContent = new Reader(args[0]);
-        String[] assemblyUnit = fileContent.getAssemblyUnit();
+        ArrayList<String> assemblyUnit = fileContent.getAssemblyUnit();
 
         //Initialize the IR
-        IInterRep IR = new InterRep(assemblyUnit.length);
+        IInterRep IR = new InterRep(assemblyUnit.size());
 
         //Parse line statements into tokens and comments
         IScanner scanner = new Scanner(assemblyUnit);

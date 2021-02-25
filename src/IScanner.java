@@ -4,7 +4,7 @@ import java.util.ArrayList;
 public interface IScanner {
 
     //Returns list of tokens
-    ArrayList<String[]> getTokens();
+    ArrayList<ArrayList<String>> getTokens();
 
     //Returns list of comments
     String[] getComments();
