@@ -4,7 +4,7 @@ import java.util.Arrays;
 //Scanner - Performs Lexical Analysis on the assembly unit
 public class Scanner implements IScanner {
     private final int index;
-    private final ArrayList<String[]> tokens;
+    private final ArrayList<ArrayList<String>> tokens;
     private String token="";
     private final String[] comments;
 
@@ -31,7 +31,7 @@ public class Scanner implements IScanner {
         index = 0;
 
         //Initialize ArrayList and String array for the list of tokens and list of comments, respectively
-        tokens = new ArrayList<String[]>(assemblyUnit.size());
+        tokens = new ArrayList<ArrayList<String>>(assemblyUnit.size());
         comments = new String[assemblyUnit.size()];
 
         boolean isSpace = false;
@@ -42,25 +42,24 @@ public class Scanner implements IScanner {
             int length = token.length();
 
             for(int j = 0; j < length; j++)
-                if (token.charAt(j) == ';')
+                if (token.charAt(j) == ';') {
                     comments[i] = token.substring(j, length);
-                else if(token.charAt(j) == ' ' && !isSpace) {
+                    break;
+                } else if(token.charAt(j) == ' ' && !isSpace || j == length - 1) {
                     isSpace = true;
                     temp.add(str);
                     str = "";
                 } else {
                     isSpace = false;
-                    str += token.charAt(j)
-//                    temp.add(count, temp.get(count) + token.charAt(j));
+                    str += token.charAt(j);
                 }
 
             tokens.add(temp);
-
+            temp.clear();
         }
-
-
-
-        //Ignore Comments, Remove Extra WhiteSp
+        for(ArrayList<String> a: tokens)
+            for(String s: a)
+                System.out.println(s);
 
         //Ignore Comments, Remove Extra WhiteSp
 /*
@@ -72,8 +71,6 @@ public class Scanner implements IScanner {
         }
 */
     }
-
-
 
     //Returns list of tokens
     public ArrayList<ArrayList<String>> getTokens() {
@@ -88,7 +85,9 @@ public class Scanner implements IScanner {
     //Print method for checking tokens
     public void printTokens() {
         for (ArrayList<String> line: tokens){
-            System.out.print(Arrays.toString(line));
+            for(String s: line){
+                System.out.print(s);
+            }
         }
     }
 }

@@ -12,8 +12,10 @@ public class ScannerTest {
 
         Scanner scan = new Scanner (ac2);
 
+        System.out.println("done");
+
         // Test getTokens
-        testScanner("Test -Scanner Class- getTokens", "Fct", scan.getTokens().get(0)[0]);
+        testScanner("Test -Scanner Class- getTokens", "Fct", scan.getTokens().get(0).get(0));
 
         // Test getComments
         testScanner("Test -Scanner Class- getComments", "This is a comment", scan.getComments()[2]);

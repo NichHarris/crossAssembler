@@ -6,21 +6,21 @@ public class Parser implements IParser {
     //Parametrized constructor
     public Parser(IScanner scanner, IInterRep IR){
         //Get the list of tokens and comments from the scanner
-        ArrayList<String[]> tokensList = scanner.getTokens();
+        ArrayList<ArrayList<String>> tokensList = scanner.getTokens();
         String[] comments = scanner.getComments();
 
         ISymbolTable symbolTable = new SymbolTable();
 
         //Traverse through tokenList and perform syntax analysis
         for(int i = 0; i < IR.getLength(); i++){
-            int numTokens = tokensList.get(i).length;
+            int numTokens = tokensList.get(i).size();
             switch(numTokens) {
                 //Stack + Inherent Addressing Mode
                 //Cases - Mnemonic or Label
                 case(1):
                     try {
                         //Get hex code from symbol table indexed token
-                        int code = symbolTable.getCode(tokensList.get(i)[0]);
+                        int code = symbolTable.getCode(tokensList.get(i).get(0));
 
                         //Check if no mnemonic is included
                         if(code == -1)
@@ -28,7 +28,7 @@ public class Parser implements IParser {
                             //Check if hex code requires no operand
                         else if(code >= 0x00 && code <= 0x1F) {
                             //Add LineStatement to AssemblyUnit
-                            IR.addLine(i,null, new Instruction(new Mnemonic(tokensList.get(i)[0], code), new Operand(null)), comments[i]);
+                            IR.addLine(i,null, new Instruction(new Mnemonic(tokensList.get(i).get(0), code), new Operand(null)), comments[i]);
                         }
                         //Check if hex code requires operand
                         else { throw new Exception("Error: Missing an Operand"); }

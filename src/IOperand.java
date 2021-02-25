@@ -5,7 +5,7 @@ public interface IOperand {
     void setOperand(String op);
 
     //Get operand as a string
-    String toString();
+    String getOp();
 
     //Check if operand is a number (true), otherwise return false
     boolean isDigit();

@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.ArrayList;
 
 //Ensure Functionality of Reader
 public class ReaderTest {
@@ -29,13 +30,15 @@ public class ReaderTest {
 
         //Scan Then Parse Content of File
         Reader reader = new Reader(fileName);
-        String[] readContent = reader.getAssemblyUnit();
+        ArrayList<String> readContent = reader.getAssemblyUnit();
 
         //Actual Contents of File
         String[] actualContent = expected;
 
         //Compare toPrint with
-        System.out.println(Arrays.toString(readContent));
+        for(String s: readContent){
+            System.out.println(s);
+        }
         System.out.println(Arrays.toString(actualContent));
 
     }
@@ -43,7 +46,7 @@ public class ReaderTest {
         System.out.println("Test -Reader Class- " + caseTitle);
         //Scan Then Parse Content of File
         Reader reader = new Reader(fileName);
-        String[] readContent = reader.getAssemblyUnit();
+        ArrayList<String> readContent = reader.getAssemblyUnit();
         System.out.println("java.lang.Exception: Error: Unable to open source file ''");
     }
 
