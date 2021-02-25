@@ -12,8 +12,8 @@ public class Scanner implements IScanner {
         tokens = new ArrayList<ArrayList<String>>(assemblyUnit.size());
         comments = new String[assemblyUnit.size()];
 
-        boolean isSpace = false;
         ArrayList<String> temp;
+        boolean isSpace;
 
         //Traverse the assembly unit and scan for tokens/comments
         for(int i = 0; i < assemblyUnit.size(); i++) {
@@ -22,6 +22,7 @@ public class Scanner implements IScanner {
 
             String token = assemblyUnit.get(i);
             int length = token.length();
+            isSpace = true;
 
             for(int j = 0; j < length; j++)
                 //Ignore Comments
@@ -47,7 +48,6 @@ public class Scanner implements IScanner {
             //Add
             tokens.add(temp);
         }
-
     }
 
     //Returns list of tokens

@@ -4,10 +4,9 @@ import java.util.ArrayList;
 
 //Reads file and creates an array of strings, each string representing a line from the source file
 public class Reader implements IReader {
-
     //Assembly unit comprised of unparsed line statements from source file
-    private ArrayList<String> assemblyUnit;
     private File srcFile;
+    private ArrayList<String> assemblyUnit;
 
     //Parametrized constructor
     public Reader(String filename) throws Exception {
@@ -26,9 +25,11 @@ public class Reader implements IReader {
         //Read the source file using FileInputStream
         FileInputStream file = new FileInputStream(srcFile);
         assemblyUnit = new ArrayList<>();
-        //Traverse the contents of the source file and save them to fileContent
+
         String lineContent = "";
         int currentChar = file.read();
+
+        //Traverse the contents of the source file and save them to fileContent
         while(currentChar != -1) {
             char c = (char)currentChar;
 

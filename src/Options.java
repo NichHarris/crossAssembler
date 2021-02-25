@@ -13,20 +13,32 @@ public class Options implements IOptions {
         //Iterate through command line arguments
         for (String o:options) {
             try {
-                //Output help details
-                if (o.equals("-h") || o.equals("--help"))
-                    //Output details of available commands
-                    displayHelp();
-                //Set status of listing option
-                if (o.equals("-l") || o.equals("--listing"))
-                    listing = true;
-                //Set status of listing option
-                if (o.equals("-v") || o.equals("--verbose"))
-                    verbose = true;
-                throw new Exception();
-            } catch (Exception e) { e.printStackTrace(); }
+                switch (o) {
+                    case "-h":
+                    case "--help":
+                        //Output details of available commands
+                        displayHelp();
+                        break;
+                    //Set status of listing option
+                    case "-l":
+                    case "--listing":
+                        listing = true;
+                        break;
+                    //Set status of listing option
+                    case "-v":
+                    case "--verbose":
+                        verbose = true;
+                        break;
+                    default:
+                        if(o.endsWith(".asm")) break;
+                        throw new Exception("Error: Invalid Option");
+                }
+            } catch (Exception e) {
+                System.out.print(e.toString());
+            }
         }
     }
+
     //Get status of listing option
     public boolean isListing(){
         return listing;

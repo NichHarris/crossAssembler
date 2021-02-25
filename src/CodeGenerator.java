@@ -37,7 +37,7 @@ public class CodeGenerator implements ICodeGenerator {
             }
 
             //Add EOF
-            fs.write('\u001a');
+            fs.write('\n');
 
             // Close listing.lst file
             fs.close();

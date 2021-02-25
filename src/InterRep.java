@@ -2,7 +2,7 @@
 public class InterRep implements IInterRep {
 
     //Array of line statements
-    private ILineStatement[] lines;
+    private final ILineStatement[] lines;
 
     //Parameterized Constructor
     public InterRep(int len) {
@@ -30,7 +30,6 @@ public class InterRep implements IInterRep {
     }
 
     //Returns a String representable of an InterRep object
-    /*
     public String toString() {
         String IR = "";
         for(int i = 0; i < this.getLength(); i++) {
@@ -39,5 +38,4 @@ public class InterRep implements IInterRep {
         }
         return IR;
     }
-    */
 }

@@ -1,17 +1,16 @@
 public class OptionsTest {
     public static void main(String[] args) throws Exception{
-        //Incorrect Option
-        String[] options = {"-z", "-z"};
-        Options op = new Options(options);
-//TODO:
-        //correct options
-        String[] options2 = {"-v","-l"};
-        Options op2 = new Options(options2);
-
         //Testing the function isListing() from Options Class
-        testInstruction("Test -Options Class- isListing()", "true", Boolean.toString(op2.isListing()));
 
-        testInstruction("Test -Options Class- isVerbose()", "true", Boolean.toString(op2.isVerbose()));
+        //Incorrect Option
+        //String[] options = {"-z", "-z"};
+        //Options incorrectOption = new Options(options);
+        //testInstruction("Test -Options Class- isListing()", "true", Boolean.toString(incorrectOption.isListing()));
+
+        //Correct options
+        String[] opArray2= {"-v","-l"};
+        Options CorrectOption = new Options(opArray2);
+        testInstruction("Test -Options Class- isVerbose()", "true", Boolean.toString(CorrectOption.isVerbose()));
     }
 
     public static void testInstruction(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

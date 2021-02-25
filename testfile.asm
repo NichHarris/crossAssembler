@@ -3,9 +3,10 @@
  dup
  exit
  ret
- not 
- and 
- or  
+ not
+
+ and
+ or
  xor 
  neg 
  inc 

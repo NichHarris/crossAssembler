@@ -4,16 +4,11 @@ import java.util.ArrayList;
 public class Assembler {
     //Entrypoint of program execution
     public static void main(String[] args) throws Exception {
+        int fileIndex = args.length - 1;
 
         //Check if .asm file not included in CLI arguments
-        if (args.length < 1) {
-            System.out.println("Error: Missing .asm file");
-            return;
-        }
-
-        //Check if first argument is a .asm file - Help Enabled, No File Needed
-        if (!args[0].endsWith(".asm")) {
-            System.out.println("Error: Missing .asm file");
+        if (args.length < 1 || !args[fileIndex].endsWith(".asm")) {
+            System.out.println("Error: Missing Assembly file");
             return;
         }
 
@@ -27,7 +22,7 @@ public class Assembler {
         IOptions options = new Options(args);
 
         //Parse the .asm file and get an array of unparsed line statements
-        IReader fileContent = new Reader(args[0]);
+        IReader fileContent = new Reader(args[fileIndex]);
         ArrayList<String> assemblyUnit = fileContent.getAssemblyUnit();
 
         //Initialize the IR
