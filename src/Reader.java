@@ -14,7 +14,7 @@ public class Reader implements IReader {
         //Open the source file
         try {
             //Source file
-            File srcFile = new File(filename);
+            srcFile = new File(filename);
             if (!srcFile.canRead()) {
                 throw new Exception("Error: Unable to open source file '" + filename + "'");
             }
@@ -29,7 +29,7 @@ public class Reader implements IReader {
         //Traverse the contents of the source file and save them to fileContent
         String lineContent = "";
         int currentChar = file.read();
-        while(currentChar > 0) {
+        while(currentChar != -1) {
             char c = (char)currentChar;
 
             //Create an assembly unit comprised of unparsed line statements using EOL

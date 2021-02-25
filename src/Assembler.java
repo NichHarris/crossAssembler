@@ -2,7 +2,6 @@ import java.util.ArrayList;
 
 //Main class for the VM Cross Assembler
 public class Assembler {
-
     //Entrypoint of program execution
     public static void main(String[] args) throws Exception {
 
@@ -13,7 +12,7 @@ public class Assembler {
         }
 
         //Check if first argument is a .asm file - Help Enabled, No File Needed
-        if (!args[0].split("\\.")[1].equals("asm")) {
+        if (!args[0].endsWith(".asm")) {
             System.out.println("Error: Missing .asm file");
             return;
         }
