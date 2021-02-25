@@ -1,19 +1,18 @@
-Test setter with a LineStatement object
+Test -InterRep Class- setter with a LineStatement object
 'Fct 'ldr.i3 3' ; Test Comment 1'
 'Fct 'ldr.i3 3' ; Test Comment 1'
-Test setter with Line Statement components label, instruction and comment
+Test -InterRep Class- setter with Line Statement components label, instruction and comment
 'jmp 'add 5' ; Test Comment 2'
 'jmp 'add 5' ; Test Comment 2'
-Test setter with LineStatement Code
+Test -InterRep Class- setter with LineStatement Code
 100
 100
-Test getLine()
+Test -InterRep Class- getLine()
 'jmp 'add 5' ; Test Comment 2'
 'jmp 'add 5' ; Test Comment 2'
-Test getLength()
+Test -InterRep Class- getLength()
 1
 1
-Test toString()
+Test -InterRep Class- toString()
 Line 0: 'jmp 'add 5' ; Test Comment 2' 100
 Line 0: 'jmp 'add 5' ; Test Comment 2' 100
-

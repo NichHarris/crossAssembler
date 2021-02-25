@@ -1,0 +1,180 @@
+Test -Instruction Class- Default Constructor
+null null
+null null
+Test -Instruction Class- Mnemonic and Operand Constructor
+halt i3
+halt i3
+Test -Instruction Class- setMnemonic
+not
+not
+Test -Instruction Class- setOperand
+12
+12
+Test -Instruction Class- isDigit
+true
+true
+Test -Instruction Class- toString
+'not 12'
+'not 12'
+Test -InterRep Class- setter with a LineStatement object
+'Fct 'ldr.i3 3' ; Test Comment 1'
+'Fct 'ldr.i3 3' ; Test Comment 1'
+Test -InterRep Class- setter with Line Statement components label, instruction and comment
+'jmp 'add 5' ; Test Comment 2'
+'jmp 'add 5' ; Test Comment 2'
+Test -InterRep Class- setter with LineStatement Code
+100
+100
+Test -InterRep Class- getLine()
+'jmp 'add 5' ; Test Comment 2'
+'jmp 'add 5' ; Test Comment 2'
+Test -InterRep Class- getLength()
+1
+1
+Test -InterRep Class- toString()
+Line 0: 'jmp 'add 5' ; Test Comment 2' 100
+Line 0: 'jmp 'add 5' ; Test Comment 2' 100
+Test -LineStatement Class- Default Constructor
+ 'null null'
+ 'null null'
+Test -LineStatement Class- Parameterized Constructor with label, instruction and comment
+Fct 'ldc.i3 3'
+Fct 'ldc.i3 3'
+Test -LineStatement Class- setLabel()
+RA
+RA
+Test -LineStatement Class- setInstruction()
+'pop '
+'pop '
+Test -LineStatement Class- setComment()
+; new comment
+; new comment
+Test -LineStatement Class- getLabel()
+RA
+RA
+Test -LineStatement Class- getInstruction()
+'pop '
+'pop '
+Test -LineStatement Class- getComment()
+; new comment
+; new comment
+Test -LineStatement Class- toString()
+'RA 'pop ' ; new comment'
+'RA 'pop ' ; new comment'
+Test -Listing Class-
+0    0000 00                          halt
+0    0000 00                          halt
+Test -Options Class- isListing()
+true
+true
+Test -Options Class- isVerbose()
+true
+true
+Test -Parser Class- getLine #0
+' 'halt ' '
+' 'halt ' '
+Test -Parser Class- getLine #1
+' 'pop ' '
+' 'pop ' '
+Test -Parser Class- getLine #2
+' 'dup ' '
+' 'dup ' '
+Test -Parser Class- getLine #3
+' 'exit ' '
+' 'exit ' '
+Test -Parser Class- getLine #4
+' 'ret ' '
+' 'ret ' '
+Test -Parser Class- getLine #5
+' 'not ' '
+' 'not ' '
+Test -Parser Class- getLine #6
+' 'and ' '
+' 'and ' '
+Test -Parser Class- getLine #7
+' 'or ' '
+' 'or ' '
+Test -Parser Class- getLine #8
+' 'xor ' '
+' 'xor ' '
+Test -Parser Class- getLine #9
+' 'neg ' '
+' 'neg ' '
+Test -Parser Class- getLine #10
+' 'inc ' '
+' 'inc ' '
+Test -Parser Class- getLine #11
+' 'dec ' '
+' 'dec ' '
+Test -Parser Class- getLine #12
+' 'add ' '
+' 'add ' '
+Test -Parser Class- getLine #13
+' 'sub ' '
+' 'sub ' '
+Test -Parser Class- getLine #14
+' 'mul ' '
+' 'mul ' '
+Test -Parser Class- getLine #15
+' 'div ' '
+' 'div ' '
+Test -Parser Class- getLine #16
+' 'rem ' '
+' 'rem ' '
+Test -Parser Class- getLine #17
+' 'shl ' '
+' 'shl ' '
+Test -Parser Class- getLine #18
+' 'shr ' '
+' 'shr ' '
+Test -Parser Class- getLine #19
+' 'teq ' '
+' 'teq ' '
+Test -Parser Class- getLine #20
+' 'tne ' '
+' 'tne ' '
+Test -Parser Class- getLine #21
+' 'tlt ' '
+' 'tlt ' '
+Test -Parser Class- getLine #22
+' 'tgt ' '
+' 'tgt ' '
+Test -Parser Class- getLine #23
+' 'tle ' '
+' 'tle ' '
+Test -Parser Class- getLine #24
+' 'tge ' '
+' 'tge ' '
+Test -Parser Class- getLine #25
+' 'halt ' '
+' 'halt ' '
+Test -Reader Class- No File Given
+java.lang.Exception: Error: Unable to open source file ''
+java.lang.Exception: Error: Unable to open source file ''
+Test -Reader Class- File does not exist
+java.lang.Exception: Error: Unable to open source file ''
+java.lang.Exception: Error: Unable to open source file ''
+Test -Reader Class- Empty File
+[]
+[]
+Test -Reader Class- Multiline File + All Addressing Modes
+[Fct ldc.i3 3,     ldc.i3 1,     add     ; This is a comment,     ret]
+[Fct ldc.i3 3,     ldc.i3 1,     add     ; This is a comment,     ret]
+Test -Scanner Class- getTokens
+Fct
+Fct
+Test -Scanner Class- getComments
+This is a comment
+This is a comment
+Test -Scanner Class- printTokens
+[Fct, ldc.i3, 3][ldc.i3, 1][add][ret]
+[Fct, ldc.i3, 3][ldc.i3, 1][add][ret]
+Test -SymbolTable Class- Invalid Key
+-1
+-1
+Test -SymbolTable Class- Valid Key
+0
+0
+Test -SymbolTable Class- getCode
+1
+1

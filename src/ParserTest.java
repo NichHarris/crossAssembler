@@ -15,7 +15,7 @@ public class ParserTest {
         Parser parser = new Parser(scanner, IR);
 
         for(int i=0;i<assemblyUnit.length;i++){
-            testParser("Test #"+i,"' '"+scanner.getTokens().get(i)[0]+" ' '",IR.getLine(i).toString());
+            testParser("Test -Parser Class- getLine #"+i,"' '"+scanner.getTokens().get(i)[0]+" ' '",IR.getLine(i).toString());
         }
     }
 
