@@ -1,47 +1,38 @@
 //Instruction comprised of a mnemonic and (optional) operand
 public class Instruction implements IInstruction {
-    private String mnemonic;
-    private String operand;
+    private IMnemonic mnemonic;
+    private IOperand operand;
 
     //Default constructor
     public Instruction() {
-        mnemonic = null;
-        operand = null;
+        mnemonic = new Mnemonic();
+        operand = new Operand();
     }
 
     //Parameterized constructor with mnemonic and operand
-    public Instruction(String m,String o) {
+    public Instruction(IMnemonic m,IOperand o) {
         mnemonic = m;
         operand = o;
     }
 
     //Set mnemonic
-    public void setMnemonic(String m) {
+    public void setMnemonic(IMnemonic m) {
         mnemonic = m;
-    }
+    } //for testing
 
     //Set operand
-    public void setOperand(String o) {
+    public void setOperand(IOperand o) {
         operand = o;
-    }
+    } //for testing
 
     //Get mnemonic
-    public String getMnemonic() {
-        return mnemonic;
-    }
+    public IMnemonic getMnemonic(){ return mnemonic; }
 
     //Get operand
-    public String getOperand() {
-        return operand;
-    }
-
-    //Check if operand is digit (true) or label (false)
-    public boolean isDigit() {
-        return operand.matches("[0-9]+");
-    }
+    public IOperand getOperand(){ return operand; }
 
     //Returns a String representable of an Instruction object
     public String toString() {
-        return String.format("'%s'", mnemonic + " " + operand);
+        return String.format("'%s'", mnemonic.toString() + " " + operand.toString());
     }
 }

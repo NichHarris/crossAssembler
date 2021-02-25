@@ -1,30 +1,22 @@
 //Intermediate Representation (IR) comprised of parsed LineStatements along with their respective codes
 public class InterRep implements IInterRep {
+
     //Array of line statements
     private ILineStatement[] lines;
-    //Array of associated codes for each instruction
-    private Integer[] codes;
 
     //Parameterized Constructor
-
     public InterRep(int len) {
         lines = new LineStatement[len];
-        codes = new Integer[len];
     }
 
-    //Set LineStatement with a LineStatement object
-    public void setLine(int i, ILineStatement l) {
+    //Add LineStatement with a LineStatement object
+    public void addLine(int i, ILineStatement l) {
         lines[i] = l;
     }
 
-    //Set LineStatement with a label, Instruction object and comment
-    public void setLine(int i, String l, IInstruction in, String c) {
+    //Add LineStatement with a label, Instruction object and comment
+    public void addLine(int i, String l, IInstruction in, String c) {
         lines[i] = new LineStatement(l, in, c);
-    }
-
-    //Set the code of a particular LineStatement
-    public void setCode(int i, int code) {
-        codes[i] = code;
     }
 
     //Get LineStatement
@@ -37,25 +29,13 @@ public class InterRep implements IInterRep {
         return lines.length;
     }
 
-    //Returns the code of the mnemonic
-    public int getCode(int i) {
-        return codes[i];
-    }
-
     //Returns a String representable of an InterRep object
     public String toString() {
         String IR = "";
         for(int i = 0; i < this.getLength(); i++) {
             IR = IR.concat(String.format("Line %s: %s", i, lines[i].toString()));
-            IR = IR.concat(String.format(" %s", codes[i]));
             IR = IR.concat("\n");
         }
         return IR;
     }
 }
-
-/*
-  Possible Solution
-  ir.setLine(0, new LineStatement(l,c));
-  line[i] = ls;
-*/

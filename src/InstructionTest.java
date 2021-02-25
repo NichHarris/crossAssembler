@@ -1,4 +1,4 @@
-public class InstructionTest {
+/*public class InstructionTest {
     public static void main(String[] args) throws Exception {
 
         //Testing the default constructor
@@ -37,3 +37,4 @@ public class InstructionTest {
     }
 
 }
+*/

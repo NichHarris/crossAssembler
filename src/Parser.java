@@ -28,8 +28,7 @@ public class Parser implements IParser {
                             //Check if hex code requires no operand
                         else if(code >= 0x00 && code <= 0x1F) {
                             //Add LineStatement to AssemblyUnit
-                            IR.setLine(i,null, new Instruction(tokensList.get(i)[0], ""), comments[i]);
-                            IR.setCode(i, code);
+                            IR.addLine(i,null, new Instruction(new Mnemonic(tokensList.get(i)[0], code), new Operand(null)), comments[i]);
                         }
                         //Check if hex code requires operand
                         else { throw new Exception("Error: Missing an Operand"); }

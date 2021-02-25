@@ -1,23 +1,17 @@
 //Interface for Instruction class
 public interface IInstruction {
-//extends ISymbolTable
+
     //Set mnemonic
-    void setMnemonic(String m);
+    void setMnemonic(IMnemonic m);
 
     //Set operand
-    void setOperand(String o);
+    void setOperand(IOperand o);
 
     //Get mnemonic
-    String getMnemonic();
+    IMnemonic getMnemonic();
 
     //Get operand
-    String getOperand();
-
-    //Check if operand is digit (true) or label (false)
-    boolean isDigit();
-
-    //Return the code of the Instruction object's mnemonic
-//    public Integer getCode();
+    IOperand getOperand();
 
     //Returns a String representable of an Instruction object
     String toString();
