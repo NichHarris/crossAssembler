@@ -23,6 +23,7 @@ public class Options implements IOptions {
                 //Set status of listing option
                 if (o.equals("-v") || o.equals("--verbose"))
                     verbose = true;
+                throw new Exception();
             } catch (Exception e) { e.printStackTrace(); }
         }
     }

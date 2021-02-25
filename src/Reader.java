@@ -25,7 +25,7 @@ public class Reader implements IReader {
 
         //Read the source file using FileInputStream
         FileInputStream file = new FileInputStream(srcFile);
-
+        assemblyUnit = new ArrayList<>();
         //Traverse the contents of the source file and save them to fileContent
         String lineContent = "";
         int currentChar = file.read();

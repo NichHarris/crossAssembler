@@ -1,9 +1,9 @@
 public class OptionsTest {
     public static void main(String[] args) throws Exception{
         //Incorrect Option
-        String[] options = {"-v", "-l"};
+        String[] options = {"-z", "-z"};
         Options op = new Options(options);
-
+//TODO:
         //correct options
         String[] options2 = {"-v","-l"};
         Options op2 = new Options(options2);

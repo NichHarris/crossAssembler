@@ -30,6 +30,7 @@ public class InterRep implements IInterRep {
     }
 
     //Returns a String representable of an InterRep object
+    /*
     public String toString() {
         String IR = "";
         for(int i = 0; i < this.getLength(); i++) {
@@ -38,4 +39,5 @@ public class InterRep implements IInterRep {
         }
         return IR;
     }
+    */
 }
