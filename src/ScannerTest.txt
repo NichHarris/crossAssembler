@@ -1,9 +1,9 @@
-Test getTokens
+Test -Scanner Class- getTokens
 Fct
 Fct
-Test getComments
+Test -Scanner Class- getComments
 This is a comment
 This is a comment
-Test printTokens
+Test -Scanner Class- printTokens
 [Fct, ldc.i3, 3][ldc.i3, 1][add][ret]
 [Fct, ldc.i3, 3][ldc.i3, 1][add][ret]

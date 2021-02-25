@@ -1,24 +1,18 @@
-Test Default Constructor
+Test -Instruction Class- Default Constructor
 null null
 null null
-Test Mnemonic and Operand Constructor
+Test -Instruction Class- Mnemonic and Operand Constructor
 halt i3
 halt i3
-Test setMnemonic
+Test -Instruction Class- setMnemonic
 not
 not
-Test setOperand
+Test -Instruction Class- setOperand
 12
 12
-Test isDigit
+Test -Instruction Class- isDigit
 true
 true
-Test toString
+Test -Instruction Class- toString
 'not 12'
 'not 12'
-Test Invalid Key
--1
--1
-Test Valid Key
-0
-0

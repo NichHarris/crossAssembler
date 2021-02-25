@@ -7,13 +7,13 @@ public class ScannerTest {
         Scanner scan = new Scanner (ac2);
 
         // Test getTokens
-        testScanner("Test getTokens", "Fct", scan.getTokens().get(0)[0]);
+        testScanner("Test -Scanner Class- getTokens", "Fct", scan.getTokens().get(0)[0]);
 
         // Test getComments
-        testScanner("Test getComments", "This is a comment", scan.getComments()[2]);
+        testScanner("Test -Scanner Class- getComments", "This is a comment", scan.getComments()[2]);
 
         // Test printTokens()
-        System.out.println("Test printTokens\n" + "[Fct, ldc.i3, 3][ldc.i3, 1][add][ret]");
+        System.out.println("Test -Scanner Class- printTokens\n" + "[Fct, ldc.i3, 3][ldc.i3, 1][add][ret]");
         scan.printTokens();
     }
 

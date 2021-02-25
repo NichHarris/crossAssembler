@@ -1,6 +1,6 @@
-Test isListing()
+Test -Options Class- isListing()
 true
 true
-Test isVerbose()
+Test -Options Class- isVerbose()
 true
 true

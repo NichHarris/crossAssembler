@@ -25,7 +25,7 @@ public class ReaderTest {
     }
 
     public static void testReader(String fileName, String[] expected, String caseTitle) throws Exception {
-        System.out.println("Test Reader - " + caseTitle);
+        System.out.println("Test -Reader Class- " + caseTitle);
 
         //Scan Then Parse Content of File
         Reader reader = new Reader(fileName);
@@ -40,7 +40,7 @@ public class ReaderTest {
 
     }
     public static void testFalseReader(String fileName, String caseTitle) throws Exception {
-        System.out.println("Test Reader - " + caseTitle);
+        System.out.println("Test -Reader Class- " + caseTitle);
         //Scan Then Parse Content of File
         Reader reader = new Reader(fileName);
         String[] readContent = reader.getAssemblyUnit();

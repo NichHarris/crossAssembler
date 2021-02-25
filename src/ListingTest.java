@@ -16,7 +16,7 @@ public class ListingTest {
         String [] ls = listing.getListing();
 
         String expected = String.format("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s", "0", "0000", "00", "", "halt", "", "");
-        TestListing("Test 1", expected, ls[1]);
+        TestListing("Test -Listing Class-", expected, ls[1]);
     }
 
     public static void TestListing(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
