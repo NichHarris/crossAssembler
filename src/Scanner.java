@@ -4,7 +4,7 @@ import java.util.Arrays;
 //Scanner - Performs Lexical Analysis on the assembly unit
 public class Scanner implements IScanner {
     private final int index;
-    private final ArrayList<ArrayList<String>> tokens;
+    private final ArrayList<String[]> tokens;
     private String token="";
     private final String[] comments;
 
@@ -31,33 +31,42 @@ public class Scanner implements IScanner {
         index = 0;
 
         //Initialize ArrayList and String array for the list of tokens and list of comments, respectively
-        tokens = new ArrayList<ArrayList<String>>(assemblyUnit.size());
+        tokens = new ArrayList<String[]>(assemblyUnit.size());
         comments = new String[assemblyUnit.size()];
 
-        boolean isSpc = false;
+        boolean isSpace = false;
         ArrayList<String> temp = new ArrayList<>();
         for(int i = 0; i < assemblyUnit.size(); i++) {
+            String str = "";
             String token = assemblyUnit.get(i);
             int length = token.length();
-            int count = 0;
+
             for(int j = 0; j < length; j++)
                 if (token.charAt(j) == ';')
-                    comments[i] = token.substring(j, length - 1);
-                else if(token.charAt(j) == ' ' && !status) {
-                    status = true;
-                    tokens.add(count, temp);
-                    count++;
+                    comments[i] = token.substring(j, length);
+                else if(token.charAt(j) == ' ' && !isSpace) {
+                    isSpace = true;
+                    temp.add(str);
+                    str = "";
                 } else {
-                    status = false;
-                    temp.add(count, temp.get(count) + token.charAt(j));
+                    isSpace = false;
+                    str += token.charAt(j)
+//                    temp.add(count, temp.get(count) + token.charAt(j));
                 }
-            temp.clear();
+
+            tokens.add(temp);
+
         }
 
+
+
+        //Ignore Comments, Remove Extra WhiteSp
+
+        //Ignore Comments, Remove Extra WhiteSp
 /*
         //Traverse the assembly unit and scan for tokens/comments
         for(int i = 0; i < assemblyUnit.size(); i++) {
-            //Ignore Comments, Remove Extra WhiteSpace Then Split into SubComponents
+          ace Then Split into SubComponents
             //tokens.add(i,assemblyUnit[i].split(";")[0].trim().split("\\s+"));
             //comments[i] = assemblyUnit[i].contains(";") ? assemblyUnit[i].split(";")[1].trim() : "";
         }

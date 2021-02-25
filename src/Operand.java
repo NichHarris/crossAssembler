@@ -18,7 +18,7 @@ public class Operand implements IOperand {
     }
 
     //Get operand as a string
-    public String getOp() {
+    public String toString() {
         return operand;
     }
 

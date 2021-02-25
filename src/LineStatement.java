@@ -49,11 +49,6 @@ public class LineStatement implements ILineStatement {
         return comment;
     }
 
-    //Returns the code of the mnemonic
-//    public Integer getCode() {
-//        return instruction.getCode();
-//    }
-
     //Returns a String representable of a LineStatement object
     public String toString() {
         return String.format("'%s'", label + " " + instruction.toString() + " " + comment);

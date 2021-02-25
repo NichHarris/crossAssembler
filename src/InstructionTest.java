@@ -7,24 +7,27 @@ public class InstructionTest {
 
         //Creating an instruction with both a Mnemonic and Operand
         ISymbolTable symbolTable = new SymbolTable();
-        int code = symbolTable.getCode("halt");
-        instruction1 = new Instruction ("halt", "i3");
+        int code = symbolTable.getCode("addv.u3");
+        IMnemonic m = new Mnemonic("addv.u3", code);
+        IOperand op = new Operand("3");
+        instruction1 = new Instruction (m, op);
 
         //Testing the Constructor of the class with getOperand() and getMnemonic()
-        testInstruction("Test -Instruction Class- Mnemonic and Operand Constructor", "halt i3", instruction1.getMnemonic()+" "+instruction1.getOperand());
+        testInstruction("Test -Instruction Class- Mnemonic and Operand Constructor", "addv.u3 3", instruction1.getMnemonic().getMne()+" "+instruction1.getOperand().toString());
 
-        //Testing setMnemonic(IMnemonic m) and getMnemonic()
-        int code = symbolTable.getCode("not");
-        IMnemonic m = new Mnemonic("not", code);
-        instruction1.setMnemonic();
-        testInstruction("Test -Instruction Class- setMnemonic", "not", instruction1.getMnemonic().getMne());
+        //Testing setMnemonic(IMnemonic m), getMnemonic()
+        code = symbolTable.getCode("not");
+        m = new Mnemonic("not", code);
+        instruction1.setMnemonic(m);
+        testInstruction("Test -Instruction Class- setMnemonic", "not ", instruction1.getMnemonic().getMne());
 
         //Testing setOperand(String o) and getOperand()
-        instruction1.setOperand("12");
-        testInstruction("Test -Instruction Class- setOperand", "12", instruction1.getOperand().toString());
+        op = new Operand("4");
+        instruction1.setOperand(op);
+        testInstruction("Test -Instruction Class- setOperand", "4", instruction1.getOperand().toString());
 
         //Testing the function toString() from Instruction Class
-        testInstruction("Test -Instruction Class- toString", "'not 12'", instruction1.toString());
+        testInstruction("Test -Instruction Class- toString", "'not 4'", instruction1.toString());
 
     }
 
