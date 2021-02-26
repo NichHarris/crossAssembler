@@ -34,6 +34,7 @@ public class Parser implements IParser {
                         else { throw new Exception("Error: Missing an Operand"); }
                     } catch (Exception e) {
                         System.out.println(e);
+                        System.exit(0);
                     }
 
                     //Other Case - Check if Element is Present in Label Table

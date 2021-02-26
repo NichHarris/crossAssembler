@@ -1,10 +1,24 @@
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 public class CodeGeneratorTest {
 
     public static void main(String[] args) throws Exception{
+        String[] options = {"-v", "-l"};
+        Options op2 = new Options(options);
+        Reader fileContent = null;
+        try {
+            fileContent = new Reader("testfile.asm");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        ArrayList<String> assemblyUnit = fileContent.getAssemblyUnit();
+        InterRep IR = new InterRep(assemblyUnit.size());
+
+        Scanner scanner = new Scanner(assemblyUnit);
+        Parser parser = new Parser(scanner, IR);
+        CodeGenerator codeGen = new CodeGenerator(IR,op2);
+
+        /*
         String[] options = {"-v", "-l"};
         Options op2 = new Options(options);
         InterRep IR = new InterRep(1);
@@ -17,6 +31,8 @@ public class CodeGeneratorTest {
         IR.addLine(0, ls);
 
         CodeGenerator codeGen = new CodeGenerator(IR,op2);
+
+
 
         FileInputStream file = new FileInputStream("listing.lst");
         ArrayList listingContent = new ArrayList<>();
@@ -39,6 +55,7 @@ public class CodeGeneratorTest {
 
         TestCodeGenerator("Test -CodeGenerator Class- File creation",
                 "0    0000 98            Fct           addv.u33                                 ", listingContent.get(1).toString());
+*/
 
     }
     public static void TestCodeGenerator(String testCaseName, String expectedOutput, String methodOutput) throws Exception{

@@ -36,6 +36,13 @@ public class InterRepTest {
         LineStatement ls2 = new LineStatement();
         IR.addLine(0, ls2);
         TestInterRep("Test -InterRep Class- empty LineStatement passed to InterRep object", "' 'null null' '", IR.getLine(0).toString());
+
+        //Integration Test
+        InterRep IR2 = new InterRep(1);
+        LineStatement ls3 = new LineStatement();
+        IR2.addLine(0, ls3);
+        IR2.addLine(0,"jmp", instruction, "; This is a comment");
+        TestInterRep("Integration Test", "'jmp 'addv.u3 3' ; This is a comment'",IR2.getLine(0).toString());
     }
 
     public static void TestInterRep(String testCaseName, String expectedOutput, String methodOutput) throws Exception{

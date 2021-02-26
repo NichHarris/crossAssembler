@@ -31,38 +31,22 @@ public class Listing implements IListing {
 
         //Traverse the IR and get line statement data for each line statement
         for (int i = 0; i < IR.getLength(); i++){
-            //Get the line number
-            line = Integer.toString(i);
-            //Convert opcode to hex and pad with zeros
-            addr = String.format("%1$04X",i);
-            //Get the opcode
-            code = String.format("%1$02X", IR.getLine(i).getInstruction().getMnemonic().getOpcode());
+            try {
+                //Get the line number
+                line = Integer.toString(i);
+                //Convert opcode to hex and pad with zeros
+                addr = String.format("%1$04X",i);
+                //Get the opcode
+                code = String.format("%1$02X", IR.getLine(i).getInstruction().getMnemonic().getOpcode());
 
-            //Get the label (if there is one)
-            if (IR.getLine(i).getLabel() == null) {
-                //Set label to empty if label is not present
-                label = "";
-            } else {
-                //Set label from line statement
-                label = IR.getLine(i).getLabel();
+                //Get the value (if there is one), Set to empty if it is not present, Set value from line statement
+                label = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
+                mne = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getMnemonic().getMne();
+                operand = (IR.getLine(i).getInstruction().getOperand().getOp() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();
+            }catch(Exception e){
+                System.out.println(e.toString());
             }
-            //Get the mnemonic (if there is one)
-            if (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) {
-                //Set empty to string if mnemonic is not present
-                mne = "";
-            } else {
-                //Set mnemonic from line statement
-                mne = IR.getLine(i).getInstruction().getMnemonic().getMne();
-            }
-            //Get the operand (if there is one)
-            if (IR.getLine(i).getInstruction().getOperand().getOp() == null) {
-                //Set operand to empty string if operand is not present
-                operand = "";
-            }
-            else {
-                //Set operand from line statement
-                operand = IR.getLine(i).getInstruction().getOperand().getOp();
-            }
+
             //Set comment from line statement
             comment = IR.getLine(i).getComment();
 
