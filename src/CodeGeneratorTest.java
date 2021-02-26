@@ -3,25 +3,7 @@ import java.util.ArrayList;
 public class CodeGeneratorTest {
 
     public static void main(String[] args) throws Exception{
-        /*
-        String[] options = {"-v", "-l"};
-        Options op2 = new Options(options);
 
-        Reader fileContent = null;
-        try {
-            fileContent = new Reader("testfile.asm");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        ArrayList<String> assemblyUnit = fileContent.getAssemblyUnit();
-        InterRep IR = new InterRep(assemblyUnit.size());
-
-        Scanner scanner = new Scanner(assemblyUnit);
-        Parser parser = new Parser(scanner, IR);
-        CodeGenerator codeGen = new CodeGenerator(IR,op2);
-
-
-         */
 
         String[] options = {"-v", "-l"};
         Options op2 = new Options(options);
@@ -35,7 +17,6 @@ public class CodeGeneratorTest {
         IR.addLine(0, ls);
 
         CodeGenerator codeGen = new CodeGenerator(IR,op2);
-
 
 
         FileInputStream file = new FileInputStream("listing.lst");
