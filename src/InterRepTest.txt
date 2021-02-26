@@ -13,7 +13,6 @@ Test -InterRep Class- getLength()
 Test -InterRep Class- toString()
 Line 0: 'jmp 'addv.u3 3' ; Test Comment 2'
 Line 0: 'jmp 'addv.u3 3' ; Test Comment 2'
-
 Test -InterRep Class- empty LineStatement passed to InterRep object
 ' 'null null' '
 ' 'null null' '

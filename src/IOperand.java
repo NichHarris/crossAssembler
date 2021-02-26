@@ -7,6 +7,6 @@ public interface IOperand {
     //Get operand as a string
     String getOp();
 
-    //Check if operand is a number (true), otherwise return false
-    boolean isDigit();
+//    //Check if operand is a number (true), otherwise return false
+//    boolean isDigit();
 }

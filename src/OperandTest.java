@@ -12,14 +12,14 @@ public class OperandTest {
         test1.setOperand("12");
         TestMnemonic("Test -Operand Class- setOperand", "12",test1.getOp());
 
-        //Testing isDigit()
-        boolean flag = false;
-        flag = test1.isDigit();
-        TestMnemonic("Test -Operand Class- isDigit", "true",Boolean.toString(flag));
-
-        test1 = new Operand("abc");
-        flag = test1.isDigit();
-        TestMnemonic("Test -Operand Class- isDigit", "false",Boolean.toString(flag));
+//        //Testing isDigit()
+//        boolean flag = false;
+//        flag = test1.isDigit();
+//        TestMnemonic("Test -Operand Class- isDigit", "true",Boolean.toString(flag));
+//
+//        test1 = new Operand("abc");
+//        flag = test1.isDigit();
+//        TestMnemonic("Test -Operand Class- isDigit", "false",Boolean.toString(flag));
     }
 
     public static void TestMnemonic(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
