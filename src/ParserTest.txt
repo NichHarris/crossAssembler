@@ -1,78 +1,78 @@
 Test -Parser Class- getLine #0
-' 'halt ' '
-' 'halt ' '
+' 'halt null' '
+' 'halt null' '
 Test -Parser Class- getLine #1
-' 'pop ' '
-' 'pop ' '
+' 'pop null' '
+' 'pop null' '
 Test -Parser Class- getLine #2
-' 'dup ' '
-' 'dup ' '
+' 'dup null' '
+' 'dup null' '
 Test -Parser Class- getLine #3
-' 'exit ' '
-' 'exit ' '
+' 'exit null' '
+' 'exit null' '
 Test -Parser Class- getLine #4
-' 'ret ' '
-' 'ret ' '
+' 'ret null' '
+' 'ret null' '
 Test -Parser Class- getLine #5
-' 'not ' '
-' 'not ' '
+' 'not null' '
+' 'not null' '
 Test -Parser Class- getLine #6
-' 'and ' '
-' 'and ' '
+' 'and null' '
+' 'and null' '
 Test -Parser Class- getLine #7
-' 'or ' '
-' 'or ' '
+' 'or null' '
+' 'or null' '
 Test -Parser Class- getLine #8
-' 'xor ' '
-' 'xor ' '
+' 'xor null' '
+' 'xor null' '
 Test -Parser Class- getLine #9
-' 'neg ' '
-' 'neg ' '
+' 'neg null' '
+' 'neg null' '
 Test -Parser Class- getLine #10
-' 'inc ' '
-' 'inc ' '
+' 'inc null' '
+' 'inc null' '
 Test -Parser Class- getLine #11
-' 'dec ' '
-' 'dec ' '
+' 'dec null' '
+' 'dec null' '
 Test -Parser Class- getLine #12
-' 'add ' '
-' 'add ' '
+' 'add null' '
+' 'add null' '
 Test -Parser Class- getLine #13
-' 'sub ' '
-' 'sub ' '
+' 'sub null' '
+' 'sub null' '
 Test -Parser Class- getLine #14
-' 'mul ' '
-' 'mul ' '
+' 'mul null' '
+' 'mul null' '
 Test -Parser Class- getLine #15
-' 'div ' '
-' 'div ' '
+' 'div null' '
+' 'div null' '
 Test -Parser Class- getLine #16
-' 'rem ' '
-' 'rem ' '
+' 'rem null' '
+' 'rem null' '
 Test -Parser Class- getLine #17
-' 'shl ' '
-' 'shl ' '
+' 'shl null' '
+' 'shl null' '
 Test -Parser Class- getLine #18
-' 'shr ' '
-' 'shr ' '
+' 'shr null' '
+' 'shr null' '
 Test -Parser Class- getLine #19
-' 'teq ' '
-' 'teq ' '
+' 'teq null' '
+' 'teq null' '
 Test -Parser Class- getLine #20
-' 'tne ' '
-' 'tne ' '
+' 'tne null' '
+' 'tne null' '
 Test -Parser Class- getLine #21
-' 'tlt ' '
-' 'tlt ' '
+' 'tlt null' '
+' 'tlt null' '
 Test -Parser Class- getLine #22
-' 'tgt ' '
-' 'tgt ' '
+' 'tgt null' '
+' 'tgt null' '
 Test -Parser Class- getLine #23
-' 'tle ' '
-' 'tle ' '
+' 'tle null' '
+' 'tle null' '
 Test -Parser Class- getLine #24
-' 'tge ' '
-' 'tge ' '
+' 'tge null' '
+' 'tge null' '
 Test -Parser Class- getLine #25
-' 'halt ' '
-' 'halt ' '
+' 'halt null' '
+' 'halt null' '

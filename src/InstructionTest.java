@@ -19,7 +19,7 @@ public class InstructionTest {
         code = symbolTable.getCode("not");
         m = new Mnemonic("not", code);
         instruction1.setMnemonic(m);
-        testInstruction("Test -Instruction Class- setMnemonic", "not ", instruction1.getMnemonic().getMne());
+        testInstruction("Test -Instruction Class- setMnemonic", "not", instruction1.getMnemonic().getMne());
 
         //Testing setOperand(IOperand o) and getOperand()
         op = new Operand("4");

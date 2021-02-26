@@ -1,0 +1,12 @@
+Test -Mnemonic Class- Default Constructor
+null -1
+null -1
+Test -Mnemonic Class- Parametrized Constructor
+ADD 45
+ADD 45
+Test -Mnemonic Class- setMnemonic and getMnemonic
+JMP
+JMP
+Test -Mnemonic Class- set Opcode and getOpCode
+12
+12

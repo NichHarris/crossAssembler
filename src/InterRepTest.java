@@ -42,7 +42,7 @@ public class InterRepTest {
         LineStatement ls3 = new LineStatement();
         IR2.addLine(0, ls3);
         IR2.addLine(0,"jmp", instruction, "; This is a comment");
-        TestInterRep("Integration Test", "'jmp 'addv.u3 3' ; This is a comment'",IR2.getLine(0).toString());
+        TestInterRep("Test -InterRep Class- Integration", "'jmp 'addv.u3 3' ; This is a comment'",IR2.getLine(0).toString());
     }
 
     public static void TestInterRep(String testCaseName, String expectedOutput, String methodOutput) throws Exception{

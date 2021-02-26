@@ -2,17 +2,14 @@ Test -Instruction Class- Default Constructor
 null null
 null null
 Test -Instruction Class- Mnemonic and Operand Constructor
-halt i3
-halt i3
+addv.u3 3
+addv.u3 3
 Test -Instruction Class- setMnemonic
 not
 not
 Test -Instruction Class- setOperand
-12
-12
-Test -Instruction Class- isDigit
-true
-true
+4
+4
 Test -Instruction Class- toString
-'not 12'
-'not 12'
+'not 4'
+'not 4'
