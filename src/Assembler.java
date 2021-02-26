@@ -4,9 +4,9 @@ import java.util.ArrayList;
 public class Assembler {
     //Entrypoint of program execution
     public static void main(String[] args) throws Exception {
-        int fileIndex = args.length - 1;
 
         //Check if .asm file not included in CLI arguments
+        int fileIndex = args.length - 1;
         if (args.length < 1 || !args[fileIndex].endsWith(".asm")) {
             System.out.println("Error: Missing Assembly file");
             return;
