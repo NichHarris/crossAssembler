@@ -2,15 +2,15 @@ public class OperandTest {
     public static void main(String[] args) throws Exception {
         //Testing Default constructor and toString()
         IOperand test1 = new Operand();
-        TestMnemonic("Test -Operand Class- Default Constructor and toString()", "null",test1.toString());
+        TestMnemonic("Test -Operand Class- Default Constructor and toString()", "null",test1.getOp());
 
         //Testing parametrized constructor
         test1 = new Operand("45");
-        TestMnemonic("Test -Operand Class- Parametrized Constructor", "45",test1.toString());
+        TestMnemonic("Test -Operand Class- Parametrized Constructor", "45",test1.getOp());
 
         //Testing setOperand()
         test1.setOperand("12");
-        TestMnemonic("Test -Operand Class- setOperand", "12",test1.toString());
+        TestMnemonic("Test -Operand Class- setOperand", "12",test1.getOp());
 
         //Testing isDigit()
         boolean flag = false;

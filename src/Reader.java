@@ -5,8 +5,8 @@ import java.util.ArrayList;
 //Reads file and creates an array of strings, each string representing a line from the source file
 public class Reader implements IReader {
     //Assembly unit comprised of unparsed line statements from source file
-    private File srcFile;
     private ArrayList<String> assemblyUnit;
+    private File srcFile;
 
     //Parametrized constructor
     public Reader(String filename) throws Exception {

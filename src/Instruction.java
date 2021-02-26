@@ -33,6 +33,6 @@ public class Instruction implements IInstruction {
 
     //Returns a String representable of an Instruction object
     public String toString() {
-        return String.format("'%s'", mnemonic.toString() + " " + operand.toString());
+        return String.format("'%s'", mnemonic.getMne() + " " + operand.getOp());
     }
 }

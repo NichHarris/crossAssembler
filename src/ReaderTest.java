@@ -16,12 +16,12 @@ public class ReaderTest {
 
         //Empty File
         String f1 = "ReaderEmptyTest.txt";
-        String[] ac1 = {};
+        String[] ac1 = {""};
         testReader(f1, ac1, "Empty File");
 
         //Multiline File + All Addressing Modes
         String f2 = "sample.asm";
-        String[] ac2 = {"Fct ldc.i3 3","    ldc.i3 1","    add     ; This is a comment","    ret"};
+        String[] ac2 = {"Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment"};
         testReader(f2, ac2, "Multiline File + All Addressing Modes");
     }
 
@@ -36,9 +36,13 @@ public class ReaderTest {
         String[] actualContent = expected;
 
         //Compare toPrint with
+        System.out.print("[");
         for(String s: readContent){
-            System.out.println(s);
+            System.out.print(s);
         }
+        System.out.print("]");
+        System.out.println();
+
         System.out.println(Arrays.toString(actualContent));
 
     }
