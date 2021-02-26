@@ -4,21 +4,32 @@ public class CodeGeneratorTest {
 
     public static void main(String[] args) throws Exception{
 
-
+        //Creating Options
         String[] options = {"-v", "-l"};
         Options op2 = new Options(options);
+
+        //Creating an InterRepresentation
         InterRep IR = new InterRep(1);
         ISymbolTable symbolTable = new SymbolTable();
         int code = symbolTable.getCode("addv.u3");
+
+        //Creating mnemonic and operand objects for instruction object
         IMnemonic m = new Mnemonic("addv.u3", code);
         IOperand op = new Operand("3");
+
+        //Creating an Instruction
         IInstruction instruction = new Instruction (m, op);
+
+        //Creating a LineStatement with Instruction
         LineStatement ls = new LineStatement("Fct", instruction, "");
+        
+        //Adding Line Statement to IR
         IR.addLine(0, ls);
 
+        // initializing code generator object
         CodeGenerator codeGen = new CodeGenerator(IR,op2);
 
-
+        // Reading content of listing.lst
         FileInputStream file = new FileInputStream("listing.lst");
         ArrayList listingContent = new ArrayList<>();
         String lineContent = "";
@@ -38,10 +49,9 @@ public class CodeGeneratorTest {
         //close source file
         file.close();
 
+        // testing code generator file creation
         TestCodeGenerator("Test -CodeGenerator Class- File creation",
                 "0    0000 98            Fct           addv.u33                                 ", listingContent.get(1).toString());
-
-
     }
     public static void TestCodeGenerator(String testCaseName, String expectedOutput, String methodOutput) throws Exception{
         System.out.println(testCaseName);
