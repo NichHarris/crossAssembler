@@ -3,6 +3,7 @@ import java.util.ArrayList;
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
 public class Parser implements IParser {
     private IInterRep ir;
+    private ILineStatement ls;
     private ISymbolTable symbolTable;
 
     //Parser constructor initializes IR using number of lines from Reader
@@ -16,17 +17,17 @@ public class Parser implements IParser {
         int code = symbolTable.getCode(tkn);
 
         // Check if LineStatement at line number is null
-        if()
-            // Check If Element is Label
+        if(colNum == 0)
+            // Check If Element is Label or Error
             // TODO: Check for operand, handle errors
             if(code == -1) {
                 String lb = tkn;
-                // Check If Element is Mnemonic
+            // Check If Element is Mnemonic
             } else {
                 Mnemonic mn = new Mnemonic(tkn, code);
 
-                //Immediate Addressing
-                if(code > 0x1F && code < 0xB0) {
+                //Immediate or Relative Addressing
+                if(code > 0x1F) {
                     //???
                     Operand op = new Operand(tkn);
                     Instruction in = new Instruction(mn, op);
