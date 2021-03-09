@@ -69,21 +69,21 @@ public class Scanner implements IScanner {
             isSpace = c == ' ' || c == '\t';
 
             //Create tokens when space or new line is detect
-            if (isSpace && !isComment || isEOL)  {
+            if (isSpace && !isComment || isEOL) {
                 sendToParser(tkn, lineNum, colNum);
-                //Comment Detected
-            } else if(c == ';') {
+
+            //Comment Detected
+            } else if (c == ';')
                 isComment = true;
 
-                //Adds Character By Character to Token
-                tkn += c;
-            }
+            //Adds Character By Character to Token
+            tkn += c;
+        }
     }
 
     public void sendToParser(String tkn, int lineNum, int colNum) {
-            //IToken token = new Token(new Position(lineNum, colNum), tkn, "" );
-        }
-        if (tkn != "") Parser(tkn, lineNum, colNum++);
+        //IToken token = new Token(new Position(lineNum, colNum), tkn, "" )
+        if (tkn != "") parsing(tkn, lineNum, colNum++);
 
         tkn = "";
     }
