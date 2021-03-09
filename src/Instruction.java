@@ -15,6 +15,11 @@ public class Instruction implements IInstruction {
         operand = o;
     }
 
+    public Instruction(IMnemonic m){
+        mnemonic = m;
+        operand = null;
+    }
+
     //Set mnemonic
     public void setMnemonic(IMnemonic m) {
         mnemonic = m;

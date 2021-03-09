@@ -3,9 +3,10 @@ import java.util.Arrays;
 
 //Scanner - Performs Lexical Analysis on the assembly unit
 public class Scanner implements IScanner {
-    private final ArrayList<ArrayList<String>> tokens;
-    private final String[] comments;
-
+    //private final ArrayList<ArrayList<String>> tokens;
+    //private final String[] comments;
+    private String tkn;
+/*
     //Parametrized constructor
     public Scanner(ArrayList<String> assemblyUnit) {
         //Initialize ArrayList and String array for the list of tokens and list of comments, respectively
@@ -49,19 +50,41 @@ public class Scanner implements IScanner {
             tokens.add(temp);
         }
     }
-
-    //Returns list of tokens
-    public ArrayList<ArrayList<String>> getTokens() {
-        return tokens;
+*/
+    public Scanner(String token) {
+        tkn = token;
     }
 
-    //Returns list of comments
-    public String[] getComments() {
-        return comments;
+    public void scanning(String line, int lineNum) {
+        String tkn = "";
+        int colNum = 0;
+
+        // Scanner Flags
+        boolean isSpace, isEOL;
+        boolean isComment = false;
+
+        //Seperates Lines into Tokens
+        for(char c : line.toCharArray) {
+            isEOL = c == '\r' || c == '\n';
+            isSpace = c == ' ' || c == '\t';
+
+            //Create tokens when space or new line is detect
+            if (isSpace && !isComment || isEOL)  {
+                sendToParser(tkn, lineNum, colNum);
+                //Comment Detected
+            } else if(c == ';') {
+                isComment = true;
+
+                //Adds Character By Character to Token
+                tkn += c;
+            }
     }
 
-    //Print method for checking tokens
-    public void printTokens() {
-        System.out.println(tokens);
+    public void sendToParser(String tkn, int lineNum, int colNum) {
+            //IToken token = new Token(new Position(lineNum, colNum), tkn, "" );
+        }
+        if (tkn != "") Parser(tkn, lineNum, colNum++);
+
+        tkn = "";
     }
 }

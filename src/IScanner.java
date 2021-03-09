@@ -9,6 +9,8 @@ public interface IScanner {
     //Returns list of comments
     String[] getComments();
 
+    void sendToParser();
+
     //Print method for checking tokens
     void printTokens();
 }
