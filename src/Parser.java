@@ -70,6 +70,7 @@ public class Parser implements IParser {
                 case Label:
                     //Add label to LineStatement
                     interRep.setLabel(lineNum, token.getName());
+                    break;
                 //Add mnemonic to LineStatement
                 case Mnemonic:
                     //Get Instruction
@@ -80,6 +81,7 @@ public class Parser implements IParser {
 
                     //Set the updated instruction in the LineStatement
                     interRep.setInstruction(lineNum, instr);
+                    break;
                 //Add label or operand to LineStatement
                 case LabelOperand:
                     //Add operand to LineStatement
@@ -97,6 +99,7 @@ public class Parser implements IParser {
                     else {
                         interRep.setLabel(lineNum, token.getName());
                     }
+                    break;
                 default:
                     //Add comment
                     if (token.getName().startsWith(";")) {
