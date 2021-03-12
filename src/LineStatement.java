@@ -11,7 +11,6 @@ public class LineStatement implements ILineStatement {
 
     //Parametrized constructor for object initialization with label, instruction and comment
     public LineStatement(String l, IInstruction in, String c) {
-        //LineStatement(null,null,null);
         if(l==null)l="";
         if(c==null)c="";
         label = l;
