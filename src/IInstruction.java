@@ -7,6 +7,9 @@ public interface IInstruction {
     //Set operand
     void setOperand(IOperand o);
 
+    //Set Opcode of instruction
+    void setOpcode(int code);
+
     //Get mnemonic
     IMnemonic getMnemonic();
 

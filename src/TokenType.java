@@ -1,3 +1,3 @@
 // TokenType.java
 
-public enum TokenType { Mnemonic, Label, LabelOperand, Comment }
+public enum TokenType { Mnemonic, Label, LabelOperand, Comment, None }

@@ -25,12 +25,15 @@ public class Instruction implements IInstruction {
     //Set mnemonic
     public void setMnemonic(IMnemonic m) {
         mnemonic = m;
-    } //for testing
+    }
 
     //Set operand
     public void setOperand(IOperand o) {
         operand = o;
-    } //for testing
+    }
+
+    //Set Opcode of instruction
+    public void setOpcode(int code) {mnemonic.setOpcode(code);}
 
     //Get mnemonic
     public IMnemonic getMnemonic(){ return mnemonic; }

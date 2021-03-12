@@ -34,17 +34,30 @@ public class Scanner implements IScanner {
         //Column number
         this.colNum = 0;
         //Instance of Parser
-        this.parser = new Parser(numLines);
+        this.parser = new Parser(numLines + 1);
 
         //Traverse the file content character per character and scan for tokens
         for (int i = 0; i < fileContent.length(); i++) {
             //Adds Character By Character to Token
+
             char c = file.getChar(i);
 
             //Character type flags
             //wasEOL = isEOL;
             isEOL = c == '\r' || c == '\n';
             isSpace = c == ' ' || c == '\t';
+
+            if (i == fileContent.length() - 1){
+                if (c != '\r' && c != '\n'){
+                    //Get token and send to parser
+                    buffer = buffer + (c);
+                    tokenType = this.getTokenType(buffer, colNum);
+                    token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+                    sendToParser();
+
+                    newLine();
+                }
+            }
 
             if (spaceBeforeEOL) {
                 if (isEOL)
@@ -55,6 +68,9 @@ public class Scanner implements IScanner {
 
             //Case where EOF is reached
             if (spaceBeforeEOL && isEOL) {
+                tokenType = this.getTokenType(buffer, colNum);
+                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+                sendToParser();
                 newLine();
             } else if (isEOL && buffer != "") {
                 //Get token and send to parser
@@ -98,6 +114,7 @@ public class Scanner implements IScanner {
             else {
                 buffer = buffer + (c);
             }
+
         }
     }
 
@@ -129,22 +146,32 @@ public class Scanner implements IScanner {
         else if (isNumeric(name)) {
             return TokenType.LabelOperand;
         }
+        else if (isComment) {
+            return TokenType.Comment;
+        }
         //Check if label
         else if (colNum == 0 && !isNumeric(name)) {
             return TokenType.Label;
         }
 
-        return TokenType.Comment;
+        return TokenType.None;
     }
 
     //Check if token is numeric
     public boolean isNumeric(String str) {
-        if (str == null || str.length() == 0) {
+
+        if (str.length() == 0) {
             return false;
         }
 
+        // TODO: Deal with Edge Later
+
+        if (str.startsWith("-")) {
+            return true;
+        }
+
         for (char c : str.toCharArray()) {
-            if (!Character.isDigit(c)) {
+            if (!Character.isDigit(c)){
                 return false;
             }
         }

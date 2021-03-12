@@ -6,4 +6,7 @@ public interface IParser {
 
     //Get the intermediate representation
     IInterRep getInterRep();
+
+    //Second pass through Parser to update machine code
+    void secondPass();
 }

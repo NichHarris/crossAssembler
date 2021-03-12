@@ -39,9 +39,34 @@ public class InterRep implements IInterRep {
         lines[i].setComment(comment);
     }
 
+
+    //TODO ????
+    public boolean hasInstruction(int i) {
+        IInstruction instr = lines[i].getInstruction();
+        if (instr.getMnemonic().getMne() == "") {
+            return false;
+        }
+        return true;
+    }
+
     //Set a LineStatement's instruction
     public void setInstruction(int i, IInstruction instruction) {
         lines[i].setInstruction(instruction);
+    }
+
+    //Set code of mnemonic
+    public void setMachineCode(int i) {
+        //Get instruction
+        IInstruction instr = this.getLine(i).getInstruction();
+        //Check if operand present in instruction
+        if (instr.getOperand().getOp() != ""){
+            //Compute updated code with "Opcode + Operand" and update the LineStatement's instruction
+            int opcode = instr.getMnemonic().getOpcode();
+            int operand = Integer.parseInt(instr.getOperand().getOp());
+            int updatedCode = opcode + operand;
+            instr.setOpcode(updatedCode);
+            this.setInstruction(i, instr);
+        }
     }
 
     //Returns a String representable of an InterRep object

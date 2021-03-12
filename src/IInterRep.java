@@ -22,6 +22,12 @@ public interface IInterRep {
     //Set a LineStatement's instruction
     void setInstruction(int i, IInstruction instruction);
 
+    //Set code of mnemonic
+    void setMachineCode(int i);
+
+    //Check if instruction is null
+    boolean hasInstruction(int i);
+
     //Returns a String representable of an InterRep object
     String toString();
 }

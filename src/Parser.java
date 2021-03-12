@@ -13,7 +13,6 @@ public class Parser implements IParser {
 
     //Parse a token received from Scanner
     public void parseToken(IToken token){
-
         //Get column and line number from token
         int lineNum = token.getPosition().getLineNumber();
         int colNum = token.getPosition().getColumnNumber();
@@ -24,12 +23,11 @@ public class Parser implements IParser {
         //Get opcode from Symbol Table
         int code = symbolTable.getCode(token.getName());
 
+        System.out.println("Line: " + lineNum + ", Token: " + token.getName());
+
         //Check if LineStatement already exists
         //If it doesn't exist, add a new LineStatement to the IR with the given token
         if (interRep.getLine(lineNum) == null) {
-            if (tokenType == null) {
-                tokenType = TokenType.Comment;
-            }
             switch(tokenType) {
                 case Label:
                     //Add LineStatement to IR with label
@@ -47,13 +45,13 @@ public class Parser implements IParser {
                     else
                         interRep.addLine(lineNum, new LineStatement(token.getName(), null, null));
                     break;
-                default:
+                case Comment:
                     //Add comment
-                    if (token.getName().startsWith(";")) {
-                        interRep.addLine(lineNum, new LineStatement(null, null, token.getName()));
-                    }
+                    interRep.addLine(lineNum, new LineStatement(null, null, token.getName()));
+                    break;
+                default:
                     //Add empty LineStatement
-                    else if (token.getName() == ""){
+                    if (token.getName() == ""){
                         interRep.addLine(lineNum, new LineStatement(null, null, null));
                     }
                     else {
@@ -122,6 +120,7 @@ public class Parser implements IParser {
                         //TODO: add error reporting if none of these work
                         System.err.print("Invalid token. Need to check why2");
                     }
+
             }
         }
     }
@@ -138,12 +137,27 @@ public class Parser implements IParser {
             return false;
         }
 
+        if (str.startsWith("-")) {
+            return true;
+        }
+
         for (char c : str.toCharArray()) {
-            if (!Character.isDigit(c)) {
+            if (!Character.isDigit(c)){
                 return false;
             }
         }
 
         return true;
+    }
+
+    //Second pass through Parser to update machine code
+    public void secondPass() {
+        //Traverse LineStatements in IR and update codes
+        for (int i = 0; i < interRep.getLength(); i++){
+            System.out.println(interRep.hasInstruction(i));
+            if (interRep.hasInstruction(i)) {
+                interRep.setMachineCode(i);
+            }
+        }
     }
 }

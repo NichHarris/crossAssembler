@@ -12,7 +12,7 @@ public class Listing implements IListing {
     private String mne;
     private String operand;
     private String comment;
-
+    private boolean instructionExists;
     //String array in which the listing file content will be written
     private String[] listing;
 
@@ -24,10 +24,10 @@ public class Listing implements IListing {
         //Initialize a new array of string for setting the listing file contents
         listing = new String[IR.getLength() + 1];
 
-        String lstFormat = "%1$-5s%2$-5s%3$-14s%4$-14s%5$-10s%6$-14s%7$-20s\n";
+        String lstFormat = "%1$-5s%2$-5s%3$-14s%4$-14s%5$-9s%6$-14s%7$-20s\n";
 
         //Add listing header to beginning of listing file contents
-        listing[0] = String.format(lstFormat, "Line", "Addr", "Code", "Label", "Mne", "Operand", "Comments");
+        listing[0] = String.format(lstFormat, "Line", "Addr", "Machine Code", "Label", "Assembly", "Code", "Comments");
 
         //Traverse the IR and get line statement data for each line statement
         for (int i = 0; i < IR.getLength(); i++){
@@ -37,18 +37,35 @@ public class Listing implements IListing {
                 //Convert opcode to hex and pad with zeros
                 addr = String.format("%1$04X",i);
                 //Get the opcode
-                code = String.format("%1$02X", IR.getLine(i).getInstruction().getMnemonic().getOpcode());
-
-                //Get the value (if there is one), Set to empty if it is not present, Set value from line statement
+                if (IR.getLine(i).getInstruction().getMnemonic().getOpcode() == -1){
+                    code = "";
+                }
+                else {
+                    code = String.format("%1$02X", IR.getLine(i).getInstruction().getMnemonic().getOpcode());
+                }
                 label = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
-                mne = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getMnemonic().getMne();
-                operand = (IR.getLine(i).getInstruction().getOperand().getOp() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();
-            }catch(Exception e){
+                //Get the value (if there is one), Set to empty if it is not present, Set value from line statementlabel = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
+                if (IR.getLine(i).getInstruction() != null) {
+                    if (IR.getLine(i).getInstruction().getMnemonic().getOpcode() == -1){
+                        code = "";
+                    }
+                    else {
+                        code = String.format("%1$02X", IR.getLine(i).getInstruction().getMnemonic().getOpcode());
+                    }
+                    mne = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getMnemonic().getMne();
+                    operand = (IR.getLine(i).getInstruction().getOperand().getOp() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();
+                }else{
+                    mne = "";
+                    operand = "";
+                    code =  ""; //String.format("%1$02X", "");
+                }
+                //Set comment from line statement
+                comment = (IR.getLine(i).getComment() == null) ? "" : IR.getLine(i).getComment();
+            } catch(Exception e){
                 System.out.println(e.toString());
             }
 
-            //Set comment from line statement
-            comment = IR.getLine(i).getComment();
+
 
             //Add line statement components to listing in table format
             listing[i + 1] = String.format(lstFormat, line, addr, code, label, mne, operand, comment);

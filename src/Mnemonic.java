@@ -5,7 +5,7 @@ public class Mnemonic implements IMnemonic {
 
     //Default constructor
     public Mnemonic() {
-        mnemonic = null;
+        mnemonic = "";
         opcode = -1;
     }
 

@@ -46,9 +46,9 @@ public class Reader implements IReader {
         }
 
         //Failsafe in case fileContent begins with a space
-        if(fileContent.charAt(0) == ' ') {
-            fileContent = fileContent.substring(1);
-        }
+        //if(fileContent.charAt(0) == ' ') {
+        //    fileContent = fileContent.substring(1);
+        //}
 
         //Close the source file
         file.close();

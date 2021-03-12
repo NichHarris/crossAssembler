@@ -26,6 +26,11 @@ public class Assembler {
 
         //Get the parser from scanner
         IParser parser = scanner.getParser();
+
+        //Run a second pass through the IR to update the machine code
+        parser.secondPass();
+
+        //Get the intermediate representation
         IInterRep interRep = parser.getInterRep();
 
         //Generate listing file
