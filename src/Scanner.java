@@ -79,6 +79,8 @@ public class Scanner implements IScanner {
                 sendToParser();
 
                 newLine();
+            } else if (isEOL && colNum == 0){
+                newLine();
             }
             //Failsafe for second EOL character
             else if (isEOL && buffer == "") {
