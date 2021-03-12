@@ -28,6 +28,9 @@ public class Parser implements IParser {
         //Check if LineStatement already exists
         //If it doesn't exist, add a new LineStatement to the IR with the given token
         if (interRep.getLine(lineNum) == null) {
+            if (tokenType == null) {
+                tokenType = TokenType.Comment;
+            }
             switch(tokenType) {
                 case Label:
                     //Add LineStatement to IR with label
@@ -65,6 +68,9 @@ public class Parser implements IParser {
             //Get the LineStatement
             line = interRep.getLine(lineNum);
             //Check the token type
+            if (tokenType == null) {
+                tokenType = TokenType.Comment;
+            }
             switch(tokenType) {
                 //TODO: Label case probably not needed
                 case Label:
@@ -73,19 +79,26 @@ public class Parser implements IParser {
                     break;
                 //Add mnemonic to LineStatement
                 case Mnemonic:
-                    //Get Instruction
-                    instr = line.getInstruction();
+                    if (line.getInstruction() == null) {
+                        //Set the updated instruction in the LineStatement
+                        interRep.setInstruction(lineNum, new Instruction(new Mnemonic(token.getName(), code)));
+                    }
+                    else {
+                        //Get Instruction
+                        instr = line.getInstruction();
 
-                    //Set new mnemonic to the instruction
-                    instr.setMnemonic(new Mnemonic(token.getName(), code));
+                        //Set new mnemonic to the instruction
+                        instr.setMnemonic(new Mnemonic(token.getName(), code));
 
-                    //Set the updated instruction in the LineStatement
-                    interRep.setInstruction(lineNum, instr);
+                        //Set the updated instruction in the LineStatement
+                        interRep.setInstruction(lineNum, instr);
+                    }
                     break;
                 //Add label or operand to LineStatement
                 case LabelOperand:
                     //Add operand to LineStatement
                     if (isNumeric(token.getName())) {
+
                         //Get LineStatement
                         instr = line.getInstruction();
 
@@ -100,7 +113,7 @@ public class Parser implements IParser {
                         interRep.setLabel(lineNum, token.getName());
                     }
                     break;
-                default:
+                case Comment:
                     //Add comment
                     if (token.getName().startsWith(";")) {
                         interRep.setComment(lineNum, token.getName());
