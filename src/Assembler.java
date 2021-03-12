@@ -28,16 +28,7 @@ public class Assembler {
         IParser parser = scanner.getParser();
         IInterRep interRep = parser.getInterRep();
 
-        for (int i = 0; i < interRep.getLength(); i++) {
-            System.out.println(interRep.getLine(i).toString());
-        }
-
         //Generate listing file
-        //ICodeGenerator generator = new CodeGenerator(interRep, options);
-        Listing listing = new Listing(interRep);
-        String[] str = listing.getListing();
-        for (int i = 0; i < str.length; i++) {
-            System.out.println(str[i]);
-        }
+        ICodeGenerator generator = new CodeGenerator(interRep, options);
     }
 }

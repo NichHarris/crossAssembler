@@ -24,7 +24,7 @@ public class Listing implements IListing {
         //Initialize a new array of string for setting the listing file contents
         listing = new String[IR.getLength() + 1];
 
-        String lstFormat = "%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s\n";
+        String lstFormat = "%1$-5s%2$-5s%3$-14s%4$-14s%5$-10s%6$-14s%7$-20s\n";
 
         //Add listing header to beginning of listing file contents
         listing[0] = String.format(lstFormat, "Line", "Addr", "Code", "Label", "Mne", "Operand", "Comments");

@@ -1,28 +1,5 @@
-Line Addr Code          Label         Mne   Operand       Comments            
-0    0000 00                          halt  null                              
-1    0001 01                          pop   null                              
-2    0002 02                          dup   null                              
-3    0003 03                          exit  null                              
-4    0004 04                          ret   null                              
-5    0005 0C                          not   null                              
-6    0006 0D                          and   null                              
-7    0007 0E                          or    null                              
-8    0008 0F                          xor   null                              
-9    0009 10                          neg   null                              
-10   000A 11                          inc   null                              
-11   000B 12                          dec   null                              
-12   000C 13                          add   null                              
-13   000D 14                          sub   null                              
-14   000E 15                          mul   null                              
-15   000F 16                          div   null                              
-16   0010 17                          rem   null                              
-17   0011 18                          shl   null                              
-18   0012 19                          shr   null                              
-19   0013 1A                          teq   null                              
-20   0014 1B                          tne   null                              
-21   0015 1C                          tlt   null                              
-22   0016 1D                          tgt   null                              
-23   0017 1E                          tle   null                              
-24   0018 1F                          tge   null                              
-25   0019 00                          halt  null                              
+Line Addr Code          Label         Mne       Operand       Comments            
+0    0000 90            Fct           ldc.i3    3                                 
+1    0001 90                          ldc.i3    1                                 
+2    0002 13                          add                     ; This is a comment 
 

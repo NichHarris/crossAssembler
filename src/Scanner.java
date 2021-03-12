@@ -45,18 +45,18 @@ public class Scanner implements IScanner {
             //wasEOL = isEOL;
             isEOL = c == '\r' || c == '\n';
             isSpace = c == ' ' || c == '\t';
-//            if (spaceBeforeEOL) {
-//                if (isEOL)
-//                    continue;
-//                else
-//                    spaceBeforeEOL = false;
-//            }
+
+            if (spaceBeforeEOL) {
+                if (isEOL)
+                    continue;
+                else
+                    spaceBeforeEOL = false;
+            }
 
             //Case where EOF is reached
             if (spaceBeforeEOL && isEOL) {
                 newLine();
-            }
-            else if (isEOL && buffer != "") {
+            } else if (isEOL && buffer != "") {
                 //Get token and send to parser
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
@@ -69,7 +69,7 @@ public class Scanner implements IScanner {
                 isEOL = false;
             }
             //Failsafe for multiple space characters
-            else if (isSpace && buffer == ""){
+            else if (isSpace && buffer == "") {
                 isSpace = false;
             }
             //If space detected (and not a comment), create a token, increment column number and clear buffer
@@ -98,47 +98,10 @@ public class Scanner implements IScanner {
             else {
                 buffer = buffer + (c);
             }
-
-            /*
-            //Character type flags
-            wasEOL = isEOL;
-            isEOL = c == '\r' || c == '\n';
-            isSpace = c == ' ' || c == '\t';
-
-            //Adds Token if Not Comment and Not Empty When a Space is Detected
-            if(isSpace && !isComment && buffer != "")
-                // Create Token (lineNum; colNum++; buffer)
-                // Reset Buffer
-                buffer = "";
-            //Detects EOL
-            else if(isEOL && !wasEOL)
-                //Increment line number
-                lineNum++;
-
-                //Add Token if Not Empty (Coments and Words)
-                if(buffer != "")  {
-                    // Create Token (lineNum; colNum++; buffer)
-                    // Reset Buffer
-                    buffer = "";
-                    isComment = false;
-                    wasEOL = true;
-                }
-            //Turns on Comment Flag
-            else if(c == ';') {
-                isComment = true;
-                buffer = buffer + c
-            }
-            //Adds All Characters to Comment
-            else if(isComment)
-                buffer = buffer + c
-            //Adds Non Space Characters for Non Comments
-            else if(!isComment && !isSpace)
-                buffer = buffer + c
-             */
         }
     }
 
-    public void newLine(){
+    public void newLine() {
         //Increment line number and reset column number
         lineNum++;
         colNum = 0;

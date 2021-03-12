@@ -23,8 +23,7 @@ public class Parser implements IParser {
 
         //Get opcode from Symbol Table
         int code = symbolTable.getCode(token.getName());
-        System.out.println(token.getName());
-        System.out.println(lineNum);
+
         //Check if LineStatement already exists
         //If it doesn't exist, add a new LineStatement to the IR with the given token
         if (interRep.getLine(lineNum) == null) {
