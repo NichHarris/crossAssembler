@@ -9,15 +9,17 @@ public class Instruction implements IInstruction {
         operand = new Operand();
     }
 
-    //Parameterized constructor with mnemonic and operand
+    //Stack, Inherent Addressing Constructor
+    public Instruction(IMnemonic m){
+        mnemonic = m;
+        operand = new Operand();
+    }
+
+
+    //Immediate or Relative Constructor
     public Instruction(IMnemonic m,IOperand o) {
         mnemonic = m;
         operand = o;
-    }
-
-    public Instruction(IMnemonic m){
-        mnemonic = m;
-        operand = null;
     }
 
     //Set mnemonic
@@ -38,6 +40,9 @@ public class Instruction implements IInstruction {
 
     //Returns a String representable of an Instruction object
     public String toString() {
-        return String.format("'%s'", mnemonic.getMne() + " " + operand.getOp());
+        if (operand == null)
+            return String.format("'%s'", mnemonic.toString());
+
+        return String.format("'%s'", mnemonic.toString() + " " + operand.toString());
     }
 }

@@ -44,25 +44,4 @@ public class CodeGenerator implements ICodeGenerator {
 
         } catch (Exception e) { e.printStackTrace(); }
     }
-
-    //Generate an executable file
-    //Not yet in use
-    /*
-    public void generateExec(String fn, String c) {
-        try {
-            String fileName = fn;
-            String content = c;
-
-            //Create Output Stream + Create Empty File
-            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(new File(fileName + ".txt")));
-
-            //Write to File
-            byte[] contentB = content.getBytes();
-            for(byte b: contentB)
-                bfos.write(b);
-
-            bfos.close();
-        } catch (Exception e) { e.printStackTrace(); }
-    }
-    */
 }

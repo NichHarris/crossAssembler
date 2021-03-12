@@ -1,128 +1,139 @@
-import java.util.ArrayList;
-
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
 public class Parser implements IParser {
-    private IInterRep ir;
-    private ILineStatement ls;
+    private IInterRep interRep;
     private ISymbolTable symbolTable;
+    private ILineStatement line;
+    private IInstruction instr;
 
     //Parser constructor initializes IR using number of lines from Reader
     public Parser(int len) {
-        ir = new InterRep(len);
+        interRep = new InterRep(len);
         symbolTable = new SymbolTable();
     }
 
-    public void parsing(String tkn, int lineNum, int colNum){
-        //Get Hex Code from Symbol Table
-        int code = symbolTable.getCode(tkn);
+    //Parse a token received from Scanner
+    public void parseToken(IToken token){
 
-        // Check if LineStatement at line number is null
-        if(colNum == 0)
-            // Check If Element is Label or Error
-            // TODO: Check for operand, handle errors
-            if(code == -1) {
-                String lb = tkn;
-            // Check If Element is Mnemonic
-            } else {
-                Mnemonic mn = new Mnemonic(tkn, code);
+        //Get column and line number from token
+        int lineNum = token.getPosition().getLineNumber();
+        int colNum = token.getPosition().getColumnNumber();
 
-                //Immediate or Relative Addressing
-                if(code > 0x1F) {
-                    //???
-                    Operand op = new Operand(tkn);
-                    Instruction in = new Instruction(mn, op);
-                }
-                //Relative Addressing
-                else if (code >= 0xB0) {
-                    //???
-                    Operand op = new Operand(tkn);
-                    Instruction in = new Instruction(mn, op);
-                    //Stack-Inherent Addressing
-                } else {
-                    Instruction in = new Instruction(mn);
-                }
-            }
+        //Get token type
+        TokenType tokenType = token.getCode();
 
-        // Create a Comment
-        if(tkn.startsWith(";"))
-            Comment cm = new Comment(tkn);
-
-        // TODO: Figure Out When End Line Reached?
-
-        // Create LineStatement
-        LineStatement ls = new LineStatement(lb, in, cm);
-
-        // Add LineStatement to InterRep
-        ir.addLine(lineNum, ls);
-    }
-
-/*
-    //Parametrized constructor
-    public Parser(IScanner scanner, IInterRep IR){
-        //Get the list of tokens and comments from the scanner
-        ArrayList<ArrayList<String>> tokensList = scanner.getTokens();
-        String[] comments = scanner.getComments();
-
-
-        private
-
-        //Traverse through tokenList and perform syntax analysis
-        for(int i = 0; i < IR.getLength(); i++){
-            int numTokens = tokensList.get(i).size();
-            switch(numTokens) {
-                //Stack + Inherent Addressing Mode
-                //Cases - Mnemonic or Label
-                case(1):
-                    try {
-                        //Get hex code from symbol table indexed token
-                        int code = symbolTable.getCode(tokensList.get(i).get(0));
-
-                        //Check if no mnemonic is included
-                        if(code == -1)
-                            throw new Exception("Error: Mnemonic Not Found at line " + (i + 1));
-                            //Check if hex code requires no operand
-                        else if(code >= 0x00 && code <= 0x1F) {
-                            //Add LineStatement to AssemblyUnit
-                            IR.addLine(i,null, new Instruction(new Mnemonic(tokensList.get(i).get(0), code), new Operand(null)), comments[i]);
-                        }
-                        //Check if hex code requires operand
-                        else { throw new Exception("Error: Missing an Operand"); }
-                    } catch (Exception e) {
-                        System.out.println(e);
-                        System.exit(0);
+        //Get opcode from Symbol Table
+        int code = symbolTable.getCode(token.getName());
+        System.out.println(token.getName());
+        System.out.println(lineNum);
+        //Check if LineStatement already exists
+        //If it doesn't exist, add a new LineStatement to the IR with the given token
+        if (interRep.getLine(lineNum) == null) {
+            switch(tokenType) {
+                case Label:
+                    //Add LineStatement to IR with label
+                    interRep.addLine(lineNum, new LineStatement(token.getName(), null, null));
+                    break;
+                case Mnemonic:
+                    //Add LineStatement to IR with mnemonic and its opcode
+                    interRep.addLine(lineNum, new LineStatement(null, new Instruction(new Mnemonic(token.getName(), code)), null));
+                    break;
+                case LabelOperand:
+                    //Add LineStatement to IR with operand
+                    if (isNumeric(token.getName())) {
+                        interRep.addLine(lineNum, new LineStatement(null, new Instruction(null, new Operand(token.getName())), null));
+                        break;
                     }
-
-                    //Other Case - Check if Element is Present in Label Table
-                    break;
-
-                //Immediate Addressing Mode
-                //Cases - Mnemonic + Operand or Label + Mnemonic
-                case(2):
-                    //Check First Element in HashSet for Mnemonic
-                    //If not, Add first Element to Label Table & Check Second Element
-
-                    //System.out.println("Error: Mnemonic Missing/Not Found");
-                    //System.out.println("Error: Missing an Operand");
-                    //System.out.println("Error: Operand is Too Large");
-                    //System.out.println("Error: Operand Not Allowed");
-                    break;
-
-                //Relative Addressing Mode
-                //Cases - Label + Mnemonic + Operand
-                case(3):
-                    //Add First Element to Label List
-                    //Check Second Element in HashSet for Mnemonic
-                    //Check Third Element
-
-                    //System.out.println("Error: Mnemonic Not Found");
-                    //System.out.println("Error: Operand is Too Large");
-                    //System.out.println("Error: Operand Not Allowed");
-                    break;
-
+                    //Add LineStatement to IR with label
+                    else {
+                        interRep.addLine(lineNum, new LineStatement(token.getName(), null, null));
+                        break;
+                    }
                 default:
-                    System.out.println("Error: Exceeds Possible Number of Elements Per line" + (i + 1));
+                    //Add comment
+                    if (token.getName().startsWith(";")) {
+                        interRep.addLine(lineNum, new LineStatement(null, null, token.getName()));
+                        break;
+                    }
+                    //Add empty LineStatement
+                    else if (token.getName() == ""){
+                        interRep.addLine(lineNum, new LineStatement(null, null, null));
+                        break;
+                    }
+                    else {
+                        //TODO: add error reporting if none of these work
+                        System.err.print("Invalid token. Need to check why");
+                    }
+            }
+        }
+        //If a LineStatement already exists, add token to said LineStatement
+        else {
+            //Get the LineStatement
+            line = interRep.getLine(lineNum);
+            //Check the token type
+            switch(tokenType) {
+                //TODO: Label case probably not needed
+                case Label:
+                    //Add label to LineStatement
+                    interRep.setLabel(lineNum, token.getName());
+                //Add mnemonic to LineStatement
+                case Mnemonic:
+                    //Get Instruction
+                    instr = line.getInstruction();
+
+                    //Set new mnemonic to the instruction
+                    instr.setMnemonic(new Mnemonic(token.getName(), code));
+
+                    //Set the updated instruction in the LineStatement
+                    interRep.setInstruction(lineNum, instr);
+                //Add label or operand to LineStatement
+                case LabelOperand:
+                    //Add operand to LineStatement
+                    if (isNumeric(token.getName())) {
+                        //Get LineStatement
+                        instr = line.getInstruction();
+
+                        //Set the new operand
+                        instr.setOperand(new Operand(token.getName()));
+
+                        //Set the updated instruction in the LineStatement
+                        interRep.setInstruction(lineNum, instr);
+                    }
+                    //Add label to LineStatement
+                    else {
+                        interRep.setLabel(lineNum, token.getName());
+                    }
+                default:
+                    //Add comment
+                    if (token.getName().startsWith(";")) {
+                        interRep.setComment(lineNum, token.getName());
+                    }
+                    //Throw error
+                    else {
+                        //TODO: add error reporting if none of these work
+                        System.err.print("Invalid token. Need to check why2");
+                    }
             }
         }
     }
- */
+
+    //Get the intermediate representation
+    public IInterRep getInterRep() {
+        return interRep;
+    }
+
+    //Check if token is numeric
+    public boolean isNumeric(String str) {
+
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+
+        for (char c : str.toCharArray()) {
+            if (!Character.isDigit(c)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
 }

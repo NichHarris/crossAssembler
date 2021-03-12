@@ -29,6 +29,21 @@ public class InterRep implements IInterRep {
         return lines.length;
     }
 
+    //Set a LineStatement's label
+    public void setLabel(int i, String label) {
+        lines[i].setLabel(label);
+    }
+
+    //Set a LineStatement's comments
+    public void setComment(int i, String comment) {
+        lines[i].setComment(comment);
+    }
+
+    //Set a LineStatement's instruction
+    public void setInstruction(int i, IInstruction instruction) {
+        lines[i].setInstruction(instruction);
+    }
+
     //Returns a String representable of an InterRep object
     public String toString() {
         String IR = "";

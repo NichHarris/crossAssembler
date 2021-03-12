@@ -1,4 +1,4 @@
- halt
+    halt
  pop
  dup
  exit
@@ -6,7 +6,7 @@
  not
  and
  or
- xor 
+   xor
  neg 
  inc 
  dec

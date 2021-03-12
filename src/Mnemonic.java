@@ -26,4 +26,9 @@ public class Mnemonic implements IMnemonic {
 
     //Set the mnemonic name as a string
     public void setMnemonic(String mne) { mnemonic = mne; }
+
+    //toString method
+    public String toString() {
+        return "'" + mnemonic + ": " + Integer.toString(opcode) + "'";
+    }
 }

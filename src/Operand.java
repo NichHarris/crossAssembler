@@ -4,7 +4,7 @@ public class Operand implements IOperand {
 
     //Default constructor
     public Operand() {
-        operand = null;
+        operand = "";
     }
 
     //Parametrized constructor
@@ -22,23 +22,8 @@ public class Operand implements IOperand {
         return operand;
     }
 
-    //Check if operand is a number (true), otherwise return false (label)
-//    public boolean isDigit() {
-//        boolean bool = false;
-//
-//        //Checks if Alphabetical Character Exists
-//        for(char c:operand.toCharArray())
-//            bool = c > 'A' ? false : true;
-//
-//        return bool;
-//        //return operand.matches("[0-9]+");
-//
-//        /*
-//        ASCII TABLE:
-//        48 to 57 -> integer char 0 to 9
-//        65 to 90 -> caps alphabetic
-//        97 to 122 -> small alphabetic
-//         */
-//    }
-
+    //toString method
+    public String toString() {
+        return operand;
+    }
 }

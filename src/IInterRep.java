@@ -13,6 +13,15 @@ public interface IInterRep {
     //Get length of LineStatements array
     int getLength();
 
+    //Set a LineStatement's label
+    void setLabel(int i, String label);
+
+    //Set a LineStatement's comments
+    void setComment(int i, String comment);
+
+    //Set a LineStatement's instruction
+    void setInstruction(int i, IInstruction instruction);
+
     //Returns a String representable of an InterRep object
     String toString();
 }

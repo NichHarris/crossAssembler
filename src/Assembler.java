@@ -21,20 +21,23 @@ public class Assembler {
         //Set the options from the
         IOptions options = new Options(args);
 
-        //Parse the .asm file and get an array of unparsed line statements
-        IReader fileContent = new Reader(args[fileIndex]);
-        ArrayList<String> assemblyUnit = fileContent.getAssemblyUnit();
+        //Scan for tokens using the read file content from Reader
+        IScanner scanner = new Scanner(new Reader(args[fileIndex]));
 
-        //Initialize the IR
-        IInterRep IR = new InterRep(assemblyUnit.size());
+        //Get the parser from scanner
+        IParser parser = scanner.getParser();
+        IInterRep interRep = parser.getInterRep();
 
-        //Parse line statements into tokens and comments
-        IScanner scanner = new Scanner(assemblyUnit);
-
-        //Perform syntax analysis on tokens
-        IParser parser = new Parser(scanner, IR);
+        for (int i = 0; i < interRep.getLength(); i++) {
+            System.out.println(interRep.getLine(i).toString());
+        }
 
         //Generate listing file
-        ICodeGenerator generator = new CodeGenerator(IR, options);
+        //ICodeGenerator generator = new CodeGenerator(interRep, options);
+        Listing listing = new Listing(interRep);
+        String[] str = listing.getListing();
+        for (int i = 0; i < str.length; i++) {
+            System.out.println(str[i]);
+        }
     }
 }

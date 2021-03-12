@@ -1,3 +1,4 @@
+/*
 import java.util.ArrayList;
 
 //Testing File Scanner Functionality
@@ -31,3 +32,5 @@ public class ScannerTest {
         System.out.println(methodOutput);
     }
 }
+
+ */

@@ -12,4 +12,7 @@ public interface IMnemonic {
 
     //Set the mnemonic name as a string
     void setMnemonic(String mne);
+
+    //toString method
+    String toString();
 }

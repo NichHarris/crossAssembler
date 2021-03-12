@@ -3,14 +3,15 @@ import java.util.ArrayList;
 //Interface for Scanner class
 public interface IScanner {
 
-    //Returns list of tokens
-    ArrayList<ArrayList<String>> getTokens();
+    //Get the token type of a token
+    TokenType getTokenType(String name, int colNum);
 
-    //Returns list of comments
-    String[] getComments();
+    //Check if token is numeric
+    boolean isNumeric(String str);
 
+    //Send token to Parser
     void sendToParser();
 
-    //Print method for checking tokens
-    void printTokens();
+    //Get the parser
+    IParser getParser();
 }
