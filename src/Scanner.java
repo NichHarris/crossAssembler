@@ -74,10 +74,7 @@ public class Scanner implements IScanner {
             }
             //If space detected (and not a comment), create a token, increment column number and clear buffer
             else if (isSpace && !isComment) {
-                if (buffer == ""){
-                    //Continue
-                }
-                else {
+                if (buffer != "") {
                     tokenType = this.getTokenType(buffer, colNum);
                     token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                     sendToParser();
@@ -87,16 +84,16 @@ public class Scanner implements IScanner {
                     buffer = "";
                 }
             }
+            //Keep adding to buffer if comment detected
+            else if (isComment) {
+                buffer = buffer + (c);
+            }
             //Comment detected
             else if (c == ';') {
                 isComment = true;
                 buffer = buffer + (c);
             }
-            //Keep adding to buffer if comment detected
-            else if (isComment) {
-                buffer = buffer + (c);
-            }
-//            Keep adding to buffer
+            // Keep adding to buffer
             else {
                 buffer = buffer + (c);
             }

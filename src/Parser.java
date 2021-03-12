@@ -39,25 +39,20 @@ public class Parser implements IParser {
                     break;
                 case LabelOperand:
                     //Add LineStatement to IR with operand
-                    if (isNumeric(token.getName())) {
+                    if (isNumeric(token.getName()))
                         interRep.addLine(lineNum, new LineStatement(null, new Instruction(null, new Operand(token.getName())), null));
-                        break;
-                    }
                     //Add LineStatement to IR with label
-                    else {
+                    else
                         interRep.addLine(lineNum, new LineStatement(token.getName(), null, null));
-                        break;
-                    }
+                    break;
                 default:
                     //Add comment
                     if (token.getName().startsWith(";")) {
                         interRep.addLine(lineNum, new LineStatement(null, null, token.getName()));
-                        break;
                     }
                     //Add empty LineStatement
                     else if (token.getName() == ""){
                         interRep.addLine(lineNum, new LineStatement(null, null, null));
-                        break;
                     }
                     else {
                         //TODO: add error reporting if none of these work
