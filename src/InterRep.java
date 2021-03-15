@@ -40,17 +40,12 @@ public class InterRep implements IInterRep {
     }
 
 
-    //TODO ????
+    //Check line i for instruction
     public boolean hasInstruction(int i) {
-        //Empty Line - lines[i] == null
-        if (lines[i] == null) return false;
-
-        if(lines[i].getInstruction() == null || lines[i].getInstruction().getMnemonic().getMne() == "") {
+        //Check for empty line or no instruction
+        if (lines[i] == null || lines[i].getInstruction().getMnemonic().getMne() == "")
             return false;
-        }
-//        if (lines[i] == null || lines[i].getInstruction().getMnemonic().getMne() == "") {
-//            return false;
-//        }
+
         return true;
     }
 

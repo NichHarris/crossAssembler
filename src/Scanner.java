@@ -16,7 +16,7 @@ public class Scanner implements IScanner {
     private boolean isSpace = false, isEOL = false;
     private boolean isComment = false, spaceBeforeEOL = false;
 
-    public Scanner(Reader file) {
+    public Scanner(IReader file) {
         //Reader file
         this.file = file;
         //Symbol table
@@ -25,12 +25,16 @@ public class Scanner implements IScanner {
         buffer = "";
         //Number of lines in file
         numLines = file.getLineNum();
-        //Input file content as a String
-        String fileContent = file.getFileContent();
         //Initialize Line & Col number
         lineNum = 0; colNum = 0;
         //Instance of Parser
         parser = new Parser(numLines + 1);
+    }
+
+    //Scans file character by character given Reader object
+    public void scanFile() {
+        //Input file content as a String
+        String fileContent = file.getFileContent();
 
         //Traverse the file content character per character and scan for tokens
         for (int i = 0; i < fileContent.length(); i++) {
@@ -111,7 +115,6 @@ public class Scanner implements IScanner {
             else {
                 buffer = buffer + (c);
             }
-
         }
     }
 

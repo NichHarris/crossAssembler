@@ -1,7 +1,8 @@
-import java.util.ArrayList;
-
 //Interface for Reader class
 public interface IReader {
+
+    //Reads file character by character
+    void readFile() throws Exception;
 
     //Get character from file content
     Character getChar(int pos);

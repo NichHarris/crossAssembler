@@ -1,6 +1,6 @@
 //Options class - Determine and check validity of options provided by the developer from the command line
 public class Options implements IOptions {
-    //Listing and verbose flags
+    //Flags and file
     private boolean listing, verbose;
     private String file;
 
