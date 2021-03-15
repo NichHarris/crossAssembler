@@ -14,8 +14,8 @@ public class Assembler {
         reader.readFile();
 
         //Scan for tokens using the read file content from Reader
-        IScanner scanner = new Scanner(reader);
-        scanner.scanFile();
+        IScanner scanner = new Scanner();
+        scanner.scanFile(reader);
 
         //Get the parser from scanner
         IParser parser = scanner.getParser();

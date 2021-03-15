@@ -1,40 +1,39 @@
 //Scanner - Performs Lexical Analysis on the assembly unit
 public class Scanner implements IScanner {
-    private IReader file;
     private IToken token;
+    private TokenType tokenType;
 
     private IParser parser;
-    private TokenType tokenType;
     private SymbolTable symbolTable;
 
     private String buffer;
-    private String content, tokenStr;
-
     private int numLines;
     private int lineNum, colNum;
 
     private boolean isSpace = false, isEOL = false;
     private boolean isComment = false, spaceBeforeEOL = false;
 
-    public Scanner(IReader file) {
-        //Reader file
-        this.file = file;
-        //Symbol table
-        symbolTable = new SymbolTable();
+    public Scanner() {
         //Buffer for obtaining tokens
         buffer = "";
-        //Number of lines in file
-        numLines = file.getLineNum();
+
         //Initialize Line & Col number
         lineNum = 0; colNum = 0;
-        //Instance of Parser
-        parser = new Parser(numLines + 1);
+
+        //Create instance of Symbol table
+        symbolTable = new SymbolTable();
     }
 
     //Scans file character by character given Reader object
-    public void scanFile() {
+    public void scanFile(IReader file) {
         //Input file content as a String
         String fileContent = file.getFileContent();
+
+        //Number of lines in file
+        numLines = file.getLineNum();
+
+        //Instance of Parser
+        parser = new Parser(numLines + 1);
 
         //Traverse the file content character per character and scan for tokens
         for (int i = 0; i < fileContent.length(); i++) {
@@ -134,46 +133,40 @@ public class Scanner implements IScanner {
     //Get the token type of a token
     //TODO: to be improved for edge cases + error reporter
     public TokenType getTokenType(String name, int colNum) {
-
         //Get the opcode of the token
         int code = symbolTable.getCode(name);
 
         //Check if mnemonic
-        if(code != -1){
+        if(code != -1)
             return TokenType.Mnemonic;
-        }
         //Check if operand
-        else if (isNumeric(name)) {
+        else if (isNumeric(name))
             return TokenType.LabelOperand;
-        }
-        else if (isComment) {
+        //Check if comment
+        else if (isComment)
             return TokenType.Comment;
-        }
-        //Check if label
-        else if (colNum == 0 && !isNumeric(name)) {
+        //Check if label ?? Does col need to be 0?
+        else if (colNum == 0 && !isNumeric(name))
             return TokenType.Label;
-        }
 
         return TokenType.None;
     }
 
     //Check if token is numeric
     public boolean isNumeric(String str) {
-
-        if (str.length() == 0) {
+        if (str.length() == 0)
             return false;
-        }
 
-        // TODO: Deal with Edge Later
+        for(int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
 
-        if (str.startsWith("-")) {
-            return true;
-        }
-
-        for (char c : str.toCharArray()) {
-            if (!Character.isDigit(c)){
-                return false;
-            }
+            //Check if character is outside number range
+            if(c < 48 || c > 57)
+                //Check if Negative Number (-)
+                if (i == 0 && c == 45)
+                    continue;
+                else
+                    return false;
         }
 
         return true;

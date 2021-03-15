@@ -1,6 +1,5 @@
 //Intermediate Representation (IR) comprised of parsed LineStatements along with their respective codes
 public class InterRep implements IInterRep {
-
     //Array of line statements
     private final ILineStatement[] lines;
 

@@ -3,27 +3,34 @@ public class OptionsTest {
         //Testing the function isListing() from Options Class
 
         //Incorrect Option
-        // outputs error message, does not follow aunit convention
-        String[] options = {"-z"};
-        System.out.println("Test -Options Class- Incorrect Options");
-        System.out.println("java.lang.Exception: Error: Invalid Option");
+        //Outputs error message, does not follow aunit convention
+        String[] options = {"-z", "sample.asm"};
         Options incorrectOption = new Options();
+        System.out.println("Test -Options Class- Incorrect Options");
+        System.out.println("Error: Invalid Option");
         incorrectOption.setOptions(options);
         System.out.println();
 
+        String[] op2 = {"-h", "-l", "-v", "sample.asm"};
+        Options incorrect2 = new Options();
+        System.out.println("Test -Options Class- Too Many Options");
+        System.out.println("Error: Too Many Arguments in CL");
+        incorrect2.setOptions(op2);
+        System.out.println();
+
         //Correct options
-        String[] opArray2= {"-v","-l"};
+        String[] opArray2= {"-v","-l","sample.asm"};
         Options CorrectOption = new Options();
         CorrectOption.setOptions(opArray2);
-        testOptions("Test -Options Class- isVerbose()", "true", Boolean.toString(CorrectOption.isVerbose()));
-        testOptions("Test -Options Class- isListing()", "true", Boolean.toString(CorrectOption.isListing()));
+        testOptions("Test -Options Class- isVerbose()", "true", "" + CorrectOption.isVerbose());
+        testOptions("Test -Options Class- isListing()", "true", "" + CorrectOption.isListing());
     }
 
     public static void testOptions(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
+        //Test Case Name
         System.out.println(testCaseName);
-        // expected value
+        //Expected and Actual Output
         System.out.println(expectedOutput);
-        // actual output
         System.out.println(methodOutput);
     }
 

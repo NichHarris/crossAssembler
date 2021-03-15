@@ -1,7 +1,7 @@
 //Interface for Scanner class
 public interface IScanner {
     //Scans file character by character given Reader
-    void scanFile();
+    void scanFile(IReader reader);
 
     //Get the token type of a token
     TokenType getTokenType(String name, int colNum);

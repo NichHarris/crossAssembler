@@ -1,9 +1,10 @@
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
 public class Parser implements IParser {
     private IInterRep interRep;
-    private ISymbolTable symbolTable;
-    private ILineStatement line;
     private IInstruction instr;
+    private ILineStatement line;
+
+    private ISymbolTable symbolTable;
 
     //Parser constructor initializes IR using number of lines from Reader
     public Parser(int len) {
