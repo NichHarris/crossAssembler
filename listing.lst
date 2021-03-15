@@ -2,71 +2,71 @@ Line Addr Machine Code  Label         Assembly Code          Comments
 0    0000                                                    ; TestImmediate.asm - Test immediate instructions.
 1    0001                                                                        
 2    0002 70                          enter.u5 0             ; OK, number <u5> [0..31].
-3    0003 72                          enter.u5 2             ; OK, number <u5> [0..31].
-4    0004 73                          enter.u5 3             ; OK, number <u5> [0..31].
-5    0005 74                          enter.u5 4             ; OK, number <u5> [0..31].
-6    0006 75                          enter.u5 5             ; OK, number <u5> [0..31].
-7    0007 76                          enter.u5 6             ; OK, number <u5> [0..31].
-8    0008 77                          enter.u5 7             ; OK, number <u5> [0..31].
-9    0009 78                          enter.u5 8             ; OK, number <u5> [0..31].
-10   000A 79                          enter.u5 9             ; OK, number <u5> [0..31].
-11   000B 7A                          enter.u5 10            ; OK, number <u5> [0..31].
-12   000C 7B                          enter.u5 11            ; OK, number <u5> [0..31].
-13   000D 7C                          enter.u5 12            ; OK, number <u5> [0..31].
-14   000E 7D                          enter.u5 13            ; OK, number <u5> [0..31].
-15   000F 7E                          enter.u5 14            ; OK, number <u5> [0..31].
-16   0010 7F                          enter.u5 15            ; OK, number <u5> [0..31].
-17   0011 80                          enter.u5 16            ; OK, number <u5> [0..31].
-18   0012 81                          enter.u5 17            ; OK, number <u5> [0..31].
-19   0013 82                          enter.u5 18            ; OK, number <u5> [0..31].
-20   0014 83                          enter.u5 19            ; OK, number <u5> [0..31].
-21   0015 84                          enter.u5 20            ; OK, number <u5> [0..31].
-22   0016 85                          enter.u5 21            ; OK, number <u5> [0..31].
-23   0017 86                          enter.u5 22            ; OK, number <u5> [0..31].
-24   0018 87                          enter.u5 23            ; OK, number <u5> [0..31].
-25   0019 88                          enter.u5 24            ; OK, number <u5> [0..31].
-26   001A 89                          enter.u5 25            ; OK, number <u5> [0..31].
-27   001B 8A                          enter.u5 26            ; OK, number <u5> [0..31].
-28   001C 8B                          enter.u5 27            ; OK, number <u5> [0..31].
-29   001D 8C                          enter.u5 28            ; OK, number <u5> [0..31].
-30   001E 8D                          enter.u5 29            ; OK, number <u5> [0..31].
-31   001F 8E                          enter.u5 30            ; OK, number <u5> [0..31].
-32   0020 8F                          enter.u5 31            ; OK, number <u5> [0..31].
-33   0021                                                                        
-34   0022 90                          ldc.i3   0             ; OK, number <i3> [-4..3].
-35   0023 91                          ldc.i3   1             ; OK, number <i3> [-4..3].
-36   0024 92                          ldc.i3   2             ; OK, number <i3> [-4..3].
-37   0025 93                          ldc.i3   3             ; OK, number <i3> [-4..3].
-38   0026 8C                          ldc.i3   -4            ; OK, number <i3> [-4..3].
-39   0027 8D                          ldc.i3   -3            ; OK, number <i3> [-4..3].
-40   0028 8E                          ldc.i3   -2            ; OK, number <i3> [-4..3].
-41   0029 8F                          ldc.i3   -1            ; OK, number <i3> [-4..3].
-42   002A                                                                        
-43   002B 98                          addv.u3  0             ; OK, number <u3> [0..7].
-44   002C 99                          addv.u3  1             ; OK, number <u3> [0..7].
-45   002D 9A                          addv.u3  2             ; OK, number <u3> [0..7].
-46   002E 9B                          addv.u3  3             ; OK, number <u3> [0..7].
-47   002F 9C                          addv.u3  4             ; OK, number <u3> [0..7].
-48   0030 9D                          addv.u3  5             ; OK, number <u3> [0..7].
-49   0031 9E                          addv.u3  6             ; OK, number <u3> [0..7].
-50   0032 9F                          addv.u3  7             ; OK, number <u3> [0..7].
-51   0033                                                                        
-52   0034 A0                          ldv.u3   0             ; OK, number <u3> [0..7].
-53   0035 A1                          ldv.u3   1             ; OK, number <u3> [0..7].
-54   0036 A2                          ldv.u3   2             ; OK, number <u3> [0..7].
-55   0037 A3                          ldv.u3   3             ; OK, number <u3> [0..7].
-56   0038 A4                          ldv.u3   4             ; OK, number <u3> [0..7].
-57   0039 A5                          ldv.u3   5             ; OK, number <u3> [0..7].
-58   003A A6                          ldv.u3   6             ; OK, number <u3> [0..7].
-59   003B A7                          ldv.u3   7             ; OK, number <u3> [0..7].
-60   003C                                                                        
-61   003D A8                          stv.u3   0             ; OK, number <u3> [0..7].
-62   003E A9                          stv.u3   1             ; OK, number <u3> [0..7].
-63   003F AA                          stv.u3   2             ; OK, number <u3> [0..7].
-64   0040 AB                          stv.u3   3             ; OK, number <u3> [0..7].
-65   0041 AC                          stv.u3   4             ; OK, number <u3> [0..7].
-66   0042 AD                          stv.u3   5             ; OK, number <u3> [0..7].
-67   0043 AE                          stv.u3   6             ; OK, number <u3> [0..7].
-68   0044 AF                          stv.u3   7             ; OK, number <u3> [0..7].
-69   0045                                                                        
+3    0003 71                          enter.u5 1                                 
+4    0004 72                          enter.u5 2             ; OK, number <u5> [0..31].
+5    0005 73                          enter.u5 3             ; OK, number <u5> [0..31].
+6    0006 74                          enter.u5 4             ; OK, number <u5> [0..31].
+7    0007 75                          enter.u5 5             ; OK, number <u5> [0..31].
+8    0008 76                          enter.u5 6             ; OK, number <u5> [0..31].
+9    0009 77                          enter.u5 7             ; OK, number <u5> [0..31].
+10   000A 78                          enter.u5 8             ; OK, number <u5> [0..31].
+11   000B 79                          enter.u5 9             ; OK, number <u5> [0..31].
+12   000C 7A                          enter.u5 10            ; OK, number <u5> [0..31].
+13   000D 7B                          enter.u5 11            ; OK, number <u5> [0..31].
+14   000E 7C                          enter.u5 12            ; OK, number <u5> [0..31].
+15   000F 7D                          enter.u5 13            ; OK, number <u5> [0..31].
+16   0010 7E                          enter.u5 14            ; OK, number <u5> [0..31].
+17   0011 7F                          enter.u5 15            ; OK, number <u5> [0..31].
+18   0012 80                          enter.u5 16            ; OK, number <u5> [0..31].
+19   0013 81                          enter.u5 17            ; OK, number <u5> [0..31].
+20   0014 82                          enter.u5 18            ; OK, number <u5> [0..31].
+21   0015 83                          enter.u5 19            ; OK, number <u5> [0..31].
+22   0016 84                          enter.u5 20            ; OK, number <u5> [0..31].
+23   0017 85                          enter.u5 21            ; OK, number <u5> [0..31].
+24   0018 86                          enter.u5 22            ; OK, number <u5> [0..31].
+25   0019 87                          enter.u5 23            ; OK, number <u5> [0..31].
+26   001A 88                          enter.u5 24            ; OK, number <u5> [0..31].
+27   001B 89                          enter.u5 25            ; OK, number <u5> [0..31].
+28   001C 8A                          enter.u5 26            ; OK, number <u5> [0..31].
+29   001D 8B                          enter.u5 27            ; OK, number <u5> [0..31].
+30   001E 8C                          enter.u5 28            ; OK, number <u5> [0..31].
+31   001F 8D                          enter.u5 29            ; OK, number <u5> [0..31].
+32   0020 8E                          enter.u5 30            ; OK, number <u5> [0..31].
+33   0021 8F                          enter.u5 31            ; OK, number <u5> [0..31].
+34   0022                                                                        
+35   0023 90                          ldc.i3   0             ; OK, number <i3> [-4..3].
+36   0024 91                          ldc.i3   1             ; OK, number <i3> [-4..3].
+37   0025 92                          ldc.i3   2             ; OK, number <i3> [-4..3].
+38   0026 93                          ldc.i3   3             ; OK, number <i3> [-4..3].
+39   0027 8C                          ldc.i3   -4            ; OK, number <i3> [-4..3].
+40   0028 8D                          ldc.i3   -3            ; OK, number <i3> [-4..3].
+41   0029 8E                          ldc.i3   -2            ; OK, number <i3> [-4..3].
+42   002A 8F                          ldc.i3   -1            ; OK, number <i3> [-4..3].
+43   002B                                                                        
+44   002C 98                          addv.u3  0             ; OK, number <u3> [0..7].
+45   002D 99                          addv.u3  1             ; OK, number <u3> [0..7].
+46   002E 9A                          addv.u3  2             ; OK, number <u3> [0..7].
+47   002F 9B                          addv.u3  3             ; OK, number <u3> [0..7].
+48   0030 9C                          addv.u3  4             ; OK, number <u3> [0..7].
+49   0031 9D                          addv.u3  5             ; OK, number <u3> [0..7].
+50   0032 9E                          addv.u3  6             ; OK, number <u3> [0..7].
+51   0033 9F                          addv.u3  7             ; OK, number <u3> [0..7].
+52   0034                                                                        
+53   0035 A0                          ldv.u3   0             ; OK, number <u3> [0..7].
+54   0036 A1                          ldv.u3   1             ; OK, number <u3> [0..7].
+55   0037 A2                          ldv.u3   2             ; OK, number <u3> [0..7].
+56   0038 A3                          ldv.u3   3             ; OK, number <u3> [0..7].
+57   0039 A4                          ldv.u3   4             ; OK, number <u3> [0..7].
+58   003A A5                          ldv.u3   5             ; OK, number <u3> [0..7].
+59   003B A6                          ldv.u3   6             ; OK, number <u3> [0..7].
+60   003C A7                          ldv.u3   7             ; OK, number <u3> [0..7].
+61   003D                                                                        
+62   003E A8                          stv.u3   0             ; OK, number <u3> [0..7].
+63   003F A9                          stv.u3   1             ; OK, number <u3> [0..7].
+64   0040 AA                          stv.u3   2             ; OK, number <u3> [0..7].
+65   0041 AB                          stv.u3   3             ; OK, number <u3> [0..7].
+66   0042 AC                          stv.u3   4             ; OK, number <u3> [0..7].
+67   0043 AD                          stv.u3   5             ; OK, number <u3> [0..7].
+68   0044 AE                          stv.u3   6             ; OK, number <u3> [0..7].
+69   0045 AF                          stv.u3   7             ; OK, number <u3> [0..7].
 
