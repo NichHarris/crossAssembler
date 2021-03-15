@@ -10,7 +10,6 @@ public class Listing implements IListing {
     private String label, mne, operand;
     private String comment;
 
-    private boolean instructionExists;
     //String array in which the listing file content will be written
     private String[] listing;
 
@@ -59,39 +58,8 @@ public class Listing implements IListing {
                     //Set comment from line statement
                     comment = (IR.getLine(i).getComment() == null) ? "" : IR.getLine(i).getComment();
                 }
-
-                /*
-
-                //Get the opcode
-                if (IR.getLine(i).getInstruction().getMnemonic().getOpcode() == -1)
-                    code = "";
-                else
-                    code = String.format("%1$02X", IR.getLine(i).getInstruction().getMnemonic().getOpcode());
-
-                label = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
-                //Get the value (if there is one), Set to empty if it is not present, Set value from line statementlabel = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
-
-                // ':-1' instead of null
-                if (IR.getLine(i).getInstruction() != null) {
-                    if (IR.getLine(i).getInstruction().getMnemonic().getOpcode() == -1){
-                        code = "";
-                    }
-                    else {
-                        code = String.format("%1$02X", IR.getLine(i).getInstruction().getMnemonic().getOpcode());
-                    }
-                    mne = (IR.hasInstruction(i) && IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getMnemonic().getMne();
-                    operand = (IR.hasInstruction(i) && IR.getLine(i).getInstruction().getOperand().getOp() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();
-                }else{
-                    mne = "";
-                    operand = "";
-                    code =  ""; //String.format("%1$02X", "");
-                }
-                //Set comment from line statement
-                comment = (IR.getLine(i).getComment() == null) ? "" : IR.getLine(i).getComment();
-
-                 */
             } catch(Exception e){
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
             }
 
             //Add line statement components to listing in table format

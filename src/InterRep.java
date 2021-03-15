@@ -59,7 +59,7 @@ public class InterRep implements IInterRep {
         IInstruction instr = this.getLine(i).getInstruction();
         //Check if operand present in instruction
         if (instr.getOperand().getOp() != ""){
-            //Compute updated code with "Opcode + Operand" and update the LineStatement's instruction
+            //Compute updated code with "Opcode + Operand" and update the LineStatement instruction
             int opcode = instr.getMnemonic().getOpcode();
             int operand = Integer.parseInt(instr.getOperand().getOp());
             int updatedCode = opcode + operand;
@@ -71,10 +71,9 @@ public class InterRep implements IInterRep {
     //Returns a String representable of an InterRep object
     public String toString() {
         String IR = "";
-        for(int i = 0; i < this.getLength(); i++) {
-            IR = IR.concat(String.format("Line %s: %s", i, lines[i].toString()));
-            IR = IR.concat("\n");
-        }
+        for(int i = 0; i < this.getLength(); i++)
+            IR = IR.concat(String.format("Line %s: %s", i, lines[i].toString() + "\n"));
+
         return IR;
     }
 }

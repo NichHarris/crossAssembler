@@ -29,6 +29,6 @@ public class Mnemonic implements IMnemonic {
 
     //toString method
     public String toString() {
-        return "'" + mnemonic + ": " + Integer.toString(opcode) + "'";
+        return "\"" + mnemonic + ": " + Integer.toString(opcode) + "\"";
     }
 }

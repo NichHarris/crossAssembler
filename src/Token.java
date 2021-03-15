@@ -5,15 +5,16 @@ public class Token implements IToken {
     private TokenType code;
     private String    name;
 
-    Token(Position pos, String name, TokenType code) {
-        this.pos = pos;
-        this.name = name;
-        this.code = code;
+    Token(Position p, String n, TokenType c) {
+        pos = p;
+        name = n;
+        code = c;
     }
 
-    public  Position  getPosition()  { return pos; }
-    public  String    getName()      { return name; }
-    public  TokenType getCode()      { return code; }
-    public  String    toString()     { return "["+getName()+pos+"="+code+"]"; }
+    //Getters - Position, Name and Code
+    public Position getPosition() { return pos; }
+    public String getName() { return name; }
+    public TokenType getCode() { return code; }
 
+    public String toString() { return "[" + getName() + pos + "=" + code + "]"; }
 }

@@ -1,16 +1,17 @@
 // Position.java - (c) 2001-2021 by Michel de Champlain
 
 public class Position implements IPosition {
-    Position(int lineNumber, int columnNumber) {
-        this.lineNumber = lineNumber;
-        this.columnNumber = columnNumber;
-    }
-    public  int    getLineNumber()   { return lineNumber;   }
-    public  int    getColumnNumber() { return columnNumber; }
+    private int lineNumber, columnNumber;
 
-    public  String toString() {
-        return "("+getLineNumber()+","+getColumnNumber()+")";
+    Position(int ln, int cn) {
+        lineNumber = ln;
+        columnNumber = cn;
     }
-    private int lineNumber;
-    private int columnNumber;
+
+    public int getLineNumber() { return lineNumber; }
+    public int getColumnNumber() { return columnNumber; }
+
+    public String toString() {
+        return "(" + getLineNumber() + "," + getColumnNumber() + ")";
+    }
 }
