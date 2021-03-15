@@ -45,10 +45,7 @@ public class Reader implements IReader {
             currentChar = file.read();
         }
 
-        //Failsafe in case fileContent begins with a space
-        //if(fileContent.charAt(0) == ' ') {
-        //    fileContent = fileContent.substring(1);
-        //}
+        //System.out.println(fileContent);
 
         //Close the source file
         file.close();

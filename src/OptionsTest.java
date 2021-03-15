@@ -7,12 +7,14 @@ public class OptionsTest {
         String[] options = {"-z"};
         System.out.println("Test -Options Class- Incorrect Options");
         System.out.println("java.lang.Exception: Error: Invalid Option");
-        Options incorrectOption = new Options(options);
+        Options incorrectOption = new Options();
+        incorrectOption.setOptions(options);
         System.out.println();
 
         //Correct options
         String[] opArray2= {"-v","-l"};
-        Options CorrectOption = new Options(opArray2);
+        Options CorrectOption = new Options();
+        CorrectOption.setOptions(opArray2);
         testOptions("Test -Options Class- isVerbose()", "true", Boolean.toString(CorrectOption.isVerbose()));
         testOptions("Test -Options Class- isListing()", "true", Boolean.toString(CorrectOption.isListing()));
     }

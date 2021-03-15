@@ -1,6 +1,9 @@
 // Token.java - (c) 2000-2021 by Michel de Champlain
 
 public class Token implements IToken {
+    private Position  pos;
+    private TokenType code;
+    private String    name;
 
     Token(Position pos, String name, TokenType code) {
         this.pos = pos;
@@ -13,7 +16,4 @@ public class Token implements IToken {
     public  TokenType getCode()      { return code; }
     public  String    toString()     { return "["+getName()+pos+"="+code+"]"; }
 
-    private Position  pos;
-    private TokenType code;
-    private String    name;
 }

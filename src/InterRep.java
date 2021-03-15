@@ -42,10 +42,15 @@ public class InterRep implements IInterRep {
 
     //TODO ????
     public boolean hasInstruction(int i) {
-        IInstruction instr = lines[i].getInstruction();
-        if (instr.getMnemonic().getMne() == "") {
+        //Empty Line - lines[i] == null
+        if (lines[i] == null) return false;
+
+        if(lines[i].getInstruction() == null || lines[i].getInstruction().getMnemonic().getMne() == "") {
             return false;
         }
+//        if (lines[i] == null || lines[i].getInstruction().getMnemonic().getMne() == "") {
+//            return false;
+//        }
         return true;
     }
 

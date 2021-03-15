@@ -1,22 +1,36 @@
-//Options class used to determine options provided by the developer from the command line
+//Options class - Determine and check validity of options provided by the developer from the command line
 public class Options implements IOptions {
     //Listing and verbose flags
-    private boolean listing;
-    private boolean verbose;
+    private boolean listing, verbose;
+    private String file;
 
-    //Default constructor
-    public Options(String[] options) throws Exception {
-        //Listing and verbose flags
+    //Default constructor - Initialize listing and verbose flags
+    public Options() {
+        //Initialize listing and verbose flags
         listing = false;
         verbose = false;
+        file = "";
+    }
 
-        //Iterate through command line arguments
-        for (String o:options) {
-            try {
-                switch (o) {
+    //Set Options
+    public void setOptions(String[] options) {
+        int len = options.length;
+
+        try {
+            //Check if assembly file is included as last argument
+            if (len < 1 || !options[len - 1].endsWith(".asm"))
+                throw new Exception("Error: Missing Assembly file");
+
+            //Check if there's too many CLI arguments
+            if (options.length > 3)
+                throw new Exception("Error: Too Many Arguments in CL");
+
+            //Iterate through command line arguments
+            for (int i = 0; i < len - 1; i++)
+                switch (options[i]) {
+                    //Output details of available commands
                     case "-h":
                     case "--help":
-                        //Output details of available commands
                         displayHelp();
                         break;
                     //Set status of listing option
@@ -29,20 +43,31 @@ public class Options implements IOptions {
                     case "--verbose":
                         verbose = true;
                         break;
+                    //Invalid options
                     default:
-                        if(o.endsWith(".asm")) break;
+                        if (options[i].endsWith(".asm"))
+                            throw new Exception("Error: File Must Be Last Option");
+
                         throw new Exception("Error: Invalid Option");
                 }
-            } catch (Exception e) {
-                System.out.print(e.toString());
-            }
+
+            //Set file
+            file = options[len - 1];
+        } catch (Exception e) {
+            System.out.print(e.getMessage());
         }
+    }
+
+    //Get File Name
+    public String getFile() {
+        return file;
     }
 
     //Get status of listing option
     public boolean isListing(){
         return listing;
     }
+
     //Get status of verbose option
     public boolean isVerbose(){
         return verbose;

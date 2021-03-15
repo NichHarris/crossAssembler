@@ -1,45 +1,40 @@
 //Scanner - Performs Lexical Analysis on the assembly unit
 public class Scanner implements IScanner {
-    //private final ArrayList<ArrayList<String>> tokens;
-    //private final String[] comments;
     private IReader file;
     private IToken token;
-    private String buffer;
-    private String content;
-    private String tokenStr;
-    private SymbolTable symbolTable;
-    private int numLines;
-    private int lineNum;
-    private int colNum;
+
     private IParser parser;
     private TokenType tokenType;
-    private boolean isSpace = false;
-    private boolean isEOL = false;
-    private boolean isComment = false;
-    private boolean spaceBeforeEOL = false;
+    private SymbolTable symbolTable;
+
+    private String buffer;
+    private String content, tokenStr;
+
+    private int numLines;
+    private int lineNum, colNum;
+
+    private boolean isSpace = false, isEOL = false;
+    private boolean isComment = false, spaceBeforeEOL = false;
 
     public Scanner(Reader file) {
         //Reader file
         this.file = file;
         //Symbol table
-        this.symbolTable = new SymbolTable();
+        symbolTable = new SymbolTable();
         //Buffer for obtaining tokens
-        this.buffer = "";
+        buffer = "";
         //Number of lines in file
-        this.numLines = file.getLineNum();
+        numLines = file.getLineNum();
         //Input file content as a String
         String fileContent = file.getFileContent();
-        //Line number
-        this.lineNum = 0;
-        //Column number
-        this.colNum = 0;
+        //Initialize Line & Col number
+        lineNum = 0; colNum = 0;
         //Instance of Parser
-        this.parser = new Parser(numLines + 1);
+        parser = new Parser(numLines + 1);
 
         //Traverse the file content character per character and scan for tokens
         for (int i = 0; i < fileContent.length(); i++) {
             //Adds Character By Character to Token
-
             char c = file.getChar(i);
 
             //Character type flags

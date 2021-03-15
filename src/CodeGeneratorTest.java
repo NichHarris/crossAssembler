@@ -6,7 +6,8 @@ public class CodeGeneratorTest {
 
         //Creating Options
         String[] options = {"-v", "-l"};
-        Options op2 = new Options(options);
+        Options op2 = new Options();
+        op2.setOptions(options);
 
         //Creating an InterRepresentation
         InterRep IR = new InterRep(1);

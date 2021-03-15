@@ -23,7 +23,7 @@ public class Parser implements IParser {
         //Get opcode from Symbol Table
         int code = symbolTable.getCode(token.getName());
 
-        System.out.println("Line: " + lineNum + ", Token: " + token.getName());
+        //System.out.println("Line: " + lineNum + ", Token: " + token.getName());
 
         //Check if LineStatement already exists
         //If it doesn't exist, add a new LineStatement to the IR with the given token
@@ -50,14 +50,13 @@ public class Parser implements IParser {
                     interRep.addLine(lineNum, new LineStatement(null, null, token.getName()));
                     break;
                 default:
+                    //System.out.println("HERE" + token.getName());
                     //Add empty LineStatement
-                    if (token.getName() == ""){
+                    if (token.getName() == "")
                         interRep.addLine(lineNum, new LineStatement(null, null, null));
-                    }
-                    else {
+                    else
                         //TODO: add error reporting if none of these work
                         System.err.print("Invalid token. Need to check why");
-                    }
             }
         }
         //If a LineStatement already exists, add token to said LineStatement
@@ -154,7 +153,7 @@ public class Parser implements IParser {
     public void secondPass() {
         //Traverse LineStatements in IR and update codes
         for (int i = 0; i < interRep.getLength(); i++){
-            System.out.println(interRep.hasInstruction(i));
+            //System.out.println(interRep.hasInstruction(i));
             if (interRep.hasInstruction(i)) {
                 interRep.setMachineCode(i);
             }
