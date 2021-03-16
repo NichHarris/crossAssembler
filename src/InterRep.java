@@ -62,9 +62,32 @@ public class InterRep implements IInterRep {
             //Compute updated code with "Opcode + Operand" and update the LineStatement instruction
             int opcode = instr.getMnemonic().getOpcode();
             int operand = Integer.parseInt(instr.getOperand().getOp());
-            int updatedCode = opcode + operand;
-            instr.setOpcode(updatedCode);
-            this.setInstruction(i, instr);
+            int updatedCode;
+            if (instr.getMnemonic().getOpcode() == 0x90 && operand < 0) {
+                // special case for ldc.i3 and negative operands
+                switch(operand) {
+                    case -4:
+                        updatedCode = opcode + 4;
+                        instr.setOpcode(updatedCode);
+                        this.setInstruction(i, instr);
+                    case -3:
+                        updatedCode = opcode + 5;
+                        instr.setOpcode(updatedCode);
+                        this.setInstruction(i, instr);
+                    case -2:
+                        updatedCode = opcode + 6;
+                        instr.setOpcode(updatedCode);
+                        this.setInstruction(i, instr);
+                    case -1:
+                        updatedCode = opcode + 7;
+                        instr.setOpcode(updatedCode);
+                        this.setInstruction(i, instr);
+                }
+            } else {
+                updatedCode = opcode + operand;
+                instr.setOpcode(updatedCode);
+                this.setInstruction(i, instr);
+            }
         }
     }
 
