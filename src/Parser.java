@@ -5,11 +5,14 @@ public class Parser implements IParser {
     private ILineStatement line;
 
     private ISymbolTable symbolTable;
+    private IErrorReporter errorReporter;
 
     //Parser constructor initializes IR using number of lines from Reader
     public Parser(int len) {
         interRep = new InterRep(len);
         symbolTable = new SymbolTable();
+        //Create an ErrorReporter
+        errorReporter = new ErrorReporter();
     }
 
     //Parse a token received from Scanner
@@ -24,7 +27,7 @@ public class Parser implements IParser {
         //Get opcode from Symbol Table
         int code = symbolTable.getCode(token.getName());
 
-        //System.out.println("Line: " + lineNum + ", Token: " + token.getName());
+//        System.out.println("Line: " + lineNum + ", Token: " + token.getName());
 
         //Check if LineStatement already exists
         //If it doesn't exist, add a new LineStatement to the IR with the given token
@@ -95,6 +98,34 @@ public class Parser implements IParser {
                 case LabelOperand:
                     //Add operand to LineStatement
                     if (isNumeric(token.getName())) {
+                        //Verify if operand can be added to IR
+                        int opcode = line.getInstruction().getMnemonic().getOpcode();
+
+                        //Inherent mode addressing check
+                        if (opcode >= 0x00 && opcode <= 0x1F) {
+                            errorReporter.addError(3, token);
+                        }
+                        //enter.u5 operand check
+                        else if (opcode == 0x70) {
+                            int operand = Integer.parseInt(token.getName());
+                            if (operand < 0 || operand > 31) {
+                                errorReporter.addError(5,token);
+                            }
+                        }
+                        //ldc.i3 operand check
+                        else if (opcode == 0x90) {
+                            int operand = Integer.parseInt(token.getName());
+                            if (operand < -4 || operand > 3) {
+                                errorReporter.addError(6,token);
+                            }
+                        }
+                        //ldv.u3 operand check
+                        else if (opcode == 0xA0) {
+                            int operand = Integer.parseInt(token.getName());
+                            if (operand < 0 || operand > 7) {
+                                errorReporter.addError(7,token);
+                            }
+                        }
 
                         //Get LineStatement
                         instr = line.getInstruction();
@@ -111,6 +142,14 @@ public class Parser implements IParser {
                     }
                     break;
                 case Comment:
+                    //Verify if operand can be added to IR
+                    int opcode = line.getInstruction().getMnemonic().getOpcode();
+
+                    //Check if missing operand for immediate instruction
+                    if (opcode >= 0x00 && opcode <= 0x1F) {
+                        errorReporter.addError(3,token);
+                    }
+                    
                     //Add comment
                     if (token.getName().startsWith(";")) {
                         interRep.setComment(lineNum, token.getName());
