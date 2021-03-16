@@ -1,9 +1,9 @@
-# Assembler Project
-Implementing a Cm Assembler for Virtual Machines in Java
+# main.Assembler Project
+Implementing a Cm main.Assembler for Virtual Machines in main
 
 ## Unit Testing Documentation
 
-Running Tests:
+Running tests:
 1. Compile Test File: javac TestX.java
 2. Run Test File and Redirect Output into .txt: java TestX > TestX.txt
 3. Run Unit Test Using AUnit: java aunit TestX.txt
@@ -24,26 +24,26 @@ Malek Jerbi [oguzgezginci](https://github.com/oguzgezginci)
 
 ## Code Structure
 Assembly Unit
--> LineStatement + EOF
+-> main.LineStatement + EOF
 
-LineStatement
--> Label + Instruction + Comment + EOL
+main.LineStatement
+-> Label + main.Instruction + main.Comment + EOL
 
 Label
 -> String
 
-Instruction
--> Mnemonic + Operand
+main.Instruction
+-> main.Mnemonic + main.Operand
 
-Operand
+main.Operand
 -> Label (String) or Offset (Binary)
 
 Directive: .cstring (String)
 
-Comment (;)
+main.Comment (;)
 If ; detected, ignore the rest of the line until you reach EOL character  ("\n" | "\r" | "\r\n")
 Remove useless whitespace
 
-Assembler ends when EOF is detected (<control-Z>)
+main.Assembler ends when EOF is detected (<control-Z>)
 
 Generate pgm.exe for target and complete listing file pgm.lst with label table

@@ -1,0 +1,21 @@
+Test -main.InterRep Class- setter with a main.LineStatement object
+'Fct 'addv.u3 3' '
+'Fct 'addv.u3 3' '
+Test -main.InterRep Class- setter with Line Statement components label, instruction and comment
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+Test -main.InterRep Class- getLine()
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+Test -main.InterRep Class- getLength()
+1
+1
+Test -main.InterRep Class- toString()
+Line 0: 'jmp 'addv.u3 3' ; Test main.Comment 2'
+Line 0: 'jmp 'addv.u3 3' ; Test main.Comment 2'
+Test -main.InterRep Class- empty main.LineStatement passed to main.InterRep object
+' 'null null' '
+' 'null null' '
+Test -main.InterRep Class- Integration
+'jmp 'addv.u3 3' ; This is a comment'
+'jmp 'addv.u3 3' ; This is a comment'

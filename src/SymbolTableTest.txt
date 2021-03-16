@@ -1,9 +1,0 @@
-Test -SymbolTable Class- Invalid Key
--1
--1
-Test -SymbolTable Class- Valid Key
-0
-0
-Test -SymbolTable Class- getCode
-1
-1

@@ -1,0 +1,396 @@
+Test -main.CodeGenerator Class- File creation
+0    0000 98            Fct           addv.u33                                 
+0    0000 98            Fct           addv.u33                                 
+Test -main.Instruction Class- Default Constructor
+null null
+null null
+Test -main.Instruction Class- main.Mnemonic and main.Operand Constructor
+addv.u3 3
+addv.u3 3
+Test -main.Instruction Class- setMnemonic
+not
+not
+Test -main.Instruction Class- setOperand
+4
+4
+Test -main.Instruction Class- toString
+'not 4'
+'not 4'
+Test -main.InterRep Class- setter with a main.LineStatement object
+'Fct 'addv.u3 3' '
+'Fct 'addv.u3 3' '
+Test -main.InterRep Class- setter with Line Statement components label, instruction and comment
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+Test -main.InterRep Class- getLine()
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+Test -main.InterRep Class- getLength()
+1
+1
+Test -main.InterRep Class- toString()
+Line 0: 'jmp 'addv.u3 3' ; Test main.Comment 2'
+Line 0: 'jmp 'addv.u3 3' ; Test main.Comment 2'
+Test -main.InterRep Class- empty main.LineStatement passed to main.InterRep object
+' 'null null' '
+' 'null null' '
+Test -main.InterRep Class- Integration
+'jmp 'addv.u3 3' ; This is a comment'
+'jmp 'addv.u3 3' ; This is a comment'
+Test -main.LineStatement Class- Default Constructor
+ 'null null' 
+ 'null null' 
+Test -main.LineStatement Class- Parameterized Constructor with label, instruction and comment
+Fct 'addv.u3 3' 
+Fct 'addv.u3 3' 
+Test -main.LineStatement Class- setLabel()
+RA
+RA
+Test -main.LineStatement Class- setInstruction() and getInstruction
+'mul 4'
+'mul 4'
+Test -main.LineStatement Class- setComment()
+; new comment
+; new comment
+Test -main.LineStatement Class- getLabel()
+RA
+RA
+Test -main.Listing Class-
+0    0000 00                          halt                                    
+0    0000 00                          halt                                    
+Test -main.Mnemonic Class- Default Constructor
+null -1
+null -1
+Test -main.Mnemonic Class- Parametrized Constructor
+ADD 45
+ADD 45
+Test -main.Mnemonic Class- setMnemonic and getMnemonic
+JMP
+JMP
+Test -main.Mnemonic Class- set Opcode and getOpCode
+12
+12
+Test -main.Operand Class- Default Constructor and toString()
+null
+null
+Test -main.Operand Class- Parametrized Constructor
+45
+45
+Test -main.Operand Class- setOperand
+12
+12
+Test -main.Options Class- Incorrect main.Options
+java.lang.Exception: Error: Invalid Option
+java.lang.Exception: Error: Invalid Option
+Test -main.Options Class- isVerbose()
+true
+true
+Test -main.Options Class- isListing()
+true
+true
+Test -main.Parser Class- getLine #0
+' 'halt null' '
+' 'halt null' '
+Test -main.Parser Class- getLine #1
+' 'pop null' '
+' 'pop null' '
+Test -main.Parser Class- getLine #2
+' 'dup null' '
+' 'dup null' '
+Test -main.Parser Class- getLine #3
+' 'exit null' '
+' 'exit null' '
+Test -main.Parser Class- getLine #4
+' 'ret null' '
+' 'ret null' '
+Test -main.Parser Class- getLine #5
+' 'not null' '
+' 'not null' '
+Test -main.Parser Class- getLine #6
+' 'and null' '
+' 'and null' '
+Test -main.Parser Class- getLine #7
+' 'or null' '
+' 'or null' '
+Test -main.Parser Class- getLine #8
+' 'xor null' '
+' 'xor null' '
+Test -main.Parser Class- getLine #9
+' 'neg null' '
+' 'neg null' '
+Test -main.Parser Class- getLine #10
+' 'inc null' '
+' 'inc null' '
+Test -main.Parser Class- getLine #11
+' 'dec null' '
+' 'dec null' '
+Test -main.Parser Class- getLine #12
+' 'add null' '
+' 'add null' '
+Test -main.Parser Class- getLine #13
+' 'sub null' '
+' 'sub null' '
+Test -main.Parser Class- getLine #14
+' 'mul null' '
+' 'mul null' '
+Test -main.Parser Class- getLine #15
+' 'div null' '
+' 'div null' '
+Test -main.Parser Class- getLine #16
+' 'rem null' '
+' 'rem null' '
+Test -main.Parser Class- getLine #17
+' 'shl null' '
+' 'shl null' '
+Test -main.Parser Class- getLine #18
+' 'shr null' '
+' 'shr null' '
+Test -main.Parser Class- getLine #19
+' 'teq null' '
+' 'teq null' '
+Test -main.Parser Class- getLine #20
+' 'tne null' '
+' 'tne null' '
+Test -main.Parser Class- getLine #21
+' 'tlt null' '
+' 'tlt null' '
+Test -main.Parser Class- getLine #22
+' 'tgt null' '
+' 'tgt null' '
+Test -main.Parser Class- getLine #23
+' 'tle null' '
+' 'tle null' '
+Test -main.Parser Class- getLine #24
+' 'tge null' '
+' 'tge null' '
+Test -main.Parser Class- getLine #25
+' 'halt null' '
+' 'halt null' '
+Test -main.Reader Class- No File Given
+java.lang.Exception: Error: Unable to open source file ''
+java.lang.Exception: Error: Unable to open source file ''
+Test -main.Reader Class- File does not exist
+java.lang.Exception: Error: Unable to open source file ''
+java.lang.Exception: Error: Unable to open source file ''
+Test -main.Reader Class- Empty File
+[]
+[]
+Test -main.Reader Class- Multiline File + All Addressing Modes
+[Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment]
+[Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment]
+Test -main.Scanner Class- getTokens
+Fct
+Fct
+Test -main.Scanner Class- getComments
+; This is a comment
+; This is a comment
+Test -main.Scanner Class- printTokens
+[[Fct, ldc.i3, 3], [ldc.i3, 1], [add], [ret]]
+[[Fct, ldc.i3, 3], [ldc.i3, 1], [add], [ret]]
+Test -main.SymbolTable Class- Invalid Key
+-1
+-1
+Test -main.SymbolTable Class- Valid Key
+0
+0
+Test -main.SymbolTable Class- getCode
+1
+1
+Test -main.CodeGenerator Class- File creation
+0    0000 98            Fct           addv.u33
+0    0000 98            Fct           addv.u33
+Test -main.Instruction Class- Default Constructor
+null null
+null null
+Test -main.Instruction Class- main.Mnemonic and main.Operand Constructor
+addv.u3 3
+addv.u3 3
+Test -main.Instruction Class- setMnemonic
+not
+not
+Test -main.Instruction Class- setOperand
+4
+4
+Test -main.Instruction Class- toString
+'not 4'
+'not 4'
+Test -main.InterRep Class- setter with a main.LineStatement object
+'Fct 'addv.u3 3' '
+'Fct 'addv.u3 3' '
+Test -main.InterRep Class- setter with Line Statement components label, instruction and comment
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+Test -main.InterRep Class- getLine()
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+'jmp 'addv.u3 3' ; Test main.Comment 2'
+Test -main.InterRep Class- getLength()
+1
+1
+Test -main.InterRep Class- toString()
+Line 0: 'jmp 'addv.u3 3' ; Test main.Comment 2'
+Line 0: 'jmp 'addv.u3 3' ; Test main.Comment 2'
+Test -main.InterRep Class- empty main.LineStatement passed to main.InterRep object
+' 'null null' '
+' 'null null' '
+Test -main.InterRep Class- Integration
+'jmp 'addv.u3 3' ; This is a comment'
+'jmp 'addv.u3 3' ; This is a comment'
+Test -main.LineStatement Class- Default Constructor
+ 'null null'
+ 'null null'
+Test -main.LineStatement Class- Parameterized Constructor with label, instruction and comment
+Fct 'addv.u3 3'
+Fct 'addv.u3 3'
+Test -main.LineStatement Class- setLabel()
+RA
+RA
+Test -main.LineStatement Class- setInstruction() and getInstruction
+'mul 4'
+'mul 4'
+Test -main.LineStatement Class- setComment()
+; new comment
+; new comment
+Test -main.LineStatement Class- getLabel()
+RA
+RA
+Test -main.Listing Class-
+0    0000 00                          halt
+0    0000 00                          halt
+Test -main.Mnemonic Class- Default Constructor
+null -1
+null -1
+Test -main.Mnemonic Class- Parametrized Constructor
+ADD 45
+ADD 45
+Test -main.Mnemonic Class- setMnemonic and getMnemonic
+JMP
+JMP
+Test -main.Mnemonic Class- set Opcode and getOpCode
+12
+12
+Test -main.Operand Class- Default Constructor and toString()
+null
+null
+Test -main.Operand Class- Parametrized Constructor
+45
+45
+Test -main.Operand Class- setOperand
+12
+12
+Test -main.Options Class- Incorrect main.Options
+java.lang.Exception: Error: Invalid Option
+java.lang.Exception: Error: Invalid Option
+Test -main.Options Class- isVerbose()
+true
+true
+Test -main.Options Class- isListing()
+true
+true
+Test -main.Parser Class- getLine #0
+' 'halt null' '
+' 'halt null' '
+Test -main.Parser Class- getLine #1
+' 'pop null' '
+' 'pop null' '
+Test -main.Parser Class- getLine #2
+' 'dup null' '
+' 'dup null' '
+Test -main.Parser Class- getLine #3
+' 'exit null' '
+' 'exit null' '
+Test -main.Parser Class- getLine #4
+' 'ret null' '
+' 'ret null' '
+Test -main.Parser Class- getLine #5
+' 'not null' '
+' 'not null' '
+Test -main.Parser Class- getLine #6
+' 'and null' '
+' 'and null' '
+Test -main.Parser Class- getLine #7
+' 'or null' '
+' 'or null' '
+Test -main.Parser Class- getLine #8
+' 'xor null' '
+' 'xor null' '
+Test -main.Parser Class- getLine #9
+' 'neg null' '
+' 'neg null' '
+Test -main.Parser Class- getLine #10
+' 'inc null' '
+' 'inc null' '
+Test -main.Parser Class- getLine #11
+' 'dec null' '
+' 'dec null' '
+Test -main.Parser Class- getLine #12
+' 'add null' '
+' 'add null' '
+Test -main.Parser Class- getLine #13
+' 'sub null' '
+' 'sub null' '
+Test -main.Parser Class- getLine #14
+' 'mul null' '
+' 'mul null' '
+Test -main.Parser Class- getLine #15
+' 'div null' '
+' 'div null' '
+Test -main.Parser Class- getLine #16
+' 'rem null' '
+' 'rem null' '
+Test -main.Parser Class- getLine #17
+' 'shl null' '
+' 'shl null' '
+Test -main.Parser Class- getLine #18
+' 'shr null' '
+' 'shr null' '
+Test -main.Parser Class- getLine #19
+' 'teq null' '
+' 'teq null' '
+Test -main.Parser Class- getLine #20
+' 'tne null' '
+' 'tne null' '
+Test -main.Parser Class- getLine #21
+' 'tlt null' '
+' 'tlt null' '
+Test -main.Parser Class- getLine #22
+' 'tgt null' '
+' 'tgt null' '
+Test -main.Parser Class- getLine #23
+' 'tle null' '
+' 'tle null' '
+Test -main.Parser Class- getLine #24
+' 'tge null' '
+' 'tge null' '
+Test -main.Parser Class- getLine #25
+' 'halt null' '
+' 'halt null' '
+Test -main.Reader Class- No File Given
+java.lang.Exception: Error: Unable to open source file ''
+java.lang.Exception: Error: Unable to open source file ''
+Test -main.Reader Class- File does not exist
+java.lang.Exception: Error: Unable to open source file ''
+java.lang.Exception: Error: Unable to open source file ''
+Test -main.Reader Class- Empty File
+[]
+[]
+Test -main.Reader Class- Multiline File + All Addressing Modes
+[Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment]
+[Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment]
+Test -main.Scanner Class- getTokens
+Fct
+Fct
+Test -main.Scanner Class- getComments
+; This is a comment
+; This is a comment
+Test -main.Scanner Class- printTokens
+[[Fct, ldc.i3, 3], [ldc.i3, 1], [add], [ret]]
+[[Fct, ldc.i3, 3], [ldc.i3, 1], [add], [ret]]
+Test -main.SymbolTable Class- Invalid Key
+-1
+-1
+Test -main.SymbolTable Class- Valid Key
+0
+0
+Test -main.SymbolTable Class- getCode
+1
+1

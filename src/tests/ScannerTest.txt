@@ -1,0 +1,9 @@
+Test -main.Scanner Class- getTokens
+Fct
+Fct
+Test -main.Scanner Class- getComments
+; This is a comment
+; This is a comment
+Test -main.Scanner Class- printTokens
+[[Fct, ldc.i3, 3], [ldc.i3, 1], [add], [ret]]
+[[Fct, ldc.i3, 3], [ldc.i3, 1], [add], [ret]]

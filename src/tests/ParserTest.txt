@@ -1,0 +1,78 @@
+Test -main.Parser Class- getLine #0
+' 'halt null' '
+' 'halt null' '
+Test -main.Parser Class- getLine #1
+' 'pop null' '
+' 'pop null' '
+Test -main.Parser Class- getLine #2
+' 'dup null' '
+' 'dup null' '
+Test -main.Parser Class- getLine #3
+' 'exit null' '
+' 'exit null' '
+Test -main.Parser Class- getLine #4
+' 'ret null' '
+' 'ret null' '
+Test -main.Parser Class- getLine #5
+' 'not null' '
+' 'not null' '
+Test -main.Parser Class- getLine #6
+' 'and null' '
+' 'and null' '
+Test -main.Parser Class- getLine #7
+' 'or null' '
+' 'or null' '
+Test -main.Parser Class- getLine #8
+' 'xor null' '
+' 'xor null' '
+Test -main.Parser Class- getLine #9
+' 'neg null' '
+' 'neg null' '
+Test -main.Parser Class- getLine #10
+' 'inc null' '
+' 'inc null' '
+Test -main.Parser Class- getLine #11
+' 'dec null' '
+' 'dec null' '
+Test -main.Parser Class- getLine #12
+' 'add null' '
+' 'add null' '
+Test -main.Parser Class- getLine #13
+' 'sub null' '
+' 'sub null' '
+Test -main.Parser Class- getLine #14
+' 'mul null' '
+' 'mul null' '
+Test -main.Parser Class- getLine #15
+' 'div null' '
+' 'div null' '
+Test -main.Parser Class- getLine #16
+' 'rem null' '
+' 'rem null' '
+Test -main.Parser Class- getLine #17
+' 'shl null' '
+' 'shl null' '
+Test -main.Parser Class- getLine #18
+' 'shr null' '
+' 'shr null' '
+Test -main.Parser Class- getLine #19
+' 'teq null' '
+' 'teq null' '
+Test -main.Parser Class- getLine #20
+' 'tne null' '
+' 'tne null' '
+Test -main.Parser Class- getLine #21
+' 'tlt null' '
+' 'tlt null' '
+Test -main.Parser Class- getLine #22
+' 'tgt null' '
+' 'tgt null' '
+Test -main.Parser Class- getLine #23
+' 'tle null' '
+' 'tle null' '
+Test -main.Parser Class- getLine #24
+' 'tge null' '
+' 'tge null' '
+Test -main.Parser Class- getLine #25
+' 'halt null' '
+' 'halt null' '

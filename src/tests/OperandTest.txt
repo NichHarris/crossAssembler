@@ -1,0 +1,9 @@
+Test -main.Operand Class- Default Constructor and toString()
+null
+null
+Test -main.Operand Class- Parametrized Constructor
+45
+45
+Test -main.Operand Class- setOperand
+12
+12

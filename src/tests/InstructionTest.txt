@@ -1,0 +1,15 @@
+Test -main.Instruction Class- Default Constructor
+null null
+null null
+Test -main.Instruction Class- main.Mnemonic and main.Operand Constructor
+addv.u3 3
+addv.u3 3
+Test -main.Instruction Class- setMnemonic
+not
+not
+Test -main.Instruction Class- setOperand
+4
+4
+Test -main.Instruction Class- toString
+'not 4'
+'not 4'

@@ -1,0 +1,9 @@
+Test -main.Options Class- Incorrect main.Options
+java.lang.Exception: Error: Invalid Option
+java.lang.Exception: Error: Invalid Option
+Test -main.Options Class- isVerbose()
+true
+true
+Test -main.Options Class- isListing()
+true
+true

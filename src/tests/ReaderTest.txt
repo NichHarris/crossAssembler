@@ -1,0 +1,12 @@
+Test -main.Reader Class- No File Given
+java.lang.Exception: Error: Unable to open source file ''
+java.lang.Exception: Error: Unable to open source file ''
+Test -main.Reader Class- File does not exist
+java.lang.Exception: Error: Unable to open source file ''
+java.lang.Exception: Error: Unable to open source file ''
+Test -main.Reader Class- Empty File
+[]
+[]
+Test -main.Reader Class- Multiline File + All Addressing Modes
+[Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment]
+[Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment]
