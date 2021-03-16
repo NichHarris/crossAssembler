@@ -1,6 +1,9 @@
 Test -Options Class- Incorrect Options
-java.lang.Exception: Error: Invalid Option
-java.lang.Exception: Error: Invalid Option
+Error: Invalid Option
+Error: Invalid Option
+Test -Options Class- Too Many Options
+Error: Too Many Arguments in CL
+Error: Too Many Arguments in CL
 Test -Options Class- isVerbose()
 true
 true

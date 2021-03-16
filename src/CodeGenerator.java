@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.BufferedOutputStream;
-import java.util.ArrayList;
 
 //Generates executable file and listing file
 public class CodeGenerator implements ICodeGenerator {

@@ -2,7 +2,7 @@ Line Addr Machine Code  Label         Assembly Code          Comments
 0    0000                                                    ; TestImmediate.asm - Test immediate instructions.
 1    0001                                                                        
 2    0002 70                          enter.u5 0             ; OK, number <u5> [0..31].
-3    0003 71                          enter.u5 1                                 
+3    0003 71                          enter.u5 1             ; OK, number <u5> [0..31].
 4    0004 72                          enter.u5 2             ; OK, number <u5> [0..31].
 5    0005 73                          enter.u5 3             ; OK, number <u5> [0..31].
 6    0006 74                          enter.u5 4             ; OK, number <u5> [0..31].
