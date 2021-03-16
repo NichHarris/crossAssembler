@@ -17,11 +17,17 @@ public class Assembler {
         IScanner scanner = new Scanner();
         scanner.scanFile(reader);
 
+        //Report any errors found in Scanner
+        scanner.reportErrors();
+
         //Get the parser from scanner
         IParser parser = scanner.getParser();
 
         //Run a second pass through the IR to update the machine code
         parser.secondPass();
+
+        //Report any errors found in Parser
+        scanner.reportErrors();
 
         //Get the intermediate representation
         IInterRep interRep = parser.getInterRep();

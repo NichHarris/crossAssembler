@@ -138,18 +138,43 @@ public class Parser implements IParser {
                     }
                     //Add label to LineStatement
                     else {
+                        //Verify if missing operand for immediate instruction
+                        int opcode = line.getInstruction().getMnemonic().getOpcode();
+                        if (opcode >= 0x30 && opcode <= 0xA8) {
+                            if (line.getLabel() == "") {
+                                if (colNum == 1) {
+                                    errorReporter.addError(2, token);
+                                }
+                            } else {
+                                if (colNum == 2) {
+                                    errorReporter.addError(2, token);
+                                }
+                            }
+                        }
+
                         interRep.setLabel(lineNum, token.getName());
                     }
                     break;
                 case Comment:
-                    //Verify if operand can be added to IR
+                    //Verify if missing operand for immediate instruction
                     int opcode = line.getInstruction().getMnemonic().getOpcode();
+                    if (opcode >= 0x30 && opcode <= 0xA8) {
+                        if (line.getLabel() == "") {
+                            if (colNum == 1) {
+                                errorReporter.addError(2, token);
+                            }
+                        } else {
+                            if (colNum == 2) {
+                                errorReporter.addError(2, token);
+                            }
+                        }
+                    }
 
                     //Check if missing operand for immediate instruction
                     if (opcode >= 0x00 && opcode <= 0x1F) {
                         errorReporter.addError(3,token);
                     }
-                    
+
                     //Add comment
                     if (token.getName().startsWith(";")) {
                         interRep.setComment(lineNum, token.getName());
@@ -171,19 +196,20 @@ public class Parser implements IParser {
 
     //Check if token is numeric
     public boolean isNumeric(String str) {
-
         if (str == null || str.length() == 0) {
             return false;
         }
 
-        if (str.startsWith("-")) {
-            return true;
-        }
+        for(int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
 
-        for (char c : str.toCharArray()) {
-            if (!Character.isDigit(c)){
-                return false;
-            }
+            //Check if character is outside number range
+            if(c < 48 || c > 57)
+                //Check if negative number (-)
+                if (i == 0 && c == 45)
+                    continue;
+                else
+                    return false;
         }
 
         return true;
@@ -198,5 +224,10 @@ public class Parser implements IParser {
                 interRep.setMachineCode(i);
             }
         }
+    }
+
+    //Print error recorded by ErrorReporter (if there are any)
+    public void reportErrors() {
+        errorReporter.reportErrors();
     }
 }

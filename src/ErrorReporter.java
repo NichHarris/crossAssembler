@@ -20,11 +20,13 @@ public class ErrorReporter implements IErrorReporter{
         errorList.put(2,"Error: eol in string\n\twhere eof is an end-of-file.\n\t\teol is an end-of-line: a carriage return ('\\r') or a line feed ('\\n').");
 
         //Parser errors
-        errorList.put(3,"Error: Instructions with inherent mode addressing do not have an operand field.");
+        errorList.put(3,"Error: Instructions with inherent mode addressing do not have an operand field."); //DONE
+        //TODO: Done but may need to traverse IR to check for missing operands (what if you dont add a label or comment
+        // after the immediate addressing mnemonic and start adding to the next line?)
         errorList.put(4,"Error: This immediate instruction must have a number as an operand field.");
-        errorList.put(5,"Error: The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.");
-        errorList.put(6,"Error: The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3.");
-        errorList.put(7,"Error: The immediate instruction 'ldv.u3' must have a 3-bit unsigned operand number ranging from 0 to 7.");
+        errorList.put(5,"Error: The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31."); //DONE
+        errorList.put(6,"Error: The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3."); //DONE
+        errorList.put(7,"Error: The immediate instruction 'ldv.u3' must have a 3-bit unsigned operand number ranging from 0 to 7."); //DONE
     }
 
     //Adds an error from Scanner to reportedErrors

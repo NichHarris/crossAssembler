@@ -14,4 +14,7 @@ public interface IScanner {
 
     //Get the parser
     IParser getParser();
+
+    //Print error recorded by ErrorReporter (if there are any)
+    void reportErrors();
 }

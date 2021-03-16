@@ -62,21 +62,21 @@ public class Scanner implements IScanner {
 
                 colNum += 1;
                 buffer = "";
-            //If EOL and buffer is not empty - send to parser + new line
+                //If EOL and buffer is not empty - send to parser + new line
             } else if (isEOL && buffer != "") {
                 //Send to Parser
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 sendToParser();
                 newLine();
-            //If more than 2 EOL characters in a row
-            //TODO: Fix this sketchiness
+                //If more than 2 EOL characters in a row
+                //TODO: Fix this sketchiness
             } else if (eolCounter % 2 != 0) {
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 sendToParser();
                 newLine();
-            //If at last line of file
+                //If at last line of file
             } else if (i == fileContent.length() - 1 && !isEOL) {
                 //Send toParser
                 buffer = buffer + (c);
@@ -84,10 +84,10 @@ public class Scanner implements IScanner {
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 sendToParser();
                 newLine();
-            //Ignore spaces and extra EOL
+                //Ignore spaces and extra EOL
             } else if ((isSpace || isEOL) && buffer == "") {
                 continue;
-            //Add to buffer
+                //Add to buffer
             } else {
                 buffer += c;
 
@@ -95,177 +95,7 @@ public class Scanner implements IScanner {
                 if (c == ';')
                     isComment = true;
             }
-    }
-
-  /*
-        if (i == fileContent.length() - 1){
-                if (c != '\r' && c != '\n'){
-                    //Get token and send to parser
-                    buffer = buffer + (c);
-                    tokenType = this.getTokenType(buffer, colNum);
-                    token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-                    sendToParser();
-
-                    System.out.println("File Length - Line: " + lineNum + " , " + buffer);
-                    newLine();
-                }
-            }
-
-            if (spaceBeforeEOL) {
-                if (isEOL)
-                    continue;
-                else
-                    spaceBeforeEOL = false;
-            }
-
-            //Case where EOF is reached
-            if (spaceBeforeEOL && isEOL) {
-                tokenType = this.getTokenType(buffer, colNum);
-                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-                sendToParser();
-
-                System.out.println("Space Before EOL - Line: " + lineNum + " ,  " + buffer);
-                newLine();
-            } else if (isEOL && buffer != "") {
-                //Get token and send to parser
-                tokenType = this.getTokenType(buffer, colNum);
-                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-                sendToParser();
-
-                System.out.println("EOL BUFFER  - Line: " + lineNum + " , " + buffer);
-                newLine();
-            } else if (isEOL && colNum == 0) {
-                System.out.println("COL " + colNum + " - Line: " + lineNum + " , " + buffer);
-                newLine();
-            }
-            //Failsafe for second EOL character
-            else if (isEOL && buffer == "") {
-                isEOL = false;
-            }
-            //Failsafe for multiple space characters
-            else if (isSpace && buffer == "") {
-                isSpace = false;
-            }
-            //If space detected (and not a comment), create a token, increment column number and clear buffer
-            else if (isSpace && !isComment) {
-                if (buffer != "") {
-                    tokenType = this.getTokenType(buffer, colNum);
-                    token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-                    sendToParser();
-
-                    System.out.println("Parser Reg - Line: " + lineNum + " , " + buffer);
-
-                    colNum += 1;
-                    isSpace = false;
-                    spaceBeforeEOL = true;
-                    buffer = "";
-                }
-            }
-            //Keep adding to buffer
-            else {
-                buffer = buffer + c;
-                //Comment detected
-                if(c == ';') {
-                    isComment = true;
-                    spaceBeforeEOL = false;
-                }
-            }
-
-            /*
-            //Character type flags
-            //wasEOL = isEOL;
-            isEOL = c == '\r' || c == '\n';
-            isSpace = c == ' ' || c == '\t';
-
-            if (i == fileContent.length() - 1){
-                if (c != '\r' && c != '\n'){
-                    //Get token and send to parser
-                    buffer = buffer + (c);
-                    tokenType = this.getTokenType(buffer, colNum);
-                    token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-                    sendToParser();
-
-                    System.out.println("File Length - Line: " + lineNum + " , " + buffer);
-                    newLine();
-                }
-            }
-
-            if (spaceBeforeEOL) {
-                if (isEOL)
-                    continue;
-                else
-                    spaceBeforeEOL = false;
-            }
-
-            //Case where EOF is reached
-            if (spaceBeforeEOL && isEOL) {
-                tokenType = this.getTokenType(buffer, colNum);
-                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-                sendToParser();
-
-                System.out.println("Space Before EOL - Line: " + lineNum + " ,  " + buffer);
-                newLine();
-            } else if (isEOL && buffer != "") {
-                //Get token and send to parser
-                tokenType = this.getTokenType(buffer, colNum);
-                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-                sendToParser();
-
-                System.out.println("EOL BUFFER  - Line: " + lineNum + " , " + buffer);
-                newLine();
-            } else if (isEOL && colNum == 0) {
-                System.out.println("COL " + colNum + " - Line: " + lineNum + " , " + buffer);
-                newLine();
-            }
-            //Failsafe for second EOL character
-            else if (isEOL && buffer == "") {
-                isEOL = false;
-            }
-            //Failsafe for multiple space characters
-            else if (isSpace && buffer == "") {
-                isSpace = false;
-            }
-            //If space detected (and not a comment), create a token, increment column number and clear buffer
-            else if (isSpace && !isComment) {
-                if (buffer != "") {
-                    tokenType = this.getTokenType(buffer, colNum);
-                    token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-                    sendToParser();
-
-                    System.out.println("Parser Reg - Line: " + lineNum + " , " + buffer);
-
-                    colNum += 1;
-                    isSpace = false;
-                    spaceBeforeEOL = true;
-                    buffer = "";
-                }
-            }
-            //Keep adding to buffer
-            else {
-                buffer = buffer + c;
-                //Comment detected
-                if(c == ';') {
-                    isComment = true;
-                    spaceBeforeEOL = false;
-                }
-            }
-
-            //            //Keep adding to buffer if comment detected
-//            else if (isComment) {
-//                buffer = buffer + (c);
-//            }
-//            //Comment detected
-//            else if (c == ';') {
-//                isComment = true;
-//                spaceBeforeEOL = false;
-//                buffer = buffer + (c);
-//            }
-//            // Keep adding to buffer
-//            else {
-//                buffer = buffer + (c);
-//            }
-             */
-//        }
+        }
     }
 
     public void newLine() {
@@ -325,7 +155,13 @@ public class Scanner implements IScanner {
         parser.parseToken(token);
     }
 
+    //Get the instance of Parser
     public IParser getParser() {
         return parser;
+    }
+
+    //Print error recorded by ErrorReporter (if there are any)
+    public void reportErrors() {
+        errorReporter.reportErrors();
     }
 }
