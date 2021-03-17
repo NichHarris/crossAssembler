@@ -32,18 +32,18 @@ public class Listing implements IListing {
                 //Get the line number
                 line = Integer.toString(i);
                 //Convert opcode to hex and pad with zeros
-                addr = String.format("%1$04X",i);
+                addr = String.format("%1$04X",IR.getAddr(i));
 
                 //Check If Instruction Exists
                 if(IR.hasInstruction(i)) {
                     if (IR.getLine(i).getInstruction().getMnemonic().getOpcode() == -1)
                         code = "";
                     else
-                        code = String.format("%1$02X", IR.getLine(i).getInstruction().getMnemonic().getOpcode());
+                        code = IR.getMachineCode(i);
 
                     //Get the value (if there is one), Set to empty if it is not present, Set value from line statementlabel = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
                     mne = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getMnemonic().getMne();
-                    operand = (IR.getLine(i).getInstruction().getOperand().getOp() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();
+                    operand = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();
                 } else {
                     mne = "";
                     operand = "";

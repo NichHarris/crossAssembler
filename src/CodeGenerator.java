@@ -13,6 +13,8 @@ public class CodeGenerator implements ICodeGenerator {
             IListing listing = new Listing(IR);
             String [] lstContent = listing.getListing();
             this.generateListing(lstContent);
+
+            //Print label table also
         }
         //Generate listing file
         else if (options.isListing()){
@@ -20,6 +22,8 @@ public class CodeGenerator implements ICodeGenerator {
             String [] lstContent = listing.getListing();
             this.generateListing(lstContent);
         }
+
+        //Return Bin
     }
 
     //Generate a listing file
@@ -43,4 +47,6 @@ public class CodeGenerator implements ICodeGenerator {
 
         } catch (Exception e) { e.printStackTrace(); }
     }
+
+
 }

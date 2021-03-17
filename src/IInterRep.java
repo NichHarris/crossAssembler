@@ -13,6 +13,16 @@ public interface IInterRep {
     //Get length of LineStatements array
     int getLength();
 
+    int getSize(int i);
+
+    int getAddr(int i);
+
+    String getMachineCode(int i);
+
+    void setSize(int i, int val);
+
+    void setAddr(int i, int val);
+
     //Set a LineStatement's label
     void setLabel(int i, String label);
 
@@ -22,8 +32,10 @@ public interface IInterRep {
     //Set a LineStatement's instruction
     void setInstruction(int i, IInstruction instruction);
 
-    //Set code of mnemonic
-    void setMachineCode(int i);
+    void setMachineCode(int i, String val);
+
+    //Update code of a mnemonic
+    void updateCode(int i);
 
     //Check if instruction is null
     boolean hasInstruction(int i);

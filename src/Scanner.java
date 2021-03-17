@@ -19,7 +19,8 @@ public class Scanner implements IScanner {
         buffer = "";
 
         //Initialize Line & Col number
-        lineNum = 0; colNum = 0;
+        lineNum = 0;
+        colNum = 0;
 
         //Create instance of Symbol table
         symbolTable = new SymbolTable();
@@ -49,6 +50,9 @@ public class Scanner implements IScanner {
             //Character type flags
             isEOL = c == '\r' || c == '\n';
             isSpace = c == ' ' || c == '\t';
+
+            //Check if character is valid or not, and report error if not
+            isValid(c);
 
             //Counts number of EOL characters in a row
             eolCounter = isEOL ? eolCounter + 1 : 0;
@@ -115,31 +119,36 @@ public class Scanner implements IScanner {
         int code = symbolTable.getCode(name);
 
         //Check if mnemonic
-        if(code != -1)
+        if (code != -1)
             return TokenType.Mnemonic;
-        //Check if operand
+            //Check if operand
         else if (isNumeric(name))
             return TokenType.LabelOperand;
-        //Check if comment
+            //Check if comment
         else if (isComment)
             return TokenType.Comment;
-        //Check if label ?? Does col need to be 0?
+            //Check if label ?? Does col need to be 0?
         else if (colNum == 0 && !isNumeric(name))
             return TokenType.Label;
+        else if (colNum == 1 || colNum == 2) {
+            if (!isNumeric(name))
+                return TokenType.LabelOperand;
+        }
 
         return TokenType.None;
     }
 
     //Check if token is numeric
     public boolean isNumeric(String str) {
+        //TODO: Return error for not following grammar
         if (str.length() == 0)
             return false;
 
-        for(int i = 0; i < str.length(); i++) {
+        for (int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);
 
             //Check if character is outside number range
-            if(c < 48 || c > 57)
+            if (c < 48 || c > 57)
                 //Check if negative number (-)
                 if (i == 0 && c == 45)
                     continue;
@@ -163,5 +172,16 @@ public class Scanner implements IScanner {
     //Print error recorded by ErrorReporter (if there are any)
     public void reportErrors() {
         errorReporter.reportErrors();
+    }
+
+    //Check if character is valid
+    public void isValid(char c) {
+        //Report error when ever non-valid character is detected
+        //Todo: Ask what are the valid characters
+
+        //exclude chars
+        if(c <= 33 || c >= 123 || c == 47 || c == 92 || c == 63){
+            errorReporter.addError(0, lineNum, colNum, c);
+        }
     }
 }

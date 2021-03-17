@@ -1,9 +1,9 @@
 Line Addr Machine Code  Label         Mnemonic      Operand       Comments            
 0    0000                                                         ; TestImmediate.asm - Test immediate instructions.
-1    0001 70                          enter.u5      0             ; OK, number <u5> [0..31].
-2    0002                                                         ;test               
-3    0003                                                                             
-4    0004                                                                             
-5    0005                                                                             
-6    0006 71                          enter.u5      1                                 
+1    0000 enter.u5                    enter.u5      0             ; OK, number <u5> [0..31].
+2    0001                                                         ;test               
+3    0001                                                                             
+4    0001                                                                             
+5    0001                                                                             
+6    0001 enter.u5                    enter.u5      1                                 
 

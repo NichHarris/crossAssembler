@@ -1,7 +1,7 @@
 public interface IErrorReporter {
 
     //Adds an error from Scanner to reportedErrors
-    void addError(int errNum, int line, int col);
+    void addError(int errNum, int line, int col, char c);
 
     //Adds an error from Parser to reportedErrors
     void addError(int errNum, IToken token);
