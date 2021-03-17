@@ -270,14 +270,25 @@ public class Parser implements IParser {
                 interRep.updateCode(i);
             }
 
-            System.out.println("Size: " + interRep.getSize(i));
+            //System.out.println("Size: " + interRep.getSize(i));
         }
 
-        //Set the address of each line
+        //Set the address of each line, starting at 0000 for the first line
         interRep.setAddr(0, 0);
         for (int i = 1; i < interRep.getLength(); i++) {
-            interRep.setAddr(i,interRep.getAddr(i-1) + interRep.getSize(i-1));
-            System.out.println("Address : " + interRep.getAddr(i));
+            //Get previous and current LineStatement
+            ILineStatement prevLine = interRep.getLine(i-1);
+            ILineStatement currLine = interRep.getLine(i);
+            //Check if previous line is empty and current line is not
+            //If so, increment the current line's address by one
+            //Otherwise set current line's address to the addition of the previous line's address and its size
+            if (prevLine.isEmpty() && !currLine.isEmpty()) {
+                interRep.setAddr(i,interRep.getAddr(i-1) + 1);
+//                System.out.println("Address : " + interRep.getAddr(i));
+            } else {
+                interRep.setAddr(i,interRep.getAddr(i-1) + interRep.getSize(i-1));
+//                System.out.println("Address : " + interRep.getAddr(i));
+            }
         }
 
         //Set the machine code of each line statement
@@ -285,36 +296,38 @@ public class Parser implements IParser {
             //Get the opcode and operand of the line statement
             int opcode = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
             String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
-            //If operand is valid
+            //If operand is a label or string
             if (!isNumeric(operand) && operand != ""){
-                //If it's a directive
+                //If a line's mnemonic is a .cstring, set its machine code to its opcode + the byte size of each character in the string operand
                 if (opcode == 0x41) {
                     String op = operand.substring(1, operand.length() - 1);
                     char[] arr = op.toCharArray();
-                    String mCode = Integer.toHexString(Integer.parseInt(interRep.getLine(i).getInstruction().getMnemonic().get()));
+                    String mCode = Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode()).toUpperCase();
                     for (char c: arr){
                         mCode = mCode + " " + Integer.toHexString(c);
                     }
                     interRep.setMachineCode(i, mCode);
                 }
+                //If operand is a label, set the machine code to the instruction's opcode + the
                 else {
                     String label = interRep.getLine(i).getLabel();
-                    String code = interRep.getLine(i).getInstruction().getMnemonic().getMne();
+                    int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
+                    //Fine the address where the label is declared
                     for (int j = i; j < interRep.getLength(); j++) {
                         if (interRep.getLine(i).getLabel() == label) {
                             int address = interRep.getAddr(i);
-                            interRep.setMachineCode(i, String.format("%s1 %s2", Integer.toHexString(Integer.parseInt(code)), String.format("%1$04X",address)));
+                            interRep.setMachineCode(i, String.format("%s1 %s2", Integer.toHexString(code), String.format("%1$04X",address)));
                         } else {
-                            //throw error here
+                            //TODO: Throw error here
                         }
                     }
                 }
             }
-            else {
-                interRep.setMachineCode(i, interRep.getLine(i).getInstruction().getMnemonic().getMne());
+            else if (isNumeric(operand)) {
+                interRep.setMachineCode(i, Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode()).toUpperCase());
             }
 
-            System.out.println("Machine Code: " + interRep.getMachineCode(i));
+//            System.out.println("Machine Code: " + interRep.getMachineCode(i));
         }
     }
 
