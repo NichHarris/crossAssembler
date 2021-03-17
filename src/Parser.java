@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
 public class Parser implements IParser {
     private IInterRep interRep;
@@ -240,7 +242,7 @@ public class Parser implements IParser {
             //.cstring directives
             else if (initOpcode == 0x41) {
                 String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
-                int len = operand.length();
+                int len = operand.substring(1,operand.length() -1).length();
                 interRep.setSize(i, 1 + len);
             }
             //Immediate Addressing
@@ -286,10 +288,9 @@ public class Parser implements IParser {
             //Otherwise set current line's address to the addition of the previous line's address and its size
             if (prevLine.isEmpty() && !currLine.isEmpty()) {
                 interRep.setAddr(i,interRep.getAddr(i-1) + 1);
-//                System.out.println("Address : " + interRep.getAddr(i));
             } else {
                 interRep.setAddr(i,interRep.getAddr(i-1) + interRep.getSize(i-1));
-//                System.out.println("Address : " + interRep.getAddr(i));
+                System.out.println(interRep.getAddr(i));
             }
         }
 
@@ -304,21 +305,29 @@ public class Parser implements IParser {
                 if (opcode == 0x41) {
                     String op = operand.substring(1, operand.length() - 1);
                     char[] arr = op.toCharArray();
-                    String mCode = Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode()).toUpperCase();
+                    String mCode = "";
+                    //Append hex bytes to machine code
                     for (char c: arr){
-                        mCode = mCode + " " + Integer.toHexString(c);
+                        mCode = mCode + " " + Integer.toHexString(c).toUpperCase();
                     }
+                    //Append '00' as remaining bytes to machine code
+                    for(int j = interRep.getSize(i) - arr.length; j > 0; j--){
+                        mCode = mCode + " 00";
+                    }
+
+                    mCode = mCode.substring(1);
                     interRep.setMachineCode(i, mCode);
                 }
                 //If operand is a label, set the machine code to the instruction's opcode + the
                 else {
-                    String label = interRep.getLine(i).getLabel();
+                    String label = interRep.getLine(i).getInstruction().getOperand().getOp();
                     int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
                     //Fine the address where the label is declared
-                    for (int j = i; j < interRep.getLength(); j++) {
-                        if (interRep.getLine(i).getLabel() == label) {
-                            int address = interRep.getAddr(i);
-                            interRep.setMachineCode(i, String.format("%s1 %s2", Integer.toHexString(code), String.format("%1$04X",address)));
+                    for (int j = i + 1; j < interRep.getLength(); j++) {
+                        String currLabel = interRep.getLine(j).getLabel();
+                        if (currLabel.equals(label)) {
+                            int address = interRep.getAddr(j);
+                            interRep.setMachineCode(i, String.format("%s %s", Integer.toHexString(code).toUpperCase(), String.format("%1$04X",address)));
                         } else {
                             //TODO: Throw error here
                         }
