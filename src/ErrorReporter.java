@@ -17,7 +17,7 @@ public class ErrorReporter implements IErrorReporter{
         //Scanner errors
         errorList.put(0,"Error: invalid character\n");
         errorList.put(1,"Error: eof in string\n");
-        errorList.put(2,"Error: eol in string\n\twhere eof is an end-of-file.\n\t\teol is an end-of-line: a carriage return ('\\r') or a line feed ('\\n').\n");
+        errorList.put(2,"Error: eol in string\n");
 
         //Parser errors
         errorList.put(3,"Error: Instructions with inherent mode addressing do not have an operand field.\n"); //DONE

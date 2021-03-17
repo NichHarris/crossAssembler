@@ -33,6 +33,7 @@ public class Listing implements IListing {
                 line = Integer.toString(i);
                 //Convert opcode to hex and pad with zeros
                 addr = String.format("%1$04X",IR.getAddr(i));
+                System.out.println("Line: " + line + " addr: " + addr);
 
                 //Check If Instruction Exists
                 if(IR.hasInstruction(i)) {

@@ -291,7 +291,7 @@ public class Parser implements IParser {
                 if (opcode == 0x41) {
                     String op = operand.substring(1, operand.length() - 1);
                     char[] arr = op.toCharArray();
-                    String mCode = Integer.toHexString(Integer.parseInt(interRep.getLine(i).getInstruction().getMnemonic().getMne()));
+                    String mCode = Integer.toHexString(Integer.parseInt(interRep.getLine(i).getInstruction().getMnemonic().get()));
                     for (char c: arr){
                         mCode = mCode + " " + Integer.toHexString(c);
                     }

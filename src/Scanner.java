@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 //Scanner - Performs Lexical Analysis on the assembly unit
 public class Scanner implements IScanner {
     private IToken token;
@@ -10,9 +12,10 @@ public class Scanner implements IScanner {
     private int numLines;
     private int lineNum, colNum;
 
-    private boolean isSpace, isEOL, isComment = false;
+    private boolean isSpace, isEOL, isComment, checkNext, checkPrev = false;
 
     private IErrorReporter errorReporter;
+    private final HashMap<Integer, Integer> invalidChars;
 
     public Scanner() {
         //Buffer for obtaining tokens
@@ -21,19 +24,20 @@ public class Scanner implements IScanner {
         //Initialize Line & Col number
         lineNum = 0;
         colNum = 0;
-
         //Create instance of Symbol table
         symbolTable = new SymbolTable();
 
         //Create an ErrorReporter
         errorReporter = new ErrorReporter();
+
+        invalidChars = new HashMap<Integer, Integer>();
+        fillInvalidChars();
     }
 
     //Scans file character by character given Reader object
     public void scanFile(IReader file) {
         //Input file content as a String
         String fileContent = file.getFileContent();
-
         //Number of lines in file
         numLines = file.getLineNum();
 
@@ -47,12 +51,37 @@ public class Scanner implements IScanner {
             //Adds Character By Character to Token
             char c = file.getChar(i);
 
+            /*
+            //TODO: Needs fixing
+            //Case where a \r appeared and the following char isn't \n
+            if(checkNext && c != '\n'){
+                errorReporter.addError(2, lineNum, colNum);
+                //Reset Flags
+                checkNext = false;
+                checkPrev = false;
+            }
+            //Case where a \n appears but \r was not the previous char
+            if(checkPrev && !checkNext){
+                errorReporter.addError(2, lineNum, colNum);
+                //Reset Flags
+                checkNext = false;
+                checkPrev = false;
+            }
+            */
+
             //Character type flags
+            //EOL format is \r\n
             isEOL = c == '\r' || c == '\n';
             isSpace = c == ' ' || c == '\t';
 
             //Check if character is valid or not, and report error if not
             isValid(c);
+
+            //Check if an EOF character is found anywhere other than the end of file
+            if (i != fileContent.length() - 1 && (int) c == 26){
+                System.out.println(i);
+                errorReporter.addError(1, lineNum, colNum);
+            }
 
             //Counts number of EOL characters in a row
             eolCounter = isEOL ? eolCounter + 1 : 0;
@@ -106,7 +135,6 @@ public class Scanner implements IScanner {
         //Increment line number and reset column number
         lineNum++;
         colNum = 0;
-
         //Reset flag and buffer
         isComment = false;
         buffer = "";
@@ -155,7 +183,6 @@ public class Scanner implements IScanner {
                 else
                     return false;
         }
-
         return true;
     }
 
@@ -174,14 +201,32 @@ public class Scanner implements IScanner {
         errorReporter.reportErrors();
     }
 
+    //Fill hashmap of invalid characters
+    public void fillInvalidChars(){
+        for(int i =0; i < 32; i++){
+            if (i == 10 || i == 13){
+                continue;
+            }
+            else{
+                invalidChars.put(i, null);
+            }
+        }
+        invalidChars.put(127, null);
+    }
+
     //Check if character is valid
     public void isValid(char c) {
         //Report error when ever non-valid character is detected
-        //Todo: Ask what are the valid characters
-
-        //exclude chars
-        if(c <= 33 || c >= 123 || c == 47 || c == 92 || c == 63){
+        if(invalidChars.containsKey((int) c)){
             errorReporter.addError(0, lineNum, colNum, c);
+        }
+        switch((int) c){
+            case(13):
+                checkNext = true;
+                break;
+            case(10):
+                checkPrev = true;
+                break;
         }
     }
 }

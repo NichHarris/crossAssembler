@@ -8,4 +8,6 @@ public interface IErrorReporter {
 
     //Print the errors to console
     void reportErrors();
+
+    void addError(int i, int lineNum, int colNum);
 }
