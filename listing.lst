@@ -38,9 +38,9 @@ Line Addr Machine Code  Label         Mnemonic      Operand       Comments
 36   0021 91                          ldc.i3        1             ; OK, number <i3> [-4..3].
 37   0022 92                          ldc.i3        2             ; OK, number <i3> [-4..3].
 38   0023 93                          ldc.i3        3             ; OK, number <i3> [-4..3].
-39   0024 97                          ldc.i3        -4            ; OK, number <i3> [-4..3].
-40   0025 97                          ldc.i3        -3            ; OK, number <i3> [-4..3].
-41   0026 97                          ldc.i3        -2            ; OK, number <i3> [-4..3].
+39   0024 94                          ldc.i3        -4            ; OK, number <i3> [-4..3].
+40   0025 95                          ldc.i3        -3            ; OK, number <i3> [-4..3].
+41   0026 96                          ldc.i3        -2            ; OK, number <i3> [-4..3].
 42   0027 97                          ldc.i3        -1            ; OK, number <i3> [-4..3].
 43   0028                                                                             
 44   0028 98                          addv.u3       0             ; OK, number <u3> [0..7].

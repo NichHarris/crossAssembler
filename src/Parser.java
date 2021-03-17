@@ -223,7 +223,6 @@ public class Parser implements IParser {
                 else
                     return false;
         }
-
         return true;
     }
 
@@ -267,7 +266,10 @@ public class Parser implements IParser {
 
             //System.out.println(interRep.hasInstruction(i));
             if (interRep.hasInstruction(i) && isNumeric(interRep.getLine(i).getInstruction().getOperand().getOp())) {
+                //System.out.println(String.format("Opcode before: %s", Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode())));
+                //System.out.println(String.format("Operand before: %s", interRep.getLine(i).getInstruction().getOperand()));
                 interRep.updateCode(i);
+               // System.out.println(String.format("Opcode After: %s", Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode())));
             }
 
             //System.out.println("Size: " + interRep.getSize(i));

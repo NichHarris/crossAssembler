@@ -80,14 +80,17 @@ public class InterRep implements IInterRep {
                         updatedCode = opcode + 4;
                         instr.setOpcode(updatedCode);
                         this.setInstruction(i, instr);
+                        break;
                     case -3:
                         updatedCode = opcode + 5;
                         instr.setOpcode(updatedCode);
                         this.setInstruction(i, instr);
+                        break;
                     case -2:
                         updatedCode = opcode + 6;
                         instr.setOpcode(updatedCode);
                         this.setInstruction(i, instr);
+                        break;
                     case -1:
                         updatedCode = opcode + 7;
                         instr.setOpcode(updatedCode);
