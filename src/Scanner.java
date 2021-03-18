@@ -93,6 +93,19 @@ public class Scanner implements IScanner {
                 newLine();
 
                 return token;
+                //Add to buffer
+                //If more than 2 EOL characters in a row
+                //TODO: Fix this sketchiness
+            } else if (eolCounter % 2 == 0 && eolCounter > 2) {
+                tokenType = this.getTokenType(buffer, colNum);
+                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+
+                currPos = ++i;
+                System.out.println("Current EOL Position: " + currPos + ", Value: " + buffer);
+
+                newLine();
+
+                return token;
             //If at last line of file
             } else if (i == fileContent.length() - 1) {
                 //if (!isEOL){
@@ -111,19 +124,6 @@ public class Scanner implements IScanner {
             //Ignore spaces and extra EOL
             } else if ((isSpace || isEOL) && buffer == "") {
                 continue;
-            //Add to buffer
-                //If more than 2 EOL characters in a row
-                //TODO: Fix this sketchiness
-            } else if (eolCounter % 2 == 0 && eolCounter > 2) {
-                tokenType = this.getTokenType(buffer, colNum);
-                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-
-                currPos = i++;
-                System.out.println("Current EOL Position: " + currPos + ", Value: " + buffer);
-
-                newLine();
-
-                return token;
             } else {
                 buffer += c;
 
