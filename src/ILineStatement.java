@@ -16,6 +16,9 @@ public interface ILineStatement {
     //Get instruction
     IInstruction getInstruction();
 
+    //Checks if a LineStatement contains a label, mnemonic and/or operand
+    public boolean isEmpty();
+
     //Get comments
     String getComment();
 

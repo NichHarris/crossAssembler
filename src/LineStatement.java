@@ -45,6 +45,14 @@ public class LineStatement implements ILineStatement {
          return instruction;
      }
 
+    //Checks if a LineStatement contains a label, mnemonic and/or operand
+    public boolean isEmpty(){
+        if (this.getLabel() == "" && this.getInstruction() == null){
+            return true;
+        }
+        return false;
+    }
+
     //Get comments
     public String getComment() {
         return comment;

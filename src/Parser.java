@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
 public class Parser implements IParser {
     private IInterRep interRep;
@@ -5,11 +7,14 @@ public class Parser implements IParser {
     private ILineStatement line;
 
     private ISymbolTable symbolTable;
+    private IErrorReporter errorReporter;
 
     //Parser constructor initializes IR using number of lines from Reader
     public Parser(int len) {
         interRep = new InterRep(len);
         symbolTable = new SymbolTable();
+        //Create an ErrorReporter
+        errorReporter = new ErrorReporter();
     }
 
     //Parse a token received from Scanner
@@ -24,7 +29,7 @@ public class Parser implements IParser {
         //Get opcode from Symbol Table
         int code = symbolTable.getCode(token.getName());
 
-        //System.out.println("Line: " + lineNum + ", Token: " + token.getName());
+//        System.out.println("Line: " + lineNum + ", Token: " + token.getName());
 
         //Check if LineStatement already exists
         //If it doesn't exist, add a new LineStatement to the IR with the given token
@@ -40,11 +45,14 @@ public class Parser implements IParser {
                     break;
                 case LabelOperand:
                     //Add LineStatement to IR with operand
+                    /*
                     if (isNumeric(token.getName()))
                         interRep.addLine(lineNum, new LineStatement(null, new Instruction(null, new Operand(token.getName())), null));
                     //Add LineStatement to IR with label
                     else
                         interRep.addLine(lineNum, new LineStatement(token.getName(), null, null));
+                     */
+                    interRep.addLine(lineNum, new LineStatement(null, new Instruction(null, new Operand(token.getName())), null));
                     break;
                 case Comment:
                     //Add comment
@@ -95,6 +103,34 @@ public class Parser implements IParser {
                 case LabelOperand:
                     //Add operand to LineStatement
                     if (isNumeric(token.getName())) {
+                        //Verify if operand can be added to IR
+                        int opcode = line.getInstruction().getMnemonic().getOpcode();
+
+                        //Inherent mode addressing check
+                        if (opcode >= 0x00 && opcode <= 0x1F) {
+                            errorReporter.addError(3, token);
+                        }
+                        //enter.u5 operand check
+                        else if (opcode == 0x70) {
+                            int operand = Integer.parseInt(token.getName());
+                            if (operand < 0 || operand > 31) {
+                                errorReporter.addError(5,token);
+                            }
+                        }
+                        //ldc.i3 operand check
+                        else if (opcode == 0x90) {
+                            int operand = Integer.parseInt(token.getName());
+                            if (operand < -4 || operand > 3) {
+                                errorReporter.addError(6,token);
+                            }
+                        }
+                        //ldv.u3 operand check
+                        else if (opcode == 0xA0) {
+                            int operand = Integer.parseInt(token.getName());
+                            if (operand < 0 || operand > 7) {
+                                errorReporter.addError(7,token);
+                            }
+                        }
 
                         //Get LineStatement
                         instr = line.getInstruction();
@@ -107,10 +143,52 @@ public class Parser implements IParser {
                     }
                     //Add label to LineStatement
                     else {
-                        interRep.setLabel(lineNum, token.getName());
+                        //Verify if missing operand for immediate instruction
+                        int opcode = line.getInstruction().getMnemonic().getOpcode();
+                        if (opcode >= 0x30 && opcode <= 0xA8) {
+                            if (line.getLabel() == "") {
+                                if (colNum == 1) {
+                                    errorReporter.addError(2, token);
+                                }
+                            } else {
+                                if (colNum == 2) {
+                                    errorReporter.addError(2, token);
+                                }
+                            }
+                        }
+
+                        //Get LineStatement
+                        instr = line.getInstruction();
+
+                        //Set the new operand
+                        instr.setOperand(new Operand(token.getName()));
+
+                        //Set the updated instruction in the LineStatement
+                        interRep.setInstruction(lineNum, instr);
+
+                        //interRep.setLabel(lineNum, token.getName());
                     }
                     break;
                 case Comment:
+                    //Verify if missing operand for immediate instruction
+                    int opcode = line.getInstruction().getMnemonic().getOpcode();
+                    if (opcode >= 0x30 && opcode <= 0xA8) {
+                        if (line.getLabel() == "") {
+                            if (colNum == 1) {
+                                errorReporter.addError(2, token);
+                            }
+                        } else {
+                            if (colNum == 2) {
+                                errorReporter.addError(2, token);
+                            }
+                        }
+                    }
+
+                    //Check if missing operand for immediate instruction
+                    if (opcode >= 0x00 && opcode <= 0x1F) {
+                        errorReporter.addError(3,token);
+                    }
+
                     //Add comment
                     if (token.getName().startsWith(";")) {
                         interRep.setComment(lineNum, token.getName());
@@ -132,32 +210,140 @@ public class Parser implements IParser {
 
     //Check if token is numeric
     public boolean isNumeric(String str) {
-
         if (str == null || str.length() == 0) {
             return false;
         }
 
-        if (str.startsWith("-")) {
-            return true;
-        }
+        for(int i = 0; i < str.length(); i++) {
+            char c = str.charAt(i);
 
-        for (char c : str.toCharArray()) {
-            if (!Character.isDigit(c)){
-                return false;
-            }
+            //Check if character is outside number range
+            if(c < 48 || c > 57)
+                //Check if negative number (-)
+                if (i == 0 && c == 45)
+                    continue;
+                else
+                    return false;
         }
-
         return true;
     }
 
     //Second pass through Parser to update machine code
     public void secondPass() {
-        //Traverse LineStatements in IR and update codes
+        //Traverse LineStatements in IR and update codes + LineStatement byte sizes
         for (int i = 0; i < interRep.getLength(); i++){
+            //Get the original opcode before making modifications
+            int initOpcode = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
+
+            //Stack/inherent addressing
+            if (initOpcode >= 0x00 && initOpcode <= 0x1F){
+                interRep.setSize(i, 1);
+            }
+            //.cstring directives
+            else if (initOpcode == 0x41) {
+                String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
+                int len = operand.substring(1,operand.length() -1).length();
+                interRep.setSize(i, 1 + len);
+            }
+            //Immediate Addressing
+            else if (initOpcode >= 0x30 && initOpcode <= 0xA8) {
+                String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
+                if (!isNumeric(operand) && operand != ""){
+                    interRep.setSize(i, 3);
+                }
+                else {
+                    interRep.setSize(i, 1);
+                }
+            }
+            //Relative Addressing
+            else if (initOpcode >= 0xB0 && initOpcode <= 0xFF) {
+                String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
+                if (!isNumeric(operand) && operand != ""){
+                    interRep.setSize(i, 3);
+                }
+                else {
+                    interRep.setSize(i, 1);
+                }
+            }
+
             //System.out.println(interRep.hasInstruction(i));
-            if (interRep.hasInstruction(i)) {
-                interRep.setMachineCode(i);
+            if (interRep.hasInstruction(i) && isNumeric(interRep.getLine(i).getInstruction().getOperand().getOp())) {
+                //System.out.println(String.format("Opcode before: %s", Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode())));
+                //System.out.println(String.format("Operand before: %s", interRep.getLine(i).getInstruction().getOperand()));
+                interRep.updateCode(i);
+               // System.out.println(String.format("Opcode After: %s", Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode())));
+            }
+
+            //System.out.println("Size: " + interRep.getSize(i));
+        }
+
+        //Set the address of each line, starting at 0000 for the first line
+        interRep.setAddr(0, 0);
+        for (int i = 1; i < interRep.getLength(); i++) {
+            //Get previous and current LineStatement
+            ILineStatement prevLine = interRep.getLine(i-1);
+            ILineStatement currLine = interRep.getLine(i);
+            //Check if previous line is empty and current line is not
+            //If so, increment the current line's address by one
+            //Otherwise set current line's address to the addition of the previous line's address and its size
+            if (prevLine.isEmpty() && !currLine.isEmpty()) {
+                interRep.setAddr(i,interRep.getAddr(i-1) + 1);
+            } else {
+                interRep.setAddr(i,interRep.getAddr(i-1) + interRep.getSize(i-1));
+                System.out.println(interRep.getAddr(i));
             }
         }
+
+        //Set the machine code of each line statement
+        for (int i = 0; i < interRep.getLength(); i++) {
+            //Get the opcode and operand of the line statement
+            int opcode = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
+            String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
+            //If operand is a label or string
+            if (!isNumeric(operand) && operand != ""){
+                //If a line's mnemonic is a .cstring, set its machine code to its opcode + the byte size of each character in the string operand
+                if (opcode == 0x41) {
+                    String op = operand.substring(1, operand.length() - 1);
+                    char[] arr = op.toCharArray();
+                    String mCode = "";
+                    //Append hex bytes to machine code
+                    for (char c: arr){
+                        mCode = mCode + " " + Integer.toHexString(c).toUpperCase();
+                    }
+                    //Append '00' as remaining bytes to machine code
+                    for(int j = interRep.getSize(i) - arr.length; j > 0; j--){
+                        mCode = mCode + " 00";
+                    }
+
+                    mCode = mCode.substring(1);
+                    interRep.setMachineCode(i, mCode);
+                }
+                //If operand is a label, set the machine code to the instruction's opcode + the
+                else {
+                    String label = interRep.getLine(i).getInstruction().getOperand().getOp();
+                    int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
+                    //Fine the address where the label is declared
+                    for (int j = i + 1; j < interRep.getLength(); j++) {
+                        String currLabel = interRep.getLine(j).getLabel();
+                        if (currLabel.equals(label)) {
+                            int address = interRep.getAddr(j);
+                            interRep.setMachineCode(i, String.format("%s %s", Integer.toHexString(code).toUpperCase(), String.format("%1$04X",address)));
+                        } else {
+                            //TODO: Throw error here
+                        }
+                    }
+                }
+            }
+            else if (isNumeric(operand)) {
+                interRep.setMachineCode(i, Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode()).toUpperCase());
+            }
+
+//            System.out.println("Machine Code: " + interRep.getMachineCode(i));
+        }
+    }
+
+    //Print error recorded by ErrorReporter (if there are any)
+    public void reportErrors() {
+        errorReporter.reportErrors();
     }
 }

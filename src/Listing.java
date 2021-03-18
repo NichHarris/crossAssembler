@@ -21,10 +21,10 @@ public class Listing implements IListing {
         //Initialize a new array of string for setting the listing file contents
         listing = new String[IR.getLength() + 1];
 
-        String lstFormat = "%1$-5s%2$-5s%3$-14s%4$-14s%5$-9s%6$-14s%7$-20s\n";
+        String lstFormat = "%1$-5s%2$-5s%3$-14s%4$-14s%5$-14s%6$-14s%7$-20s\n";
 
         //Add listing header to beginning of listing file contents
-        listing[0] = String.format(lstFormat, "Line", "Addr", "Machine Code", "Label", "Assembly", "Code", "Comments");
+        listing[0] = String.format(lstFormat, "Line", "Addr", "Machine Code", "Label", "Mnemonic", "Operand", "Comments");
 
         //Traverse the IR and get line statement data for each line statement
         for (int i = 0; i < IR.getLength(); i++){
@@ -32,18 +32,19 @@ public class Listing implements IListing {
                 //Get the line number
                 line = Integer.toString(i);
                 //Convert opcode to hex and pad with zeros
-                addr = String.format("%1$04X",i);
+                addr = String.format("%1$04X",IR.getAddr(i));
+                //System.out.println("Line: " + line + " addr: " + addr);
 
                 //Check If Instruction Exists
                 if(IR.hasInstruction(i)) {
                     if (IR.getLine(i).getInstruction().getMnemonic().getOpcode() == -1)
                         code = "";
                     else
-                        code = String.format("%1$02X", IR.getLine(i).getInstruction().getMnemonic().getOpcode());
+                        code = IR.getMachineCode(i);
 
                     //Get the value (if there is one), Set to empty if it is not present, Set value from line statementlabel = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
                     mne = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getMnemonic().getMne();
-                    operand = (IR.getLine(i).getInstruction().getOperand().getOp() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();
+                    operand = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();
                 } else {
                     mne = "";
                     operand = "";

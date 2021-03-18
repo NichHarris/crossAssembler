@@ -9,4 +9,7 @@ public interface IParser {
 
     //Second pass through Parser to update machine code
     void secondPass();
+
+    //Print error recorded by ErrorReporter (if there are any)
+    void reportErrors();
 }

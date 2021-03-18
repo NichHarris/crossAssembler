@@ -63,6 +63,9 @@ public class SymbolTable implements ISymbolTable {
         symbolTable.put("brf.i8", 0xE3);
         symbolTable.put("call.i16", 0xE7);
         symbolTable.put("trap", 0xFF);
+
+        //.cstring Directive - String Operands
+        symbolTable.put(".cstring", 0x41);
     }
 
     //Get Instruction Code
