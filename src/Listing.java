@@ -1,6 +1,5 @@
 //Listing object used to generate listing file content
 public class Listing implements IListing {
-
     //InterRep object for which the listing content is derived
     private IInterRep IR;
 
@@ -14,7 +13,7 @@ public class Listing implements IListing {
     private String[] listing;
 
     //Parameterized Constructor
-    public Listing(IInterRep intRep) {
+    public Listing(IInterRep intRep, String[] mCode) {
         //Get the intermediate representation
         IR = intRep;
 
@@ -40,7 +39,7 @@ public class Listing implements IListing {
                     if (IR.getLine(i).getInstruction().getMnemonic().getOpcode() == -1)
                         code = "";
                     else
-                        code = IR.getMachineCode(i);
+                        code = mCode[i]; //TODO: need to change this
 
                     //Get the value (if there is one), Set to empty if it is not present, Set value from line statementlabel = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
                     mne = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getMnemonic().getMne();

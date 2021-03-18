@@ -9,4 +9,6 @@ public interface IOperand {
 
     //toString method
     String toString();
+
+    boolean isNumeric();
 }

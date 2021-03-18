@@ -82,5 +82,4 @@ public class ErrorReporter implements IErrorReporter{
             addError(0, lineNum, colNum, c);
         }
     }
-
 }

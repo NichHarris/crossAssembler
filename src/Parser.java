@@ -34,8 +34,6 @@ public class Parser implements IParser {
 
         do {
             tk = scanner.scanFile(reader);
-
-            System.out.println(tk.toString());
             addToIR(tk);
         } while(scanner.getCurrPos() != reader.getFileContent().length() - 1);
     }
@@ -52,7 +50,7 @@ public class Parser implements IParser {
         //Get opcode from Symbol Table
         int code = symbolTable.getCode(token.getName());
 
-        //        System.out.println("Line: " + lineNum + ", Token: " + token.getName());
+        //System.out.println("Line: " + lineNum + ", Token: " + token.getName());
 
         //Check if LineStatement already exists
         //If it doesn't exist, add a new LineStatement to the IR with the given token
@@ -88,10 +86,12 @@ public class Parser implements IParser {
         else {
             //Get the LineStatement
             line = interRep.getLine(lineNum);
+
             //Check the token type
-            if (tokenType == null) {
-                tokenType = TokenType.Comment;
-            }
+//            if (tokenType == null) {
+//                tokenType = TokenType.Comment;
+//            }
+
             switch(tokenType) {
                 //TODO: Label case probably not needed
                 case Label:

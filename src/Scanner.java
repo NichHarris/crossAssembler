@@ -8,11 +8,8 @@ public class Scanner implements IScanner {
     private ISymbolTable symbolTable;
 
     private String buffer;
-    private int numLines;
     private int lineNum, colNum;
-
     private int currPos, eolCounter;
-
     private boolean isSpace, isEOL, isComment = false;
 
     private IErrorReporter errorReporter;
@@ -38,9 +35,8 @@ public class Scanner implements IScanner {
     public IToken scanFile(IReader file) {
         //Input file content as a String
         String fileContent = file.getFileContent();
-
         //Number of lines in file
-        numLines = file.getLineNum();
+        //numLines = file.getLineNum();
 
         buffer = "";
 
@@ -53,24 +49,25 @@ public class Scanner implements IScanner {
             //EOL format is \r\n
             isEOL = c == '\r' || c == '\n';
             isSpace = c == ' ' || c == '\t';
-
+/*
             //Check if character is valid or not, and report error if not
-//            errorReporter.isValid(c, lineNum, colNum);
+            errorReporter.isValid(c, lineNum, colNum);
 
-//            //Check if eol in string
-//            if(buffer != "" && c == '\n'){
-//                errorReporter.addError(2,lineNum, colNum);
-//            }
-//
-//            //Check if an EOF character is found anywhere other than the end of file
-//            //TODO: Not sure if this works
-//            if (i != fileContent.length() - 1 && (int) c == 26) {
-//                errorReporter.addError(1, lineNum, colNum);
-//            }
+            //Check if eol in string
+            if(buffer != "" && c == '\n'){
+                errorReporter.addError(2,lineNum, colNum);
+            }
 
+            //Check if an EOF character is found anywhere other than the end of file
+            //TODO: Not sure if this works
+            if (i != fileContent.length() - 1 && (int) c == 26) {
+                errorReporter.addError(1, lineNum, colNum);
+            }
+*/
             //Counts number of EOL characters in a row
-            eolCounter = isEOL ? eolCounter + 1 : 0;
-            //System.out.println(eolCounter);
+            eolCounter = isEOL ? eolCounter + 1: 0;
+
+//            if(eolCounter > 0) System.out.println("EOL Count" + eolCounter);
 
             //If space and buffer is not empty and not a comment - send to parser
             if (isSpace && buffer != "" && !isComment) {
@@ -96,35 +93,37 @@ public class Scanner implements IScanner {
                 newLine();
 
                 return token;
-            //If more than 2 EOL characters in a row
-            //TODO: Fix this sketchiness
-            } else if (eolCounter % 2 != 0) {
-                tokenType = this.getTokenType(buffer, colNum);
-                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-
-                currPos = i++;
-                System.out.println("Current Position: " + currPos + ", Value: " + buffer);
-
-                newLine();
-
-                return token;
             //If at last line of file
-            } else if (i == fileContent.length() - 1 && !isEOL) {
-                //Send toParser
-                buffer = buffer + (c);
-                tokenType = this.getTokenType(buffer, colNum);
-                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+            } else if (i == fileContent.length() - 1) {
+                //if (!isEOL){
+                    //Send toParser
+                    buffer = buffer + (c);
+                    tokenType = this.getTokenType(buffer, colNum);
+                    token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
-                currPos = i++;
-                System.out.println("Current Position: " + currPos + ", Value: " + buffer);
+                    currPos = i++;
+                    System.out.println("Current Position: " + currPos + ", Value: " + buffer);
 
-                newLine();
+                    newLine();
 
-                return token;
+                    return token;
+                //}
             //Ignore spaces and extra EOL
             } else if ((isSpace || isEOL) && buffer == "") {
                 continue;
             //Add to buffer
+                //If more than 2 EOL characters in a row
+                //TODO: Fix this sketchiness
+            } else if (eolCounter % 2 == 0 && eolCounter > 2) {
+                tokenType = this.getTokenType(buffer, colNum);
+                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+
+                currPos = i++;
+                System.out.println("Current EOL Position: " + currPos + ", Value: " + buffer);
+
+                newLine();
+
+                return token;
             } else {
                 buffer += c;
 
@@ -132,6 +131,8 @@ public class Scanner implements IScanner {
                 if (c == ';')
                     isComment = true;
             }
+
+            if(eolCounter > 0) System.out.println("EOL Count" + eolCounter);
         }
 
 
@@ -147,7 +148,6 @@ public class Scanner implements IScanner {
         //Increment line number and reset column number
         lineNum++;
         colNum = 0;
-
         //Reset flag and buffer
         isComment = false;
         buffer = "";
@@ -199,16 +199,6 @@ public class Scanner implements IScanner {
         return true;
     }
 
-    //Send token to Parser
-//    public void sendToParser() {
-//        parser.parseToken(token);
-//    }
-//
-//    //Get the instance of Parser
-//    public IParser getParser() {
-//        return parser;
-//    }
-
     //Print error recorded by ErrorReporter (if there are any)
     public void reportErrors() {
         errorReporter.reportErrors();
@@ -221,7 +211,4 @@ public class Scanner implements IScanner {
     public void setCurrPos(int pos){
         currPos = pos;
     }
-
 }
-
-

@@ -1,28 +1,5 @@
 Line Addr Machine Code  Label         Mnemonic      Operand       Comments            
-1    0000 null                        halt                                            
-2    0001 null                        pop                                             
-3    0002 null                        dup                                             
-4    0003 null                        exit                                            
-5    0004 null                        ret                                             
-6    0005 null                        not                                             
-7    0006 null                        and                                             
-8    0007 null                        or                                              
-9    0008 null                        xor                                             
-10   0009 null                        neg                                             
-11   000A null                        inc                                             
-12   000B null                        dec                                             
-13   000C null                        add                                             
-14   000D null                        sub                                             
-15   000E null                        mul                                             
-16   000F null                        div                                             
-17   0010 null                        rem                                             
-18   0011 null                        shl                                             
-19   0012 null                        shr                                             
-20   0013 null                        teq                                             
-21   0014 null                        tne                                             
-22   0015 null                        tlt                                             
-23   0016 null                        tgt                                             
-24   0017 null                        tle                                             
-25   0018 null                        tge                                             
-26   0019 null                        halt                                            
+1    0000 D5 0003                     lda.i16       ABC           ; lda - load address
+2    0003 41 42 43 00   ABC           .cstring      "ABC"         ; "ABC" has 4 bytes 
+3    0007 41 30 00      A0            .cstring      "A0"          ; "A0" has 3 bytes  
 

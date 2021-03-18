@@ -16,6 +16,9 @@ public interface IInstruction {
     //Get operand
     IOperand getOperand();
 
+    //Get the byte size of a LineStatement
+    int getSize();
+
     //Returns a String representable of an Instruction object
     String toString();
 }
