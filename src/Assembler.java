@@ -21,25 +21,37 @@ public class Assembler {
 
         //Create scanner object, this is to be passed to Parse
         IScanner scanner = new Scanner(symbolTable, errorReporter);
-//        scanner.scanFile(reader);
 
+        System.out.println(reader.getFileContent().length() + 1);
+        System.out.println(reader.getLineNum() + 1);
         //Instantiate the Parser
-        IParser parser = new Parser(reader.getFileContent().length() + 1, symbolTable, errorReporter, scanner);
+        IParser parser = new Parser(reader.getLineNum() + 1, symbolTable, errorReporter, scanner, reader);
         //We then want Parser to request a token from scanner, from there, scanner will produce a token for parser
         //and then do its thing on that token, adding it to the interRep
+        parser.parseToken();
 
         //Report any errors found in Scanner
         scanner.reportErrors();
 
         //Get the parser from scanner
-//        IParser parser = scanner.getParser();
+        // IParser parser = scanner.getParser();
 
         //Run a second pass through the IR to update the machine code
         IInterRep interRep = parser.getInterRep();
+        for(int i = 0; i < interRep.getLength(); i++ ) {
+            ILineStatement l = interRep.getLine(i);
+
+            if(interRep.hasInstruction(i))
+                System.out.println(l.toString());
+            else {
+                System.out.println(l.getLabel() + ", " + l.getComment());
+            }
+        }
+
         secondPass(interRep);
 
         //Report any errors found in Parser
-        scanner.reportErrors();
+        parser.reportErrors();
 
         //Get the intermediate representation
 
@@ -49,47 +61,48 @@ public class Assembler {
 
     static void secondPass(IInterRep interRep) {
         //Traverse LineStatements in IR and update codes + LineStatement byte sizes
-        for (int i = 0; i < interRep.getLength(); i++){
-            //Get the original opcode before making modifications
-            int initOpcode = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
+        for (int i = 0; i < interRep.getLength(); i++) {
+            if (interRep.hasInstruction(i)) {
+                //Get the original opcode before making modifications
+                int initOpcode = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
 
-            //Stack/inherent addressing
-            if (initOpcode >= 0x00 && initOpcode <= 0x1F){
-                interRep.setSize(i, 1);
-            }
-            //.cstring directives
-            else if (initOpcode == 0x41) {
-                String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
-                int len = operand.substring(1,operand.length() -1).length();
-                interRep.setSize(i, 1 + len);
-            }
-            //Immediate Addressing
-            else if (initOpcode >= 0x30 && initOpcode <= 0xA8) {
-                String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
-                if (!isNumeric(operand) && operand != ""){
-                    interRep.setSize(i, 3);
-                }
-                else {
+                //Stack/inherent addressing
+                if (initOpcode >= 0x00 && initOpcode <= 0x1F) {
                     interRep.setSize(i, 1);
                 }
-            }
-            //Relative Addressing
-            else if (initOpcode >= 0xB0 && initOpcode <= 0xFF) {
-                String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
-                if (!isNumeric(operand) && operand != ""){
-                    interRep.setSize(i, 3);
+                //.cstring directives
+                else if (initOpcode == 0x41) {
+                    String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
+                    int len = operand.substring(1, operand.length() - 1).length();
+                    interRep.setSize(i, 1 + len);
                 }
-                else {
-                    interRep.setSize(i, 1);
+                //Immediate Addressing
+                else if (initOpcode >= 0x30 && initOpcode <= 0xA8) {
+                    String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
+                    if (!isNumeric(operand) && operand != "") {
+                        interRep.setSize(i, 3);
+                    } else {
+                        interRep.setSize(i, 1);
+                    }
                 }
-            }
+                //Relative Addressing
+                else if (initOpcode >= 0xB0 && initOpcode <= 0xFF) {
+                    String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
+                    if (!isNumeric(operand) && operand != "") {
+                        interRep.setSize(i, 3);
+                    } else {
+                        interRep.setSize(i, 1);
+                    }
+                }
 
-            //System.out.println(interRep.hasInstruction(i));
-            if (interRep.hasInstruction(i) && isNumeric(interRep.getLine(i).getInstruction().getOperand().getOp())) {
-                //System.out.println(String.format("Opcode before: %s", Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode())));
-                //System.out.println(String.format("Operand before: %s", interRep.getLine(i).getInstruction().getOperand()));
-                interRep.updateCode(i);
-                // System.out.println(String.format("Opcode After: %s", Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode())));
+                //System.out.println(interRep.hasInstruction(i));
+                if (interRep.hasInstruction(i) && isNumeric(interRep.getLine(i).getInstruction().getOperand().getOp())) {
+                    //System.out.println(String.format("Opcode before: %s", Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode())));
+                    //System.out.println(String.format("Operand before: %s", interRep.getLine(i).getInstruction().getOperand()));
+                    interRep.updateCode(i);
+                    // System.out.println(String.format("Opcode After: %s", Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode())));
+                }
+
             }
 
             //System.out.println("Size: " + interRep.getSize(i));
@@ -97,18 +110,21 @@ public class Assembler {
 
         //Set the address of each line, starting at 0000 for the first line
         interRep.setAddr(0, 0);
-        for (int i = 1; i < interRep.getLength(); i++) {
+        for (int j = 1; j < interRep.getLength(); j++) {
             //Get previous and current LineStatement
-            ILineStatement prevLine = interRep.getLine(i-1);
-            ILineStatement currLine = interRep.getLine(i);
+            ILineStatement prevLine = interRep.getLine(j - 1);
+            ILineStatement currLine = interRep.getLine(j);
+            System.out.println("Prev: " + prevLine.toString());
+            System.out.println("Curr: " + currLine.toString());
+
             //Check if previous line is empty and current line is not
             //If so, increment the current line's address by one
             //Otherwise set current line's address to the addition of the previous line's address and its size
             if (prevLine.isEmpty() && !currLine.isEmpty()) {
-                interRep.setAddr(i,interRep.getAddr(i-1) + 1);
+                interRep.setAddr(j, interRep.getAddr(j - 1) + 1);
             } else {
-                interRep.setAddr(i,interRep.getAddr(i-1) + interRep.getSize(i-1));
-                System.out.println(interRep.getAddr(i));
+                interRep.setAddr(j, interRep.getAddr(j - 1) + interRep.getSize(j - 1));
+                System.out.println(interRep.getAddr(j));
             }
         }
 
@@ -118,18 +134,18 @@ public class Assembler {
             int opcode = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
             String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
             //If operand is a label or string
-            if (!isNumeric(operand) && operand != ""){
+            if (!isNumeric(operand) && operand != "") {
                 //If a line's mnemonic is a .cstring, set its machine code to its opcode + the byte size of each character in the string operand
                 if (opcode == 0x41) {
                     String op = operand.substring(1, operand.length() - 1);
                     char[] arr = op.toCharArray();
                     String mCode = "";
                     //Append hex bytes to machine code
-                    for (char c: arr){
+                    for (char c : arr) {
                         mCode = mCode + " " + Integer.toHexString(c).toUpperCase();
                     }
                     //Append '00' as remaining bytes to machine code
-                    for(int j = interRep.getSize(i) - arr.length; j > 0; j--){
+                    for (int j = interRep.getSize(i) - arr.length; j > 0; j--) {
                         mCode = mCode + " 00";
                     }
 
@@ -145,14 +161,13 @@ public class Assembler {
                         String currLabel = interRep.getLine(j).getLabel();
                         if (currLabel.equals(label)) {
                             int address = interRep.getAddr(j);
-                            interRep.setMachineCode(i, String.format("%s %s", Integer.toHexString(code).toUpperCase(), String.format("%1$04X",address)));
+                            interRep.setMachineCode(i, String.format("%s %s", Integer.toHexString(code).toUpperCase(), String.format("%1$04X", address)));
                         } else {
                             //TODO: Throw error here
                         }
                     }
                 }
-            }
-            else if (isNumeric(operand)) {
+            } else if (isNumeric(operand)) {
                 interRep.setMachineCode(i, Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode()).toUpperCase());
             }
 

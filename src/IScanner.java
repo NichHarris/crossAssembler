@@ -1,7 +1,7 @@
 //Interface for Scanner class
 public interface IScanner {
     //Scans file character by character given Reader
-    void scanFile(IReader reader);
+    IToken scanFile(IReader reader);
 
     //Get the token type of a token
     TokenType getTokenType(String name, int colNum);
@@ -9,11 +9,11 @@ public interface IScanner {
     //Check if token is numeric
     boolean isNumeric(String str);
 
-    //Send token to Parser
-    void sendToParser();
+    //Gets the current position in Scanner
+    int getCurrPos();
 
-    //Get the parser
-    IParser getParser();
+    //Sets the current position in Scanner
+    void setCurrPos(int pos);
 
     //Print error recorded by ErrorReporter (if there are any)
     void reportErrors();

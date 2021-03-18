@@ -1,6 +1,5 @@
 //Interface for InterRep class
 public interface IInterRep {
-
     //Add LineStatement with a LineStatement object
     void addLine(int i, ILineStatement l);
 

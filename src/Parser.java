@@ -9,9 +9,10 @@ public class Parser implements IParser {
     private ISymbolTable symbolTable;
     private IErrorReporter errorReporter;
     private IScanner scanner;
+    private IReader reader;
 
     //Parser constructor initializes IR using number of lines from Reader
-    public Parser(int len, ISymbolTable symTable, IErrorReporter errRep, IScanner scnr) {
+    public Parser(int len, ISymbolTable symTable, IErrorReporter errRep, IScanner scnr, IReader rdr) {
         interRep = new InterRep(len);
 
         //Create an instance of Symbol table
@@ -22,22 +23,36 @@ public class Parser implements IParser {
 
         //Create an instance of Scanner
         scanner = scnr;
+
+        //Create an instance of Reader
+        reader = rdr;
     }
 
     //Parse a token received from Scanner
-    public void parseToken(IToken token){
+    public void parseToken(){
+        IToken tk;
+
+        do {
+            tk = scanner.scanFile(reader);
+
+            System.out.println(tk.toString());
+            addToIR(tk);
+        } while(scanner.getCurrPos() != reader.getFileContent().length() - 1);
+    }
+
+    //Adds to ir
+    public void addToIR(IToken token){
+        //Get token type
+        TokenType tokenType = token.getCode();
 
         //Get column and line number from token
         int lineNum = token.getPosition().getLineNumber();
         int colNum = token.getPosition().getColumnNumber();
 
-        //Get token type
-        TokenType tokenType = token.getCode();
-
         //Get opcode from Symbol Table
         int code = symbolTable.getCode(token.getName());
 
-//        System.out.println("Line: " + lineNum + ", Token: " + token.getName());
+        //        System.out.println("Line: " + lineNum + ", Token: " + token.getName());
 
         //Check if LineStatement already exists
         //If it doesn't exist, add a new LineStatement to the IR with the given token
@@ -53,13 +68,6 @@ public class Parser implements IParser {
                     break;
                 case LabelOperand:
                     //Add LineStatement to IR with operand
-                    /*
-                    if (isNumeric(token.getName()))
-                        interRep.addLine(lineNum, new LineStatement(null, new Instruction(null, new Operand(token.getName())), null));
-                    //Add LineStatement to IR with label
-                    else
-                        interRep.addLine(lineNum, new LineStatement(token.getName(), null, null));
-                     */
                     interRep.addLine(lineNum, new LineStatement(null, new Instruction(null, new Operand(token.getName())), null));
                     break;
                 case Comment:
@@ -218,7 +226,7 @@ public class Parser implements IParser {
 
     //Check if token is numeric
     public boolean isNumeric(String str) {
-        if (str == null || str.length() == 0) {
+        if (str == null) {
             return false;
         }
 
