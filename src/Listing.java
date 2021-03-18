@@ -30,7 +30,7 @@ public class Listing implements IListing {
         for (int i = 0; i < IR.getLength(); i++){
             try {
                 //Get the line number
-                line = Integer.toString(i);
+                line = Integer.toString(i + 1);
                 //Convert opcode to hex and pad with zeros
                 addr = String.format("%1$04X",IR.getAddr(i));
                 //System.out.println("Line: " + line + " addr: " + addr);
