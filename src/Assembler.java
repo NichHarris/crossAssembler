@@ -22,8 +22,6 @@ public class Assembler {
         //Create scanner object, this is to be passed to Parse
         IScanner scanner = new Scanner(symbolTable, errorReporter);
 
-        System.out.println(reader.getFileContent().length() + 1);
-        System.out.println(reader.getLineNum() + 1);
         //Instantiate the Parser
         IParser parser = new Parser(reader.getLineNum() + 1, symbolTable, errorReporter, scanner, reader);
         //We then want Parser to request a token from scanner, from there, scanner will produce a token for parser
@@ -33,21 +31,8 @@ public class Assembler {
         //Report any errors found in Scanner
         scanner.reportErrors();
 
-        //Get the parser from scanner
-        // IParser parser = scanner.getParser();
-
         //Run a second pass through the IR to update the machine code
         IInterRep interRep = parser.getInterRep();
-        for(int i = 0; i < interRep.getLength(); i++ ) {
-            ILineStatement l = interRep.getLine(i);
-
-            if(interRep.hasInstruction(i))
-                System.out.println(l.toString());
-            else {
-                System.out.println(l.getLabel() + ", " + l.getComment());
-            }
-        }
-
         secondPass(interRep);
 
         //Report any errors found in Parser
