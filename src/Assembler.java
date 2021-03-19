@@ -46,17 +46,6 @@ public class Assembler {
 
     static void secondPass(IInterRep interRep) {
 
-        //Traverse LineStatements in IR and update codes
-        for (int i = 0; i < interRep.getLength(); i++) {
-            //System.out.println(interRep.hasInstruction(i));
-            if (interRep.hasInstruction(i) && interRep.getLine(i).getInstruction().getOperand().isNumeric()) {
-                //System.out.println(String.format("Opcode before: %s", Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode())));
-                //System.out.println(String.format("Operand before: %s", interRep.getLine(i).getInstruction().getOperand()));
-                interRep.updateCode(i);
-                // System.out.println(String.format("Opcode After: %s", Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode())));
-            }
-        }
-
         //Set the address of each line, starting at 0000 for the first line
         interRep.setAddr(0, 0);
         for (int j = 1; j < interRep.getLength(); j++) {

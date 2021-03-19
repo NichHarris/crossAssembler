@@ -49,7 +49,7 @@ public class Scanner implements IScanner {
             //EOL format is \r\n
             isEOL = c == '\r' || c == '\n';
             isSpace = c == ' ' || c == '\t';
-/*
+
             //Check if character is valid or not, and report error if not
             errorReporter.isValid(c, lineNum, colNum);
 
@@ -63,7 +63,7 @@ public class Scanner implements IScanner {
             if (i != fileContent.length() - 1 && (int) c == 26) {
                 errorReporter.addError(1, lineNum, colNum);
             }
-*/
+
             //Counts number of EOL characters in a row
             eolCounter = isEOL ? eolCounter + 1: 0;
 

@@ -156,6 +156,11 @@ public class Parser implements IParser {
 
                         //Set the updated instruction in the LineStatement
                         interRep.setInstruction(lineNum, instr);
+
+                        //Update mnemonic's code based on added operand
+                        if (interRep.hasInstruction(lineNum) && interRep.getLine(lineNum).getInstruction().getOperand().isNumeric()) {
+                            interRep.updateCode(lineNum);
+                        }
                     }
                     //Add label to LineStatement
                     else {
