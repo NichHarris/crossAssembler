@@ -5,7 +5,7 @@ public class CodeGeneratorTest {
     public static void main(String[] args) throws Exception{
 
         //Creating Options
-        String[] options = {"-v", "-l"};
+        String[] options = {"-v", "-l","testfile.asm"};
         Options op2 = new Options();
         op2.setOptions(options);
 
@@ -52,7 +52,7 @@ public class CodeGeneratorTest {
 
         // testing code generator file creation
         TestCodeGenerator("Test -CodeGenerator Class- File creation",
-                "0    0000 98            Fct           addv.u33                                 ", listingContent.get(1).toString());
+                "1    0000 98            Fct           addv.u3       3                                 ", listingContent.get(1).toString());
     }
     public static void TestCodeGenerator(String testCaseName, String expectedOutput, String methodOutput) throws Exception{
         System.out.println(testCaseName);

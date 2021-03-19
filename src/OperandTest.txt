@@ -1,9 +1,15 @@
 Test -Operand Class- Default Constructor and toString()
-null
-null
+
+
 Test -Operand Class- Parametrized Constructor
 45
 45
 Test -Operand Class- setOperand
 12
 12
+Test -Operand Class- isDigit
+true
+true
+Test -Operand Class- isDigit
+false
+false

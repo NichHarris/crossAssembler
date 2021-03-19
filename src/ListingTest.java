@@ -1,28 +1,31 @@
-/*
-import java.util.ArrayList;
-
 public class ListingTest {
     public static void main(String[] args) throws Exception {
-        Reader fileContent = null;
-        try {
-            fileContent = new Reader("testfile.asm");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        ArrayList<String> assemblyUnit = fileContent.getAssemblyUnit();
-        InterRep IR = new InterRep(assemblyUnit.size());
+        //Creating an InterRepresentation
+        InterRep IR = new InterRep(1);
+        ISymbolTable symbolTable = new SymbolTable();
+        int code = symbolTable.getCode("addv.u3");
 
-        Scanner scanner = new Scanner(assemblyUnit);
-        Parser parser = new Parser(scanner, IR);
-        Listing listing = new Listing(IR);
+        //Creating mnemonic and operand objects for instruction object
+        IMnemonic m = new Mnemonic("addv.u3", code);
+        IOperand op = new Operand("3");
 
-        String [] ls = listing.getListing();
+        //Creating an Instruction
+        IInstruction instruction = new Instruction (m, op);
 
-        String expected = String.format("%1$-5s%2$-5s%3$-14s%4$-14s%5$-6s%6$-14s%7$-20s", "0", "0000", "00", "", "halt", "", "");
-        TestListing("Test -Listing Class-", expected, ls[1]);
+        //Creating a LineStatement with Instruction
+        LineStatement ls = new LineStatement("Fct", instruction, "; this is a comment");
+
+        //Adding Line Statement to IR
+        IR.addLine(0, ls);
+
+        String []mCode = new String[IR.getLength()];
+        // initializing code generator object
+        Listing list = new Listing(IR,mCode);
+
+        TestListing("Test -Listing Class- getListing()","1    0000 null          Fct           addv.u3       3             ; this is a comment", list.getListing()[1]);
     }
 
-    public static void TestListing(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
+    public static void TestListing(String testCaseName, String expectedOutput, String methodOutput) throws Exception{
         System.out.println(testCaseName);
         // expected value
         System.out.println(expectedOutput);
@@ -30,4 +33,3 @@ public class ListingTest {
         System.out.println(methodOutput);
     }
 }
- */

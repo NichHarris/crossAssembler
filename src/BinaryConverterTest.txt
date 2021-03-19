@@ -1,0 +1,12 @@
+Test -BinaryConverter Class- getOverflow()
+false
+false
+Test -BinaryConverter Class- getBinaryValue(String s)
+10
+10
+Test -BinaryConverter Class- toBinary()
+01010
+01010
+Test -BinaryConverter Class- getTwosComplement(String b)
+101
+101
