@@ -1,6 +1,5 @@
 //LineStatement object comprised of a label, instruction and comment (all optional fields)
 public class LineStatement implements ILineStatement {
-
     // Data members representing the label, instruction and comments of a LineStatement Object
     private String label;
     private IInstruction instruction;
@@ -47,9 +46,9 @@ public class LineStatement implements ILineStatement {
 
     //Checks if a LineStatement contains a label, mnemonic and/or operand
     public boolean isEmpty(){
-        if (this.getLabel() == "" && this.getInstruction() == null){
+        if (this.getLabel() == "" && this.getComment() == "" && this.getInstruction() == null)
             return true;
-        }
+
         return false;
     }
 

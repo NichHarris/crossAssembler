@@ -2,6 +2,12 @@
 public class Assembler {
     //Entrypoint of program execution
     public static void main(String[] args) throws Exception {
+        //Create SymbolTable
+        ISymbolTable symbolTable = new SymbolTable();
+
+        //Create error reporter
+        IErrorReporter errorReporter = new ErrorReporter();
+
         //Set options from CL
         IOptions options = new Options();
         options.setOptions(args);
@@ -13,26 +19,49 @@ public class Assembler {
         IReader reader = new Reader(fileName);
         reader.readFile();
 
-        //Scan for tokens using the read file content from Reader
-        IScanner scanner = new Scanner();
-        scanner.scanFile(reader);
+        //Create scanner object, this is to be passed to Parse
+        IScanner scanner = new Scanner(symbolTable, errorReporter);
+
+        //Instantiate the Parser
+        IParser parser = new Parser(reader.getLineNum() + 1, symbolTable, errorReporter, scanner, reader);
+        //We then want Parser to request a token from scanner, from there, scanner will produce a token for parser
+        //and then do its thing on that token, adding it to the interRep
+        parser.parseToken();
 
         //Report any errors found in Scanner
         scanner.reportErrors();
 
-        //Get the parser from scanner
-        IParser parser = scanner.getParser();
-
         //Run a second pass through the IR to update the machine code
-        parser.secondPass();
+        IInterRep interRep = parser.getInterRep();
+        secondPass(interRep);
 
         //Report any errors found in Parser
-        scanner.reportErrors();
+        parser.reportErrors();
 
-        //Get the intermediate representation
-        IInterRep interRep = parser.getInterRep();
+        //TODO? Get the intermediate representation
 
         //Generate listing file
         ICodeGenerator generator = new CodeGenerator(interRep, options);
+    }
+
+    static void secondPass(IInterRep interRep) {
+
+        //Set the address of each line, starting at 0000 for the first line
+        interRep.setAddr(0, 0);
+        for (int j = 1; j < interRep.getLength(); j++) {
+            //Get previous and current LineStatement
+            ILineStatement prevLine = interRep.getLine(j - 1);
+            ILineStatement currLine = interRep.getLine(j);
+
+            //Check if previous line is empty and current line is not
+            //If so, increment the current line's address by one
+            //Otherwise set current line's address to the addition of the previous line's address and its size
+            if (prevLine.isEmpty() && !currLine.isEmpty()) {
+                interRep.setAddr(j, interRep.getAddr(j - 1) + 1);
+            } else {
+                interRep.setAddr(j, interRep.getAddr(j - 1) + interRep.getLine(j - 1).getInstruction().getSize());
+                System.out.println(interRep.getAddr(j));
+            }
+        }
     }
 }

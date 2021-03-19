@@ -2,19 +2,13 @@
 public class InterRep implements IInterRep {
     //Array of line statements
     private final ILineStatement[] lines;
-    //Array of byte sizes for each LineStatement
-    private final int[] size;
     //Array of addresses for each line statement
     private final int[] addr;
-    //Array of machine codes for each LineStatement
-    private final String[] mCode;
 
     //Parameterized Constructor
     public InterRep(int len) {
         lines = new LineStatement[len];
-        size = new int[len];
         addr = new int[len];
-        mCode = new String[len];
     }
 
     //Add LineStatement with a LineStatement object
@@ -104,16 +98,6 @@ public class InterRep implements IInterRep {
         }
     }
 
-    //Get the byte size of a LineStatement
-    public int getSize(int i) {
-        return size[i];
-    }
-
-    //Set the byte size of a LineStatement
-    public void setSize(int i, int val) {
-        size[i] = val;
-    }
-
     //Get the address of a LineStatement
     public int getAddr(int i) {
         return addr[i];
@@ -122,16 +106,6 @@ public class InterRep implements IInterRep {
     //Set the address of a LineStatement
     public void setAddr(int i, int val) {
         addr[i] = val;
-    }
-
-    //Get the machine code of a LineStatement
-    public String getMachineCode(int i) {
-        return mCode[i];
-    }
-
-    //Set the machine code of a LineStatement
-    public void setMachineCode(int i, String val) {
-        mCode[i] = val;
     }
 
     //Returns a String representable of an InterRep object

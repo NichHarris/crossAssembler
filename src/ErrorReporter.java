@@ -8,6 +8,8 @@ public class ErrorReporter implements IErrorReporter{
     //Dictionary of error messages
     HashMap<Integer,String> errorList;
 
+    HashMap<Integer, Integer> invalidChars;
+
     //Default constructor
     public ErrorReporter(){
         //Initialize reportedErrors and errorList
@@ -27,6 +29,9 @@ public class ErrorReporter implements IErrorReporter{
         errorList.put(5,"Error: The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.\n"); //DONE
         errorList.put(6,"Error: The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3.\n"); //DONE
         errorList.put(7,"Error: The immediate instruction 'ldv.u3' must have a 3-bit unsigned operand number ranging from 0 to 7.\n"); //DONE
+
+        invalidChars = new HashMap<>();
+        fillInvalidChars();
     }
 
     //Adds an error from Scanner to reportedErrors
@@ -54,6 +59,27 @@ public class ErrorReporter implements IErrorReporter{
         if (recordedErrors.size() != 0) {
             for (String error: recordedErrors)
                 System.out.print(error);
+        }
+    }
+
+    //Fill hashmap of invalid characters
+    public void fillInvalidChars(){
+        for(int i =0; i < 32; i++){
+            if (i == 10 || i == 13){
+                continue;
+            }
+            else{
+                invalidChars.put(i, null);
+            }
+        }
+        invalidChars.put(127, null);
+    }
+
+    //Check if character is valid
+    public void isValid(char c, int lineNum, int colNum) {
+        //Report error when ever non-valid character is detected
+        if(invalidChars.containsKey((int) c)){
+            addError(0, lineNum, colNum, c);
         }
     }
 }

@@ -1,5 +1,7 @@
+;test eol fuck you
 ; TestImmediate.asm - Test immediate instructions.
           enter.u5  0        ; OK, number <u5> [0..31].
+<<<<<<< HEAD
 <<<<<<< HEAD
           enter.u5  1
           enter.u5  2        ; OK, number <u5> [0..31].
@@ -72,3 +74,10 @@
 ;test
           enter.u5  1
 >>>>>>> 7579a2aff85a52c20f7f6551a7c47b173cc241ce
+=======
+
+
+;test
+
+          enter.u5  1
+>>>>>>> fixing

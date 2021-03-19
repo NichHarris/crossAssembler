@@ -41,6 +41,54 @@ public class Instruction implements IInstruction {
     //Get operand
     public IOperand getOperand(){ return operand; }
 
+    //Checks if instruction contains mnemonic and operand
+    public boolean isEmpty(){
+        if (this.getMnemonic().getMne() == "" && this.getOperand().getOp() == ""){
+            return true;
+        }
+        return false;
+    }
+
+    //Get instruction size
+    public int getSize() {
+        if (!this.isEmpty()) {
+            //Get the original opcode before making modifications
+            int initOpcode = this.getMnemonic().getOpcode();
+
+            //System.out.println(this.getMnemonic().getMne());
+
+            //Stack/inherent addressing
+            if (initOpcode >= 0x00 && initOpcode <= 0x1F) {
+                return 1;
+            }
+            //.cstring directives
+            else if (this.getMnemonic().getMne().equals(".cstring")) {
+                String operand = this.getOperand().getOp();
+                int len = operand.substring(1, operand.length() - 1).length();
+                return 1 + len;
+            }
+            //Immediate Addressing
+            else if (initOpcode >= 0x30 && initOpcode <= 0xAF) {
+                String operand = this.getOperand().getOp();
+                if (!this.getOperand().isNumeric() && operand != "") {
+                    return 3;
+                } else {
+                    return 1;
+                }
+            }
+            //Relative Addressing
+            else if (initOpcode >= 0xB0 && initOpcode <= 0xFF) {
+                String operand = this.getOperand().getOp();
+                if (!this.getOperand().isNumeric() && operand != "") {
+                    return 3;
+                } else {
+                    return 1;
+                }
+            }
+        }
+        return 0;
+    }
+
     //Returns a String representable of an Instruction object
     public String toString() {
         if (operand == null)

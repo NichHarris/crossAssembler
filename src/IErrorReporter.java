@@ -10,4 +10,6 @@ public interface IErrorReporter {
     void reportErrors();
 
     void addError(int i, int lineNum, int colNum);
+
+    void isValid(char c, int lineNum, int colNum);
 }
