@@ -1,12 +1,22 @@
 public class BinaryConverter {
     public static void main(String args[]) {
-        //TODO: Add method to check if size is large enough to represent int
         //Testing method given size
-        for(int i = 3; i >= -4; i--) {
-            String b = toBinary(i, 3);
-            int v = getBinaryValue(b);
-            System.out.println("Number: " + i + ", Byte: " + b + ", Value: " + v);
+        for(int i = 10; i >= -10; i--) {
+            boolean flag = getOverflow(i, 3);
+
+            if(!flag) {
+                String b = toBinary(i, 3);
+                int v = getBinaryValue(b);
+                System.out.println("Number: " + i + ", Byte: " + b + ", Value: " + v);
+            } else {
+                System.out.println("Overflow on " + i + " : " + flag);
+            }
         }
+    }
+
+    public static boolean getOverflow(int n, int size) {
+        double range = Math.pow(2, size - 1);
+        return (-1 * range > n) || (range - 1 < n);
     }
 
     public static int getBinaryValue(String s) {
