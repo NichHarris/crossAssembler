@@ -15,11 +15,11 @@ public class OperandTest {
         //Testing isNumeric()
         boolean flag = false;
         flag = test1.isNumeric();
-        TestMnemonic("Test -Operand Class- isDigit", "true",Boolean.toString(flag));
+        TestMnemonic("Test -Operand Class- isNumeric", "true",Boolean.toString(flag));
 
         test1 = new Operand("abc");
         flag = test1.isNumeric();
-        TestMnemonic("Test -Operand Class- isDigit", "false",Boolean.toString(flag));
+        TestMnemonic("Test -Operand Class- isNumeric", "false",Boolean.toString(flag));
     }
 
     public static void TestMnemonic(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

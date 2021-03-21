@@ -10,4 +10,3 @@ JMP
 Test -Mnemonic Class- set Opcode and getOpCode
 12
 12
-

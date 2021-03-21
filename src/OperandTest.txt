@@ -7,9 +7,9 @@ Test -Operand Class- Parametrized Constructor
 Test -Operand Class- setOperand
 12
 12
-Test -Operand Class- isDigit
+Test -Operand Class- isNumeric
 true
 true
-Test -Operand Class- isDigit
+Test -Operand Class- isNumeric
 false
 false
