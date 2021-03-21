@@ -1,4 +1,9 @@
 import java.util.HashMap;
+/*
+Commented out certain system.out for testing purposes;
+would like know if they are required or simply done
+for debugging purposes?
+ */
 
 //Scanner - Performs Lexical Analysis on the assembly unit
 public class Scanner implements IScanner {
@@ -78,7 +83,7 @@ public class Scanner implements IScanner {
                 colNum += 1;
                 currPos = i++;
 
-                System.out.println("Current Position: " + currPos + ", Value: " + buffer);
+              //  System.out.println("Current Position: " + currPos + ", Value: " + buffer);
 
                 return token;
             //If EOL and buffer is not empty - send to parser + new line
@@ -88,7 +93,8 @@ public class Scanner implements IScanner {
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
                 currPos = i++;
-                System.out.println("Current Position: " + currPos + ", Value: " + buffer);
+
+               // System.out.println("Current Position: " + currPos + ", Value: " + buffer);
 
                 newLine();
 
@@ -101,7 +107,7 @@ public class Scanner implements IScanner {
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
                 currPos = ++i;
-                System.out.println("Current EOL Position: " + currPos + ", Value: " + buffer);
+              //  System.out.println("Current EOL Position: " + currPos + ", Value: " + buffer);
 
                 newLine();
 
@@ -115,7 +121,7 @@ public class Scanner implements IScanner {
                     token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
                     currPos = i++;
-                    System.out.println("Current Position: " + currPos + ", Value: " + buffer);
+                   // System.out.println("Current Position: " + currPos + ", Value: " + buffer);
 
                     newLine();
 

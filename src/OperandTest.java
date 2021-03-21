@@ -12,7 +12,7 @@ public class OperandTest {
         test1.setOperand("12");
         TestMnemonic("Test -Operand Class- setOperand", "12",test1.getOp());
 
-        //Testing isDigit()
+        //Testing isNumeric()
         boolean flag = false;
         flag = test1.isNumeric();
         TestMnemonic("Test -Operand Class- isDigit", "true",Boolean.toString(flag));

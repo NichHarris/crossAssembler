@@ -5,7 +5,7 @@ public class ReaderTest {
         test.readFile();
 
         //testing character
-        testReader("Char()", "h", test.getChar(1).toString());
+        testReader("getChar()", "h", test.getChar(1).toString());
 
         //testing getLineNum
         testReader("getLineNum()", "25", Integer.toString(test.getLineNum()));

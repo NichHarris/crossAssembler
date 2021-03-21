@@ -23,7 +23,7 @@ public class CodeGeneratorTest {
 
         //Creating a LineStatement with Instruction
         LineStatement ls = new LineStatement("Fct", instruction, "");
-        
+
         //Adding Line Statement to IR
         IR.addLine(0, ls);
 
@@ -51,7 +51,7 @@ public class CodeGeneratorTest {
         file.close();
 
         // testing code generator file creation
-        TestCodeGenerator("Test -CodeGenerator Class- File creation",
+        TestCodeGenerator("Test -Cod eGenerator Class- File creation",
                 "1    0000 98            Fct           addv.u3       3                                 ", listingContent.get(1).toString());
     }
     public static void TestCodeGenerator(String testCaseName, String expectedOutput, String methodOutput) throws Exception{

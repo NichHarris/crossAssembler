@@ -1,4 +1,4 @@
-public class OptionsTest {
+public class    OptionsTest {
     public static void main(String[] args) throws Exception{
         //Testing the function isListing() from Options Class
 
