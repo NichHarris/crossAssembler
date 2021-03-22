@@ -1,22 +1,28 @@
 public class BinaryConverter {
     public static void main(String args[]) {
+        int size = 3;
         //Testing method given size
         for(int i = 10; i >= -10; i--) {
-            boolean flag = getOverflow(i, 3);
-
-            if(!flag) {
-                String b = toBinary(i, 3);
+            if(!getOverflow(i, size)) {
+                String b = toBinary(i, size);
                 int v = getBinaryValue(b);
                 System.out.println("Number: " + i + ", Byte: " + b + ", Value: " + v);
             } else {
-                System.out.println("Overflow on " + i + " : " + flag);
+                System.out.println("Overflow on " + i);
             }
         }
     }
 
+    //Signed overflow
     public static boolean getOverflow(int n, int size) {
         double range = Math.pow(2, size - 1);
         return (-1 * range > n) || (range - 1 < n);
+    }
+
+    //Unsigned overflow
+    public static boolean getUnsignedOverflow(int n, int size) {
+        double range = Math.pow(2, size);
+        return (0 > n) || (range - 1 < n);
     }
 
     public static int getBinaryValue(String s) {
