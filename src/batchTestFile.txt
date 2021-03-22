@@ -1,9 +1,39 @@
+Test -BinaryConverter Class- getOverflow()
+false
+false
+Test -BinaryConverter Class- getBinaryValue(String s)
+10
+10
+Test -BinaryConverter Class- toBinary()
+01010
+01010
+Test -BinaryConverter Class- getTwosComplement(String b)
+101
+101
 Test -CodeGenerator Class- File creation
 0    0000 98            Fct           addv.u33
 0    0000 98            Fct           addv.u33
+Test -ErrorReporter Class- ErrorReporter()
+Error: invalid character
+Error: invalid character
+Test -ErrorReporter Class- addError() from Scanner
+Error: eof in string
+Error: eof in string
+Test -ErrorReporter Class- addError() from Scanner (invalid character)
+Error: invalid character
+Error: invalid character
+Test -ErrorReporter Class- addError() from Parser
+Error: Instructions with inherent mode addressing do not have an operand field.
+Error: Instructions with inherent mode addressing do not have an operand field.
+Test -ErrorReporter Class- reportErrors()
+%
+%
+Test -ErrorReporter Class- isValid()
+Error: Instructions with inherent mode addressing do not have an operand field.
+Error: Instructions with inherent mode addressing do not have an operand field.
 Test -Instruction Class- Default Constructor
-null null
-null null
+
+
 Test -Instruction Class- Mnemonic and Operand Constructor
 addv.u3 3
 addv.u3 3
@@ -14,29 +44,47 @@ Test -Instruction Class- setOperand
 4
 4
 Test -Instruction Class- toString
-'not 4'
-'not 4'
-Test -InterRep Class- setter with a LineStatement object
-'Fct 'addv.u3 3' '
-'Fct 'addv.u3 3' '
-Test -InterRep Class- setter with Line Statement components label, instruction and comment
-'jmp 'addv.u3 3' ; Test Comment 2'
-'jmp 'addv.u3 3' ; Test Comment 2'
+'"not: 12" 4'
+'"not: 12" 4'
+Test -Instruction Class- getSize
+1
+1
+Test -InterRep Class- addLine with just a line statement object
+'Fct '"addv.u3: 152" 3' '
+'Fct '"addv.u3: 152" 3' '
+Test -InterRep Class- addLine with Line Statement components label, instruction and comment
+'jmp '"addv.u3: 152" 3' ; Test Comment 2'
+'jmp '"addv.u3: 152" 3' ; Test Comment 2'
 Test -InterRep Class- getLine()
-'jmp 'addv.u3 3' ; Test Comment 2'
-'jmp 'addv.u3 3' ; Test Comment 2'
+'jmp '"addv.u3: 152" 3' ; Test Comment 2'
+'jmp '"addv.u3: 152" 3' ; Test Comment 2'
 Test -InterRep Class- getLength()
 1
 1
-Test -InterRep Class- toString()
-Line 0: 'jmp 'addv.u3 3' ; Test Comment 2'
-Line 0: 'jmp 'addv.u3 3' ; Test Comment 2'
 Test -InterRep Class- empty LineStatement passed to InterRep object
-' 'null null' '
-' 'null null' '
+' '": -1" ' '
+' '": -1" ' '
 Test -InterRep Class- Integration
-'jmp 'addv.u3 3' ; This is a comment'
-'jmp 'addv.u3 3' ; This is a comment'
+'jmp '"addv.u3: 152" 3' ; This is a comment'
+'jmp '"addv.u3: 152" 3' ; This is a comment'
+Test -InterRep Class- setLabel()
+ADD
+ADD
+Test -InterRep Class- setComment()
+; this is a new comment from the setter
+; this is a new comment from the setter
+Test -InterRep- setInstruction() and hasInstruction()
+true
+true
+Test -InterRep- setAddr() and getAddr()
+100
+100
+Test -InterRep- updateCode()
+ADD
+ADD
+Test -InterRep Class- toString()
+Line 0: ' '": -1" ' '
+Line 0: ' '": -1" ' '
 Test -LineStatement Class- Default Constructor
  'null null'
  'null null'
@@ -55,12 +103,12 @@ Test -LineStatement Class- setComment()
 Test -LineStatement Class- getLabel()
 RA
 RA
-Test -Listing Class-
-0    0000 00                          halt
-0    0000 00                          halt
+Test -Listing Class- getListing()
+1    0000 null          Fct           addv.u3       3             ; this is a comment
+1    0000 null          Fct           addv.u3       3             ; this is a comment
 Test -Mnemonic Class- Default Constructor
-null -1
-null -1
+ -1
+ -1
 Test -Mnemonic Class- Parametrized Constructor
 ADD 45
 ADD 45
@@ -71,101 +119,41 @@ Test -Mnemonic Class- set Opcode and getOpCode
 12
 12
 Test -Operand Class- Default Constructor and toString()
-null
-null
+
+
 Test -Operand Class- Parametrized Constructor
 45
 45
 Test -Operand Class- setOperand
 12
 12
+Test -Operand Class- isNumeric
+true
+true
+Test -Operand Class- isNumeric
+false
+false
 Test -Options Class- Incorrect Options
-java.lang.Exception: Error: Invalid Option
-java.lang.Exception: Error: Invalid Option
+Error: Invalid Option
+Error: Invalid Option
+Test -Options Class- Too Many Options
+Error: Too Many Arguments in CL
+Error: Too Many Arguments in CL
 Test -Options Class- isVerbose()
 true
 true
 Test -Options Class- isListing()
 true
 true
-Test -Parser Class- getLine #0
-' 'halt null' '
-' 'halt null' '
-Test -Parser Class- getLine #1
-' 'pop null' '
-' 'pop null' '
-Test -Parser Class- getLine #2
-' 'dup null' '
-' 'dup null' '
-Test -Parser Class- getLine #3
-' 'exit null' '
-' 'exit null' '
-Test -Parser Class- getLine #4
-' 'ret null' '
-' 'ret null' '
-Test -Parser Class- getLine #5
-' 'not null' '
-' 'not null' '
-Test -Parser Class- getLine #6
-' 'and null' '
-' 'and null' '
-Test -Parser Class- getLine #7
-' 'or null' '
-' 'or null' '
-Test -Parser Class- getLine #8
-' 'xor null' '
-' 'xor null' '
-Test -Parser Class- getLine #9
-' 'neg null' '
-' 'neg null' '
-Test -Parser Class- getLine #10
-' 'inc null' '
-' 'inc null' '
-Test -Parser Class- getLine #11
-' 'dec null' '
-' 'dec null' '
-Test -Parser Class- getLine #12
-' 'add null' '
-' 'add null' '
-Test -Parser Class- getLine #13
-' 'sub null' '
-' 'sub null' '
-Test -Parser Class- getLine #14
-' 'mul null' '
-' 'mul null' '
-Test -Parser Class- getLine #15
-' 'div null' '
-' 'div null' '
-Test -Parser Class- getLine #16
-' 'rem null' '
-' 'rem null' '
-Test -Parser Class- getLine #17
-' 'shl null' '
-' 'shl null' '
-Test -Parser Class- getLine #18
-' 'shr null' '
-' 'shr null' '
-Test -Parser Class- getLine #19
-' 'teq null' '
-' 'teq null' '
-Test -Parser Class- getLine #20
-' 'tne null' '
-' 'tne null' '
-Test -Parser Class- getLine #21
-' 'tlt null' '
-' 'tlt null' '
-Test -Parser Class- getLine #22
-' 'tgt null' '
-' 'tgt null' '
-Test -Parser Class- getLine #23
-' 'tle null' '
-' 'tle null' '
-Test -Parser Class- getLine #24
-' 'tge null' '
-' 'tge null' '
-Test -Parser Class- getLine #25
-' 'halt null' '
-' 'halt null' '
+Test -Parser Class- getInterRep()
+76
+76
+Test -Parser Class- isNumeric()
+true
+true
+Test Position
+p1[1,2]p2[2,4]p3[3,6]p4[65535,255]
+p1[1,2]p2[2,4]p3[3,6]p4[65535,255]
 Test -Reader Class- No File Given
 java.lang.Exception: Error: Unable to open source file ''
 java.lang.Exception: Error: Unable to open source file ''
@@ -178,15 +166,21 @@ Test -Reader Class- Empty File
 Test -Reader Class- Multiline File + All Addressing Modes
 [Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment]
 [Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment]
-Test -Scanner Class- getTokens
-Fct
-Fct
-Test -Scanner Class- getComments
-; This is a comment
-; This is a comment
-Test -Scanner Class- printTokens
-[[Fct, ldc.i3, 3], [ldc.i3, 1], [add], [ret]]
-[[Fct, ldc.i3, 3], [ldc.i3, 1], [add], [ret]]
+Test scanFile()
+halt
+halt
+Test getTokenType()
+LabelOperand
+LabelOperand
+Test isNumeric()
+true
+true
+Test getCurrPos()
+5
+5
+Test setCurrPos()
+6
+6
 Test -SymbolTable Class- Invalid Key
 -1
 -1
@@ -196,3 +190,6 @@ Test -SymbolTable Class- Valid Key
 Test -SymbolTable Class- getCode
 1
 1
+Test Token
+[halt(1,2)=Mnemonic][pop(2,4)=Mnemonic][dup(3,6)=Mnemonic]
+[halt(1,2)=Mnemonic][pop(2,4)=Mnemonic][dup(3,6)=Mnemonic]
