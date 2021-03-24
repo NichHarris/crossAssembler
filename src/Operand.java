@@ -30,9 +30,8 @@ public class Operand implements IOperand {
     //Check if token is numeric
     public boolean isNumeric() {
         String str = this.getOp();
-        if (str.length() == 0) {
+        if (str.length() == 0)
             return false;
-        }
 
         for(int i = 0; i < str.length(); i++) {
             char c = str.charAt(i);

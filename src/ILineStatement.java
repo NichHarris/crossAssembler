@@ -8,7 +8,9 @@ public interface ILineStatement {
     void setInstruction(IInstruction in);
 
     //Set comments
-    void setComment(String c);
+    void setComment(IComment c);
+
+    IDirective getDirective();
 
     //Get label
     String getLabel();
@@ -20,8 +22,10 @@ public interface ILineStatement {
     public boolean isEmpty();
 
     //Get comments
-    String getComment();
+    IComment getComment();
 
     //Returns a String representable of a LineStatement object
     String toString();
+
+    void setDirective(IDirective dir);
 }

@@ -42,11 +42,8 @@ public class Instruction implements IInstruction {
     public IOperand getOperand(){ return operand; }
 
     //Checks if instruction contains mnemonic and operand
-    public boolean isEmpty(){
-        if (this.getMnemonic().getMne() == "" && this.getOperand().getOp() == ""){
-            return true;
-        }
-        return false;
+    private boolean isEmpty(){
+        return this.getMnemonic().getMne() == "" && this.getOperand().getOp() == "";
     }
 
     //Get instruction size

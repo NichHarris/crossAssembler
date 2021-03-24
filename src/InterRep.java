@@ -37,15 +37,25 @@ public class InterRep implements IInterRep {
     }
 
     //Set a LineStatement's comments
-    public void setComment(int i, String comment) {
-        lines[i].setComment(comment);
+    public void setComment(int i, IComment C) {
+        lines[i].setComment(C);
     }
-
 
     //Check line i for instruction
     public boolean hasInstruction(int i) {
         //Check for empty line or no instruction
         if (lines[i] == null || lines[i].getInstruction().getMnemonic().getMne() == "")
+            return false;
+
+        return true;
+    }
+
+    public void setDirective(int i, IDirective dir){ lines[i].setDirective(dir); }
+
+    //Check line i for directive
+    public boolean hasDirective(int i) {
+        //Check for empty line or no directive
+        if (lines[i] == null || lines[i].getDirective().getCString() == "")
             return false;
 
         return true;

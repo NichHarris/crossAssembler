@@ -22,10 +22,12 @@ public interface IInterRep {
     void setLabel(int i, String label);
 
     //Set a LineStatement's comments
-    void setComment(int i, String comment);
+    void setComment(int i, IComment comment);
 
     //Set a LineStatement's instruction
     void setInstruction(int i, IInstruction instruction);
+
+    boolean hasDirective(int i);
 
     //Update code of a mnemonic
     void updateCode(int i);
@@ -35,4 +37,7 @@ public interface IInterRep {
 
     //Returns a String representable of an InterRep object
     String toString();
+
+    void setDirective(int lineNum, IDirective directive);
+
 }

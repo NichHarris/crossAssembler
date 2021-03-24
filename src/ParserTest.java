@@ -13,7 +13,7 @@ public class ParserTest {
         testParser("getInterRep()", "76", Integer.toString(p.getInterRep().getLength()));
 
         //Testing isNumeric()
-        testParser("isNumeric()", "true", Boolean.toString(p.isNumeric("50")));
+        //testParser("isNumeric()", "true", Boolean.toString(p.isNumeric("50")));
 
     }
     public static void testParser(String caseName, String expectedOutput, String methodOutput) throws Exception {

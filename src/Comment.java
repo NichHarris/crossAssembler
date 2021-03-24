@@ -9,7 +9,7 @@ public class Comment implements IComment{
         comment = cm;
     }
 
-    public String getComment(){
+    public String getCmt(){
         return comment;
     }
 

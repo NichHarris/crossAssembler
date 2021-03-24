@@ -165,23 +165,25 @@ public class Scanner implements IScanner {
         //Get the opcode of the token
         int code = symbolTable.getCode(name);
 
+        //Check if directive
+        boolean isDirective = name.equals(".cstring");
+
         //Check if mnemonic
-        if (code != -1)
+        if (code != -1 || isDirective)
             return TokenType.Mnemonic;
             //Check if operand
         else if (isNumeric(name))
-            return TokenType.LabelOperand;
+            return TokenType.Operand;
             //Check if comment
         else if (isComment)
             return TokenType.Comment;
-            //Check if label ?? Does col need to be 0?
+            //Check if label
         else if (colNum == 0 && !isNumeric(name) && name != "")
             return TokenType.Label;
-        else if (colNum == 1 || colNum == 2) {
+            //Check if label in operand position
+        else if (colNum == 1 || colNum == 2)
             if (!isNumeric(name))
                 return TokenType.LabelOperand;
-        }
-
         return TokenType.None;
     }
 

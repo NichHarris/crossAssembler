@@ -32,31 +32,37 @@ public class Listing implements IListing {
                 line = Integer.toString(i + 1);
                 //Convert opcode to hex and pad with zeros
                 addr = String.format("%1$04X",IR.getAddr(i));
-                //System.out.println("Line: " + line + " addr: " + addr);
 
-                //Check If Instruction Exists
+
+                //Check if instruction exists
                 if(IR.hasInstruction(i)) {
                     if (IR.getLine(i).getInstruction().getMnemonic().getOpcode() == -1)
                         code = "";
                     else
                         code = mCode[i]; //TODO: need to change this
 
-                    //Get the value (if there is one), Set to empty if it is not present, Set value from line statementlabel = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
+                    //Get the value (if there is one), Set to empty if it is not present, Set value from linestatement label = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
                     mne = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getMnemonic().getMne();
-                    operand = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();
+                    operand = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();//Check If Directive Exists
+                //Check if directive exists
+                } else if(IR.hasDirective(i)) {
+                    code = IR.getLine(i).getDirective().getCode();
+                    mne = IR.getLine(i).getDirective().getDir();
+                    operand = IR.getLine(i).getDirective().getCString();
                 } else {
                     mne = "";
                     operand = "";
                     code =  "";
                 }
 
+                //Checks for empty line
                 if(IR.getLine(i) == null) {
                     label = "";
                     comment = "";
                 } else {
                     label = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
                     //Set comment from line statement
-                    comment = (IR.getLine(i).getComment() == null) ? "" : IR.getLine(i).getComment();
+                    comment = (IR.getLine(i).getComment() == null) ? "" : IR.getLine(i).getComment().getCmt();
                 }
             } catch(Exception e){
                 System.out.println(e.getMessage());

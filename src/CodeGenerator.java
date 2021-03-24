@@ -67,24 +67,20 @@ public class CodeGenerator implements ICodeGenerator {
             //Get the opcode and operand of the line statement
             int opcode = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
             String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
+
+            //Instruction -> Label
+
+            //Directive -> CString
+
+            //Else
+
             //If operand is a label or string
             if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && operand != "") {
                 //If a line's mnemonic is a .cstring, set its machine code to its opcode + the byte size of each character in the string operand
-                if (opcode == 0x41) {
-                    String op = operand.substring(1, operand.length() - 1);
-                    char[] arr = op.toCharArray();
-                    String code = "";
-                    //Append hex bytes to machine code
-                    for (char c : arr) {
-                        code = code + " " + Integer.toHexString(c).toUpperCase();
-                    }
-                    //Append '00' as remaining bytes to machine code
-                    for (int j = interRep.getLine(i).getInstruction().getSize() - arr.length; j > 0; j--) {
-                        code = code + " 00";
-                    }
 
-                    code = code.substring(1);
-                    mCode[i] = code;
+                //Directive
+                if (interRep.hasDirective(i)) {
+                    mCode[i] = interRep.getLine(i).getDirective().getCode();
                 }
                 //If operand is a label, set the machine code to the instruction's opcode + the
                 else {

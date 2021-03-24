@@ -45,7 +45,6 @@ public class Assembler {
     }
 
     static void secondPass(IInterRep interRep) {
-
         //Set the address of each line, starting at 0000 for the first line
         interRep.setAddr(0, 0);
         for (int j = 1; j < interRep.getLength(); j++) {
@@ -60,7 +59,6 @@ public class Assembler {
                 interRep.setAddr(j, interRep.getAddr(j - 1) + 1);
             } else {
                 interRep.setAddr(j, interRep.getAddr(j - 1) + interRep.getLine(j - 1).getInstruction().getSize());
-                System.out.println(interRep.getAddr(j));
             }
         }
     }

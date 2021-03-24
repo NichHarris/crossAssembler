@@ -1,7 +1,7 @@
 public interface IComment {
 
     //Get comment
-    String getComment();
+    String getCmt();
 
     //Set comment
     void setComment(String comment);

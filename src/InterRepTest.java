@@ -1,7 +1,7 @@
 public class InterRepTest {
     public static void main(String[] args) throws Exception {
 
-        //Paramerized Constructor
+        //Parametrized Constructor
         InterRep IR = new InterRep(1);
 
         // Testing setter with a Line Statement
@@ -45,8 +45,8 @@ public class InterRepTest {
         TestInterRep("Test -InterRep Class- setLabel()", "ADD", IR2.getLine(0).getLabel());
 
         //Set LineStatement's comments
-        IR2.setComment(0, "; this is a new comment from the setter");
-        TestInterRep("Test -InterRep Class- setComment()", "; this is a new comment from the setter", IR2.getLine(0).getComment());
+        IR2.setComment(0, new Comment("; this is a new comment from the setter"));
+        TestInterRep("Test -InterRep Class- setComment()", "; this is a new comment from the setter", IR2.getLine(0).getComment().getCmt());
 
         //Set LineStatement's instruction and hasInstruction method
         IR2.setInstruction(0, instruction);
