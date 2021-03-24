@@ -3,12 +3,14 @@ public class LineStatement implements ILineStatement {
     // Data members representing the label, instruction and comments of a LineStatement Object
     private String label;
     private IInstruction instruction;
+    private IDirective directive;
     private final IComment comment;
 
     // Default constructor
     public LineStatement() {
         label = "";
         instruction = new Instruction();
+        directive = new Directive();
         comment = new Comment("");
     }
 
@@ -17,6 +19,16 @@ public class LineStatement implements ILineStatement {
         label = (l == null) ? "" : l;
         comment = new Comment((c == null) ? "" : c);
         instruction = (in == null) ? new Instruction() : in;
+        directive = new Directive();
+    }
+
+    //Parametrized constructor for object initialization with label, directive and comment
+    public LineStatement(String l, IDirective d, IInstruction in, String c) {
+        label = (l == null) ? "" : l;
+        comment = new Comment((c == null) ? "" : c);
+
+        directive = (d == null) ? new Directive() : d;
+        instruction = new Instruction();
     }
 
     //Set label
