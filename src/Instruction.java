@@ -15,7 +15,6 @@ public class Instruction implements IInstruction {
         operand = new Operand();
     }
 
-
     //Immediate or Relative Constructor
     public Instruction(IMnemonic m,IOperand o) {
         mnemonic = m;
@@ -52,17 +51,9 @@ public class Instruction implements IInstruction {
             //Get the original opcode before making modifications
             int initOpcode = this.getMnemonic().getOpcode();
 
-            //System.out.println(this.getMnemonic().getMne());
-
             //Stack/inherent addressing
             if (initOpcode >= 0x00 && initOpcode <= 0x1F) {
                 return 1;
-            }
-            //.cstring directives
-            else if (this.getMnemonic().getMne().equals(".cstring")) {
-                String operand = this.getOperand().getOp();
-                int len = operand.substring(1, operand.length() - 1).length();
-                return 1 + len;
             }
             //Immediate Addressing
             else if (initOpcode >= 0x30 && initOpcode <= 0xAF) {

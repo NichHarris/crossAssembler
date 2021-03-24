@@ -57,7 +57,7 @@ public class InterRepTest {
         TestInterRep("Test -InterRep- setAddr() and getAddr()","100",Integer.toString(IR2.getAddr(0)));
 
         //Set code of mnemonic
-        IR2.updateCode(0);
+//        IR2.updateCode(0);
         TestInterRep("Test -InterRep- updateCode()","ADD",IR2.getLine(0).getLabel());
 
         // **Testing toString() having problem with testing toString as aunit will only test in pairs but toString will print out the entire asm file (26 lines) so

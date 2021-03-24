@@ -50,7 +50,8 @@ public class InterRep implements IInterRep {
         return true;
     }
 
-    public void setDirective(int i, IDirective dir){ lines[i].setDirective(dir); }
+    //Get the directive of a LineStatement
+    public IDirective getDirective(int i) { return lines[i].getDirective(); }
 
     //Check line i for directive
     public boolean hasDirective(int i) {
@@ -66,48 +67,6 @@ public class InterRep implements IInterRep {
         lines[i].setInstruction(instruction);
     }
 
-    //Set code of mnemonic
-    public void updateCode(int i) {
-        //Get instruction
-        IInstruction instr = this.getLine(i).getInstruction();
-        //Check if operand present in instruction
-        if (instr.getOperand().getOp() != ""){
-            //Compute updated code with "Opcode + Operand" and update the LineStatement instruction
-            int opcode = instr.getMnemonic().getOpcode();
-            int operand = Integer.parseInt(instr.getOperand().getOp());
-
-            int updatedCode;
-            if (instr.getMnemonic().getOpcode() == 0x90 && operand < 0) {
-                // special case for ldc.i3 and negative operands
-                switch(operand) {
-                    case -4:
-                        updatedCode = opcode + 4;
-                        instr.setOpcode(updatedCode);
-                        this.setInstruction(i, instr);
-                        break;
-                    case -3:
-                        updatedCode = opcode + 5;
-                        instr.setOpcode(updatedCode);
-                        this.setInstruction(i, instr);
-                        break;
-                    case -2:
-                        updatedCode = opcode + 6;
-                        instr.setOpcode(updatedCode);
-                        this.setInstruction(i, instr);
-                        break;
-                    case -1:
-                        updatedCode = opcode + 7;
-                        instr.setOpcode(updatedCode);
-                        this.setInstruction(i, instr);
-                }
-            } else {
-                updatedCode = opcode + operand;
-                instr.setOpcode(updatedCode);
-                this.setInstruction(i, instr);
-            }
-        }
-    }
-
     //Get the address of a LineStatement
     public int getAddr(int i) {
         return addr[i];
@@ -117,7 +76,6 @@ public class InterRep implements IInterRep {
     public void setAddr(int i, int val) {
         addr[i] = val;
     }
-
 
     //Returns a String representable of an InterRep object
     public String toString() {

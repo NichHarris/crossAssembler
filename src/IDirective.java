@@ -1,12 +1,14 @@
 public interface IDirective {
-    //Get cstring representation char array
+
+    //Get string code - convert char to ASCII, add null character (00) at end
     String getCode();
 
-    //Gets directive
+    //Return directive variable
     String getDir();
 
-    //Get cString characters
+    //Return cstring variable
     String getCString();
 
+    //Set cstring variable
     void setCString(String name);
 }

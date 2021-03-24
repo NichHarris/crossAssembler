@@ -4,7 +4,7 @@ public class ParserTest {
         Reader rdr = new Reader("TestImmediate_copy.asm");
         rdr.readFile();
         SymbolTable symT= new SymbolTable();
-        ErrorReporter er = new ErrorReporter();
+        ErrorReporter er = new ErrorReporter("TestImmediate_copy.asm");
         Scanner scn= new Scanner(symT,er);
         Parser p = new Parser(rdr.getLineNum() + 1, symT, er, scn, rdr);
         p.parseToken();

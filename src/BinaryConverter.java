@@ -1,31 +1,24 @@
-public class BinaryConverter {
-    public static void main(String args[]) {
-        int size = 3;
-        //Testing method given size
-        for(int i = 10; i >= -10; i--) {
-            if(!getOverflow(i, size)) {
-                String b = toBinary(i, size);
-                int v = getBinaryValue(b);
-                System.out.println("Number: " + i + ", Byte: " + b + ", Value: " + v);
-            } else {
-                System.out.println("Overflow on " + i);
-            }
-        }
+public class BinaryConverter implements IBinaryConverter{
+
+    //Check for overflow
+    public boolean isOverflow(int n, int size, boolean state) {
+        return (state ? isSignedOverflow(n, size) : isUnsignedOverflow(n, size));
     }
 
-    //Signed overflow
-    public static boolean getOverflow(int n, int size) {
+    //Check for signed overflow
+    public boolean isSignedOverflow(int n, int size) {
         double range = Math.pow(2, size - 1);
         return (-1 * range > n) || (range - 1 < n);
     }
 
-    //Unsigned overflow
-    public static boolean getUnsignedOverflow(int n, int size) {
+    //Check for unsigned overflow
+    public boolean isUnsignedOverflow(int n, int size) {
         double range = Math.pow(2, size);
-        return (0 > n) || (range - 1 < n);
+        return (0 >= n) || (range - 1 < n);
     }
 
-    public static int getBinaryValue(String s) {
+    //Return the binary value of a string
+    public int getBinaryValue(String s) {
         int len = s.length();
         int bin = 0, i = len;
 
@@ -35,7 +28,8 @@ public class BinaryConverter {
         return bin;
     }
 
-    public static String toBinary(int n, int size) {
+    //Convert to binary
+    public String toBinary(int n, int size) {
         //Determine whether value is positive or negative
         boolean neg = n < 0 ? true : false;
 
@@ -54,8 +48,8 @@ public class BinaryConverter {
         return neg ? getTwosComplement(b) : b;
 
     }
-
-    public static String getTwosComplement(String b) {
+    //Get twos comp of a binary value
+    public String getTwosComplement(String b) {
         int i = 0;
         String s = "";
 

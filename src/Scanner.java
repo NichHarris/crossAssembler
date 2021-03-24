@@ -19,6 +19,9 @@ public class Scanner implements IScanner {
 
     private IErrorReporter errorReporter;
 
+    //Dictionary of invalid characters
+    HashMap<Integer, Integer> invalidChars;
+
     public Scanner(ISymbolTable symTable, IErrorReporter errRep) {
         //Buffer for obtaining tokens
         buffer = "";
@@ -34,6 +37,10 @@ public class Scanner implements IScanner {
 
         //Create an ErrorReporter
         errorReporter = errRep;
+
+        //Create a dictionary of invalid characters to be detected by the Scanner
+        invalidChars = new HashMap<>();
+        fillInvalidChars();
     }
 
     //Scans file character by character given Reader object
@@ -56,17 +63,18 @@ public class Scanner implements IScanner {
             isSpace = c == ' ' || c == '\t';
 
             //Check if character is valid or not, and report error if not
-            errorReporter.isValid(c, lineNum, colNum);
+            if (!isValid(c)) {
+                errorReporter.record(new ErrorMsg("Invalid character\n", lineNum, colNum));
+            }
 
             //Check if eol in string
             if(buffer != "" && c == '\n'){
-                errorReporter.addError(2,lineNum, colNum);
+                errorReporter.record(new ErrorMsg("EOL in String\n", lineNum, colNum));
             }
 
             //Check if an EOF character is found anywhere other than the end of file
-            //TODO: Not sure if this works
             if (i != fileContent.length() - 1 && (int) c == 26) {
-                errorReporter.addError(1, lineNum, colNum);
+                errorReporter.record(new ErrorMsg("EOF in String\n", lineNum, colNum));
             }
 
             //Counts number of EOL characters in a row
@@ -82,9 +90,6 @@ public class Scanner implements IScanner {
 
                 colNum += 1;
                 currPos = i++;
-
-              //  System.out.println("Current Position: " + currPos + ", Value: " + buffer);
-
                 return token;
             //If EOL and buffer is not empty - send to parser + new line
             } else if (isEOL && buffer != "") {
@@ -93,11 +98,7 @@ public class Scanner implements IScanner {
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
                 currPos = i++;
-
-               // System.out.println("Current Position: " + currPos + ", Value: " + buffer);
-
                 newLine();
-
                 return token;
                 //Add to buffer
                 //If more than 2 EOL characters in a row
@@ -107,10 +108,7 @@ public class Scanner implements IScanner {
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
                 currPos = ++i;
-              //  System.out.println("Current EOL Position: " + currPos + ", Value: " + buffer);
-
                 newLine();
-
                 return token;
             //If at last line of file
             } else if (i == fileContent.length() - 1) {
@@ -121,10 +119,7 @@ public class Scanner implements IScanner {
                     token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
                     currPos = i++;
-                   // System.out.println("Current Position: " + currPos + ", Value: " + buffer);
-
                     newLine();
-
                     return token;
                 //}
             //Ignore spaces and extra EOL
@@ -140,13 +135,7 @@ public class Scanner implements IScanner {
 
             if(eolCounter > 0) System.out.println("EOL Count" + eolCounter);
         }
-
-
         System.out.println("END OF FILE");
-
-        //System.out.println("Current Position: " + currPos + ", Value: " + buffer);
-//        tokenType = this.getTokenType(buffer, colNum);
-//        token = new Token(new Position(lineNum, colNum), buffer, tokenType);
         return null;
     }
 
@@ -207,15 +196,34 @@ public class Scanner implements IScanner {
         return true;
     }
 
-    //Print error recorded by ErrorReporter (if there are any)
-    public void reportErrors() {
-        errorReporter.reportErrors();
+    //Fill hashmap of invalid characters
+    public void fillInvalidChars(){
+        for(int i =0; i < 32; i++){
+            if (i == 10 || i == 13){
+                continue;
+            }
+            else{
+                invalidChars.put(i, null);
+            }
+        }
+        invalidChars.put(127, null);
     }
 
+    //Check if a character is valid
+    public boolean isValid(char c) {
+        //Return false if non-valid character is detected
+        if(invalidChars.containsKey((int) c)){
+            return false;
+        }
+        return true;
+    }
+
+    //Get the current position in Scanner
     public int getCurrPos(){
         return currPos;
     }
 
+    //Set the current position in Scanner
     public void setCurrPos(int pos){
         currPos = pos;
     }

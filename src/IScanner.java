@@ -9,12 +9,15 @@ public interface IScanner {
     //Check if token is numeric
     boolean isNumeric(String str);
 
-    //Gets the current position in Scanner
+    //Fill hashmap of invalid characters
+    void fillInvalidChars();
+
+    //Check if character is valid
+    boolean isValid(char c);
+
+    //Get the current position in Scanner
     int getCurrPos();
 
-    //Sets the current position in Scanner
+    //Set the current position in Scanner
     void setCurrPos(int pos);
-
-    //Print error recorded by ErrorReporter (if there are any)
-    void reportErrors();
 }

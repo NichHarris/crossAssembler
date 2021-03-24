@@ -1,4 +1,4 @@
-Line Addr Machine Code  Label         Mnemonic      Operand       Comments            
+Line Addr Code          Label         Mnemonic      Operand       Comments            
 1    0000                                                         ; TestImmediate.asm - Test immediate instructions.
 2    0000                                                                             
 3    0000                                                                             
@@ -39,10 +39,10 @@ Line Addr Machine Code  Label         Mnemonic      Operand       Comments
 38   0021 91                          ldc.i3        1             ; OK, number <i3> [-4..3].
 39   0022 92                          ldc.i3        2             ; OK, number <i3> [-4..3].
 40   0023 93                          ldc.i3        3             ; OK, number <i3> [-4..3].
-41   0024 8C                          ldc.i3        -4            ; OK, number <i3> [-4..3].
-42   0025 8D                          ldc.i3        -3            ; OK, number <i3> [-4..3].
-43   0026 8E                          ldc.i3        -2            ; OK, number <i3> [-4..3].
-44   0027 8F                          ldc.i3        -1            ; OK, number <i3> [-4..3].
+41   0024 90                          ldc.i3        -4            ; OK, number <i3> [-4..3].
+42   0025 90                          ldc.i3        -3            ; OK, number <i3> [-4..3].
+43   0026 90                          ldc.i3        -2            ; OK, number <i3> [-4..3].
+44   0027 90                          ldc.i3        -1            ; OK, number <i3> [-4..3].
 45   0028                                                                             
 46   0028 98                          addv.u3       0             ; OK, number <u3> [0..7].
 47   0029 99                          addv.u3       1             ; OK, number <u3> [0..7].
@@ -73,6 +73,6 @@ Line Addr Machine Code  Label         Mnemonic      Operand       Comments
 72   0040                                                                             
 73   0040 D5 0043                     lda.i16       ABC           ; lda - load address
 74   0043                                                                             
-75   0043 41 42 43  00  ABC           .cstring      "ABC"         ; "ABC" has 4 bytes 
-76   0043 41 30  00     A0            .cstring      "A0"          ; "A0"  has 3 bytes 
+75   0043 41 42 43 00   ABC           .cstring      "ABC"         ; "ABC" has 4 bytes 
+76   0047 41 30 00      A0            .cstring      "A0"          ; "A0"  has 3 bytes 
 

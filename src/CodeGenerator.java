@@ -68,16 +68,8 @@ public class CodeGenerator implements ICodeGenerator {
             int opcode = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
             String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
 
-            //Instruction -> Label
-
-            //Directive -> CString
-
-            //Else
-
             //If operand is a label or string
             if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && operand != "") {
-                //If a line's mnemonic is a .cstring, set its machine code to its opcode + the byte size of each character in the string operand
-
                 //Directive
                 if (interRep.hasDirective(i)) {
                     mCode[i] = interRep.getLine(i).getDirective().getCode();
@@ -86,7 +78,7 @@ public class CodeGenerator implements ICodeGenerator {
                 else {
                     String label = interRep.getLine(i).getInstruction().getOperand().getOp();
                     int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
-                    //Fine the address where the label is declared
+                    //Find the address where the label is declared
                     for (int j = i + 1; j < interRep.getLength(); j++) {
                         String currLabel = interRep.getLine(j).getLabel();
                         if (currLabel.equals(label)) {

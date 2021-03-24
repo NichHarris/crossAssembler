@@ -23,7 +23,7 @@ public class Listing implements IListing {
         String lstFormat = "%1$-5s%2$-5s%3$-14s%4$-14s%5$-14s%6$-14s%7$-20s\n";
 
         //Add listing header to beginning of listing file contents
-        listing[0] = String.format(lstFormat, "Line", "Addr", "Machine Code", "Label", "Mnemonic", "Operand", "Comments");
+        listing[0] = String.format(lstFormat, "Line", "Addr", "Code", "Label", "Mnemonic", "Operand", "Comments");
 
         //Traverse the IR and get line statement data for each line statement
         for (int i = 0; i < IR.getLength(); i++){

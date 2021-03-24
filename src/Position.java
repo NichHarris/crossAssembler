@@ -3,7 +3,7 @@
 public class Position implements IPosition {
     private int lineNumber, columnNumber;
 
-    Position(int ln, int cn) {
+    public Position(int ln, int cn) {
         lineNumber = ln;
         columnNumber = cn;
     }

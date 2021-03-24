@@ -5,7 +5,7 @@ public class Token implements IToken {
     private TokenType code;
     private String    name;
 
-    Token(Position p, String n, TokenType c) {
+    public Token(Position p, String n, TokenType c) {
         pos = p;
         name = n;
         code = c;
