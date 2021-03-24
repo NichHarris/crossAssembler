@@ -3,7 +3,7 @@ public class InstructionTest {
 
         //Testing the default constructor
         IInstruction instruction1 = new Instruction();
-        testInstruction("Test -Instruction Class- Default Constructor", "null null", instruction1.getMnemonic().getMne() + " " + instruction1.getOperand().getOp());
+        testInstruction("Test -Instruction Class- Default Constructor", " ", instruction1.getMnemonic().getMne() + " " + instruction1.getOperand().getOp());
 
         //Creating an instruction with both a Mnemonic and Operand
         ISymbolTable symbolTable = new SymbolTable();
@@ -26,8 +26,13 @@ public class InstructionTest {
         instruction1.setOperand(op);
         testInstruction("Test -Instruction Class- setOperand", "4", instruction1.getOperand().getOp());
 
+
         //Testing the function toString() from Instruction Class
-        testInstruction("Test -Instruction Class- toString", "'not 4'", instruction1.toString());
+        testInstruction("Test -Instruction Class- toString", "'\"not: 12\" 4'", instruction1.toString());
+
+        //Testing the function getSize() from Instruction Class
+        testInstruction("Test -Instruction Class- getSize", "1", Integer.toString(instruction1.getSize()));
+
     }
 
     public static void testInstruction(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

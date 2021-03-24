@@ -2,7 +2,7 @@ public class LineStatementTest {
     public static void main(String[] args) throws Exception {
         //Testing Default constructor
         ILineStatement ls = new LineStatement();
-        TestLineStatement("Test -LineStatement Class- Default Constructor", " 'null null' ", ls.getLabel() + " " + ls.getInstruction() + " " + ls.getComment());
+        TestLineStatement("Test -LineStatement Class- Default Constructor", " '\": -1\" ' ", ls.getLabel() + " " + ls.getInstruction() + " " + ls.getComment());
 
         //Testing Parametrized constructor for object initialization with label, instruction and comment
         ISymbolTable symbolTable = new SymbolTable();
@@ -11,7 +11,7 @@ public class LineStatementTest {
         IOperand op = new Operand("3");
         IInstruction instruction = new Instruction (m, op);
         LineStatement ls1 = new LineStatement("Fct", instruction, "");
-        TestLineStatement("Test -LineStatement Class- Parameterized Constructor with label, instruction and comment", "Fct 'addv.u3 3' ", ls1.getLabel() + " " + ls1.getInstruction().toString() + " " + ls1.getComment());
+        TestLineStatement("Test -LineStatement Class- Parameterized Constructor with label, instruction and comment", "Fct '\"addv.u3: 152\" 3' ", ls1.getLabel() + " " + ls1.getInstruction().toString() + " " + ls1.getComment());
 
         //Testing setLabel() and getLabel()
         ls1.setLabel("RA");
@@ -22,7 +22,7 @@ public class LineStatementTest {
         op = new Operand("4");
         instruction = new Instruction(m, op);
         ls1.setInstruction(instruction);
-        TestLineStatement("Test -LineStatement Class- setInstruction() and getInstruction", "'mul 4'", ls1.getInstruction().toString());
+        TestLineStatement("Test -LineStatement Class- setInstruction() and getInstruction", "'\"mul: 152\" 4'", ls1.getInstruction().toString());
 
         //Testing setComment() and getComment()
         ls1.setComment("; new comment");

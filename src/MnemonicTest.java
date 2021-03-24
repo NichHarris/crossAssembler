@@ -3,7 +3,7 @@ public class MnemonicTest {
 
         //Testing Default constructor
         IMnemonic test1 = new Mnemonic();
-        TestMnemonic("Test -Mnemonic Class- Default Constructor", "null -1",test1.getMne()+" "+Integer.toString(test1.getOpcode()));
+        TestMnemonic("Test -Mnemonic Class- Default Constructor", " -1",test1.getMne()+" "+Integer.toString(test1.getOpcode()));
 
         //Testing parametrized constructor
         test1 = new Mnemonic("ADD", 45);

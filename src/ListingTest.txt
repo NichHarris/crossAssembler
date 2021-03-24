@@ -1,3 +1,4 @@
-Test -Listing Class-
-0    0000 00                          halt                                    
-0    0000 00                          halt                                    
+Test -Listing Class- getListing()
+1    0000 null          Fct           addv.u3       3             ; this is a comment
+1    0000 null          Fct           addv.u3       3             ; this is a comment
+
