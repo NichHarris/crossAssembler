@@ -3,19 +3,19 @@ public class LineStatement implements ILineStatement {
     // Data members representing the label, instruction and comments of a LineStatement Object
     private String label;
     private IInstruction instruction;
-    private String comment;
+    private final IComment comment;
 
     // Default constructor
     public LineStatement() {
         label = "";
         instruction = new Instruction();
-        comment = "";
+        comment = new Comment("");
     }
 
     //Parametrized constructor for object initialization with label, instruction and comment
     public LineStatement(String l, IInstruction in, String c) {
         label = (l == null) ? "" : l;
-        comment = (c == null) ? "" : c;
+        comment = new Comment((c == null) ? "" : c);
         instruction = (in == null) ? new Instruction() : in;
     }
 
@@ -31,7 +31,7 @@ public class LineStatement implements ILineStatement {
 
     //Set comments
     public void setComment(String c) {
-        comment = c;
+        comment.setComment(c);
     }
 
     //Get label
@@ -46,19 +46,16 @@ public class LineStatement implements ILineStatement {
 
     //Checks if a LineStatement contains a label, mnemonic and/or operand
     public boolean isEmpty(){
-        if (this.getLabel() == "" && this.getComment() == "" && this.getInstruction() == null)
-            return true;
-
-        return false;
+        return this.getLabel().equals("") && this.getComment().equals("") && this.getInstruction()==null;
     }
 
     //Get comments
     public String getComment() {
-        return comment;
+        return comment.getComment();
     }
 
     //Returns a String representable of a LineStatement object
     public String toString() {
-        return String.format("'%s'", label + " " + instruction.toString() + " " + comment);
+        return String.format("'%s'", label + " " + instruction.toString() + " " + comment.getComment());
     }
 }
