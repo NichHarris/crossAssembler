@@ -1,21 +1,36 @@
-Test -InterRep Class- setter with a LineStatement object
-'Fct 'addv.u3 3' '
-'Fct 'addv.u3 3' '
-Test -InterRep Class- setter with Line Statement components label, instruction and comment
-'jmp 'addv.u3 3' ; Test Comment 2'
-'jmp 'addv.u3 3' ; Test Comment 2'
+Test -InterRep Class- addLine with just a line statement object
+'Fct '"addv.u3: 152" 3' '
+'Fct '"addv.u3: 152" 3' '
+Test -InterRep Class- addLine with Line Statement components label, instruction and comment
+'jmp '"addv.u3: 152" 3' ; Test Comment 2'
+'jmp '"addv.u3: 152" 3' ; Test Comment 2'
 Test -InterRep Class- getLine()
-'jmp 'addv.u3 3' ; Test Comment 2'
-'jmp 'addv.u3 3' ; Test Comment 2'
+'jmp '"addv.u3: 152" 3' ; Test Comment 2'
+'jmp '"addv.u3: 152" 3' ; Test Comment 2'
 Test -InterRep Class- getLength()
 1
 1
-Test -InterRep Class- toString()
-Line 0: 'jmp 'addv.u3 3' ; Test Comment 2'
-Line 0: 'jmp 'addv.u3 3' ; Test Comment 2'
 Test -InterRep Class- empty LineStatement passed to InterRep object
-' 'null null' '
-' 'null null' '
+' '": -1" ' '
+' '": -1" ' '
 Test -InterRep Class- Integration
-'jmp 'addv.u3 3' ; This is a comment'
-'jmp 'addv.u3 3' ; This is a comment'
+'jmp '"addv.u3: 152" 3' ; This is a comment'
+'jmp '"addv.u3: 152" 3' ; This is a comment'
+Test -InterRep Class- setLabel()
+ADD
+ADD
+Test -InterRep Class- setComment()
+; this is a new comment from the setter
+; this is a new comment from the setter
+Test -InterRep- setInstruction() and hasInstruction()
+true
+true
+Test -InterRep- setAddr() and getAddr()
+100
+100
+Test -InterRep- updateCode()
+ADD
+ADD
+Test -InterRep Class- toString()
+Line 0: ' '": -1" ' '
+Line 0: ' '": -1" ' '
