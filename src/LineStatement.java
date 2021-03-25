@@ -26,7 +26,6 @@ public class LineStatement implements ILineStatement {
     public LineStatement(String l, IDirective d, IInstruction in, String c) {
         label = (l == null) ? "" : l;
         comment = new Comment((c == null) ? "" : c);
-
         directive = (d == null) ? new Directive() : d;
         instruction = new Instruction();
     }

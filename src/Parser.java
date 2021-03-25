@@ -1,11 +1,7 @@
-import java.util.Locale;
-
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
 public class Parser implements IParser {
     private IInterRep interRep;
     private ILineStatement line;
-
-    private IInstruction instr;
 
     private BinaryConverter bnConv;
     private ISymbolTable symbolTable;
@@ -44,9 +40,8 @@ public class Parser implements IParser {
             tk = scanner.scanFile(reader);
             parseToIR(tk);
 
-            //addToIR(tk);
         } while(scanner.getCurrPos() != reader.getFileContent().length() - 1);
-
+        System.out.println("here: " + currLine);
         interRep.addLine(currLine, line);
     }
 
@@ -61,12 +56,13 @@ public class Parser implements IParser {
         if(currLine < lineN) {
             //Check if missing operand for directive and instruction
             //if(line.getInstruction().getMnemonic().getOpcode() > 0x30 && line.getInstruction().getOperand() == null) {
-                //errorReporter.record(new ErrorMsg("Error: Instructions with immediate and relative mode addressing require an operand field.\n", token.getPosition()));
+            // errorReporter.record(new ErrorMsg("Error: Instructions with immediate and relative mode addressing require an operand field.\n", token.getPosition()));
             //}
 
+            System.out.println("Here: " + currLine);
             interRep.addLine(currLine++, line);
-            //System.out.println("Line: " + (lineN - 1) + ", " + interRep.getLine(lineN - 1).toString());
             line = new LineStatement();
+
         }
 
         //Get opcode from Symbol Table
@@ -93,16 +89,15 @@ public class Parser implements IParser {
                 if (line.getDirective().getDir().equals(".cstring")) {
                     line.getDirective().setCString(token.getName());
                 } else {
-
                     int opCode = line.getInstruction().getMnemonic().getOpcode();
                     //Check mnemonic is immediate or relative
                     if (opCode > 0x1F) {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
-                        //Update opcode
-                        if (token.getCode() == TokenType.Operand) {
-                            //Parse Operand Size and State
+
+                        //Update opcode - Parse operand size and state
+                        if (token.getCode() == TokenType.Operand)
                             parseOperandBound(token, opCode);
-                        }
+
                     //Inherent Mode Addressing Error
                     } else
                         errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field.\n", token.getPosition()));
@@ -134,11 +129,14 @@ public class Parser implements IParser {
         if (isSigned) {
             String binStr = bnConv.toBinary(shift, size);
             shift = bnConv.getBinaryValue(binStr);
+            System.out.println("Shift: " + shift);
         }
+
         //Get Overflow Method in Binary Converter
-        if (!bnConv.isOverflow(shift, size, isSigned)){
+        if (!bnConv.isOverflow(shift, size, isSigned)) {
             line.getInstruction().setOpcode(opCode + shift);
-        }//Operand Exceed Limit: Errors 5-7
+        }
+        //Operand Exceed Limit: Errors 5-7
         else {
             //enter.u5 operand check
             if (opCode == 0x70) {

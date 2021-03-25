@@ -46,8 +46,8 @@ public class BinaryConverter implements IBinaryConverter{
         }
 
         return neg ? getTwosComplement(b) : b;
-
     }
+
     //Get twos comp of a binary value
     public String getTwosComplement(String b) {
         int i = 0;

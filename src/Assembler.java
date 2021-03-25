@@ -46,6 +46,7 @@ public class Assembler {
         for (int j = 1; j < interRep.getLength(); j++) {
             //Get previous and current LineStatement
             ILineStatement prevLine = interRep.getLine(j - 1);
+            System.out.println(prevLine);
             ILineStatement currLine = interRep.getLine(j);
 
             //Check if previous line is empty and current line is not
