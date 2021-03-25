@@ -67,9 +67,8 @@ public class CodeGenerator implements ICodeGenerator {
             //Get the opcode and operand of the line statement
             if (i != interRep.getLength() - 1) {
                 String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
-
                 //If operand is a label or string
-                if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && operand != "") {
+                if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && !operand.equals("")) {
                     //Directive
                     if (interRep.hasDirective(i)) {
                         mCode[i] = interRep.getLine(i).getDirective().getCode();
@@ -95,20 +94,19 @@ public class CodeGenerator implements ICodeGenerator {
             }else{
                 mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
             }
+//            System.out.println("MCode: " + mCode[i] + " Mne: " + interRep.getLine(i).getInstruction().getMnemonic().getMne() + " Operand: " + interRep.getLine(i).getInstruction().getOperand().getOp());
         }
     }
 
     //Generate an executable file
     public void generateExec(String fn, String c) {
         try {
-            String fileName = fn;
-            String content = c;
 
             //Create output stream and empty file
-            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(fileName + ".bin"));
+            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(fn + ".bin"));
 
             //Write to file
-            byte[] contentB = content.getBytes();
+            byte[] contentB = c.getBytes();
             for(byte b: contentB)
                 bfos.write(b);
 

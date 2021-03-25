@@ -14,6 +14,7 @@ public class BinaryConverter implements IBinaryConverter{
     //Check for unsigned overflow
     public boolean isUnsignedOverflow(int n, int size) {
         double range = Math.pow(2, size);
+        System.out.println((0 >= n) || (range - 1 < n));
         return (0 >= n) || (range - 1 < n);
     }
 
@@ -31,7 +32,7 @@ public class BinaryConverter implements IBinaryConverter{
     //Convert to binary
     public String toBinary(int n, int size) {
         //Determine whether value is positive or negative
-        boolean neg = n < 0 ? true : false;
+        boolean neg = n < 0;
 
         //Remove positive sign for binary conversion
         n = neg ? n * -1 : n;

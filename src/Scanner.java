@@ -19,9 +19,6 @@ public class Scanner implements IScanner {
 
     private IErrorReporter errorReporter;
 
-    //Dictionary of invalid characters
-    HashMap<Integer, Integer> invalidChars;
-
     public Scanner(ISymbolTable symTable, IErrorReporter errRep) {
         //Buffer for obtaining tokens
         buffer = "";
@@ -37,10 +34,6 @@ public class Scanner implements IScanner {
 
         //Create an ErrorReporter
         errorReporter = errRep;
-
-        //Create a dictionary of invalid characters to be detected by the Scanner
-        invalidChars = new HashMap<>();
-        fillInvalidChars();
     }
 
     //Scans file character by character given Reader object
@@ -55,20 +48,12 @@ public class Scanner implements IScanner {
         for (int i = currPos; i < fileContent.length(); i++) {
             //Adds Character By Character to Token
             char c = file.getChar(i);
-//            System.out.println("Line: " + lineNum + " Column: " + colNum);
-            //Character type flags
-            //EOL format is \r\n
-
 
             isEOL = c == '\r' || c == '\n';
             isSpace = c == ' ' || c == '\t';
 
-            if(isComment && isEOL){
-                System.out.println(buffer);
-            }
-
             //Check if character is valid or not, and report error if not
-            if (!isValid(c)) {
+            if (!errorReporter.isValid(c)) {
                 errorReporter.record(new ErrorMsg("Invalid character\n", lineNum, colNum));
             }
 
@@ -90,7 +75,6 @@ public class Scanner implements IScanner {
                 //Send to Parser
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-                System.out.println(token.toString());
                 colNum += 1;
                 currPos = i;
                 return token;
@@ -119,7 +103,7 @@ public class Scanner implements IScanner {
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
-                currPos = i++;
+                currPos = i;
                 newLine();
                 return token;
             } else if((isSpace || isEOL) && buffer.equals("")) {
@@ -131,8 +115,6 @@ public class Scanner implements IScanner {
                 if (c == ';')
                     isComment = true;
             }
-
-            if(eolCounter > 0) System.out.println("EOL Count" + eolCounter);
         }
         System.out.println("END OF FILE");
         return null;
@@ -167,7 +149,7 @@ public class Scanner implements IScanner {
         else if (isComment)
             return TokenType.Comment;
             //Check if label
-        else if (colNum == 0 && !isNumeric(name) && name != "")
+        else if (colNum == 0 && !isNumeric(name) && !name.equals(""))
             return TokenType.Label;
             //Check if label in operand position
         else if (colNum == 1 || colNum == 2)
@@ -192,28 +174,6 @@ public class Scanner implements IScanner {
                     continue;
                 else
                     return false;
-        }
-        return true;
-    }
-
-    //Fill hashmap of invalid characters
-    public void fillInvalidChars(){
-        for(int i =0; i < 32; i++){
-            if (i == 10 || i == 13){
-                continue;
-            }
-            else{
-                invalidChars.put(i, null);
-            }
-        }
-        invalidChars.put(127, null);
-    }
-
-    //Check if a character is valid
-    public boolean isValid(char c) {
-        //Return false if non-valid character is detected
-        if(invalidChars.containsKey((int) c)){
-            return false;
         }
         return true;
     }

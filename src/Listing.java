@@ -41,7 +41,7 @@ public class Listing implements IListing {
                     else
                         code = mCode[i]; //TODO: need to change this
 
-                    //Get the value (if there is one), Set to empty if it is not present, Set value from linestatement label = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
+                    //Get the value (if there is one), Set to empty if it is not present, Set value from LineStatement label = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
                     mne = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getMnemonic().getMne();
                     operand = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getOperand().getOp();//Check If Directive Exists
                 //Check if directive exists

@@ -6,4 +6,8 @@ public interface IErrorReporter {
 
     //Print the errors to console
     void report();
+
+    void fillInvalidChars();
+
+    boolean isValid(char c);
 }

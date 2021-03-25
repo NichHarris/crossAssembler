@@ -41,7 +41,6 @@ public class Parser implements IParser {
             parseToIR(tk);
 
         } while(scanner.getCurrPos() != reader.getFileContent().length() - 1);
-        System.out.println("here: " + currLine);
         interRep.addLine(currLine, line);
     }
 
@@ -54,12 +53,7 @@ public class Parser implements IParser {
 
         //Add to InterRep completed line and create empty line
         if(currLine < lineN) {
-            //Check if missing operand for directive and instruction
-            //if(line.getInstruction().getMnemonic().getOpcode() > 0x30 && line.getInstruction().getOperand() == null) {
-            // errorReporter.record(new ErrorMsg("Error: Instructions with immediate and relative mode addressing require an operand field.\n", token.getPosition()));
-            //}
 
-            System.out.println("Here: " + currLine);
             interRep.addLine(currLine++, line);
             line = new LineStatement();
 
@@ -109,7 +103,7 @@ public class Parser implements IParser {
                 break;
             //None - Empty Line or Error
             default:
-                if(token.getName() != "")
+                if(!token.getName().equals(""))
                     errorReporter.record(new ErrorMsg("Invalid Token.\n", token.getPosition()));
         }
     }
@@ -124,16 +118,14 @@ public class Parser implements IParser {
         boolean isSigned = subMne.contains("i");
         int size = Integer.parseInt(subMne.substring(subMne.indexOf(isSigned ? 'i' : 'u') + 1));
         int shift = Integer.parseInt(token.getName());
-
         //Converts signed values for shift
         if (isSigned) {
             String binStr = bnConv.toBinary(shift, size);
             shift = bnConv.getBinaryValue(binStr);
-            System.out.println("Shift: " + shift);
+            line.getInstruction().setOpcode(opCode + shift);
         }
-
         //Get Overflow Method in Binary Converter
-        if (!bnConv.isOverflow(shift, size, isSigned)) {
+        else if (!bnConv.isOverflow(shift, size, isSigned)) {
             line.getInstruction().setOpcode(opCode + shift);
         }
         //Operand Exceed Limit: Errors 5-7
