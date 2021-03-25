@@ -41,7 +41,6 @@ public class Parser implements IParser {
             if (tk != null) {
                 parseToIR(tk);
             } else {
-                System.out.println("here");
                 break;
             }
         }
