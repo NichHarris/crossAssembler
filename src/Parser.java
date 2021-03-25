@@ -91,7 +91,9 @@ public class Parser implements IParser {
 
                     //Inherent Mode Addressing Error
                     } else
-                        errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field. [" + token.getName() + "]", token.getPosition()));
+                        if (!token.getName().equals("")) {
+                            errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field. [" + token.getName() + "]", token.getPosition()));
+                        }
                 }
                 break;
             //Add comment
@@ -127,7 +129,6 @@ public class Parser implements IParser {
         }
         //Operand Exceed Limit: Errors 5-7
         else {
-            System.out.println(token.getName());
             //enter.u5 operand check
             if (opCode == 0x70)
                 errorReporter.record(new ErrorMsg("The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.", token.getPosition()));
