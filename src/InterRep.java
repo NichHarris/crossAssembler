@@ -44,9 +44,8 @@ public class InterRep implements IInterRep {
     //Check line i for instruction
     public boolean hasInstruction(int i) {
         //Check for empty line or no instruction
-        if (lines[i] == null || lines[i].getInstruction().getMnemonic().getMne() == "")
+        if (lines[i] == null || lines[i].getInstruction().getMnemonic().getMne().equals(""))
             return false;
-
         return true;
     }
 
@@ -56,9 +55,8 @@ public class InterRep implements IInterRep {
     //Check line i for directive
     public boolean hasDirective(int i) {
         //Check for empty line or no directive
-        if (lines[i] == null || lines[i].getDirective().getCString() == "")
+        if (lines[i] == null || lines[i].getDirective().getCString().equals(""))
             return false;
-
         return true;
     }
 

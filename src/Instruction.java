@@ -42,7 +42,7 @@ public class Instruction implements IInstruction {
 
     //Checks if instruction contains mnemonic and operand
     private boolean isEmpty(){
-        return this.getMnemonic().getMne() == "" && this.getOperand().getOp() == "";
+        return this.getMnemonic().getMne().equals("") && this.getOperand().getOp().equals("");
     }
 
     //Get instruction size
@@ -58,7 +58,7 @@ public class Instruction implements IInstruction {
             //Immediate Addressing
             else if (initOpcode >= 0x30 && initOpcode <= 0xAF) {
                 String operand = this.getOperand().getOp();
-                if (!this.getOperand().isNumeric() && operand != "") {
+                if (!this.getOperand().isNumeric() && !operand.equals("")) {
                     return 3;
                 } else {
                     return 1;
@@ -67,7 +67,7 @@ public class Instruction implements IInstruction {
             //Relative Addressing
             else if (initOpcode >= 0xB0 && initOpcode <= 0xFF) {
                 String operand = this.getOperand().getOp();
-                if (!this.getOperand().isNumeric() && operand != "") {
+                if (!this.getOperand().isNumeric() && !operand.equals("")) {
                     return 3;
                 } else {
                     return 1;

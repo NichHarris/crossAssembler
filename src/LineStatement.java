@@ -62,7 +62,7 @@ public class LineStatement implements ILineStatement {
 
     //Checks if a LineStatement contains a label, mnemonic and/or operand
     public boolean isEmpty(){
-        return this.getLabel().equals("") && this.getComment().equals("") && this.getInstruction() == null && this.getDirective() == null;
+        return this.getLabel().equals("") && this.getComment().getCmt().equals("") && this.getInstruction() == null && this.getDirective() == null;
     }
 
     //Get comments
