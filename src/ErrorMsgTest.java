@@ -5,9 +5,9 @@ public class ErrorMsgTest {
         ErrorMsg message2 = new ErrorMsg("Error2",3,4);
 
 
-        errorMsgTester("Paramerterized Constructor with position object","Error: Line 1, Column 2: Error1",message.getErrorMsg());
+        errorMsgTester("Parameterized Constructor with position object","Error: Line 1, Column 2: Error1",message.getErrorMsg());
 
-        errorMsgTester("Paramerterized Constructor without position object","Error: Line 31, Column 42: Error23",message2.getErrorMsg());
+        errorMsgTester("Parameterized Constructor without position object","Error: Line 31, Column 42: Error23",message2.getErrorMsg());
     }
 
     public static void errorMsgTester(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
