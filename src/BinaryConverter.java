@@ -19,55 +19,55 @@ public class BinaryConverter implements IBinaryConverter{
 
     //Return the binary value of a string
     public int getBinaryValue(String s) {
-        int len = s.length();
-        int bin = 0, i = len;
+        int slen = s.length();
+        int binary = 0, i = slen;
 
         while(i-- > 0)
-            bin += s.charAt(i) == '1' ? (Math.pow(2, len - 1 - i)) : 0;
+            binary += s.charAt(i) == '1' ? (Math.pow(2, slen - 1 - i)) : 0;
 
-        return bin;
+        return binary;
     }
 
     //Convert to binary
-    public String toBinary(int n, int size) {
+    public String toBinary(int shiftVal, int size) {
         //Determine whether value is positive or negative
-        boolean neg = n < 0;
+        boolean isNegative = shiftVal < 0;
 
         //Remove positive sign for binary conversion
-        n = neg ? n * -1 : n;
+        shiftVal = isNegative ? shiftVal * -1 : shiftVal;
 
         //Binary conversion
-        String b = "";
+        String binary = "";
         int i = 0;
         while(i++ < size) {
-            b = n % 2 == 1 ? "1" + b : "0" + b;
+            binary = shiftVal % 2 == 1 ? "1" + binary : "0" + binary;
 
-            n /= 2;
+            shiftVal /= 2;
         }
 
-        return neg ? getTwosComplement(b) : b;
+        return isNegative ? getTwosComplement(binary) : binary;
     }
 
     //Get twos comp of a binary value
-    public String getTwosComplement(String b) {
+    public String getTwosComplement(String binStr) {
         int i = 0;
-        String s = "";
+        String str = "";
 
         // 1s Complement, Flipping all bits
-        while(i < b.length())
-            s += b.charAt(i++) == '1' ? '0' : '1';
+        while(i < binStr.length())
+            str += binStr.charAt(i++) == '1' ? '0' : '1';
 
         // 2s Complement, Add 1
         int carry = 1;
         boolean state;
-        String t = "";
+        String result = "";
 
         while(i-- > 0) {
-            state = s.charAt(i) == '1' && carry == 1;
-            t = state ? '0' + t : (carry == 1 ? '1' + t : s.charAt(i) + t);
+            state = str.charAt(i) == '1' && carry == 1;
+            result = state ? '0' + result : (carry == 1 ? '1' + result : str.charAt(i) + result);
             carry = state ? 1 : 0;
         }
 
-        return t;
+        return result;
     }
 }
