@@ -1,7 +1,7 @@
 import java.io.FileInputStream;
 import java.util.ArrayList;
-public class CodeGeneratorTest {
 
+public class CodeGenTest {
     public static void main(String[] args) throws Exception{
 
         //Creating Options
