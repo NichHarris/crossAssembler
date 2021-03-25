@@ -25,8 +25,8 @@ public class LineStatementTest {
         TestLineStatement("Test -LineStatement Class- setInstruction() and getInstruction", "'\"mul: 152\" 4'", ls1.getInstruction().toString());
 
         //Testing setComment() and getComment()
-        ls1.setComment("; new comment");
-        TestLineStatement("Test -LineStatement Class- setComment()", "; new comment", ls1.getComment());
+        ls1.setComment(new Comment("; new comment"));
+        TestLineStatement("Test -LineStatement Class- setComment()", "; new comment", ls1.getComment().getCmt());
 
         //Testing the function getLabel()
         TestLineStatement("Test -LineStatement Class- getLabel()","RA", ls1.getLabel());

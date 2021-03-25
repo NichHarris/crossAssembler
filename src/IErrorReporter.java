@@ -1,15 +1,13 @@
+//Interface for ErrorReporter
 public interface IErrorReporter {
 
-    //Adds an error from Scanner to reportedErrors
-    void addError(int errNum, int line, int col, char c);
-
-    //Adds an error from Parser to reportedErrors
-    void addError(int errNum, IToken token);
+    //Adds an error to the list of recorded errors
+    void record(ErrorMsg error);
 
     //Print the errors to console
-    void reportErrors();
+    void report();
 
-    void addError(int i, int lineNum, int colNum);
+    void fillInvalidChars();
 
-    void isValid(char c, int lineNum, int colNum);
+    boolean isValid(char c);
 }

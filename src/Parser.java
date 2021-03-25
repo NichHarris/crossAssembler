@@ -1,15 +1,15 @@
-import java.util.Locale;
-
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
 public class Parser implements IParser {
     private IInterRep interRep;
-    private IInstruction instr;
     private ILineStatement line;
 
+    private BinaryConverter bnConv;
     private ISymbolTable symbolTable;
     private IErrorReporter errorReporter;
     private IScanner scanner;
     private IReader reader;
+
+    private int currLine;
 
     //Parser constructor initializes IR using number of lines from Reader
     public Parser(int len, ISymbolTable symTable, IErrorReporter errRep, IScanner scnr, IReader rdr) {
@@ -23,9 +23,13 @@ public class Parser implements IParser {
 
         //Create an instance of Scanner
         scanner = scnr;
-
+        bnConv = new BinaryConverter();
         //Create an instance of Reader
         reader = rdr;
+
+        //Create an instance of LineStatement
+        line = new LineStatement();
+        currLine = 0;
     }
 
     //Parse a token received from Scanner
@@ -34,223 +38,135 @@ public class Parser implements IParser {
 
         do {
             tk = scanner.scanFile(reader);
-            addToIR(tk);
-        } while(scanner.getCurrPos() != reader.getFileContent().length() - 1);
+            parseToIR(tk);
+        } while(scanner.getCurrPos() != reader.getFileContent().length());
+        interRep.addLine(currLine, line);
     }
 
-    //Adds to ir
-    public void addToIR(IToken token){
-        //Get token type
-        TokenType tokenType = token.getCode();
 
+    //Parses to IR
+    public void parseToIR(IToken token) {
         //Get column and line number from token
-        int lineNum = token.getPosition().getLineNumber();
-        int colNum = token.getPosition().getColumnNumber();
+        int lineN = token.getPosition().getLineNumber();
+        int colN = token.getPosition().getColumnNumber();
+
+        //Add to InterRep completed line and create empty line
+        if(currLine < lineN) {
+            interRep.addLine(currLine++, line);
+            line = new LineStatement();
+        }
 
         //Get opcode from Symbol Table
         int code = symbolTable.getCode(token.getName());
 
-        //System.out.println("Line: " + lineNum + ", Token: " + token.getName());
+        //Adds to LineStatement
+        switch(token.getCode()) {
+            //Add Label to Line
+            case Label:
+                line.setLabel(token.getName());
+                break;
+            //Add Mnemonic to Line
+            case Mnemonic:
+                if (token.getName().equals(".cstring"))
+                    line.setDirective(new Directive(token.getName(), ""));
+                else if (symbolTable.getCode(token.getName()) != -1)
+                    line.setInstruction(new Instruction(new Mnemonic(token.getName(), code), new Operand()));
+                else
+                    errorReporter.record(new ErrorMsg("Not a valid mnemonic or directive.\n", token.getPosition()));
+                break;
+            //Add Operand/Label to Line
+            case Operand:
+            case LabelOperand:
+                if (line.getDirective().getDir().equals(".cstring")) {
+                    line.getDirective().setCString(token.getName());
+                } else {
+                    int opCode = line.getInstruction().getMnemonic().getOpcode();
+                    //Check mnemonic is immediate or relative
+                    if (opCode > 0x1F) {
+                        line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
 
-        //Check if LineStatement already exists
-        //If it doesn't exist, add a new LineStatement to the IR with the given token
-        if (interRep.getLine(lineNum) == null) {
-            switch(tokenType) {
-                case Label:
-                    //Add LineStatement to IR with label
-                    interRep.addLine(lineNum, new LineStatement(token.getName(), null, null));
-                    break;
-                case Mnemonic:
-                    //Add LineStatement to IR with mnemonic and its opcode
-                    interRep.addLine(lineNum, new LineStatement(null, new Instruction(new Mnemonic(token.getName(), code)), null));
-                    break;
-                case LabelOperand:
-                    //Add LineStatement to IR with operand
-                    interRep.addLine(lineNum, new LineStatement(null, new Instruction(null, new Operand(token.getName())), null));
-                    break;
-                case Comment:
-                    //Add comment
-                    interRep.addLine(lineNum, new LineStatement(null, null, token.getName()));
-                    break;
-                default:
-                    //System.out.println("HERE" + token.getName());
-                    //Add empty LineStatement
-                    if (token.getName() == "")
-                        interRep.addLine(lineNum, new LineStatement(null, null, null));
-                    else
-                        //TODO: add error reporting if none of these work
-                        System.err.print("Invalid token. Need to check why");
-            }
+                        //Update opcode - Parse operand size and state
+                        if (token.getCode() == TokenType.Operand)
+                            parseOperandBound(token, opCode);
+
+                    //Inherent Mode Addressing Error
+                    } else
+                        errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field.\n [" + token.getName() + "]", token.getPosition()));
+                }
+                break;
+            //Add comment
+            case Comment:
+                line.setComment(new Comment(token.getName()));
+                break;
+            //None - Empty Line or Error
+            default:
+                if(!token.getName().equals(""))
+                    errorReporter.record(new ErrorMsg("Invalid Token.\n", token.getPosition()));
         }
-        //If a LineStatement already exists, add token to said LineStatement
+    }
+
+    //Parses Operand Bounds
+    public void parseOperandBound(IToken token, int opCode) {
+        //Get substring of mnemonic
+        String mne = line.getInstruction().getMnemonic().getMne();
+        String subMne = mne.substring(mne.indexOf('.') + 1);
+
+        //Get signed or unsigned and size
+        boolean isSigned = subMne.contains("i");
+        int size = Integer.parseInt(subMne.substring(subMne.indexOf(isSigned ? 'i' : 'u') + 1));
+        int shift = Integer.parseInt(token.getName());
+        //Converts signed values for shift
+        if (isSigned) {
+            String binStr = bnConv.toBinary(shift, size);
+            shift = bnConv.getBinaryValue(binStr);
+            line.getInstruction().setOpcode(opCode + shift);
+        }
+        //Get Overflow Method in Binary Converter
+        else if (!bnConv.isOverflow(shift, size, isSigned)) {
+            line.getInstruction().setOpcode(opCode + shift);
+        }
+        //Operand Exceed Limit: Errors 5-7
         else {
-            //Get the LineStatement
-            line = interRep.getLine(lineNum);
-
-            //Check the token type
-//            if (tokenType == null) {
-//                tokenType = TokenType.Comment;
-//            }
-
-            switch(tokenType) {
-                //TODO: Label case probably not needed
-                case Label:
-                    //Add label to LineStatement
-                    interRep.setLabel(lineNum, token.getName());
-                    break;
-                //Add mnemonic to LineStatement
-                case Mnemonic:
-                    if (line.getInstruction() == null) {
-                        //Set the updated instruction in the LineStatement
-                        interRep.setInstruction(lineNum, new Instruction(new Mnemonic(token.getName(), code)));
-                    }
-                    else {
-                        //Get Instruction
-                        instr = line.getInstruction();
-
-                        //Set new mnemonic to the instruction
-                        instr.setMnemonic(new Mnemonic(token.getName(), code));
-
-                        //Set the updated instruction in the LineStatement
-                        interRep.setInstruction(lineNum, instr);
-                    }
-                    break;
-                //Add label or operand to LineStatement
-                case LabelOperand:
-                    //Add operand to LineStatement
-                    if (isNumeric(token.getName())) {
-                        //Verify if operand can be added to IR
-                        int opcode = line.getInstruction().getMnemonic().getOpcode();
-
-                        //Inherent mode addressing check
-                        if (opcode >= 0x00 && opcode <= 0x1F) {
-                            errorReporter.addError(3, token);
-                        }
-                        //enter.u5 operand check
-                        else if (opcode == 0x70) {
-                            int operand = Integer.parseInt(token.getName());
-                            if (operand < 0 || operand > 31) {
-                                errorReporter.addError(5,token);
-                            }
-                        }
-                        //ldc.i3 operand check
-                        else if (opcode == 0x90) {
-                            int operand = Integer.parseInt(token.getName());
-                            if (operand < -4 || operand > 3) {
-                                errorReporter.addError(6,token);
-                            }
-                        }
-                        //ldv.u3 operand check
-                        else if (opcode == 0xA0) {
-                            int operand = Integer.parseInt(token.getName());
-                            if (operand < 0 || operand > 7) {
-                                errorReporter.addError(7,token);
-                            }
-                        }
-
-                        //Get LineStatement
-                        instr = line.getInstruction();
-
-                        //Set the new operand
-                        instr.setOperand(new Operand(token.getName()));
-
-                        //Set the updated instruction in the LineStatement
-                        interRep.setInstruction(lineNum, instr);
-
-                        //Update mnemonic's code based on added operand
-                        if (interRep.hasInstruction(lineNum) && interRep.getLine(lineNum).getInstruction().getOperand().isNumeric()) {
-                            interRep.updateCode(lineNum);
-                        }
-                    }
-                    //Add label to LineStatement
-                    else {
-                        //Verify if missing operand for immediate instruction
-                        int opcode = line.getInstruction().getMnemonic().getOpcode();
-                        if (opcode >= 0x30 && opcode <= 0xA8) {
-                            if (line.getLabel() == "") {
-                                if (colNum == 1) {
-                                    errorReporter.addError(2, token);
-                                }
-                            } else {
-                                if (colNum == 2) {
-                                    errorReporter.addError(2, token);
-                                }
-                            }
-                        }
-
-                        //Get LineStatement
-                        instr = line.getInstruction();
-
-                        //Set the new operand
-                        instr.setOperand(new Operand(token.getName()));
-
-                        //Set the updated instruction in the LineStatement
-                        interRep.setInstruction(lineNum, instr);
-
-                        //interRep.setLabel(lineNum, token.getName());
-                    }
-                    break;
-                case Comment:
-                    //Verify if missing operand for immediate instruction
-                    int opcode = line.getInstruction().getMnemonic().getOpcode();
-                    if (opcode >= 0x30 && opcode <= 0xA8) {
-                        if (line.getLabel() == "") {
-                            if (colNum == 1) {
-                                errorReporter.addError(2, token);
-                            }
-                        } else {
-                            if (colNum == 2) {
-                                errorReporter.addError(2, token);
-                            }
-                        }
-                    }
-
-                    //Check if missing operand for immediate instruction
-                    if (opcode >= 0x00 && opcode <= 0x1F) {
-                        errorReporter.addError(3,token);
-                    }
-
-                    //Add comment
-                    if (token.getName().startsWith(";")) {
-                        interRep.setComment(lineNum, token.getName());
-                    }
-                    //Throw error
-                    else {
-                        //TODO: add error reporting if none of these work
-                        System.err.print("Invalid token. Need to check why2");
-                    }
-
+            //enter.u5 operand check
+            if (opCode == 0x70)
+                errorReporter.record(new ErrorMsg("The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.\n", token.getPosition()));
+            //ldc.i3 operand check
+            else if (opCode == 0x90)
+                    errorReporter.record(new ErrorMsg("The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3.\n", token.getPosition()));
+            //ldv.u3 operand check
+            else if (opCode == 0xA0)
+                    errorReporter.record(new ErrorMsg("The immediate instruction 'ldv.u3' must have a 3-bit unsigned operand number ranging from 0 to 7.\n", token.getPosition()));
+            else
+                System.out.println("Future Sprint Case");
+            /*
+            //enter.u5 operand check
+            if (opCode == 0x70) {
+                int operand = Integer.parseInt(token.getName());
+                if (operand < 0 || operand > 31) {
+                    errorReporter.record(new ErrorMsg("The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.\n", token.getPosition()));
+                }
             }
+            //ldc.i3 operand check
+            else if (opCode == 0x90) {
+                int operand = Integer.parseInt(token.getName());
+                if (operand < -4 || operand > 3) {
+                    errorReporter.record(new ErrorMsg("The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3.\n", token.getPosition()));
+                }
+            }
+            //ldv.u3 operand check
+            else if (opCode == 0xA0) {
+                int operand = Integer.parseInt(token.getName());
+                if (operand < 0 || operand > 7) {
+                    errorReporter.record(new ErrorMsg("The immediate instruction 'ldv.u3' must have a 3-bit unsigned operand number ranging from 0 to 7.\n", token.getPosition()));
+                }
+            }
+
+             */
         }
     }
 
     //Get the intermediate representation
     public IInterRep getInterRep() {
         return interRep;
-    }
-
-    //Check if token is numeric
-    public boolean isNumeric(String str) {
-        if (str == null) {
-            return false;
-        }
-
-        for(int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-
-            //Check if character is outside number range
-            if(c < 48 || c > 57)
-                //Check if negative number (-)
-                if (i == 0 && c == 45)
-                    continue;
-                else
-                    return false;
-        }
-        return true;
-    }
-
-    //Print error recorded by ErrorReporter (if there are any)
-    public void reportErrors() {
-        errorReporter.reportErrors();
     }
 }

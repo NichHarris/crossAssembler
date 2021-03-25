@@ -2,11 +2,6 @@
 public class Assembler {
     //Entrypoint of program execution
     public static void main(String[] args) throws Exception {
-        //Create SymbolTable
-        ISymbolTable symbolTable = new SymbolTable();
-
-        //Create error reporter
-        IErrorReporter errorReporter = new ErrorReporter();
 
         //Set options from CL
         IOptions options = new Options();
@@ -19,6 +14,12 @@ public class Assembler {
         IReader reader = new Reader(fileName);
         reader.readFile();
 
+        //Create SymbolTable
+        ISymbolTable symbolTable = new SymbolTable();
+
+        //Create error reporter
+        IErrorReporter errorReporter = new ErrorReporter(fileName);
+
         //Create scanner object, this is to be passed to Parse
         IScanner scanner = new Scanner(symbolTable, errorReporter);
 
@@ -28,24 +29,18 @@ public class Assembler {
         //and then do its thing on that token, adding it to the interRep
         parser.parseToken();
 
-        //Report any errors found in Scanner
-        scanner.reportErrors();
-
         //Run a second pass through the IR to update the machine code
         IInterRep interRep = parser.getInterRep();
         secondPass(interRep);
 
-        //Report any errors found in Parser
-        parser.reportErrors();
-
-        //TODO? Get the intermediate representation
+        //Report any errors found by the cross assembler
+        errorReporter.report();
 
         //Generate listing file
         ICodeGenerator generator = new CodeGenerator(interRep, options);
     }
 
     static void secondPass(IInterRep interRep) {
-
         //Set the address of each line, starting at 0000 for the first line
         interRep.setAddr(0, 0);
         for (int j = 1; j < interRep.getLength(); j++) {
@@ -59,8 +54,13 @@ public class Assembler {
             if (prevLine.isEmpty() && !currLine.isEmpty()) {
                 interRep.setAddr(j, interRep.getAddr(j - 1) + 1);
             } else {
-                interRep.setAddr(j, interRep.getAddr(j - 1) + interRep.getLine(j - 1).getInstruction().getSize());
-                System.out.println(interRep.getAddr(j));
+                if (interRep.hasDirective(j-1)){
+                    int dirSize = interRep.getDirective(j-1).getCString().substring(1, interRep.getDirective(j-1).getCString().length() - 1).length() + 1;
+                    interRep.setAddr(j, interRep.getAddr(j - 1) + dirSize);
+                } else {
+                    int instrSize = interRep.getLine(j - 1).getInstruction().getSize();
+                    interRep.setAddr(j, interRep.getAddr(j - 1) + instrSize);
+                }
             }
         }
     }

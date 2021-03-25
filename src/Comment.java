@@ -1,17 +1,23 @@
 public class Comment implements IComment{
-
     private String comment;
 
+    //Default constructor
     public Comment(){
-        comment="";
+        comment = "";
     }
-    public Comment(String comment){
-        this.comment=comment;
+
+    //Parametrized constructor
+    public Comment(String cm){
+        comment = cm;
     }
-    public String getComment(){
+
+    //Return a comment
+    public String getCmt(){
         return comment;
     }
-    public void setComment(String comment){
-        this.comment=comment;
+
+    //Set a comment
+    public void setComment(String cm){
+        comment = cm;
     }
 }

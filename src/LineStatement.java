@@ -3,12 +3,14 @@ public class LineStatement implements ILineStatement {
     // Data members representing the label, instruction and comments of a LineStatement Object
     private String label;
     private IInstruction instruction;
-    private final IComment comment;
+    private IDirective directive;
+    private IComment comment;
 
     // Default constructor
     public LineStatement() {
         label = "";
         instruction = new Instruction();
+        directive = new Directive();
         comment = new Comment("");
     }
 
@@ -17,6 +19,15 @@ public class LineStatement implements ILineStatement {
         label = (l == null) ? "" : l;
         comment = new Comment((c == null) ? "" : c);
         instruction = (in == null) ? new Instruction() : in;
+        directive = new Directive();
+    }
+
+    //Parametrized constructor for object initialization with label, directive and comment
+    public LineStatement(String l, IDirective d, IInstruction in, String c) {
+        label = (l == null) ? "" : l;
+        comment = new Comment((c == null) ? "" : c);
+        directive = (d == null) ? new Directive() : d;
+        instruction = new Instruction();
     }
 
     //Set label
@@ -30,9 +41,11 @@ public class LineStatement implements ILineStatement {
     }
 
     //Set comments
-    public void setComment(String c) {
-        comment.setComment(c);
+    public void setComment(IComment c) {
+        comment = c;
     }
+
+    public void setDirective(IDirective dir){ directive = dir; }
 
     //Get label
     public String getLabel() {
@@ -44,18 +57,21 @@ public class LineStatement implements ILineStatement {
          return instruction;
      }
 
+     //Get directive
+    public IDirective getDirective() { return directive; }
+
     //Checks if a LineStatement contains a label, mnemonic and/or operand
     public boolean isEmpty(){
-        return this.getLabel().equals("") && this.getComment().equals("") && this.getInstruction()==null;
+        return this.getLabel().equals("") && this.getComment().getCmt().equals("") && this.getInstruction() == null && this.getDirective() == null;
     }
 
     //Get comments
-    public String getComment() {
-        return comment.getComment();
+    public IComment getComment() {
+        return comment;
     }
 
     //Returns a String representable of a LineStatement object
     public String toString() {
-        return String.format("'%s'", label + " " + instruction.toString() + " " + comment.getComment());
+        return String.format("'%s'", label + " " + instruction.toString() + " " + comment.getCmt());
     }
 }

@@ -4,7 +4,7 @@ public class ScannerTest {
         Reader test = new Reader("testfile.asm");
         test.readFile();
         SymbolTable symT= new SymbolTable();
-        ErrorReporter er = new ErrorReporter();
+        ErrorReporter er = new ErrorReporter("testfile.asm");
         Scanner scn= new Scanner(symT,er);
 
         //Testing scanFile()

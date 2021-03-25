@@ -1,9 +1,9 @@
 public interface IComment {
 
-    //Get comment
-    String getComment();
+    //Return a comment
+    String getCmt();
 
-    //Set comment
+    //Set a comment
     void setComment(String comment);
 
 }

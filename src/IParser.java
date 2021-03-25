@@ -4,11 +4,9 @@ public interface IParser {
     //Parse a token received from Scanner
     void parseToken();
 
-    void addToIR(IToken token);
+    //Parses to IR
+    void parseToIR(IToken token);
 
     //Get the intermediate representation
     IInterRep getInterRep();
-
-    //Print error recorded by ErrorReporter (if there are any)
-    void reportErrors();
 }

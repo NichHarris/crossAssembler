@@ -15,7 +15,6 @@ public class Instruction implements IInstruction {
         operand = new Operand();
     }
 
-
     //Immediate or Relative Constructor
     public Instruction(IMnemonic m,IOperand o) {
         mnemonic = m;
@@ -42,11 +41,8 @@ public class Instruction implements IInstruction {
     public IOperand getOperand(){ return operand; }
 
     //Checks if instruction contains mnemonic and operand
-    public boolean isEmpty(){
-        if (this.getMnemonic().getMne() == "" && this.getOperand().getOp() == ""){
-            return true;
-        }
-        return false;
+    private boolean isEmpty(){
+        return this.getMnemonic().getMne().equals("") && this.getOperand().getOp().equals("");
     }
 
     //Get instruction size
@@ -55,22 +51,14 @@ public class Instruction implements IInstruction {
             //Get the original opcode before making modifications
             int initOpcode = this.getMnemonic().getOpcode();
 
-            //System.out.println(this.getMnemonic().getMne());
-
             //Stack/inherent addressing
             if (initOpcode >= 0x00 && initOpcode <= 0x1F) {
                 return 1;
             }
-            //.cstring directives
-            else if (this.getMnemonic().getMne().equals(".cstring")) {
-                String operand = this.getOperand().getOp();
-                int len = operand.substring(1, operand.length() - 1).length();
-                return 1 + len;
-            }
             //Immediate Addressing
             else if (initOpcode >= 0x30 && initOpcode <= 0xAF) {
                 String operand = this.getOperand().getOp();
-                if (!this.getOperand().isNumeric() && operand != "") {
+                if (!this.getOperand().isNumeric() && !operand.equals("")) {
                     return 3;
                 } else {
                     return 1;
@@ -79,7 +67,7 @@ public class Instruction implements IInstruction {
             //Relative Addressing
             else if (initOpcode >= 0xB0 && initOpcode <= 0xFF) {
                 String operand = this.getOperand().getOp();
-                if (!this.getOperand().isNumeric() && operand != "") {
+                if (!this.getOperand().isNumeric() && !operand.equals("")) {
                     return 3;
                 } else {
                     return 1;
