@@ -1,12 +1,13 @@
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.HashSet;
+
 //Records and reports errors caught by the cross assembler
 public class ErrorReporter implements IErrorReporter {
     //String comprised of recorded errors
     ArrayList<ErrorMsg> recordedErrors;
 
     //Dictionary of invalid characters
-    HashMap<Integer, Integer> invalidChars;
+    HashSet<Integer> invalidChars;
 
     //Name of input file
     String fileName;
@@ -18,7 +19,7 @@ public class ErrorReporter implements IErrorReporter {
         this.fileName = fileName;
 
         //Create a dictionary of invalid characters to be detected by the Scanner
-        invalidChars = new HashMap<>();
+        invalidChars = new HashSet<>();
         fillInvalidChars();
     }
 
@@ -33,7 +34,11 @@ public class ErrorReporter implements IErrorReporter {
         if (numErrors != 0) {
             for (ErrorMsg error: recordedErrors)
                 System.out.printf("%s: %s%n", fileName, error.getErrorMsg());
-            System.out.printf("\n\n\n\n%s Errors Found.%n",numErrors);
+            if (numErrors == 1) {
+                System.out.printf("\n%s Error Found.%n",numErrors);
+            } else {
+                System.out.printf("\n%s Errors Found.%n",numErrors);
+            }
         }
     }
 
@@ -44,16 +49,16 @@ public class ErrorReporter implements IErrorReporter {
                 continue;
             }
             else{
-                invalidChars.put(i, null);
+                invalidChars.add(i);
             }
         }
-        invalidChars.put(127, null);
+        invalidChars.add(127);
     }
 
     //Check if a character is valid
     public boolean isValid(char c) {
         //Return false if non-valid character is detected
-        if(invalidChars.containsKey((int) c)){
+        if(invalidChars.contains((int) c)){
             return false;
         }
         return true;

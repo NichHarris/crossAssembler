@@ -5,7 +5,7 @@ public class InterRep implements IInterRep {
     //Array of addresses for each line statement
     private final int[] addr;
 
-    //Parameterized Constructor
+    //Parameterized constructor
     public InterRep(int len) {
         lines = new LineStatement[len];
         addr = new int[len];
@@ -16,7 +16,7 @@ public class InterRep implements IInterRep {
         lines[i] = l;
     }
 
-    //Add LineStatement with a label, Instruction object and comment
+    //Add LineStatement with a label, instruction object and comment
     public void addLine(int i, String l, IInstruction in, String c) {
         lines[i] = new LineStatement(l, in, c);
     }
@@ -75,7 +75,7 @@ public class InterRep implements IInterRep {
         addr[i] = val;
     }
 
-    //Returns a String representable of an InterRep object
+    //Returns a string representable of an interRep object
     public String toString() {
         String IR = "";
         for(int i = 0; i < this.getLength(); i++)
