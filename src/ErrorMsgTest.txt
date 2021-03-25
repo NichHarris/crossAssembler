@@ -1,0 +1,8 @@
+Test Paramerterized Constructor with position object
+Error: Line 1, Column 2: Error1
+Error: Line 1, Column 2: Error1
+
+Test Paramerterized Constructor without position object
+Error: Line 31, Column 42: Error23
+Error: Line 31, Column 42: Error23
+

@@ -1,5 +1,3 @@
 Line Addr Code          Label         Mnemonic      Operand       Comments            
-1    0000 null                        ldc.i3                                          
-2    0001 null                        pop                                             
-3    0002               top                                                           
+1    0000 98            Fct           addv.u3       3                                 
 
