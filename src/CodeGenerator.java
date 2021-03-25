@@ -73,7 +73,7 @@ public class CodeGenerator implements ICodeGenerator {
                     if (interRep.hasDirective(i)) {
                         mCode[i] = interRep.getLine(i).getDirective().getCode();
                     }
-                    //If operand is a label, set the machine code to the instruction's opcode + the
+                    //If operand is a label, set the machine code to the instruction's opcode + label
                     else {
                         String label = interRep.getLine(i).getInstruction().getOperand().getOp();
                         int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
@@ -91,7 +91,7 @@ public class CodeGenerator implements ICodeGenerator {
                 } else {
                     mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
                 }
-            }else{
+            } else{
                 mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
             }
 //            System.out.println("MCode: " + mCode[i] + " Mne: " + interRep.getLine(i).getInstruction().getMnemonic().getMne() + " Operand: " + interRep.getLine(i).getInstruction().getOperand().getOp());

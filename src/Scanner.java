@@ -40,8 +40,6 @@ public class Scanner implements IScanner {
     public IToken scanFile(IReader file) {
         //Input file content as a String
         String fileContent = file.getFileContent();
-        //Number of lines in file
-        //numLines = file.getLineNum();
 
         buffer = "";
         //Traverse the file content character per character and scan for tokens
@@ -57,15 +55,16 @@ public class Scanner implements IScanner {
                 errorReporter.record(new ErrorMsg("Invalid character\n", lineNum, colNum));
 
             //Check if eol in string
-            if(!buffer.equals("") && c == '\n')
-                errorReporter.record(new ErrorMsg("EOL in String\n", lineNum, colNum));
+            //if(!buffer.equals("") && c == '\n')
+            //    errorReporter.record(new ErrorMsg("EOL in String\n", lineNum, colNum));
 
             //Check if an EOF character is found anywhere other than the end of file
             if (i != fileContent.length() - 1 && (int) c == 26)
                 errorReporter.record(new ErrorMsg("EOF in String\n", lineNum, colNum));
 
             //Counts number of EOL characters in a row
-            eolCounter = isEOL ? eolCounter + 1: 0;
+            //eolCounter = isEOL ? eolCounter + 1: 0;
+            eolCounter = c == '\n' ? eolCounter + 1 : 0;
 
             //If space and buffer is not empty and not a comment - send to parser
             if (i == fileContent.length() - 1) {
@@ -97,7 +96,7 @@ public class Scanner implements IScanner {
                 return token;
             //Add to buffer
             //If more than 2 EOL characters in a row
-            } else if (eolCounter >= 2) {
+            } else if (eolCounter % 1 == 0 && eolCounter >= 1) {
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 //System.out.println("HERE EOL: " + eolCounter + " Line Num:" + lineNum);
@@ -116,8 +115,14 @@ public class Scanner implements IScanner {
             }
         }
 
+
         System.out.println("END OF FILE");
-        return null;
+
+        tokenType = this.getTokenType(buffer, colNum);
+        token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+        //System.out.println("HERE EOL: " + eolCounter + " Line Num:" + lineNum);
+        currPos = fileContent.length();
+        return token;
     }
 
     public void newLine() {
@@ -131,7 +136,6 @@ public class Scanner implements IScanner {
     }
 
     //Get the token type of a token
-    //TODO: to be improved for edge cases + error reporter
     public TokenType getTokenType(String name, int colNum) {
         //Get the opcode of the token
         int code = symbolTable.getCode(name);
@@ -153,14 +157,13 @@ public class Scanner implements IScanner {
             return TokenType.Label;
             //Check if label in operand position
         else if (colNum == 1 || colNum == 2)
-            if (!isNumeric(name))
+            if (!isNumeric(name) && !name.equals(""))
                 return TokenType.LabelOperand;
         return TokenType.None;
     }
 
     //Check if token is numeric
     public boolean isNumeric(String str) {
-        //TODO: Return error for not following grammar
         if (str.length() == 0)
             return false;
 
