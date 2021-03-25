@@ -70,8 +70,21 @@ public class Scanner implements IScanner {
             //Counts number of EOL characters in a row
             eolCounter = isEOL ? eolCounter + 1: 0;
 //            System.out.println("EOL COUNT: " + eolCounter);
+
+            System.out.println(lineNum);
             //If space and buffer is not empty and not a comment - send to parser
-            if(isSpace && !buffer.equals("") && !isComment) {
+            if (i == fileContent.length() - 1) {
+                System.out.println("Here: " + buffer);
+                if (!buffer.equals(""))
+                    buffer = buffer + (c);
+                    tokenType = this.getTokenType(buffer, colNum);
+                    token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+
+                    currPos = ++i;
+//                    newLine();
+                    return token;
+            }
+            else if(isSpace && !buffer.equals("") && !isComment) {
                 //Send to Parser
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
@@ -98,14 +111,6 @@ public class Scanner implements IScanner {
                 newLine();
                 return token;
             //If at last line of file
-            } else if (i == fileContent.length() - 1) {
-                buffer = buffer + (c);
-                tokenType = this.getTokenType(buffer, colNum);
-                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-
-                currPos = i;
-                newLine();
-                return token;
             } else if((isSpace || isEOL) && buffer.equals("")) {
                     continue;
             } else {

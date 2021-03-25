@@ -14,7 +14,6 @@ public class BinaryConverter implements IBinaryConverter{
     //Check for unsigned overflow
     public boolean isUnsignedOverflow(int n, int size) {
         double range = Math.pow(2, size);
-        System.out.println((0 >= n) || (range - 1 < n));
         return (0 >= n) || (range - 1 < n);
     }
 

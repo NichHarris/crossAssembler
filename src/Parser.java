@@ -40,7 +40,7 @@ public class Parser implements IParser {
             tk = scanner.scanFile(reader);
             parseToIR(tk);
 
-        } while(scanner.getCurrPos() != reader.getFileContent().length() - 1);
+        } while(scanner.getCurrPos() != reader.getFileContent().length());
         interRep.addLine(currLine, line);
     }
 
