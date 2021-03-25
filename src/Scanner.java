@@ -1,12 +1,10 @@
-<<<<<<< HEAD
-=======
+
 /*
 Commented out certain system.out for testing purposes;
 would like know if they are required or simply done
 for debugging purposes?
  */
 
->>>>>>> c0f42dcdc7bdda59f76a1f0916b1297ed115b89d
 //Scanner - Performs Lexical Analysis on the assembly unit
 public class Scanner implements IScanner {
     private IToken token;
@@ -71,27 +69,12 @@ public class Scanner implements IScanner {
 
             //Counts number of EOL characters in a row
             eolCounter = isEOL ? eolCounter + 1: 0;
-<<<<<<< HEAD
 
             //If space and buffer is not empty and not a comment - send to parser
             if (i == fileContent.length() - 1) {
-                if (!buffer.equals(""))
-                    buffer = buffer + (c);
-=======
-//            System.out.println("EOL COUNT: " + eolCounter);
-
-            System.out.println(lineNum);
-            //If space and buffer is not empty and not a comment - send to parser
-            if (i == fileContent.length() - 1) {
->>>>>>> c0f42dcdc7bdda59f76a1f0916b1297ed115b89d
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-
                 currPos = ++i;
-<<<<<<< HEAD
-//                    newLine();
-=======
->>>>>>> c0f42dcdc7bdda59f76a1f0916b1297ed115b89d
                 return token;
             }
             else if(isSpace && !buffer.equals("") && !isComment) {
@@ -113,14 +96,9 @@ public class Scanner implements IScanner {
                 //Add to buffer
                 //If more than 2 EOL characters in a row
                 //TODO: Fix this sketchiness
-<<<<<<< HEAD
             } else if (eolCounter >= 2) {
-=======
-            } else if ( eolCounter >= 2) {
->>>>>>> c0f42dcdc7bdda59f76a1f0916b1297ed115b89d
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-
                 currPos = ++i;
                 newLine();
                 return token;
@@ -135,14 +113,11 @@ public class Scanner implements IScanner {
                     isComment = true;
             }
         }
-<<<<<<< HEAD
-=======
         System.out.println("END OF FILE");
->>>>>>> c0f42dcdc7bdda59f76a1f0916b1297ed115b89d
         return null;
     }
 
-    public void newLine() {
+    public void newLine(){
         //Increment line number and reset column number
         lineNum++;
         colNum = 0;
