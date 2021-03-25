@@ -51,16 +51,21 @@ public class Scanner implements IScanner {
         //numLines = file.getLineNum();
 
         buffer = "";
-
         //Traverse the file content character per character and scan for tokens
         for (int i = currPos; i < fileContent.length(); i++) {
             //Adds Character By Character to Token
             char c = file.getChar(i);
-
+//            System.out.println("Line: " + lineNum + " Column: " + colNum);
             //Character type flags
             //EOL format is \r\n
+
+
             isEOL = c == '\r' || c == '\n';
             isSpace = c == ' ' || c == '\t';
+
+            if(isComment && isEOL){
+                System.out.println(buffer);
+            }
 
             //Check if character is valid or not, and report error if not
             if (!isValid(c)) {
@@ -68,7 +73,7 @@ public class Scanner implements IScanner {
             }
 
             //Check if eol in string
-            if(buffer != "" && c == '\n'){
+            if(!buffer.equals("") && c == '\n'){
                 errorReporter.record(new ErrorMsg("EOL in String\n", lineNum, colNum));
             }
 
@@ -79,31 +84,29 @@ public class Scanner implements IScanner {
 
             //Counts number of EOL characters in a row
             eolCounter = isEOL ? eolCounter + 1: 0;
-
-//            if(eolCounter > 0) System.out.println("EOL Count" + eolCounter);
-
+//            System.out.println("EOL COUNT: " + eolCounter);
             //If space and buffer is not empty and not a comment - send to parser
-            if (isSpace && buffer != "" && !isComment) {
+            if(isSpace && !buffer.equals("") && !isComment) {
                 //Send to Parser
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-
+                System.out.println(token.toString());
                 colNum += 1;
-                currPos = i++;
+                currPos = i;
                 return token;
             //If EOL and buffer is not empty - send to parser + new line
-            } else if (isEOL && buffer != "") {
+            } else if (isEOL && !buffer.equals("")) {
                 //Send to Parser
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-
-                currPos = i++;
-                newLine();
+                colNum += 1;
+                currPos = i;
+                isComment = false;
                 return token;
                 //Add to buffer
                 //If more than 2 EOL characters in a row
                 //TODO: Fix this sketchiness
-            } else if (eolCounter % 2 == 0 && eolCounter > 2) {
+            } else if (eolCounter % 2 == 0 && eolCounter >= 2) {
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
@@ -112,19 +115,15 @@ public class Scanner implements IScanner {
                 return token;
             //If at last line of file
             } else if (i == fileContent.length() - 1) {
-                //if (!isEOL){
-                    //Send toParser
-                    buffer = buffer + (c);
-                    tokenType = this.getTokenType(buffer, colNum);
-                    token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+                buffer = buffer + (c);
+                tokenType = this.getTokenType(buffer, colNum);
+                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
-                    currPos = i++;
-                    newLine();
-                    return token;
-                //}
-            //Ignore spaces and extra EOL
-            } else if ((isSpace || isEOL) && buffer == "") {
-                continue;
+                currPos = i++;
+                newLine();
+                return token;
+            } else if((isSpace || isEOL) && buffer.equals("")) {
+                    continue;
             } else {
                 buffer += c;
 
@@ -145,6 +144,7 @@ public class Scanner implements IScanner {
         colNum = 0;
         //Reset flag and buffer
         isComment = false;
+        eolCounter = 0;
         buffer = "";
     }
 

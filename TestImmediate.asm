@@ -1,9 +1,7 @@
-;test eol fuck you
 ; TestImmediate.asm - Test immediate instructions.
+
           enter.u5  0        ; OK, number <u5> [0..31].
-<<<<<<< HEAD
-<<<<<<< HEAD
-          enter.u5  1
+          enter.u5  1        ; OK, number <u5> [0..31].
           enter.u5  2        ; OK, number <u5> [0..31].
           enter.u5  3        ; OK, number <u5> [0..31].
           enter.u5  4        ; OK, number <u5> [0..31].
@@ -70,14 +68,7 @@
             stv.u3  5        ; OK, number <u3> [0..7].
             stv.u3  6        ; OK, number <u3> [0..7].
             stv.u3  7        ; OK, number <u3> [0..7].
-=======
-;test
-          enter.u5  1
->>>>>>> 7579a2aff85a52c20f7f6551a7c47b173cc241ce
-=======
+            lda.i16 ABC ; lda - load address
 
-
-;test
-
-          enter.u5  1
->>>>>>> fixing
+            ABC .cstring "ABC" ; "ABC" has 4 bytes
+            A0 .cstring "A0" ; "A0"  has 3 bytes

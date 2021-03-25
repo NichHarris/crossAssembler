@@ -42,7 +42,7 @@ public class CodeGenerator implements ICodeGenerator {
     public void generateListing(String[] lstContent) {
         // Create listing.lst output file
         try {
-            FileOutputStream fs = new FileOutputStream(new File("listing.lst"));
+            FileOutputStream fs = new FileOutputStream("listing.lst");
 
             // Write to listing.lst file
             for(String l : lstContent) {
@@ -65,32 +65,35 @@ public class CodeGenerator implements ICodeGenerator {
         //Set the machine code of each line statement
         for (int i = 0; i < interRep.getLength(); i++) {
             //Get the opcode and operand of the line statement
-            int opcode = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
-            String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
+            if (i != interRep.getLength() - 1) {
+                String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
 
-            //If operand is a label or string
-            if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && operand != "") {
-                //Directive
-                if (interRep.hasDirective(i)) {
-                    mCode[i] = interRep.getLine(i).getDirective().getCode();
-                }
-                //If operand is a label, set the machine code to the instruction's opcode + the
-                else {
-                    String label = interRep.getLine(i).getInstruction().getOperand().getOp();
-                    int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
-                    //Find the address where the label is declared
-                    for (int j = i + 1; j < interRep.getLength(); j++) {
-                        String currLabel = interRep.getLine(j).getLabel();
-                        if (currLabel.equals(label)) {
-                            int address = interRep.getAddr(j);
-                            mCode[i] = String.format("%s %s", Integer.toHexString(code).toUpperCase(), String.format("%1$04X", address));
-                        } else {
-                            //TODO: Throw error here
+                //If operand is a label or string
+                if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && operand != "") {
+                    //Directive
+                    if (interRep.hasDirective(i)) {
+                        mCode[i] = interRep.getLine(i).getDirective().getCode();
+                    }
+                    //If operand is a label, set the machine code to the instruction's opcode + the
+                    else {
+                        String label = interRep.getLine(i).getInstruction().getOperand().getOp();
+                        int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
+                        //Find the address where the label is declared
+                        for (int j = i + 1; j < interRep.getLength(); j++) {
+                            String currLabel = interRep.getLine(j).getLabel();
+                            if (currLabel.equals(label)) {
+                                int address = interRep.getAddr(j);
+                                mCode[i] = String.format("%s %s", Integer.toHexString(code).toUpperCase(), String.format("%1$04X", address));
+                            } else {
+                                //TODO: Throw error here
+                            }
                         }
                     }
+                } else {
+                    mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
                 }
-            } else if (interRep.getLine(i).getInstruction().getOperand().isNumeric()) {
-                mCode[i] = Integer.toHexString(interRep.getLine(i).getInstruction().getMnemonic().getOpcode()).toUpperCase();
+            }else{
+                mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
             }
         }
     }
@@ -102,7 +105,7 @@ public class CodeGenerator implements ICodeGenerator {
             String content = c;
 
             //Create output stream and empty file
-            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(new File(fileName + ".bin")));
+            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(fileName + ".bin"));
 
             //Write to file
             byte[] contentB = content.getBytes();
