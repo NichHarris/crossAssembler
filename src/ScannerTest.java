@@ -1,14 +1,14 @@
 public class ScannerTest {
     public static void main(String[] args) throws Exception {
 
-        Reader test = new Reader("testfile.asm");
+        Reader test = new Reader("TestImmediate_copy.asm");
         test.readFile();
         SymbolTable symT= new SymbolTable();
-        ErrorReporter er = new ErrorReporter("testfile.asm");
+        ErrorReporter er = new ErrorReporter("TestImmediate_copy.asm");
         Scanner scn= new Scanner(symT,er);
 
         //Testing scanFile()
-        testScanner("scanFile()","halt",scn.scanFile(test).getName());
+        testScanner("scanFile()","; TestImmediate.asm - Test immediate instructions.",scn.scanFile(test).getName());
 
         //Testing getTokenType()
         testScanner("getTokenType()","LabelOperand",scn.getTokenType("ADD", 2).name());
@@ -17,11 +17,14 @@ public class ScannerTest {
         testScanner("isNumeric()", "true", Boolean.toString(scn.isNumeric("50")));
 
         //Testing getCurrPos()
-        testScanner("getCurrPos()", "5", Integer.toString(scn.getCurrPos()));
+        testScanner("getCurrPos()", "50", Integer.toString(scn.getCurrPos()));
 
         //Testing setCurrPos()
         scn.setCurrPos(6);
         testScanner("setCurrPos()", "6", Integer.toString(scn.getCurrPos()));
+
+        scn.getErrors().report();
+
     }
 
     public static void testScanner(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

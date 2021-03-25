@@ -8,7 +8,7 @@ public class DirectiveTest {
         directiveTester("Default Constructor","",directive.getDir() + directive.getCString());
 
         //Testing Parameterized Constructor
-        directiveTester("Parameterized Constructor","directivec string",directive2.getDir() + " " + directive2.getCString());
+        directiveTester("Parameterized Constructor","directive cstring",directive2.getDir() + " " + directive2.getCString());
 
         //Testing Setters and Getters
         directive.setCString("newCstring");

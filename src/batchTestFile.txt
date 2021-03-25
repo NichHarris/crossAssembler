@@ -1,36 +1,51 @@
-Test -BinaryConverter Class- getOverflow()
+Test isOverflow with a signed binary number
+true
+true
+Test isOverflow with a unsigned binary number
 false
 false
-Test -BinaryConverter Class- getBinaryValue(String s)
-10
-10
-Test -BinaryConverter Class- toBinary()
-01010
-01010
-Test -BinaryConverter Class- getTwosComplement(String b)
+Test getBinaryValue()
+3
+3
+Test toBinary()
+011
+011
+Test getTwosComplement()
 101
 101
 Test -CodeGenerator Class- File creation
-0    0000 98            Fct           addv.u33
-0    0000 98            Fct           addv.u33
-Test -ErrorReporter Class- ErrorReporter()
-Error: invalid character
-Error: invalid character
-Test -ErrorReporter Class- addError() from Scanner
-Error: eof in string
-Error: eof in string
-Test -ErrorReporter Class- addError() from Scanner (invalid character)
-Error: invalid character
-Error: invalid character
-Test -ErrorReporter Class- addError() from Parser
-Error: Instructions with inherent mode addressing do not have an operand field.
-Error: Instructions with inherent mode addressing do not have an operand field.
-Test -ErrorReporter Class- reportErrors()
-%
-%
-Test -ErrorReporter Class- isValid()
-Error: Instructions with inherent mode addressing do not have an operand field.
-Error: Instructions with inherent mode addressing do not have an operand field.
+1    0000 98            Fct           addv.u3       3
+1    0000 98            Fct           addv.u3       3
+Test -Comment Class- Default constructor and getter method
+
+
+Test -Comment Class- Parameterized constructor and getter method
+comment
+comment
+Test -Comment Class- setter and getter method
+New Comment
+New Comment
+Test Default Constructor
+
+
+Test Parameterized Constructor
+directive cstring
+directive cstring
+Test Setter and getter
+newCstring
+newCstring
+Test getCode
+6e 65 77 43 73 74 72 69 6e 67 00
+6e 65 77 43 73 74 72 69 6e 67 00
+Test Parameterized Constructor with position object
+Error: Line 1, Column 2: Error 1
+Error: Line 1, Column 2: Error 1
+Test Parameterized Constructor without position object
+Error: Line 3, Column 4: Error 2
+Error: Line 3, Column 4: Error 2
+Testing report Error
+testfile.asm: Error: Line 2, Column 3: Error 1
+testfile.asm: Error: Line 2, Column 3: Error 1
 Test -Instruction Class- Default Constructor
 
 
@@ -86,17 +101,17 @@ Test -InterRep Class- toString()
 Line 0: ' '": -1" ' '
 Line 0: ' '": -1" ' '
 Test -LineStatement Class- Default Constructor
- 'null null'
- 'null null'
+ '": -1" '
+ '": -1" '
 Test -LineStatement Class- Parameterized Constructor with label, instruction and comment
-Fct 'addv.u3 3'
-Fct 'addv.u3 3'
+Fct '"addv.u3: 152" 3'
+Fct '"addv.u3: 152" 3'
 Test -LineStatement Class- setLabel()
 RA
 RA
 Test -LineStatement Class- setInstruction() and getInstruction
-'mul 4'
-'mul 4'
+'"mul: 152" 4'
+'"mul: 152" 4'
 Test -LineStatement Class- setComment()
 ; new comment
 ; new comment
@@ -145,30 +160,24 @@ true
 Test -Options Class- isListing()
 true
 true
-Test -Parser Class- getInterRep()
+Test -Parser Class- getInterRep() number of lines
 76
 76
-Test -Parser Class- isNumeric()
-true
-true
+Test -Parser Class- getInterRep() inner contents
+' '"enter.u5: 112" 0' ; OK, number <u5> [0..31].'
+' '"enter.u5: 112" 0' ; OK, number <u5> [0..31].'
 Test Position
 p1[1,2]p2[2,4]p3[3,6]p4[65535,255]
 p1[1,2]p2[2,4]p3[3,6]p4[65535,255]
-Test -Reader Class- No File Given
-java.lang.Exception: Error: Unable to open source file ''
-java.lang.Exception: Error: Unable to open source file ''
-Test -Reader Class- File does not exist
-java.lang.Exception: Error: Unable to open source file ''
-java.lang.Exception: Error: Unable to open source file ''
-Test -Reader Class- Empty File
-[]
-[]
-Test -Reader Class- Multiline File + All Addressing Modes
-[Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment]
-[Fct ldc.i3 3    ldc.i3 1    add     ; This is a comment]
+Test getChar()
+h
+h
+Test getLineNum()
+25
+25
 Test scanFile()
-halt
-halt
+; TestImmediate.asm - Test immediate instructions.
+; TestImmediate.asm - Test immediate instructions.
 Test getTokenType()
 LabelOperand
 LabelOperand
@@ -176,8 +185,8 @@ Test isNumeric()
 true
 true
 Test getCurrPos()
-5
-5
+50
+50
 Test setCurrPos()
 6
 6

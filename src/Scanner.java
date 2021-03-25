@@ -19,6 +19,10 @@ public class Scanner implements IScanner {
 
     private IErrorReporter errorReporter;
 
+    public IErrorReporter getErrors(){
+        return errorReporter;
+    }
+
     public Scanner(ISymbolTable symTable, IErrorReporter errRep) {
         //Buffer for obtaining tokens
         buffer = "";
@@ -69,12 +73,12 @@ public class Scanner implements IScanner {
 
             //Counts number of EOL characters in a row
             eolCounter = isEOL ? eolCounter + 1: 0;
-//            System.out.println("EOL COUNT: " + eolCounter);
+            System.out.println("EOL COUNT: " + eolCounter);
 
-            //System.out.println(lineNum);
+            System.out.println(lineNum);
             //If space and buffer is not empty and not a comment - send to parser
             if (i == fileContent.length() - 1) {
-                //System.out.println("Here: " + buffer);
+                System.out.println("Here: " + buffer);
                 if (!buffer.equals(""))
                     buffer = buffer + (c);
                     tokenType = this.getTokenType(buffer, colNum);

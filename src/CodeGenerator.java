@@ -94,7 +94,7 @@ public class CodeGenerator implements ICodeGenerator {
             }else{
                 mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
             }
-//            System.out.println("MCode: " + mCode[i] + " Mne: " + interRep.getLine(i).getInstruction().getMnemonic().getMne() + " Operand: " + interRep.getLine(i).getInstruction().getOperand().getOp());
+            System.out.println("MCode: " + mCode[i] + " Mne: " + interRep.getLine(i).getInstruction().getMnemonic().getMne() + " Operand: " + interRep.getLine(i).getInstruction().getOperand().getOp());
         }
     }
 
