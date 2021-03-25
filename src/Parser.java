@@ -52,6 +52,7 @@ public class Parser implements IParser {
 
         //Add to InterRep completed line and create empty line
         if(currLine < lineN) {
+            //System.out.println(line.toString());
             interRep.addLine(currLine++, line);
             line = new LineStatement();
         }
@@ -72,7 +73,7 @@ public class Parser implements IParser {
                 else if (symbolTable.getCode(token.getName()) != -1)
                     line.setInstruction(new Instruction(new Mnemonic(token.getName(), code), new Operand()));
                 else
-                    errorReporter.record(new ErrorMsg("Not a valid mnemonic or directive. [\" + token.getName() + \"]", token.getPosition()));
+                    errorReporter.record(new ErrorMsg("Not a valid mnemonic or directive. [" + token.getName() + "]", token.getPosition()));
                 break;
             //Add Operand/Label to Line
             case Operand:
@@ -84,11 +85,12 @@ public class Parser implements IParser {
                     //Check mnemonic is immediate or relative
                     if (opCode > 0x1F) {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
-
+                        System.out.println("Here: " + line.getInstruction().getOperand().getOp());
                         //Update opcode - Parse operand size and state
-                        if (token.getCode() == TokenType.Operand)
+                        if (token.getCode() == TokenType.Operand) {
+                            //System.out.println("[" + token.getName() + "], Token Type: " + token.getCode());
                             parseOperandBound(token, opCode);
-
+                        }
                     //Inherent Mode Addressing Error
                     } else
                         if (!token.getName().equals("")) {
@@ -119,22 +121,30 @@ public class Parser implements IParser {
         int shift = Integer.parseInt(token.getName());
         //Converts signed values for shift
         if (isSigned) {
-            String binStr = bnConv.toBinary(shift, size);
-            shift = bnConv.getBinaryValue(binStr);
-            line.getInstruction().setOpcode(opCode + shift);
+            //Handle ldc.i3 instruction case
+            if (mne.equals("enter.u5")) {
+                if (Integer.parseInt(line.getInstruction().getOperand().getOp()) < -4 || Integer.parseInt(line.getInstruction().getOperand().getOp()) > 3) {
+                    errorReporter.record(new ErrorMsg("The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3.", token.getPosition()));
+                } else {
+                    String binStr = bnConv.toBinary(shift, size);
+                    shift = bnConv.getBinaryValue(binStr);
+                    line.getInstruction().setOpcode(opCode + shift);
+                }
+            } else {
+                String binStr = bnConv.toBinary(shift, size);
+                shift = bnConv.getBinaryValue(binStr);
+                line.getInstruction().setOpcode(opCode + shift);
+            }
         }
         //Get Overflow Method in Binary Converter
         else if (!bnConv.isOverflow(shift, size, isSigned)) {
-            //Handles stupid Champy enter.u5 machine code >:(
+            //Handle enter.u5 instruction case
             if(mne.equals("enter.u5")){
                 opCode = (Integer.parseInt(line.getInstruction().getOperand().getOp()) > 15) ? 0x70 : 0x80;
                 opCode = opCode | (Integer.parseInt(line.getInstruction().getOperand().getOp()) & 0x1F);
                 line.getInstruction().setOpcode(opCode);
             } else {
                 line.getInstruction().setOpcode(opCode + shift);
-            }
-            if(mne.equals("enter.u5")){
-                System.out.println("Here: " + line.getInstruction().getMnemonic().getOpcode());
             }
         }
         //Operand Exceed Limit: Errors 5-7

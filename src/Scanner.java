@@ -72,37 +72,35 @@ public class Scanner implements IScanner {
 
             //If space and buffer is not empty and not a comment - send to parser
             if (i == fileContent.length() - 1) {
+                buffer += c;
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 currPos = ++i;
                 return token;
             }
             else if(isSpace && !buffer.equals("") && !isComment) {
-                //Send to Parser
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 colNum += 1;
                 currPos = i;
                 return token;
-                //If EOL and buffer is not empty - send to parser + new line
+            //If EOL and buffer is not empty - send to parser + new line
             } else if (isEOL && !buffer.equals("")) {
-                //Send to Parser
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 colNum += 1;
                 currPos = i;
                 isComment = false;
                 return token;
-                //Add to buffer
-                //If more than 2 EOL characters in a row
-                //TODO: Fix this sketchiness
+            //Add to buffer
+            //If more than 2 EOL characters in a row
             } else if (eolCounter >= 2) {
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 currPos = ++i;
                 newLine();
                 return token;
-                //If at last line of file
+            //If at last line of file
             } else if((isSpace || isEOL) && buffer.equals("")) {
                 continue;
             } else {
@@ -113,6 +111,7 @@ public class Scanner implements IScanner {
                     isComment = true;
             }
         }
+
         System.out.println("END OF FILE");
         return null;
     }
@@ -150,7 +149,7 @@ public class Scanner implements IScanner {
             return TokenType.Label;
             //Check if label in operand position
         else if (colNum == 1 || colNum == 2)
-            if (!isNumeric(name))
+            if (!isNumeric(name) && !name.equals(""))
                 return TokenType.LabelOperand;
         return TokenType.None;
     }

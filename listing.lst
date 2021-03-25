@@ -1,7 +1,7 @@
 Line Addr Code          Label         Mnemonic      Operand       Comments            
 1    0000                                                         ; TestImmediate.asm - Test immediate instructions.
 2    0000                                                                             
-3    0000 80                          enter.u5      0             ; OK, number <u5> [0..31].
+3    0000 80                          enter.u5      0                                 
 4    0001 81                          enter.u5      1             ; OK, number <u5> [0..31].
 5    0002 82                          enter.u5      2             ; OK, number <u5> [0..31].
 6    0003 83                          enter.u5      3             ; OK, number <u5> [0..31].
@@ -68,6 +68,7 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 67   003C AC                          stv.u3        4             ; OK, number <u3> [0..7].
 68   003D AD                          stv.u3        5             ; OK, number <u3> [0..7].
 69   003E AE                          stv.u3        6             ; OK, number <u3> [0..7].
-70   003F AF                          stv.u3        7             ; OK, number <u3> [0..7].
-71   0040                                                                             
+70   003F AF                          stv.u3        7                                 
+71   0040               
+                                                             
 

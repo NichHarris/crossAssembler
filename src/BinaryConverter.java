@@ -1,5 +1,4 @@
 public class BinaryConverter implements IBinaryConverter{
-
     //Check for overflow
     public boolean isOverflow(int shiftVal, int size, boolean state) {
         return (state ? isSignedOverflow(shiftVal, size) : isUnsignedOverflow(shiftVal, size));
