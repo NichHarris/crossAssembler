@@ -58,7 +58,6 @@ public class Parser implements IParser {
             //if(line.getInstruction().getMnemonic().getOpcode() > 0x30 && line.getInstruction().getOperand() == null) {
             // errorReporter.record(new ErrorMsg("Error: Instructions with immediate and relative mode addressing require an operand field.\n", token.getPosition()));
             //}
-
             //System.out.println("Here: " + currLine);
             interRep.addLine(currLine++, line);
             line = new LineStatement();
