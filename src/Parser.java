@@ -36,14 +36,9 @@ public class Parser implements IParser {
     public void parseToken(){
         IToken tk;
 
-        while(scanner.getCurrPos() <= reader.getFileContent().length()) {
+        while(scanner.getCurrPos() != reader.getFileContent().length()) {
             tk = scanner.scanFile(reader);
-            if (tk != null) {
-                parseToIR(tk);
-            } else {
-                System.out.println("here");
-                break;
-            }
+            parseToIR(tk);
         }
         interRep.addLine(currLine, line);
     }
