@@ -64,10 +64,6 @@ public class Scanner implements IScanner {
 
             //Counts number of EOL characters in a row
             eolCounter = isEOL ? eolCounter + 1: 0;
-<<<<<<< HEAD
-            System.out.println("EOL COUNT: " + eolCounter);
-=======
->>>>>>> main
 
             //If at last line of file
             if (i == fileContent.length() - 1) {
