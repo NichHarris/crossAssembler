@@ -1,10 +1,10 @@
 ; TestImmediate.asm - Test immediate instructions.
 
-halt
+ halt
 
-halt 0
+ halt 0
 
-stv.u3  0        ; OK, number <u3> [0..7].
+ stv.u3  0        ; OK, number <u3> [0..7].
 
           enter.u5  0        ; OK, number <u5> [0..31].
           enter.u5  1        ; OK, number <u5> [0..31].

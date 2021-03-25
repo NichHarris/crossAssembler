@@ -34,7 +34,11 @@ public class ErrorReporter implements IErrorReporter {
         if (numErrors != 0) {
             for (ErrorMsg error: recordedErrors)
                 System.out.printf("%s: %s%n", fileName, error.getErrorMsg());
-            System.out.printf("\n\n\n\n%s Errors Found.%n",numErrors);
+            if (numErrors == 1) {
+                System.out.printf("\n%s Error Found.%n",numErrors);
+            } else {
+                System.out.printf("\n%s Errors Found.%n",numErrors);
+            }
         }
     }
 

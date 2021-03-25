@@ -52,21 +52,20 @@ public class Scanner implements IScanner {
 
             //Check if character is valid or not, and report error if not
             if (!errorReporter.isValid(c))
-                errorReporter.record(new ErrorMsg("Invalid character\n", lineNum, colNum));
+                errorReporter.record(new ErrorMsg("Invalid character", lineNum, colNum));
 
             //Check if eol in string
-            //if(!buffer.equals("") && c == '\n')
-            //    errorReporter.record(new ErrorMsg("EOL in String\n", lineNum, colNum));
+            if(!buffer.equals("") && c == '\n')
+                errorReporter.record(new ErrorMsg("EOL in String", lineNum, colNum));
 
             //Check if an EOF character is found anywhere other than the end of file
             if (i != fileContent.length() - 1 && (int) c == 26)
-                errorReporter.record(new ErrorMsg("EOF in String\n", lineNum, colNum));
+                errorReporter.record(new ErrorMsg("EOF in String", lineNum, colNum));
 
             //Counts number of EOL characters in a row
             //eolCounter = isEOL ? eolCounter + 1: 0;
             eolCounter = c == '\n' ? eolCounter + 1 : 0;
 
-            //If space and buffer is not empty and not a comment - send to parser
             if (i == fileContent.length() - 1) {
                 if (!buffer.equals("")) {
                     buffer = buffer + (c);
@@ -77,8 +76,8 @@ public class Scanner implements IScanner {
                     return token;
                 }
             }
-            else if(isSpace && !buffer.equals("") && !isComment) {
-                //Send to Parser
+            //If space and buffer is not empty and not a comment - send to parser
+            else if(isSpace && !buffer.equals("") && !isComment){
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 colNum += 1;
@@ -115,14 +114,12 @@ public class Scanner implements IScanner {
             }
         }
 
-
         System.out.println("END OF FILE");
 
-        tokenType = this.getTokenType(buffer, colNum);
-        token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-        //System.out.println("HERE EOL: " + eolCounter + " Line Num:" + lineNum);
-        currPos = fileContent.length();
-        return token;
+//        tokenType = this.getTokenType(buffer, colNum);
+//        token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+//        currPos = fileContent.length();
+        return null;
     }
 
     public void newLine() {
