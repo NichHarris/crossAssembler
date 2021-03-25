@@ -10,10 +10,11 @@ public class ParserTest {
         p.parseToken();
 
         //Testing getInterRep()
-        testParser("getInterRep()", "76", Integer.toString(p.getInterRep().getLength()));
+        testParser("getInterRep()", "78", Integer.toString(p.getInterRep().getLength()));
 
-        //Testing isNumeric()
-        //testParser("isNumeric()", "true", Boolean.toString(p.isNumeric("50")));
+        //should we test the parseOperandBound in its entirety, and how
+
+
 
     }
     public static void testParser(String caseName, String expectedOutput, String methodOutput) throws Exception {

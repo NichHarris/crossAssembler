@@ -1,12 +1,15 @@
-Test -BinaryConverter Class- getOverflow()
+Test isOverflow with a signed binary number
+true
+true
+Test isOverflow with a unsigned binary number
 false
 false
-Test -BinaryConverter Class- getBinaryValue(String s)
-10
-10
-Test -BinaryConverter Class- toBinary()
-01010
-01010
-Test -BinaryConverter Class- getTwosComplement(String b)
+Test getBinaryValue()
+3
+3
+Test toBinary()
+011
+011
+Test getTwosComplement()
 101
 101

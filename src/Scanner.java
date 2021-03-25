@@ -55,7 +55,7 @@ public class Scanner implements IScanner {
         for (int i = currPos; i < fileContent.length(); i++) {
             //Adds Character By Character to Token
             char c = file.getChar(i);
-//            System.out.println("Line: " + lineNum + " Column: " + colNum);
+            //System.out.println("Line: " + lineNum + " Column: " + colNum);
             //Character type flags
             //EOL format is \r\n
 
@@ -64,7 +64,7 @@ public class Scanner implements IScanner {
             isSpace = c == ' ' || c == '\t';
 
             if(isComment && isEOL){
-                System.out.println(buffer);
+                //System.out.println(buffer);
             }
 
             //Check if character is valid or not, and report error if not
@@ -90,7 +90,7 @@ public class Scanner implements IScanner {
                 //Send to Parser
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-                System.out.println(token.toString());
+                //System.out.println(token.toString());
                 colNum += 1;
                 currPos = i;
                 return token;

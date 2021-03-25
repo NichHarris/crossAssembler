@@ -1,18 +1,5 @@
-Test -ErrorReporter Class- ErrorReporter()
-Error: invalid character
-Error: invalid character
-Test -ErrorReporter Class- addError() from Scanner
-Error: eof in string
-Error: eof in string
-Test -ErrorReporter Class- addError() from Scanner (invalid character)
-Error: invalid character
-Error: invalid character
-Test -ErrorReporter Class- addError() from Parser
-Error: Instructions with inherent mode addressing do not have an operand field.
-Error: Instructions with inherent mode addressing do not have an operand field.
-Test -ErrorReporter Class- reportErrors()
-%
-%
-Test -ErrorReporter Class- isValid()
-Error: Instructions with inherent mode addressing do not have an operand field.
-Error: Instructions with inherent mode addressing do not have an operand field.
+Testing report Error
+testfile.asm: Error: Line 2, Column 3: Error 1
+testfile.asm: Error: Line 2, Column 3: Error 1
+
+1 Errors Found.

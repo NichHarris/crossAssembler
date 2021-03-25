@@ -28,7 +28,7 @@ public class ErrorMsg implements IErrorMsg {
         error = msg;
 
         //Set the error message
-        errorMsg = String.format("Error: Line %s1, Column %s2: %s3\n", line, column, error);
+        errorMsg = String.format("Error: Line %s, Column %s: %s\n", line, column, error);
     }
 
     //Returns the error message

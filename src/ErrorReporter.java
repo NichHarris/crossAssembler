@@ -26,7 +26,7 @@ public class ErrorReporter implements IErrorReporter {
         if (numErrors != 0) {
             for (ErrorMsg error: recordedErrors)
                 System.out.println(String.format("%s: %s", fileName, error.getErrorMsg()));
-            System.out.println(String.format("\n\n\n\n%s Errors Found.",numErrors));
+            System.out.println(String.format("%s Errors Found.",numErrors));
         }
     }
 }

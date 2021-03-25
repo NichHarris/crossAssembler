@@ -41,7 +41,7 @@ public class Parser implements IParser {
             parseToIR(tk);
 
         } while(scanner.getCurrPos() != reader.getFileContent().length() - 1);
-        System.out.println("here: " + currLine);
+        //System.out.println("here: " + currLine);
         interRep.addLine(currLine, line);
     }
 
@@ -59,7 +59,7 @@ public class Parser implements IParser {
             // errorReporter.record(new ErrorMsg("Error: Instructions with immediate and relative mode addressing require an operand field.\n", token.getPosition()));
             //}
 
-            System.out.println("Here: " + currLine);
+            //System.out.println("Here: " + currLine);
             interRep.addLine(currLine++, line);
             line = new LineStatement();
 
@@ -129,7 +129,7 @@ public class Parser implements IParser {
         if (isSigned) {
             String binStr = bnConv.toBinary(shift, size);
             shift = bnConv.getBinaryValue(binStr);
-            System.out.println("Shift: " + shift);
+            //System.out.println("Shift: " + shift);
         }
 
         //Get Overflow Method in Binary Converter

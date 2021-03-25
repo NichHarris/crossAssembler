@@ -1,6 +1,3 @@
 Test -Parser Class- getInterRep()
-76
-76
-Test -Parser Class- isNumeric()
-true
-true
+78
+78
