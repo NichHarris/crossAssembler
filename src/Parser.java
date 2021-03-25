@@ -56,7 +56,6 @@ public class Parser implements IParser {
             if(line.getInstruction().getMnemonic().getOpcode() > 0x1F && line.getInstruction().getOperand().getOp().equals(""))
                 errorReporter.record(new ErrorMsg("Instructions with immediate mode addressing needs to have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
 
-            //System.out.println(line.toString());
             interRep.addLine(currLine++, line);
             line = new LineStatement();
         }
@@ -95,7 +94,7 @@ public class Parser implements IParser {
                         }
                     //Inherent Mode Addressing Error
                     } else {
-                        errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field. [" + token.getName() + "]", new Position(currLine, colN)));
+                        errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
                     }
                 }
                 break;

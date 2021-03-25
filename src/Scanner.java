@@ -1,10 +1,3 @@
-
-/*
-Commented out certain system.out for testing purposes;
-would like know if they are required or simply done
-for debugging purposes?
- */
-
 //Scanner - Performs Lexical Analysis on the assembly unit
 public class Scanner implements IScanner {
     private IToken token;
@@ -23,13 +16,13 @@ public class Scanner implements IScanner {
         //Buffer for obtaining tokens
         buffer = "";
 
-        //Initialize Line & Col number
+        //Initialize line & col number
         lineNum = 0;
         colNum = 0;
         currPos = 0;
         eolCounter = 0;
 
-        //Create instance of Symbol table
+        //Create instance of symbolTable
         symbolTable = symTable;
 
         //Create an ErrorReporter
@@ -40,13 +33,11 @@ public class Scanner implements IScanner {
     public IToken scanFile(IReader file) {
         //Input file content as a String
         String fileContent = file.getFileContent();
-        //Number of lines in file
-        //numLines = file.getLineNum();
 
         buffer = "";
         //Traverse the file content character per character and scan for tokens
         for (int i = currPos; i < fileContent.length(); i++) {
-            //Adds Character By Character to Token
+            //Adds character by character to token
             char c = file.getChar(i);
 
             isEOL = c == '\r' || c == '\n';
@@ -57,7 +48,7 @@ public class Scanner implements IScanner {
                 errorReporter.record(new ErrorMsg("Invalid character\n", lineNum, colNum));
             }
 
-            //Check if eol in string
+            //Check if EOL in string
             if(!buffer.equals("") && c == '\n'){
                 errorReporter.record(new ErrorMsg("EOL in String\n", lineNum, colNum));
             }
@@ -70,7 +61,7 @@ public class Scanner implements IScanner {
             //Counts number of EOL characters in a row
             eolCounter = isEOL ? eolCounter + 1: 0;
 
-            //If space and buffer is not empty and not a comment - send to parser
+            //If at last line of file
             if (i == fileContent.length() - 1) {
                 buffer += c;
                 tokenType = this.getTokenType(buffer, colNum);
@@ -78,6 +69,7 @@ public class Scanner implements IScanner {
                 currPos = ++i;
                 return token;
             }
+            //If space and buffer is not empty and not a comment - send to parser
             else if(isSpace && !buffer.equals("") && !isComment) {
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
@@ -92,18 +84,19 @@ public class Scanner implements IScanner {
                 currPos = i;
                 isComment = false;
                 return token;
-            //Add to buffer
-            //If more than 2 EOL characters in a row
+            //If 2 or more EOL characters in a row
             } else if (eolCounter >= 2) {
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 currPos = ++i;
                 newLine();
                 return token;
-            //If at last line of file
+            //Ignore spaces and extra EOL chars
             } else if((isSpace || isEOL) && buffer.equals("")) {
                 continue;
-            } else {
+            }
+            //Add char to buffer
+            else {
                 buffer += c;
 
                 //Comment detected
@@ -112,7 +105,6 @@ public class Scanner implements IScanner {
             }
         }
 
-        System.out.println("END OF FILE");
         return null;
     }
 
@@ -127,7 +119,6 @@ public class Scanner implements IScanner {
     }
 
     //Get the token type of a token
-    //TODO: to be improved for edge cases + error reporter
     public TokenType getTokenType(String name, int colNum) {
         //Get the opcode of the token
         int code = symbolTable.getCode(name);
@@ -156,7 +147,6 @@ public class Scanner implements IScanner {
 
     //Check if token is numeric
     public boolean isNumeric(String str) {
-        //TODO: Return error for not following grammar
         if (str.length() == 0)
             return false;
 

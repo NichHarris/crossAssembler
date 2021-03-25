@@ -11,10 +11,11 @@ public class Token implements IToken {
         code = c;
     }
 
-    //Getters - Position, Name and Code
+    //Getters - position, name and code
     public Position getPosition() { return pos; }
     public String getName() { return name; }
     public TokenType getCode() { return code; }
 
+    //Output as string
     public String toString() { return "[" + getName() + pos + "=" + code + "]"; }
 }

@@ -11,7 +11,7 @@ public class Directive implements IDirective {
         cString = "";
     }
 
-    //Parameterized Constructor - Set Directive to ".cstring", Set Char Array to String Passed
+    //Parameterized Constructor - set directive to ".cstring", set char array to string passed
     public Directive(String d, String cStr) {
         directive = d;
         cString = cStr;

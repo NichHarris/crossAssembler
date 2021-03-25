@@ -54,10 +54,13 @@ public class Assembler {
             if (prevLine.isEmpty() && !currLine.isEmpty()) {
                 interRep.setAddr(j, interRep.getAddr(j - 1) + 1);
             } else {
+                //If its a directive
                 if (interRep.hasDirective(j-1)){
                     int dirSize = interRep.getDirective(j-1).getCString().substring(1, interRep.getDirective(j-1).getCString().length() - 1).length() + 1;
                     interRep.setAddr(j, interRep.getAddr(j - 1) + dirSize);
-                } else {
+                }
+                //If its an instruction
+                else {
                     int instrSize = interRep.getLine(j - 1).getInstruction().getSize();
                     interRep.setAddr(j, interRep.getAddr(j - 1) + instrSize);
                 }

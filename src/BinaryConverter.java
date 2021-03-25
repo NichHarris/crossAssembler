@@ -52,11 +52,11 @@ public class BinaryConverter implements IBinaryConverter{
         int i = 0;
         String str = "";
 
-        // 1s Complement, Flipping all bits
+        // 1s complement, flipping all bits
         while(i < binStr.length())
             str += binStr.charAt(i++) == '1' ? '0' : '1';
 
-        // 2s Complement, Add 1
+        // 2s complement, add 1
         int carry = 1;
         boolean state;
         String result = "";
