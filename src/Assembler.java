@@ -33,7 +33,6 @@ public class Assembler {
         IInterRep interRep = parser.getInterRep();
         secondPass(interRep);
 
-        System.out.println(interRep.getLine(69).getInstruction().getOperand().toString());
         //Report any errors found by the cross assembler
         errorReporter.report();
 

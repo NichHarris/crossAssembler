@@ -39,8 +39,8 @@ public class SymbolTable implements ISymbolTable {
         symbolTable.put("tge", 0x1F);
 
         //Immediate Addressing - 3/5 Bit Operands
-        symbolTable.put("br.i5", 0x30); //..4F" - 0..31
-        symbolTable.put("brf.i5", 0x50); //..6F" - 0..31
+        symbolTable.put("br.i5", 0x30); //..4F" - Label
+        symbolTable.put("brf.i5", 0x50); //..6F" - Label
         symbolTable.put("enter.u5", 0x70); //..8F" - 0..31
         symbolTable.put("ldc.i3", 0x90); //..97" - -4..3
         symbolTable.put("addv.u3", 0x98); //..9F" - 0..7

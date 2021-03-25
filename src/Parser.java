@@ -9,7 +9,7 @@ public class Parser implements IParser {
     private IScanner scanner;
     private IReader reader;
 
-    private int currLine;
+    private int currLine, colN;
 
     //Parser constructor initializes IR using number of lines from Reader
     public Parser(int len, ISymbolTable symTable, IErrorReporter errRep, IScanner scnr, IReader rdr) {
@@ -30,6 +30,7 @@ public class Parser implements IParser {
         //Create an instance of LineStatement
         line = new LineStatement();
         currLine = 0;
+        colN = 0;
     }
 
     //Parse a token received from Scanner
@@ -46,12 +47,15 @@ public class Parser implements IParser {
 
     //Parses to IR
     public void parseToIR(IToken token) {
-        //Get column and line number from token
+        //Get line number from token
         int lineN = token.getPosition().getLineNumber();
-        int colN = token.getPosition().getColumnNumber();
 
         //Add to InterRep completed line and create empty line
         if(currLine < lineN) {
+            //Missing operand
+            if(line.getInstruction().getMnemonic().getOpcode() > 0x1F && line.getInstruction().getOperand().getOp().equals(""))
+                errorReporter.record(new ErrorMsg("Instructions with immediate mode addressing needs to have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
+
             //System.out.println(line.toString());
             interRep.addLine(currLine++, line);
             line = new LineStatement();
@@ -73,7 +77,7 @@ public class Parser implements IParser {
                 else if (symbolTable.getCode(token.getName()) != -1)
                     line.setInstruction(new Instruction(new Mnemonic(token.getName(), code), new Operand()));
                 else
-                    errorReporter.record(new ErrorMsg("Not a valid mnemonic or directive. [" + token.getName() + "]", token.getPosition()));
+                    errorReporter.record(new ErrorMsg("Not a valid mnemonic or directive. [" + token.getName() + "]", new Position(currLine, colN)));
                 break;
             //Add Operand/Label to Line
             case Operand:
@@ -85,17 +89,14 @@ public class Parser implements IParser {
                     //Check mnemonic is immediate or relative
                     if (opCode > 0x1F) {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
-                        System.out.println("Here: " + line.getInstruction().getOperand().getOp());
                         //Update opcode - Parse operand size and state
                         if (token.getCode() == TokenType.Operand) {
-                            //System.out.println("[" + token.getName() + "], Token Type: " + token.getCode());
                             parseOperandBound(token, opCode);
                         }
                     //Inherent Mode Addressing Error
-                    } else
-                        if (!token.getName().equals("")) {
-                            errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field. [" + token.getName() + "]", token.getPosition()));
-                        }
+                    } else {
+                        errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field. [" + token.getName() + "]", new Position(currLine, colN)));
+                    }
                 }
                 break;
             //Add comment
@@ -105,8 +106,11 @@ public class Parser implements IParser {
             //None - Empty Line or Error
             default:
                 if(!token.getName().equals(""))
-                    errorReporter.record(new ErrorMsg("Invalid Token.", token.getPosition()));
+                    errorReporter.record(new ErrorMsg("Invalid Token.", new Position(currLine, colN)));
         }
+
+        //Update column number
+        colN = token.getPosition().getColumnNumber();
     }
 
     //Parses Operand Bounds
@@ -119,27 +123,16 @@ public class Parser implements IParser {
         boolean isSigned = subMne.contains("i");
         int size = Integer.parseInt(subMne.substring(subMne.indexOf(isSigned ? 'i' : 'u') + 1));
         int shift = Integer.parseInt(token.getName());
-        //Converts signed values for shift
-        if (isSigned) {
-            //Handle ldc.i3 instruction case
-            if (mne.equals("enter.u5")) {
-                if (Integer.parseInt(line.getInstruction().getOperand().getOp()) < -4 || Integer.parseInt(line.getInstruction().getOperand().getOp()) > 3) {
-                    errorReporter.record(new ErrorMsg("The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3.", token.getPosition()));
-                } else {
-                    String binStr = bnConv.toBinary(shift, size);
-                    shift = bnConv.getBinaryValue(binStr);
-                    line.getInstruction().setOpcode(opCode + shift);
-                }
-            } else {
+
+        //Get Overflow Method in Binary Converter
+        if (!bnConv.isOverflow(shift, size, isSigned)) {
+            //Converts signed values for shift
+            if(isSigned) {
                 String binStr = bnConv.toBinary(shift, size);
                 shift = bnConv.getBinaryValue(binStr);
                 line.getInstruction().setOpcode(opCode + shift);
-            }
-        }
-        //Get Overflow Method in Binary Converter
-        else if (!bnConv.isOverflow(shift, size, isSigned)) {
             //Handle enter.u5 instruction case
-            if(mne.equals("enter.u5")){
+            } else if(mne.equals("enter.u5")) {
                 opCode = (Integer.parseInt(line.getInstruction().getOperand().getOp()) > 15) ? 0x70 : 0x80;
                 opCode = opCode | (Integer.parseInt(line.getInstruction().getOperand().getOp()) & 0x1F);
                 line.getInstruction().setOpcode(opCode);
@@ -147,17 +140,18 @@ public class Parser implements IParser {
                 line.getInstruction().setOpcode(opCode + shift);
             }
         }
-        //Operand Exceed Limit: Errors 5-7
+        //Operand Exceeds Limit
         else {
+            //errorReporter.record(new ErrorMsg("The immediate instruction " + token.getName() + " must have a " + size + "-bit " + isSigned ? "signed" : "unsigned" + "operand number ranging from " + range + ".", token.getPosition()));
             //enter.u5 operand check
             if (opCode == 0x70)
                 errorReporter.record(new ErrorMsg("The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.", token.getPosition()));
-            //ldc.i3 operand check
-            else if (opCode == 0x90)
-                    errorReporter.record(new ErrorMsg("The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3.", token.getPosition()));
             //ldv.u3 operand check
             else if (opCode == 0xA0)
-                    errorReporter.record(new ErrorMsg("The immediate instruction 'ldv.u3' must have a 3-bit unsigned operand number ranging from 0 to 7.", token.getPosition()));
+                errorReporter.record(new ErrorMsg("The immediate instruction 'ldv.u3' must have a 3-bit unsigned operand number ranging from 0 to 7.", token.getPosition()));
+            //ldc.i3 operand check
+            else if(opCode == 0x90)
+                errorReporter.record(new ErrorMsg("The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3.", token.getPosition()));
             else
                 System.out.println("Future Sprint Case");
         }
