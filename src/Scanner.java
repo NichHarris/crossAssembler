@@ -74,15 +74,11 @@ public class Scanner implements IScanner {
             System.out.println(lineNum);
             //If space and buffer is not empty and not a comment - send to parser
             if (i == fileContent.length() - 1) {
-                System.out.println("Here: " + buffer);
-                if (!buffer.equals(""))
-                    buffer = buffer + (c);
-                    tokenType = this.getTokenType(buffer, colNum);
-                    token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+                tokenType = this.getTokenType(buffer, colNum);
+                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
-                    currPos = ++i;
-//                    newLine();
-                    return token;
+                currPos = ++i;
+                return token;
             }
             else if(isSpace && !buffer.equals("") && !isComment) {
                 //Send to Parser
@@ -103,7 +99,7 @@ public class Scanner implements IScanner {
                 //Add to buffer
                 //If more than 2 EOL characters in a row
                 //TODO: Fix this sketchiness
-            } else if (eolCounter % 2 == 0 && eolCounter >= 2) {
+            } else if ( eolCounter >= 2) {
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
