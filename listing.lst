@@ -1,10 +1,83 @@
 Line Addr Code          Label         Mnemonic      Operand       Comments            
-1    0000 90                          ldc.i3                                          
-2    0001 01                          pop                                             
-3    0002                                                                             
-4    0002                                                                             
-5    0002               top                                                           
+1    0000                                                         ; TestImmediate.asm - Test immediate instructions.
+2    0000                                                                             
+3    0000 00                          halt                                            
+4    0001                                                                             
+5    0001 00                          halt                                            
 6    0002                                                                             
-7    0002                                                                             
-8    0002                                                                             
+7    0002 A8                          stv.u3        0             ; OK, number <u3> [0..7].
+8    0003                                                                             
+9    0003 70                          enter.u5      0             ; OK, number <u5> [0..31].
+10   0004 71                          enter.u5      1             ; OK, number <u5> [0..31].
+11   0005 72                          enter.u5      2             ; OK, number <u5> [0..31].
+12   0006 73                          enter.u5      3             ; OK, number <u5> [0..31].
+13   0007 74                          enter.u5      4             ; OK, number <u5> [0..31].
+14   0008 75                          enter.u5      5             ; OK, number <u5> [0..31].
+15   0009 76                          enter.u5      6             ; OK, number <u5> [0..31].
+16   000A 77                          enter.u5      7             ; OK, number <u5> [0..31].
+17   000B 78                          enter.u5      8             ; OK, number <u5> [0..31].
+18   000C 79                          enter.u5      9             ; OK, number <u5> [0..31].
+19   000D 7A                          enter.u5      10            ; OK, number <u5> [0..31].
+20   000E 7B                          enter.u5      11            ; OK, number <u5> [0..31].
+21   000F 7C                          enter.u5      12            ; OK, number <u5> [0..31].
+22   0010 7D                          enter.u5      13            ; OK, number <u5> [0..31].
+23   0011 7E                          enter.u5      14            ; OK, number <u5> [0..31].
+24   0012 7F                          enter.u5      15            ; OK, number <u5> [0..31].
+25   0013 80                          enter.u5      16            ; OK, number <u5> [0..31].
+26   0014 81                          enter.u5      17            ; OK, number <u5> [0..31].
+27   0015 82                          enter.u5      18            ; OK, number <u5> [0..31].
+28   0016 83                          enter.u5      19            ; OK, number <u5> [0..31].
+29   0017 84                          enter.u5      20            ; OK, number <u5> [0..31].
+30   0018 85                          enter.u5      21            ; OK, number <u5> [0..31].
+31   0019 86                          enter.u5      22            ; OK, number <u5> [0..31].
+32   001A 87                          enter.u5      23            ; OK, number <u5> [0..31].
+33   001B 88                          enter.u5      24            ; OK, number <u5> [0..31].
+34   001C 89                          enter.u5      25            ; OK, number <u5> [0..31].
+35   001D 8A                          enter.u5      26            ; OK, number <u5> [0..31].
+36   001E 8B                          enter.u5      27            ; OK, number <u5> [0..31].
+37   001F 8C                          enter.u5      28            ; OK, number <u5> [0..31].
+38   0020 8D                          enter.u5      29            ; OK, number <u5> [0..31].
+39   0021 8E                          enter.u5      30            ; OK, number <u5> [0..31].
+40   0022 8F                          enter.u5      31            ; OK, number <u5> [0..31].
+41   0023                                                                             
+42   0023 90                          ldc.i3        0             ; OK, number <i3> [-4..3].
+43   0024 91                          ldc.i3        1             ; OK, number <i3> [-4..3].
+44   0025 92                          ldc.i3        2             ; OK, number <i3> [-4..3].
+45   0026 93                          ldc.i3        3             ; OK, number <i3> [-4..3].
+46   0027 94                          ldc.i3        -4            ; OK, number <i3> [-4..3].
+47   0028 95                          ldc.i3        -3            ; OK, number <i3> [-4..3].
+48   0029 96                          ldc.i3        -2            ; OK, number <i3> [-4..3].
+49   002A 97                          ldc.i3        -1            ; OK, number <i3> [-4..3].
+50   002B                                                                             
+51   002B 98                          addv.u3       0             ; OK, number <u3> [0..7].
+52   002C 99                          addv.u3       1             ; OK, number <u3> [0..7].
+53   002D 9A                          addv.u3       2             ; OK, number <u3> [0..7].
+54   002E 9B                          addv.u3       3             ; OK, number <u3> [0..7].
+55   002F 9C                          addv.u3       4             ; OK, number <u3> [0..7].
+56   0030 9D                          addv.u3       5             ; OK, number <u3> [0..7].
+57   0031 9E                          addv.u3       6             ; OK, number <u3> [0..7].
+58   0032 9F                          addv.u3       7             ; OK, number <u3> [0..7].
+59   0033                                                                             
+60   0033 A0                          ldv.u3        0             ; OK, number <u3> [0..7].
+61   0034 A1                          ldv.u3        1             ; OK, number <u3> [0..7].
+62   0035 A2                          ldv.u3        2             ; OK, number <u3> [0..7].
+63   0036 A3                          ldv.u3        3             ; OK, number <u3> [0..7].
+64   0037 A4                          ldv.u3        4             ; OK, number <u3> [0..7].
+65   0038 A5                          ldv.u3        5             ; OK, number <u3> [0..7].
+66   0039 A6                          ldv.u3        6             ; OK, number <u3> [0..7].
+67   003A A7                          ldv.u3        7             ; OK, number <u3> [0..7].
+68   003B                                                                             
+69   003B A8                          stv.u3        0             ; OK, number <u3> [0..7].
+70   003C A9                          stv.u3        1             ; OK, number <u3> [0..7].
+71   003D AA                          stv.u3        2             ; OK, number <u3> [0..7].
+72   003E AB                          stv.u3        3             ; OK, number <u3> [0..7].
+73   003F AC                          stv.u3        4             ; OK, number <u3> [0..7].
+74   0040 AD                          stv.u3        5             ; OK, number <u3> [0..7].
+75   0041 AE                          stv.u3        6             ; OK, number <u3> [0..7].
+76   0042 AF                          stv.u3        7             ; OK, number <u3> [0..7].
+77   0043                                                                             
+78   0043 D5 0046                     lda.i16       ABC           ; lda - load address
+79   0046                                                                             
+80   0046 41 42 43 00   ABC           .cstring      "ABC"         ; "ABC" has 4 bytes 
+81   004A 41 30 00      A0            .cstring      "A0"          ; "A0"  has 3 bytes 
 

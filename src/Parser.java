@@ -39,7 +39,6 @@ public class Parser implements IParser {
         do {
             tk = scanner.scanFile(reader);
             parseToIR(tk);
-
         } while(scanner.getCurrPos() != reader.getFileContent().length());
         interRep.addLine(currLine, line);
     }
@@ -53,10 +52,8 @@ public class Parser implements IParser {
 
         //Add to InterRep completed line and create empty line
         if(currLine < lineN) {
-
             interRep.addLine(currLine++, line);
             line = new LineStatement();
-
         }
 
         //Get opcode from Symbol Table
@@ -94,7 +91,7 @@ public class Parser implements IParser {
 
                     //Inherent Mode Addressing Error
                     } else
-                        errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field.\n", token.getPosition()));
+                        errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field.\n [" + token.getName() + "]", token.getPosition()));
                 }
                 break;
             //Add comment
@@ -131,6 +128,18 @@ public class Parser implements IParser {
         //Operand Exceed Limit: Errors 5-7
         else {
             //enter.u5 operand check
+            if (opCode == 0x70)
+                errorReporter.record(new ErrorMsg("The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.\n", token.getPosition()));
+            //ldc.i3 operand check
+            else if (opCode == 0x90)
+                    errorReporter.record(new ErrorMsg("The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3.\n", token.getPosition()));
+            //ldv.u3 operand check
+            else if (opCode == 0xA0)
+                    errorReporter.record(new ErrorMsg("The immediate instruction 'ldv.u3' must have a 3-bit unsigned operand number ranging from 0 to 7.\n", token.getPosition()));
+            else
+                System.out.println("Future Sprint Case");
+            /*
+            //enter.u5 operand check
             if (opCode == 0x70) {
                 int operand = Integer.parseInt(token.getName());
                 if (operand < 0 || operand > 31) {
@@ -151,6 +160,8 @@ public class Parser implements IParser {
                     errorReporter.record(new ErrorMsg("The immediate instruction 'ldv.u3' must have a 3-bit unsigned operand number ranging from 0 to 7.\n", token.getPosition()));
                 }
             }
+
+             */
         }
     }
 
