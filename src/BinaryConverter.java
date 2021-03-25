@@ -1,20 +1,20 @@
 public class BinaryConverter implements IBinaryConverter{
 
     //Check for overflow
-    public boolean isOverflow(int n, int size, boolean state) {
-        return (state ? isSignedOverflow(n, size) : isUnsignedOverflow(n, size));
+    public boolean isOverflow(int shiftVal, int size, boolean state) {
+        return (state ? isSignedOverflow(shiftVal, size) : isUnsignedOverflow(shiftVal, size));
     }
 
     //Check for signed overflow
-    public boolean isSignedOverflow(int n, int size) {
+    public boolean isSignedOverflow(int shiftVal, int size) {
         double range = Math.pow(2, size - 1);
-        return (-1 * range > n) || (range - 1 < n);
+        return (-1 * range > shiftVal) || (range - 1 < shiftVal);
     }
 
     //Check for unsigned overflow
-    public boolean isUnsignedOverflow(int n, int size) {
+    public boolean isUnsignedOverflow(int shiftVal, int size) {
         double range = Math.pow(2, size);
-        return (0 > n) || (range - 1 < n);
+        return (0 > shiftVal) || (range - 1 < shiftVal);
     }
 
     //Return the binary value of a string

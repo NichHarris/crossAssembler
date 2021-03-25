@@ -125,7 +125,17 @@ public class Parser implements IParser {
         }
         //Get Overflow Method in Binary Converter
         else if (!bnConv.isOverflow(shift, size, isSigned)) {
-            line.getInstruction().setOpcode(opCode + shift);
+            //Handles stupid Champy enter.u5 machine code >:(
+            if(mne.equals("enter.u5")){
+                opCode = (Integer.parseInt(line.getInstruction().getOperand().getOp()) > 15) ? 0x70 : 0x80;
+                opCode = opCode | (Integer.parseInt(line.getInstruction().getOperand().getOp()) & 0x1F);
+                line.getInstruction().setOpcode(opCode);
+            } else {
+                line.getInstruction().setOpcode(opCode + shift);
+            }
+            if(mne.equals("enter.u5")){
+                System.out.println("Here: " + line.getInstruction().getMnemonic().getOpcode());
+            }
         }
         //Operand Exceed Limit: Errors 5-7
         else {
