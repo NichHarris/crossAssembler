@@ -1,3 +1,3 @@
-ldc.i3
+        ldc.i3
 pop 2
 top

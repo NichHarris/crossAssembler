@@ -83,7 +83,7 @@ public class Parser implements IParser {
                 if (token.getName().equals(".cstring"))
                     line.setDirective(new Directive(token.getName(), ""));
                 else if (symbolTable.getCode(token.getName()) != -1)
-                    line.setInstruction(new Instruction(new Mnemonic(token.getName(), code), null));
+                    line.setInstruction(new Instruction(new Mnemonic(token.getName(), code), new Operand()));
                 else
                     errorReporter.record(new ErrorMsg("Not a valid mnemonic or directive.\n", token.getPosition()));
                 break;
@@ -93,11 +93,11 @@ public class Parser implements IParser {
                 if (line.getDirective().getDir().equals(".cstring")) {
                     line.getDirective().setCString(token.getName());
                 } else {
+
                     int opCode = line.getInstruction().getMnemonic().getOpcode();
                     //Check mnemonic is immediate or relative
                     if (opCode > 0x1F) {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
-
                         //Update opcode
                         if (token.getCode() == TokenType.Operand) {
                             //Parse Operand Size and State

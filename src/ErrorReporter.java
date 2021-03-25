@@ -23,9 +23,10 @@ public class ErrorReporter implements IErrorReporter {
     //Print the errors to console
     public void report() {
         int numErrors = recordedErrors.size();
+        System.out.println(numErrors);
         if (numErrors != 0) {
             for (ErrorMsg error: recordedErrors)
-                System.out.println(String.format("%s1: %s2", fileName, error.getErrorMsg()));
+                System.out.println(String.format("%s: %s", fileName, error.getErrorMsg()));
             System.out.println(String.format("\n\n\n\n%s Errors Found.",numErrors));
         }
     }
