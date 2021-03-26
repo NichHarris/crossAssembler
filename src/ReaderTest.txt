@@ -2,5 +2,5 @@ Test getChar()
 h
 h
 Test getLineNum()
-25
-25
+106
+106

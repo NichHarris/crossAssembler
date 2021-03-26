@@ -1,6 +1,6 @@
 Test -Parser Class- getInterRep() number of lines
-76
-76
+75
+75
 Test -Parser Class- getInterRep() inner contents
 ' '"enter.u5: 112" 0' ; OK, number <u5> [0..31].'
 ' '"enter.u5: 112" 0' ; OK, number <u5> [0..31].'

@@ -1,10 +1,10 @@
 public class ScannerTest {
     public static void main(String[] args) throws Exception {
 
-        Reader test = new Reader("TestImmediate_copy.asm");
+        Reader test = new Reader("TestImmediate.asm");
         test.readFile();
         SymbolTable symT= new SymbolTable();
-        ErrorReporter er = new ErrorReporter("TestImmediate_copy.asm");
+        ErrorReporter er = new ErrorReporter("TestImmediate.asm");
         Scanner scn= new Scanner(symT,er);
 
         //Testing scanFile()

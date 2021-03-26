@@ -161,8 +161,8 @@ Test -Options Class- isListing()
 true
 true
 Test -Parser Class- getInterRep() number of lines
-76
-76
+75
+75
 Test -Parser Class- getInterRep() inner contents
 ' '"enter.u5: 112" 0' ; OK, number <u5> [0..31].'
 ' '"enter.u5: 112" 0' ; OK, number <u5> [0..31].'
@@ -173,8 +173,8 @@ Test getChar()
 h
 h
 Test getLineNum()
-25
-25
+106
+106
 Test scanFile()
 ; TestImmediate.asm - Test immediate instructions.
 ; TestImmediate.asm - Test immediate instructions.

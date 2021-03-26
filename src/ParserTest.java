@@ -1,16 +1,16 @@
 public class ParserTest {
     public static void main(String[] args) throws Exception {
 
-        Reader rdr = new Reader("TestImmediate_copy.asm");
+        Reader rdr = new Reader("TestImmediate.asm");
         rdr.readFile();
         SymbolTable symT= new SymbolTable();
-        ErrorReporter er = new ErrorReporter("TestImmediate_copy.asm");
+        ErrorReporter er = new ErrorReporter("TestImmediate.asm");
         Scanner scn= new Scanner(symT,er);
         Parser p = new Parser(rdr.getLineNum() + 1, symT, er, scn, rdr);
         p.parseToken();
 
         //Testing getInterRep()
-        testParser("getInterRep() number of lines", "76", Integer.toString(p.getInterRep().getLength()));
+        testParser("getInterRep() number of lines", "75", Integer.toString(p.getInterRep().getLength()));
 
         //should we test the parseOperandBound in its entirety, and how
         testParser("getInterRep() inner contents ", "' '\"enter.u5: 112\" 0' ; OK, number <u5> [0..31].'", p.getInterRep().getLine(1).toString());
