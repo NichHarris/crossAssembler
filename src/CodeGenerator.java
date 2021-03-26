@@ -68,48 +68,37 @@ public class CodeGenerator implements ICodeGenerator {
         //Set the machine code of each line statement
         for (int i = 0; i < interRep.getLength(); i++) {
             //Get the opcode and operand of the line statement
-            //if (i != interRep.getLength() - 1) {
-                if(interRep.hasInstruction(i) || interRep.hasDirective(i) ) {
-                    String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
-                    //If operand is a label or string
-                    if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && !operand.equals("")) {
-                        //Directive
-                        if (interRep.hasDirective(i)) {
-                            mCode[i] = interRep.getLine(i).getDirective().getCode();
-                        }
-                        //If operand is a label, set the machine code to the instruction's opcode + label
-                        else {
-                            String label = interRep.getLine(i).getInstruction().getOperand().getOp();
-                            int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
+            if(interRep.hasInstruction(i) || interRep.hasDirective(i)) {
+                String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
+                //If operand is a label or string
+                if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && !operand.equals("")) {
+                    //Directive
+                    if (interRep.hasDirective(i))
+                        mCode[i] = interRep.getLine(i).getDirective().getCode();
+                    //If operand is a label, set the machine code to the instruction's opcode + label
+                    else {
+                        String label = interRep.getLine(i).getInstruction().getOperand().getOp();
+                        int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
 
-                            //Find the address where the label is declared
-                            for (int j = i + 1; j < interRep.getLength(); j++) {
-                                if (interRep.getLine(j) != null) {
-                                    String currLabel = interRep.getLine(j).getLabel();
-                                    if (currLabel.equals(label)) {
-                                        int address = interRep.getAddr(j);
-                                        mCode[i] = String.format("%s %s", Integer.toHexString(code).toUpperCase(), String.format("%1$04X", address));
-                                    }
+                        //Find the address where the label is declared
+                        for (int j = i + 1; j < interRep.getLength(); j++) {
+                            if (interRep.getLine(j) != null) {
+                                String currLabel = interRep.getLine(j).getLabel();
+                                if (currLabel.equals(label)) {
+                                    int address = interRep.getAddr(j);
+                                    mCode[i] = String.format("%s %s", Integer.toHexString(code).toUpperCase(), String.format("%1$04X", address));
                                 }
                             }
                         }
-                    } else {
-                        if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() == -1)
-                            mCode[i] = "";
-                        else
-                            mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
                     }
-                } else
-                    mCode[i] = "";
-                /*
-            } else{
-                if(interRep.getLine(i).getInstruction().getMnemonic().getOpcode() == -1)
-                    mCode[i] = "";
-                else
-                    mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
-            }
-
-                 */
+                } else {
+                    if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() == -1)
+                        mCode[i] = "";
+                    else
+                        mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
+                }
+            } else
+                mCode[i] = "";
         }
     }
 

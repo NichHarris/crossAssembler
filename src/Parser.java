@@ -37,7 +37,6 @@ public class Parser implements IParser {
     public void parseToken(){
         IToken tk;
 
-        //interRep.setAddr(0, 0);
         while(scanner.getCurrPos() != reader.getFileContent().length()) {
             tk = scanner.scanFile(reader);
             parseToIR(tk);
@@ -45,8 +44,6 @@ public class Parser implements IParser {
         }
         System.out.println();
         interRep.addLine(currLine, line);
-        //int prevLine = currLine - 1;
-        //interRep.setAddr(currLine, interRep.getAddr(prevLine) + (interRep.hasInstruction(prevLine) ? line.getInstruction().getSize() : interRep.hasDirective(prevLine) ? line.getDirective().getCString().length() - 2 : 0));
     }
 
 
@@ -63,8 +60,6 @@ public class Parser implements IParser {
 
             System.out.println();
             interRep.addLine(currLine++, line);
-            //int prevLine = currLine - 1;
-            //interRep.setAddr(currLine, interRep.getAddr(prevLine) + (interRep.hasInstruction(prevLine) ? line.getInstruction().getSize() : interRep.hasDirective(prevLine) ? line.getDirective().getCString().length() - 2 : 0));
             line = new LineStatement();
         }
 
@@ -91,6 +86,9 @@ public class Parser implements IParser {
             case LabelOperand:
                 if (line.getDirective().getDir().equals(".cstring")) {
                     line.getDirective().setCString(token.getName());
+                    //Check quotation marks
+                    if(!line.getDirective().getCString().startsWith("\"") || !line.getDirective().getCString().endsWith("\""))
+                        errorReporter.record(new ErrorMsg("Directives need to be declared with opening and closing quotation marks. [" + line.getDirective().getCString() + "]", new Position(currLine, colN)));
                 } else {
                     int opCode = line.getInstruction().getMnemonic().getOpcode();
                     //Check mnemonic is immediate or relative

@@ -75,3 +75,6 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 74   0043                                                                             
 75   0043 41 42 43 00   ABC           .cstring      "ABC"         ; "ABC" has 4 bytes 
 76   0047 41 30 00      A0            .cstring      "A0"                              
+77   004A                                                                             
+78   004A                                                                             
+79   004A                                                                             
