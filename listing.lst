@@ -74,5 +74,4 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 73   0040 D5 0043                     lda.i16       ABC           ; lda - load address
 74   0043                                                                             
 75   0043 41 42 43 00   ABC           .cstring      "ABC"         ; "ABC" has 4 bytes 
-76   0046 41 30 00      A0            .cstring      "A0"          ; "A0"  has 3 bytes 
-77   0048                                                                             
+76   0045 41 30 00      A0            .cstring      "A0"          ; "A0"  has 3 bytes 
