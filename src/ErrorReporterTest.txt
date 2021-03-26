@@ -2,4 +2,4 @@ Testing report Error
 testfile.asm: Error: Line 2, Column 3: Error 1
 testfile.asm: Error: Line 2, Column 3: Error 1
 
-1 Errors Found.
+1 Error Found.

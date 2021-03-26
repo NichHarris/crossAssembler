@@ -161,11 +161,11 @@ Test -Options Class- isListing()
 true
 true
 Test -Parser Class- getInterRep() number of lines
-75
-75
+71
+71
 Test -Parser Class- getInterRep() inner contents
-' '"enter.u5: 112" 0' ; OK, number <u5> [0..31].'
-' '"enter.u5: 112" 0' ; OK, number <u5> [0..31].'
+' '": -1" ' '
+' '": -1" ' '
 Test Position
 p1[1,2]p2[2,4]p3[3,6]p4[65535,255]
 p1[1,2]p2[2,4]p3[3,6]p4[65535,255]

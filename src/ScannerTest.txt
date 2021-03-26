@@ -13,8 +13,3 @@ Test getCurrPos()
 Test setCurrPos()
 6
 6
-TestImmediate.asm: Error: Line 0, Column 0: EOL in String
-
-
-
-1 Error Found.

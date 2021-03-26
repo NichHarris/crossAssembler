@@ -10,10 +10,10 @@ public class ParserTest {
         p.parseToken();
 
         //Testing getInterRep()
-        testParser("getInterRep() number of lines", "75", Integer.toString(p.getInterRep().getLength()));
+        testParser("getInterRep() number of lines", "71", Integer.toString(p.getInterRep().getLength()));
 
         //should we test the parseOperandBound in its entirety, and how
-        testParser("getInterRep() inner contents ", "' '\"enter.u5: 112\" 0' ; OK, number <u5> [0..31].'", p.getInterRep().getLine(1).toString());
+        testParser("getInterRep() inner contents ", "' '\": -1\" ' '", p.getInterRep().getLine(1).toString());
 
     }
     public static void testParser(String caseName, String expectedOutput, String methodOutput) throws Exception {
