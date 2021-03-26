@@ -117,7 +117,7 @@ public class Parser implements IParser {
     }
 
     //Parses Operand Bounds
-    public void parseOperandBound(IToken token, int opCode) {
+    private void parseOperandBound(IToken token, int opCode) {
         //Get substring of mnemonic
         String mne = line.getInstruction().getMnemonic().getMne();
         String subMne = mne.substring(mne.indexOf('.') + 1);
