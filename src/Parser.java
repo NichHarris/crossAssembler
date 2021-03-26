@@ -37,11 +37,16 @@ public class Parser implements IParser {
     public void parseToken(){
         IToken tk;
 
+        interRep.setAddr(0, 0);
         while(scanner.getCurrPos() != reader.getFileContent().length()) {
             tk = scanner.scanFile(reader);
             parseToIR(tk);
+            System.out.print("[" + tk.getName() + "] ");
         }
-        interRep.addLine(currLine, line);
+        System.out.println();
+        interRep.addLine(currLine++, line);
+        int prevLine = currLine - 1;
+        interRep.setAddr(currLine, interRep.getAddr(prevLine) + (interRep.hasInstruction(prevLine) ? line.getInstruction().getSize() : interRep.hasDirective(prevLine) ? line.getDirective().getCString().length() - 2 : 0));
     }
 
 
@@ -56,7 +61,10 @@ public class Parser implements IParser {
             if(line.getInstruction().getMnemonic().getOpcode() > 0x1F && line.getInstruction().getOperand().getOp().equals(""))
                 errorReporter.record(new ErrorMsg("Instructions with immediate mode addressing needs to have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
 
+            System.out.println();
             interRep.addLine(currLine++, line);
+            int prevLine = currLine - 1;
+            interRep.setAddr(currLine, interRep.getAddr(prevLine) + (interRep.hasInstruction(prevLine) ? line.getInstruction().getSize() : interRep.hasDirective(prevLine) ? line.getDirective().getCString().length() - 2 : 0));
             line = new LineStatement();
         }
 

@@ -49,7 +49,7 @@ public class Scanner implements IScanner {
             }
 
             //Check if EOL in string
-            if(!buffer.equals("") && c == '\n'){
+            if (buffer.contains("\n")) {
                 errorReporter.record(new ErrorMsg("EOL in String\n", lineNum, colNum));
             }
 
@@ -59,44 +59,43 @@ public class Scanner implements IScanner {
             }
 
             //Counts number of EOL characters in a row
-            eolCounter = isEOL ? eolCounter + 1: 0;
+            eolCounter = c == '\n' ? eolCounter + 1 : 0;
 
             //If at last line of file
             if (i == fileContent.length() - 1) {
-                buffer += c;
+                if ((!isSpace || isComment) && !isEOL)
+                    buffer += c;
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 currPos = ++i;
                 return token;
-            }
             //If space and buffer is not empty and not a comment - send to parser
-            else if(isSpace && !buffer.equals("") && !isComment) {
-                tokenType = this.getTokenType(buffer, colNum);
+            } else if (isSpace && !buffer.equals("") && !isComment) {
+                tokenType = getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 colNum += 1;
                 currPos = i;
                 return token;
-            //If EOL and buffer is not empty - send to parser + new line
+                //If EOL and buffer is not empty - send to parser + new line
             } else if (isEOL && !buffer.equals("")) {
-                tokenType = this.getTokenType(buffer, colNum);
+                tokenType = getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 colNum += 1;
                 currPos = i;
                 isComment = false;
                 return token;
             //If 2 or more EOL characters in a row
-            } else if (eolCounter >= 2) {
-                tokenType = this.getTokenType(buffer, colNum);
+            } else if (eolCounter >= 1) {
+                tokenType = getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 currPos = ++i;
                 newLine();
                 return token;
             //Ignore spaces and extra EOL chars
-            } else if((isSpace || isEOL) && buffer.equals("")) {
+            } else if ((isSpace || isEOL) && buffer.equals("")) {
                 continue;
-            }
             //Add char to buffer
-            else {
+            } else {
                 buffer += c;
 
                 //Comment detected
