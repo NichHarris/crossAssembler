@@ -1,5 +1,6 @@
 ; TestImmediate.asm - Test immediate instructions.
 
+
           enter.u5  0        ; OK, number <u5> [0..31].
           enter.u5  1        ; OK, number <u5> [0..31].
           enter.u5  2        ; OK, number <u5> [0..31].
@@ -68,3 +69,10 @@
             stv.u3  5        ; OK, number <u3> [0..7].
             stv.u3  6        ; OK, number <u3> [0..7].
             stv.u3  7        ; OK, number <u3> [0..7].
+
+
+            lda.i16 ABC ; lda - load address
+
+            ABC .cstring "ABC" ; "ABC" has 4 bytes
+            A0 .cstring "A0"
+

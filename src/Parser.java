@@ -41,6 +41,7 @@ public class Parser implements IParser {
             tk = scanner.scanFile(reader);
             parseToIR(tk);
         }
+
         interRep.addLine(currLine, line);
     }
 
@@ -83,6 +84,9 @@ public class Parser implements IParser {
             case LabelOperand:
                 if (line.getDirective().getDir().equals(".cstring")) {
                     line.getDirective().setCString(token.getName());
+                    //Check quotation marks
+                    if(!line.getDirective().getCString().startsWith("\"") || !line.getDirective().getCString().endsWith("\""))
+                        errorReporter.record(new ErrorMsg("Directives need to be declared with opening and closing quotation marks. [" + line.getDirective().getCString() + "]", new Position(currLine, colN)));
                 } else {
                     int opCode = line.getInstruction().getMnemonic().getOpcode();
                     //Check mnemonic is immediate or relative
