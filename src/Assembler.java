@@ -31,7 +31,7 @@ public class Assembler {
 
         //Run a second pass through the IR to update the machine code
         IInterRep interRep = parser.getInterRep();
-        //secondPass(interRep);
+        secondPass(interRep);
 
         //Report any errors found by the cross assembler
         errorReporter.report();

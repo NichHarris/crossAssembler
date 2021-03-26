@@ -37,7 +37,7 @@ public class Parser implements IParser {
     public void parseToken(){
         IToken tk;
 
-        interRep.setAddr(0, 0);
+        //interRep.setAddr(0, 0);
         while(scanner.getCurrPos() != reader.getFileContent().length()) {
             tk = scanner.scanFile(reader);
             parseToIR(tk);
@@ -45,8 +45,8 @@ public class Parser implements IParser {
         }
         System.out.println();
         interRep.addLine(currLine, line);
-        int prevLine = currLine - 1;
-        interRep.setAddr(currLine, interRep.getAddr(prevLine) + (interRep.hasInstruction(prevLine) ? line.getInstruction().getSize() : interRep.hasDirective(prevLine) ? line.getDirective().getCString().length() - 2 : 0));
+        //int prevLine = currLine - 1;
+        //interRep.setAddr(currLine, interRep.getAddr(prevLine) + (interRep.hasInstruction(prevLine) ? line.getInstruction().getSize() : interRep.hasDirective(prevLine) ? line.getDirective().getCString().length() - 2 : 0));
     }
 
 
@@ -63,8 +63,8 @@ public class Parser implements IParser {
 
             System.out.println();
             interRep.addLine(currLine++, line);
-            int prevLine = currLine - 1;
-            interRep.setAddr(currLine, interRep.getAddr(prevLine) + (interRep.hasInstruction(prevLine) ? line.getInstruction().getSize() : interRep.hasDirective(prevLine) ? line.getDirective().getCString().length() - 2 : 0));
+            //int prevLine = currLine - 1;
+            //interRep.setAddr(currLine, interRep.getAddr(prevLine) + (interRep.hasInstruction(prevLine) ? line.getInstruction().getSize() : interRep.hasDirective(prevLine) ? line.getDirective().getCString().length() - 2 : 0));
             line = new LineStatement();
         }
 
