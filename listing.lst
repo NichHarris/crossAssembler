@@ -69,8 +69,5 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 68   003D AD                          stv.u3        5             ; OK, number <u3> [0..7].
 69   003E AE                          stv.u3        6             ; OK, number <u3> [0..7].
 70   003F AF                          stv.u3        7             ; OK, number <u3> [0..7].
-71   0040                                                                             
-72   0040 D5 0043                     lda.i16       ABC           ; lda - load address
-73   0043                                                                             
-74   0043 41 42 43 00   ABC           .cstring      "ABC"         ; "ABC" has 4 bytes 
-75   0047 41 30 00      A0            .cstring      "A0"          ; "A0"  has 3 bytes 
+71   0040               
+                                                             

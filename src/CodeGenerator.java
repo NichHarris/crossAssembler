@@ -41,7 +41,7 @@ public class CodeGenerator implements ICodeGenerator {
                 str += s + " ";
 
         //Return bin
-        generateExec("firstBinary", str);
+        generateExec("binaryOutput", str);
     }
 
     //Generate a listing file
