@@ -1,7 +1,13 @@
+package main.java;
+
+import main.interfaces.IInstruction;
+import main.interfaces.IMnemonic;
+import main.interfaces.IOperand;
+
 //Instruction comprised of a mnemonic and (optional) operand
 public class Instruction implements IInstruction {
-    private IMnemonic mnemonic;
-    private IOperand operand;
+    private final IMnemonic mnemonic;
+    private final IOperand operand;
 
     //Default constructor
     public Instruction() {
@@ -9,25 +15,9 @@ public class Instruction implements IInstruction {
         operand = new Operand();
     }
 
-    //Stack, inherent addressing constructor
-    public Instruction(IMnemonic m){
-        mnemonic = m;
-        operand = new Operand();
-    }
-
     //Immediate or relative constructor
     public Instruction(IMnemonic m,IOperand o) {
         mnemonic = m;
-        operand = o;
-    }
-
-    //Set mnemonic
-    public void setMnemonic(IMnemonic m) {
-        mnemonic = m;
-    }
-
-    //Set operand
-    public void setOperand(IOperand o) {
         operand = o;
     }
 

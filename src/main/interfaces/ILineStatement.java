@@ -1,6 +1,9 @@
+package main.interfaces;
+
 //Interface for LineStatement class
 public interface ILineStatement {
 
+    //Todo: remove setters
     //Setter for label
     void setLabel(String l);
 
@@ -9,6 +12,10 @@ public interface ILineStatement {
 
     //Set comments
     void setComment(IComment c);
+
+    //Set Directive
+    void setDirective(IDirective dir);
+
 
     IDirective getDirective();
 
@@ -27,5 +34,4 @@ public interface ILineStatement {
     //Returns a String representable of a LineStatement object
     String toString();
 
-    void setDirective(IDirective dir);
 }

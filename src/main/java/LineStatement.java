@@ -1,3 +1,10 @@
+package main.java;
+
+import main.interfaces.IComment;
+import main.interfaces.IDirective;
+import main.interfaces.IInstruction;
+import main.interfaces.ILineStatement;
+
 //LineStatement object comprised of a label, instruction and comment (all optional fields)
 public class LineStatement implements ILineStatement {
     // Data members representing the label, instruction and comments of a LineStatement Object
@@ -23,7 +30,7 @@ public class LineStatement implements ILineStatement {
     }
 
     //Parametrized constructor for object initialization with label, directive and comment
-    public LineStatement(String l, IDirective d, IInstruction in, String c) {
+    public LineStatement(String l, IDirective d, String c) {
         label = (l == null) ? "" : l;
         comment = new Comment((c == null) ? "" : c);
         directive = (d == null) ? new Directive() : d;

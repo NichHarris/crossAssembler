@@ -1,13 +1,17 @@
+package main.java;
+
+import main.interfaces.*;
+
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
 public class Parser implements IParser {
-    private IInterRep interRep;
+    private final IInterRep interRep;
     private ILineStatement line;
 
-    private BinaryConverter bnConv;
-    private ISymbolTable symbolTable;
-    private IErrorReporter errorReporter;
-    private IScanner scanner;
-    private IReader reader;
+    private final IBinaryConverter bnConv;
+    private final ISymbolTable symbolTable;
+    private final IErrorReporter errorReporter;
+    private final IScanner scanner;
+    private final IReader reader;
 
     private int currLine, colN;
 

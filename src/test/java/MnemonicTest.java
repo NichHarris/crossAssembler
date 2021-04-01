@@ -1,3 +1,8 @@
+package test.java;
+
+import main.interfaces.IMnemonic;
+import main.java.Mnemonic;
+
 public class MnemonicTest {
     public static void main(String[] args) throws Exception {
 
@@ -5,13 +10,9 @@ public class MnemonicTest {
         IMnemonic test1 = new Mnemonic();
         TestMnemonic("Test -Mnemonic Class- Default Constructor", " -1",test1.getMne()+" "+Integer.toString(test1.getOpcode()));
 
-        //Testing parametrized constructor
+        //Testing parametrized constructor and getMnemonic
         test1 = new Mnemonic("ADD", 45);
-        TestMnemonic("Test -Mnemonic Class- Parametrized Constructor", "ADD 45",test1.getMne()+" "+Integer.toString(test1.getOpcode()));
-
-        //Testing setMnemonic and getMnemonic
-        test1.setMnemonic("JMP");
-        TestMnemonic("Test -Mnemonic Class- setMnemonic and getMnemonic", "JMP", test1.getMne());
+        TestMnemonic("Test -Mnemonic Class- Parametrized Constructor and getMnemonic", "ADD 45",test1.getMne()+" "+Integer.toString(test1.getOpcode()));
 
         //Testing setOpCode and getOpCode()
         test1.setOpcode(12);
