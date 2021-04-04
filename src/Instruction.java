@@ -9,13 +9,13 @@ public class Instruction implements IInstruction {
         operand = new Operand();
     }
 
-    //Stack, Inherent Addressing Constructor
+    //Stack, inherent addressing constructor
     public Instruction(IMnemonic m){
         mnemonic = m;
         operand = new Operand();
     }
 
-    //Immediate or Relative Constructor
+    //Immediate or relative constructor
     public Instruction(IMnemonic m,IOperand o) {
         mnemonic = m;
         operand = o;
@@ -51,11 +51,11 @@ public class Instruction implements IInstruction {
             //Get the original opcode before making modifications
             int initOpcode = this.getMnemonic().getOpcode();
 
-            //Stack/inherent addressing
+            //Stack/Inherent addressing
             if (initOpcode >= 0x00 && initOpcode <= 0x1F) {
                 return 1;
             }
-            //Immediate Addressing
+            //Immediate addressing
             else if (initOpcode >= 0x30 && initOpcode <= 0xAF) {
                 String operand = this.getOperand().getOp();
                 if (!this.getOperand().isNumeric() && !operand.equals("")) {
@@ -64,7 +64,7 @@ public class Instruction implements IInstruction {
                     return 1;
                 }
             }
-            //Relative Addressing
+            //Relative addressing
             else if (initOpcode >= 0xB0 && initOpcode <= 0xFF) {
                 String operand = this.getOperand().getOp();
                 if (!this.getOperand().isNumeric() && !operand.equals("")) {
@@ -77,7 +77,7 @@ public class Instruction implements IInstruction {
         return 0;
     }
 
-    //Returns a String representable of an Instruction object
+    //Returns a string representable of an instruction object
     public String toString() {
         if (operand == null)
             return String.format("'%s'", mnemonic.toString());

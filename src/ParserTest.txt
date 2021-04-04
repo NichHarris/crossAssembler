@@ -1,6 +1,6 @@
-Test -Parser Class- getInterRep()
-76
-76
-Test -Parser Class- isNumeric()
-true
-true
+Test -Parser Class- getInterRep() number of lines
+71
+71
+Test -Parser Class- getInterRep() inner contents
+' '": -1" ' '
+' '": -1" ' '

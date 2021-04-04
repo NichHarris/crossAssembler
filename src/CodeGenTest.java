@@ -1,7 +1,7 @@
 import java.io.FileInputStream;
 import java.util.ArrayList;
-public class CodeGeneratorTest {
 
+public class CodeGenTest {
     public static void main(String[] args) throws Exception{
 
         //Creating Options
@@ -51,7 +51,7 @@ public class CodeGeneratorTest {
         file.close();
 
         // testing code generator file creation
-        TestCodeGenerator("Test -Cod eGenerator Class- File creation",
+        TestCodeGenerator("Test -CodeGenerator Class- File creation",
                 "1    0000 98            Fct           addv.u3       3                                 ", listingContent.get(1).toString());
     }
     public static void TestCodeGenerator(String testCaseName, String expectedOutput, String methodOutput) throws Exception{

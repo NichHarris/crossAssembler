@@ -1,0 +1,12 @@
+Test Default Constructor
+
+
+Test Parameterized Constructor
+directive cstring
+directive cstring
+Test Setter and getter
+newCstring
+newCstring
+Test getCode
+6e 65 77 43 73 74 72 69 6e 67 00
+6e 65 77 43 73 74 72 69 6e 67 00

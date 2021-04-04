@@ -1,6 +1,6 @@
 Test scanFile()
-halt
-halt
+; TestImmediate.asm - Test immediate instructions.
+; TestImmediate.asm - Test immediate instructions.
 Test getTokenType()
 LabelOperand
 LabelOperand
@@ -8,8 +8,8 @@ Test isNumeric()
 true
 true
 Test getCurrPos()
-5
-5
+50
+50
 Test setCurrPos()
 6
 6

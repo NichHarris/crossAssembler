@@ -39,7 +39,7 @@ public class Listing implements IListing {
                     if (IR.getLine(i).getInstruction().getMnemonic().getOpcode() == -1)
                         code = "";
                     else
-                        code = mCode[i]; //TODO: need to change this
+                        code = mCode[i];
 
                     //Get the value (if there is one), Set to empty if it is not present, Set value from LineStatement label = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
                     mne = (IR.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : IR.getLine(i).getInstruction().getMnemonic().getMne();

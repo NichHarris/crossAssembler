@@ -1,15 +1,15 @@
 Test -LineStatement Class- Default Constructor
- 'null null' 
- 'null null' 
+ '": -1" '
+ '": -1" '
 Test -LineStatement Class- Parameterized Constructor with label, instruction and comment
-Fct 'addv.u3 3' 
-Fct 'addv.u3 3' 
+Fct '"addv.u3: 152" 3'
+Fct '"addv.u3: 152" 3'
 Test -LineStatement Class- setLabel()
 RA
 RA
 Test -LineStatement Class- setInstruction() and getInstruction
-'mul 4'
-'mul 4'
+'"mul: 152" 4'
+'"mul: 152" 4'
 Test -LineStatement Class- setComment()
 ; new comment
 ; new comment
