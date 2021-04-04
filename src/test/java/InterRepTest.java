@@ -6,6 +6,7 @@ import main.java.*;
 public class InterRepTest {
     public static void main(String[] args) throws Exception {
 
+        TextFileGenerator.textFileGenerator("InterRepTest.txt");
         //Parametrized Constructor
         IInterRep IR = new InterRep(1);
 

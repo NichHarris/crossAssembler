@@ -6,6 +6,8 @@ import main.java.*;
 public class ParserTest {
     public static void main(String[] args) throws Exception {
 
+        TextFileGenerator.textFileGenerator("ParserTest.txt");
+
         IReader rdr = new Reader("TestImmediate.asm");
         rdr.readFile();
         ISymbolTable symT= new SymbolTable();

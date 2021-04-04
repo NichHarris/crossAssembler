@@ -5,6 +5,8 @@ import main.java.Operand;
 
 public class OperandTest {
     public static void main(String[] args) throws Exception {
+
+        TextFileGenerator.textFileGenerator("OperandTest.txt");
         //Testing Default constructor and toString()
         IOperand test1 = new Operand();
         TestMnemonic("Test -Operand Class- Default Constructor and toString()", "",test1.getOp());

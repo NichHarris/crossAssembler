@@ -4,6 +4,8 @@ import main.java.BinaryConverter;
 
 public class BinaryConverterTest {
     public static void main(String []args) throws Exception {
+        TextFileGenerator.textFileGenerator("BinaryConverterTest.txt");
+
         BinaryConverter converter = new BinaryConverter();
         boolean state = true;
         TestBinaryConverter("isOverflow with a signed binary number", "true", Boolean.toString(converter.isOverflow(4, 3, state)));

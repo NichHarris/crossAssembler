@@ -15,6 +15,8 @@ import main.java.SymbolTable;
 
 public class ListingTest {
     public static void main(String[] args) throws Exception {
+
+        TextFileGenerator.textFileGenerator("ListingTest.txt");
         //Creating an InterRepresentation
         InterRep IR = new InterRep(1);
         ISymbolTable symbolTable = new SymbolTable();

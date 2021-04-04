@@ -6,6 +6,7 @@ import main.java.Mnemonic;
 public class MnemonicTest {
     public static void main(String[] args) throws Exception {
 
+        TextFileGenerator.textFileGenerator("MnemonicTest.txt");
         //Testing Default constructor
         IMnemonic test1 = new Mnemonic();
         TestMnemonic("Test -Mnemonic Class- Default Constructor", " -1",test1.getMne()+" "+Integer.toString(test1.getOpcode()));

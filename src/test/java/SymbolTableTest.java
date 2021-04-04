@@ -5,6 +5,8 @@ import main.java.SymbolTable;
 
 public class SymbolTableTest {
     public static void main(String[] args) throws Exception {
+
+        TextFileGenerator.textFileGenerator("SymbolTableTest.txt");
         //Testing invalid key
         ISymbolTable st = new SymbolTable();
         testKey("Test -SymbolTable Class- Invalid Key", "-1", Integer.toString(st.getCode("apple")));

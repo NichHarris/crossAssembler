@@ -6,6 +6,7 @@ import main.java.Position;
 
 public class ErrorMsgTest {
     public static void main(String[] args) throws Exception {
+        TextFileGenerator.textFileGenerator("ErrorMsgTest.txt");
         IErrorMsg message = new ErrorMsg("Error 1", new Position(1,2));
         IErrorMsg message2 = new ErrorMsg("Error 2",3,4);
 

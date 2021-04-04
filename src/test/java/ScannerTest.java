@@ -12,6 +12,8 @@ import main.java.SymbolTable;
 public class ScannerTest {
     public static void main(String[] args) throws Exception {
 
+        TextFileGenerator.textFileGenerator("ScannerTest.txt");
+
         IReader test = new Reader("TestImmediate.asm");
         test.readFile();
         ISymbolTable symT= new SymbolTable();

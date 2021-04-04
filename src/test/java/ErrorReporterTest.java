@@ -8,6 +8,7 @@ import main.java.ErrorReporter;
 public class ErrorReporterTest {
 
     public static void main(String[] args) {
+        TextFileGenerator.textFileGenerator("ErrorReporterTest.txt");
         IErrorReporter errorReport =  new ErrorReporter("testfile.asm");
 
         IErrorMsg message = new ErrorMsg("Error 1 ", 2 , 3);

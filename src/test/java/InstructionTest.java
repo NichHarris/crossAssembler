@@ -11,6 +11,7 @@ import main.java.SymbolTable;
 
 public class InstructionTest {
     public static void main(String[] args) throws Exception {
+        TextFileGenerator.textFileGenerator("InstructionTest.txt");
 
         //Testing the default constructor
         IInstruction instruction1 = new Instruction();

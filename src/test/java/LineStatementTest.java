@@ -5,6 +5,8 @@ import main.java.*;
 
 public class LineStatementTest {
     public static void main(String[] args) throws Exception {
+
+        TextFileGenerator.textFileGenerator("LineStatementTest.txt");
         //Testing Default constructor
         ILineStatement ls = new LineStatement();
         TestLineStatement("Test -LineStatement Class- Default Constructor", " '\": -1\" ' ", ls.getLabel() + " " + ls.getInstruction() + " " + ls.getComment().getCmt());

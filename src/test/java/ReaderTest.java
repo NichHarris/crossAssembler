@@ -6,6 +6,9 @@ import main.java.Reader;
 //Ensure Functionality of Reader
 public class ReaderTest {
     public static void main(String[] args) throws Exception {
+
+        TextFileGenerator.textFileGenerator("ReaderTest.txt");
+
         IReader test = new Reader("testfile.asm");
         test.readFile();
 

@@ -5,6 +5,7 @@ import main.java.Comment;
 
 public class CommentTest {
     public static void main(String[] args) throws Exception {
+        TextFileGenerator.textFileGenerator("CommentTest.txt");
 
         String cmtStr = "Hello World";
 

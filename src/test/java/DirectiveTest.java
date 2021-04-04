@@ -5,6 +5,8 @@ import main.java.Directive;
 
 public class DirectiveTest {
     public static void main(String[] args) throws Exception {
+        TextFileGenerator.textFileGenerator("DirectiveTest.txt");
+
         IDirective directive = new Directive();
         IDirective directive2 = new Directive("directive", "cstring");
 
