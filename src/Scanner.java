@@ -67,7 +67,6 @@ public class Scanner implements IScanner {
 
             //If at last line of file
             if (i == fileContent.length() - 1) {
-<<<<<<< HEAD
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
 
@@ -76,10 +75,9 @@ public class Scanner implements IScanner {
             }
             else if(isSpace && !buffer.equals("") && !isComment) {
                 //Send to Parser
-=======
                 if ((!isSpace || isComment) && !isEOL)
                     buffer += c;
->>>>>>> main
+
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 currPos = ++i;
@@ -99,17 +97,17 @@ public class Scanner implements IScanner {
                 currPos = i;
                 isComment = false;
                 return token;
-<<<<<<< HEAD
+
                 //Add to buffer
                 //If more than 2 EOL characters in a row
                 //TODO: Fix this sketchiness
             } else if ( eolCounter >= 2) {
                 tokenType = this.getTokenType(buffer, colNum);
-=======
+
             //If 2 or more EOL characters in a row
             } else if (eolCounter >= 1) {
                 tokenType = getTokenType(buffer, colNum);
->>>>>>> main
+
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 currPos = ++i;
                 newLine();
