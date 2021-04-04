@@ -9,41 +9,55 @@ public class Reader implements IReader {
 
     private int lineNum;
     private String fileContent = "";
+    private String fileName;
 
     //Parametrized constructor
     public Reader(String filename) {
+        //Open the source file
+        srcFile = new File(filename);
+        fileName = filename;
+        /*
         try {
             //Open the source file
             srcFile = new File(filename);
-
             if (!srcFile.canRead())
                 throw new Exception("Error: Unable to open source file \"" + filename + "\"");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+        */
     }
 
     //Read source file using FileInputStream
     public void readFile() throws Exception {
-        FileInputStream file = new FileInputStream(srcFile);
+        try {
+            if (!srcFile.canRead())
+                throw new Exception("Error: Unable to open source file \"" + fileName + "\"");
+            else {
+                FileInputStream file = new FileInputStream(srcFile);
 
-        lineNum = 0;
-        int currentChar = file.read();
+                lineNum = 0;
+                int currentChar = file.read();
 
-        //Traverse the contents of the source file until EOF
-        while (currentChar != EOF) {
-            char c = (char) currentChar;
-            fileContent = fileContent + (c);
+                //Traverse the contents of the source file until EOF
+                while (currentChar != EOF) {
+                    char c = (char) currentChar;
+                    fileContent = fileContent + (c);
 
-            //Create unparsed line statements using EOL
-            if (c == '\n')
-                lineNum++;
+                    //Create unparsed line statements using EOL
+                    if (c == '\n')
+                        lineNum++;
 
-            currentChar = file.read();
+                    currentChar = file.read();
+                }
+
+                //Close the source file
+                file.close();
+            }
         }
-
-        //Close the source file
-        file.close();
+        catch (Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     //Get character from file content

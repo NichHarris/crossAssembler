@@ -7,37 +7,40 @@ public class Assembler {
         IOptions options = new Options();
         options.setOptions(args);
 
-        //Get file name
-        String fileName = options.getFile();
+        //Don't run if help or banner option is enabled
+        if(!options.isBanner() && !options.isHelp() ) {
+            //Get file name
+            String fileName = options.getFile();
 
-        //Create Reader object
-        IReader reader = new Reader(fileName);
-        reader.readFile();
+            //Create Reader object
+            IReader reader = new Reader(fileName);
+            reader.readFile();
 
-        //Create SymbolTable
-        ISymbolTable symbolTable = new SymbolTable();
+            //Create SymbolTable
+            ISymbolTable symbolTable = new SymbolTable();
 
-        //Create error reporter
-        IErrorReporter errorReporter = new ErrorReporter(fileName);
+            //Create error reporter
+            IErrorReporter errorReporter = new ErrorReporter(fileName);
 
-        //Create scanner object, this is to be passed to Parse
-        IScanner scanner = new Scanner(symbolTable, errorReporter);
+            //Create scanner object, this is to be passed to Parse
+            IScanner scanner = new Scanner(symbolTable, errorReporter);
 
-        //Instantiate the Parser
-        IParser parser = new Parser(reader.getLineNum() + 1, symbolTable, errorReporter, scanner, reader);
-        //We then want Parser to request a token from scanner, from there, scanner will produce a token for parser
-        //and then do its thing on that token, adding it to the interRep
-        parser.parseToken();
+            //Instantiate the Parser
+            IParser parser = new Parser(reader.getLineNum() + 1, symbolTable, errorReporter, scanner, reader);
+            //We then want Parser to request a token from scanner, from there, scanner will produce a token for parser
+            //and then do its thing on that token, adding it to the interRep
+            parser.parseToken();
 
-        //Run a second pass through the IR to update the machine code
-        IInterRep interRep = parser.getInterRep();
-        secondPass(interRep);
+            //Run a second pass through the IR to update the machine code
+            IInterRep interRep = parser.getInterRep();
+            secondPass(interRep);
 
-        //Report any errors found by the cross assembler
-        errorReporter.report();
+            //Report any errors found by the cross assembler
+            errorReporter.report();
 
-        //Generate listing file
-        ICodeGenerator generator = new CodeGenerator(interRep, options);
+            //Generate listing file
+            ICodeGenerator generator = new CodeGenerator(interRep, options);
+        }
     }
 
     static void secondPass(IInterRep interRep) {

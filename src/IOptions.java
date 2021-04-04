@@ -11,4 +11,10 @@ public interface IOptions {
 
     //Get status of verbose option
     boolean isVerbose();
+
+    //Get status of help option
+    boolean isHelp();
+
+    //Get status of banner option
+    boolean isBanner();
 }
