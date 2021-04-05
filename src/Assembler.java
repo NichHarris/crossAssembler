@@ -45,7 +45,6 @@ public class Assembler implements IAssembler{
         //Generate listing file
         ICodeGenerator generator = new CodeGenerator(interRep, options, fileName);
 
-
         //Report any errors found by the cross assembler
         errorReporter.report();
     }
@@ -58,8 +57,6 @@ public class Assembler implements IAssembler{
             //Get previous and current LineStatement
             ILineStatement prevLine = interRep.getLine(j - 1);
             ILineStatement currLine = interRep.getLine(j);
-
-            //System.out.println(prevLine.toString() + " , "  + currLine.toString());
 
             //Check if previous line is empty and current line is not
             //If so, increment the current line's address by one
