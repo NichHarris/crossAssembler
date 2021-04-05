@@ -68,7 +68,6 @@ public class Parser implements IParser {
         switch(token.getCode()) {
             //Add Label to Line
             case Label:
-
                 line.setLabel(token.getName());
                 break;
             //Add Mnemonic to Line

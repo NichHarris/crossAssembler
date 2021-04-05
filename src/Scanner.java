@@ -67,19 +67,11 @@ public class Scanner implements IScanner {
 
             //If at last line of file
             if (i == fileContent.length() - 1) {
-                tokenType = this.getTokenType(buffer, colNum);
-                token = new Token(new Position(lineNum, colNum), buffer, tokenType);
-
-                currPos = ++i;
-                return token;
-            }
-            else if(isSpace && !buffer.equals("") && !isComment) {
-                //Send to Parser
                 if ((!isSpace || isComment) && !isEOL)
                     buffer += c;
-
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+
                 currPos = ++i;
                 return token;
             //If space and buffer is not empty and not a comment - send to parser
