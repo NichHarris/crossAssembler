@@ -14,8 +14,8 @@ public class Reader implements IReader {
     //Parametrized constructor
     public Reader(String filename) {
         //Open the source file
-        srcFile = new File(filename);
         fileName = filename;
+        srcFile = new File(fileName);
     }
 
     //Read source file using FileInputStream

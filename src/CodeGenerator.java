@@ -8,8 +8,7 @@ public class CodeGenerator implements ICodeGenerator {
     private IInterRep interRep;
     //Array of machine codes for each LineStatement
     private String[] mCode;
-
-    String fileName;
+    private String fileName;
 
     //Default constructor
     public CodeGenerator(IInterRep IR, IOptions options, String filename) {
@@ -107,7 +106,6 @@ public class CodeGenerator implements ICodeGenerator {
     //Generate an executable file
     public void generateExec(String c) {
         try {
-
             //Create output stream and empty file
             BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(fileName.concat(".bin")));
 

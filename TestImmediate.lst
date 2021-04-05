@@ -69,5 +69,4 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 68   003D AD                          stv.u3        5             ; OK, number <u3> [0..7].
 69   003E AE                          stv.u3        6             ; OK, number <u3> [0..7].
 70   003F AF                          stv.u3        7             ; OK, number <u3> [0..7].
-71   0040 AF                          stv.u3        7             ; OK, number <u3> [0..7].
-72   0041                                                                             
+71   0040                                                                             

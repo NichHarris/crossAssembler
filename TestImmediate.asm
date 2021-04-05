@@ -68,4 +68,3 @@
             stv.u3  5        ; OK, number <u3> [0..7].
             stv.u3  6        ; OK, number <u3> [0..7].
             stv.u3  7        ; OK, number <u3> [0..7].
-            stv.u3  7        ; OK, number <u3> [0..7].
