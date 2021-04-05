@@ -39,7 +39,7 @@ public class Assembler {
             errorReporter.report();
 
             //Generate listing file
-            ICodeGenerator generator = new CodeGenerator(interRep, options);
+            ICodeGenerator generator = new CodeGenerator(interRep, options, fileName);
         }
     }
 

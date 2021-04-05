@@ -66,7 +66,7 @@ public class Options implements IOptions {
                 displayHelp();
 
             //Check if assembly file is included as last argument
-            if (len < 1 || (!options[len - 1].endsWith(".asm") && (!banner && !help)))
+            if (len < 1 || (!options[len - 1].endsWith(".asm") && !banner && !help))
                 throw new Exception("Error: Missing Assembly file");
 
             //Set file

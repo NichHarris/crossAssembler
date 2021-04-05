@@ -16,16 +16,6 @@ public class Reader implements IReader {
         //Open the source file
         srcFile = new File(filename);
         fileName = filename;
-        /*
-        try {
-            //Open the source file
-            srcFile = new File(filename);
-            if (!srcFile.canRead())
-                throw new Exception("Error: Unable to open source file \"" + filename + "\"");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
-        */
     }
 
     //Read source file using FileInputStream

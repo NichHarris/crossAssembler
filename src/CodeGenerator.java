@@ -9,12 +9,14 @@ public class CodeGenerator implements ICodeGenerator {
     //Array of machine codes for each LineStatement
     private String[] mCode;
 
+    String fileName;
+
     //Default constructor
-    public CodeGenerator(IInterRep IR, IOptions options) {
+    public CodeGenerator(IInterRep IR, IOptions options, String filename) {
 
         interRep = IR;
         mCode = new String[interRep.getLength()];
-
+        fileName = filename.substring(0, filename.indexOf("."));
         generateMachineCode();
 
         //Generate listing file with label table
@@ -41,14 +43,14 @@ public class CodeGenerator implements ICodeGenerator {
                 str += s + " ";
 
         //Return bin
-        generateExec("binaryOutput", str);
+        generateExec(str);
     }
 
     //Generate a listing file
     public void generateListing(String[] lstContent) {
         // Create listing.lst output file
         try {
-            FileOutputStream fs = new FileOutputStream("listing.lst");
+            FileOutputStream fs = new FileOutputStream(fileName.concat(".lst"));
 
             // Write to listing.lst file
             for(String l : lstContent) {
@@ -103,11 +105,11 @@ public class CodeGenerator implements ICodeGenerator {
     }
 
     //Generate an executable file
-    public void generateExec(String fn, String c) {
+    public void generateExec(String c) {
         try {
 
             //Create output stream and empty file
-            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(fn + ".bin"));
+            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(fileName.concat(".bin")));
 
             //Write to file
             byte[] contentB = c.getBytes();
