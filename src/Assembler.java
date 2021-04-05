@@ -5,12 +5,11 @@ public class Assembler implements IAssembler{
     private IOptions options;
     private ISymbolTable symbolTable;
     private IErrorReporter errorReporter;
-    private IReader reader;
 
     //Default constructor
-    public Assembler(String fileName, IOptions options) throws Exception {
+    public Assembler(String filename, IOptions options) throws Exception {
         //Get input file name
-        this.fileName = fileName;
+        fileName = filename;
 
         //Get instance of options for CodeGenerator
         this.options = options;
@@ -20,15 +19,16 @@ public class Assembler implements IAssembler{
 
         //Create ErrorReporter
         errorReporter = new ErrorReporter(fileName);
-
-        //Create Reader object
-        reader = new Reader(fileName);
-        reader.readFile();
     }
 
     //Principle action of the Cross Assembler. Generates an intermediate representation of the assembly code and
     //generates the executable + listing output file.
     public void assemble() throws Exception {
+
+        //Create Reader object
+        IReader reader = new Reader(fileName);
+        reader.readFile();
+
         //Create scanner object, this is to be passed to Parser
         IScanner scanner = new Scanner(symbolTable, errorReporter);
 
