@@ -1,5 +1,5 @@
 //Cross Assembler Class
-public class Assembler{
+public class Assembler implements IAssembler{
 
     private String fileName;
     private IOptions options;
