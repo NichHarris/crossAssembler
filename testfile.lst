@@ -101,7 +101,7 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 100  005D                                                                             
 101  005D 41 42 43 00   ABC           .cstring      "ABC"         ; "ABC" has 4 bytes 
 102  0061                                                                             
-103  0061 41 30 00      A0            .cstring      "A0"          ; "A0"  has 3 bytes 
+103  0061 41 30 00                    .cstring      "A0"          ; "A0"  has 3 bytes 
 104  0064                                                                             
 105  0064                                                         ; rela01.asm        
 106  0064 D5 006C                     lda.i16       Msg1                              
@@ -121,3 +121,4 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 120  007D B1 FF                       ldv.u8        255                               
 121  007F B2 00                       stv.u8        0                                 
 122  0081 B2 FF                       stv.u8        255                               
+123  0083                                                                             

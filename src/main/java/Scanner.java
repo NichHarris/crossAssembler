@@ -168,7 +168,10 @@ public class Scanner implements IScanner {
             //Check if character is outside number range
             if (c < 48 || c > 57)
                 //Check if negative number (-)
-                if(i != 0 || c != 45)return false;
+                if(i == 0 || c == 45)
+                    continue;
+                else
+                    return false;
         }
         return true;
     }

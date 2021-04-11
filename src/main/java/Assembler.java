@@ -47,6 +47,7 @@ public class Assembler implements IAssembler{
         IInterRep interRep = parser.getInterRep();
         secondPass(interRep);
 
+
         //Generate listing file
         ICodeGenerator generator = new CodeGenerator(interRep, options, fileName, labelTable);
 

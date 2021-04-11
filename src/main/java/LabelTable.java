@@ -27,8 +27,6 @@ public class LabelTable implements ILabelTable {
         offset.setAddrStart(addr);
         //put updated Offset object back in labelTable
         labelTable.put(label, offset);
-
-        //System.out.println("Label: " + label + ", Start Addr: " + addr);
     }
 
     //Set Label end address
@@ -39,8 +37,6 @@ public class LabelTable implements ILabelTable {
         offset.setAddrEnd(addr);
         //put updated Offset object back in labelTable
         labelTable.put(label, offset);
-
-        //System.out.println("Label: " + label + ", End Addr: " + addr);
     }
 
 //Get Label Address Code
@@ -64,9 +60,6 @@ public class LabelTable implements ILabelTable {
             int start = labelTable.get(label).getStartAddr();
             int end = labelTable.get(label).getEndAddr();
             int offset = start - end;
-
-
-
             System.out.println("Label: " + label + ", Addr 1: " + start + ", Addr 2: " + end + ", Offset: " + offset);
         }
     }

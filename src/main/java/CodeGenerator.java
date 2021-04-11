@@ -100,7 +100,8 @@ public class CodeGenerator implements ICodeGenerator {
                                 }
                             }
                         }
-                    } else {    //Find the address where the label is declared
+                    } else {
+                        //Find the address where the label is declared
                         for (int j = i + 1; j < interRep.getLength(); j++) {
                             if (interRep.getLine(j) != null) {
                                 String currLabel = interRep.getLine(j).getLabel();

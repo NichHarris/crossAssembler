@@ -22,12 +22,12 @@ public class Reader implements IReader {
     public Reader(String filename) {
         try {
             //Open the source file
-            String path = new File(pathname + filename).getAbsolutePath();
             fileName = filename;
+            String path = new File(pathname + fileName).getAbsolutePath();
             srcFile = new File(path);
 
             if (!srcFile.canRead())
-                throw new Exception("Error: Unable to open source file \"" + filename + "\"");
+                throw new Exception("Error: Unable to open source file \"" + fileName + "\"");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
