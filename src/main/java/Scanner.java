@@ -75,6 +75,7 @@ public class Scanner implements IScanner {
                     buffer += c;
                 tokenType = this.getTokenType(buffer, colNum);
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
+
                 currPos = ++i;
                 return token;
             //If space and buffer is not empty and not a comment - send to parser
@@ -92,9 +93,13 @@ public class Scanner implements IScanner {
                 currPos = i;
                 isComment = false;
                 return token;
+            } else if ( eolCounter >= 2) {
+                tokenType = this.getTokenType(buffer, colNum);
+
             //If 2 or more EOL characters in a row
             } else if (eolCounter >= 1) {
                 tokenType = getTokenType(buffer, colNum);
+
                 token = new Token(new Position(lineNum, colNum), buffer, tokenType);
                 currPos = ++i;
                 newLine();

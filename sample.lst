@@ -1,0 +1,8 @@
+Line Addr Code          Label         Mnemonic      Operand       Comments            
+1    0000 90                          ldc.i3                      ; Instruction should have number as an operand field.
+2    0001 01                          pop                         ; Instruction should not have a number as an operand field. (works)
+3    0002 70                          enter.u5      32            ; Operand should range from 0 to 31. (works)
+4    0003 90                          ldc.i3        4             ; Operand should range from -4 to 3.
+5    0004 A0                          ldv.u3        8             ; Operand should range from 0 to 7. (works)
+6    0005               top                                       ;Unknown mnemonic or directive (not working due to getTokenType)
+7    0005                                                                             

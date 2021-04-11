@@ -22,6 +22,13 @@ public class ParserTest {
         //should we test the parseOperandBound in its entirety, and how
         testParser("getInterRep() inner contents ", "' '\": -1\" ' '", p.getInterRep().getLine(1).toString());
 
+        // Invalid token - doesn't exist
+        // Error: Adding Operand with Stack
+        // Error: Forgetting Operand with Immediate
+        // Error: Operand Size Exceeds Bounds
+        // Successful Parsing of File - Stack and Immediate
+        // Token uses keyword - Label cannot be a mnemonic for example
+        // Label must not be created twice
     }
     public static void testParser(String caseName, String expectedOutput, String methodOutput) throws Exception {
         System.out.println("Test -Parser Class- " + caseName);

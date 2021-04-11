@@ -2,8 +2,21 @@ package main.interfaces;
 
 public interface ILabelTable {
 
+    //Create new entry into labelTable
+    void newEntry(String label, Offset newOffset);
 
-    void setLabel(String label, int addr);
+    //Set Label start address
+    void setLabelStart(String label, int addr);
 
-    int getAddr(String label);
+    //Set Label end address
+    void setLabelEnd(String label, int addr);
+
+    //Get Label Address Code
+    Offset getAddr(String label);
+
+    //Have encountered label 2 times
+    boolean hasAddr(String label);
+
+    //See if a label is present in the LabelTable
+    boolean hasStartLabel(String label);
 }

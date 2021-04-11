@@ -52,20 +52,20 @@ public class SymbolTable implements ISymbolTable {
         symbolTable.put("stv.u3", 0xA8); //..AF" - 0..7
 
         //Relative addressing - 8/16/32 bit operands
-        symbolTable.put("addv.u8", 0xB0); // 8 Bits
-        symbolTable.put("ldv.u8", 0xB1);
-        symbolTable.put("stv.u8", 0xB2);
-        symbolTable.put("incv.u8", 0xB3);
-        symbolTable.put("decv.u8", 0xB4);
+        symbolTable.put("addv.u8", 0xB0);
+        symbolTable.put("ldv.u8", 0xB1); //<-
+        symbolTable.put("stv.u8", 0xB2); //<-
+        symbolTable.put("incv.u8", 0xB3);  //++ Value
+        symbolTable.put("decv.u8", 0xB4); // -- Value
         symbolTable.put("enter.u8", 0xBF);
-        symbolTable.put("lda.i16", 0xD5); // 16 Bits
-        symbolTable.put("ldc.i8", 0xD9);
-        symbolTable.put("ldc.i16", 0xDA); // 16 Bits
-        symbolTable.put("ldc.i32", 0xDB); // 32 Bits
-        symbolTable.put("br.i8", 0xE0);
-        symbolTable.put("br.i16", 0xE1);  // 16 Bits
-        symbolTable.put("brf.i8", 0xE3);
-        symbolTable.put("call.i16", 0xE7); // 16 Bits
+        symbolTable.put("lda.i16", 0xD5);  //<-
+        symbolTable.put("ldc.i8", 0xD9); //<-
+        symbolTable.put("ldc.i16", 0xDA); //Can be done
+        symbolTable.put("ldc.i32", 0xDB); //Can be done
+        symbolTable.put("br.i8", 0xE0); //<-
+        symbolTable.put("br.i16", 0xE1);  //Can be done
+        symbolTable.put("brf.i8", 0xE3); //<-
+        symbolTable.put("call.i16", 0xE7);
         symbolTable.put("trap", 0xFF);
     }
 

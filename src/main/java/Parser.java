@@ -94,13 +94,15 @@ public class Parser implements IParser {
                 } else {
                     int opCode = line.getInstruction().getMnemonic().getOpcode();
                     //Check mnemonic is immediate or relative
-                    if (opCode > 0x1F) {
+                    if (opCode > 0x1F && opCode < 0xB0) {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
                         //Update opcode - Parse operand size and state
                         if (token.getCode() == TokenType.Operand) {
                             parseOperandBound(token, opCode);
                         }
                     //Inherent Mode Addressing Error
+                    } else if (opCode > 0xB0){
+                        line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
                     } else {
                         errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
                     }

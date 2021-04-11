@@ -38,6 +38,13 @@ public class ScannerTest {
 
         scn.getErrors().report();
 
+        // Multiple Spaces and Tabs in Front, In Between Tokens, End of Line
+        // No Spaces in Front and End of Line
+        // Empty Lines with and without spaces
+        // Invalid Characters
+        // Closing .cstring quotation marks
+        // Generate Correct Token Type
+
     }
 
     public static void testScanner(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

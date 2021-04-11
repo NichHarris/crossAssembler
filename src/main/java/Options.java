@@ -5,14 +5,21 @@ import main.interfaces.IOptions;
 //Options class - Determine and check validity of options provided by the developer from the command line
 public class Options implements IOptions {
     //Flags and file
-    private boolean listing, verbose;
+    private boolean listing, verbose, help, banner;
     private String file;
 
     //Default constructor - Initialize listing and verbose flags
+<<<<<<< HEAD:src/main/java/Options.java
     public Options(String[] options) {
         //Initialize listing and verbose flags
+=======
+    public Options() {
+        //Initialize options flags
+        help = false;
+>>>>>>> harris:src/Options.java
         listing = false;
         verbose = false;
+        banner = false;
         file = "";
         setOptions(options);
     }
@@ -22,39 +29,56 @@ public class Options implements IOptions {
         int len = options.length;
 
         try {
-            //Check if assembly file is included as last argument
-            if (len < 1 || !options[len - 1].endsWith(".asm"))
-                throw new Exception("Error: Missing Assembly file");
-
             //Check if there's too many CLI arguments
-            if (options.length > 3)
+            if (options.length > 4)
                 throw new Exception("Error: Too Many Arguments in CL");
 
             //Iterate through command line arguments
-            for (int i = 0; i < len - 1; i++)
+            for (int i = 0; i < len; i++) {
                 switch (options[i]) {
                     //Output details of available commands
                     case "-h":
-                    case "--help":
-                        displayHelp();
+                    case "-help":
+                        help = true;
                         break;
                     //Set status of listing option
                     case "-l":
-                    case "--listing":
+                    case "-listing":
                         listing = true;
                         break;
                     //Set status of listing option
                     case "-v":
-                    case "--verbose":
+                    case "-verbose":
                         verbose = true;
+                        break;
+                    //Output banner
+                    case "-b":
+                    case "-banner":
+                        banner = true;
                         break;
                     //Invalid options
                     default:
                         if (options[i].endsWith(".asm"))
-                            throw new Exception("Error: File Must Be Last Option");
+                            if(i != len - 1)
+                                throw new Exception("Error: File Must Be Last Option");
+                            else
+                                break;
 
-                        throw new Exception("Error: Invalid Option");
+                        file = options[len - 1];
+                        displayHelp();
+                        throw new Exception("\n Error: Invalid Option\n" );
                 }
+            }
+
+            //Display banner first, then help if both are enabled
+            if(banner)
+                displayBanner();
+            if(help)
+                displayHelp();
+
+            //Check if assembly file is included as last argument
+            if (len < 1 || (!options[len - 1].endsWith(".asm") && !banner && !help))
+                throw new Exception("Error: Missing Assembly file");
 
             //Set file
             file = options[len - 1];
@@ -78,12 +102,28 @@ public class Options implements IOptions {
         return verbose;
     }
 
+    //Get status of help option
+    public boolean isHelp(){
+        return help;
+    }
+
+    //Get status of banner option
+    public boolean isBanner(){
+        return banner;
+    }
+
     //Display Help Message
-    public void displayHelp() {
+    private void displayHelp() {
         System.out.println("Usage: crossAssembler [options] <src file>");
         System.out.println("Options:");
-        System.out.println("   -h, --help      Displays Cross Assembler Usage and Valid Options");
-        System.out.println("   -l, --listing   Generates Source Listing File Alongside Executable File");
-        System.out.println("   -v, --verbose   Generates Source Listing File and Label Table Alongside Executable File");
+        System.out.println("   -h, -help      Displays Cross Assembler Usage and Valid Options");
+        System.out.println("   -b, -banner    Displays Cross Assembler Banner");
+        System.out.println("   -l, -listing   Generates Source Listing File Alongside Executable File");
+        System.out.println("   -v, -verbose   Generates Source Listing File and Label Table Alongside Executable File");
+    }
+
+    //Display Help Message
+    private void displayBanner() {
+        System.out.println("Cm Cross-Assembler Version 1.4 - Developed by Team 3.\n");
     }
 }
