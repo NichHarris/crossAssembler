@@ -36,7 +36,7 @@ Instruction
 -> Mnemonic + Operand
 
 Operand
--> Label (String) or Offset (Binary)
+-> Label (String) or main.java.Offset (Binary)
 
 Directive: .cstring (String)
 

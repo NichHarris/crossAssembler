@@ -20,10 +20,10 @@ public class Reader implements IReader {
 
     //Parametrized constructor
     public Reader(String filename) {
-<<<<<<< HEAD:src/main/java/Reader.java
         try {
             //Open the source file
             String path = new File(pathname + filename).getAbsolutePath();
+            fileName = filename;
             srcFile = new File(path);
 
             if (!srcFile.canRead())
@@ -31,11 +31,6 @@ public class Reader implements IReader {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-=======
-        //Open the source file
-        fileName = filename;
-        srcFile = new File(fileName);
->>>>>>> harris:src/Reader.java
     }
 
     //Read source file using FileInputStream
@@ -49,17 +44,10 @@ public class Reader implements IReader {
                 lineNum = 0;
                 int currentChar = file.read();
 
-<<<<<<< HEAD:src/main/java/Reader.java
-        //Traverse the contents of the source file until EOF
-        while (currentChar != EOF) {
-            char c = (char) currentChar;
-            fileContent += (c);
-=======
                 //Traverse the contents of the source file until EOF
                 while (currentChar != EOF) {
                     char c = (char) currentChar;
                     fileContent = fileContent + (c);
->>>>>>> harris:src/Reader.java
 
                     //Create unparsed line statements using EOL
                     if (c == '\n')

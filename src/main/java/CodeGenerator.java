@@ -14,15 +14,13 @@ public class CodeGenerator implements ICodeGenerator {
     //Instance of the IR
     private final IInterRep interRep;
     //Array of machine codes for each LineStatement
-<<<<<<< HEAD:src/main/java/CodeGenerator.java
+
     private final String[] mCode;
 
     //Path to destination directory (output files directory)
     protected String pathname = "src/io/out/";
-=======
-    private String[] mCode;
+
     private String fileName;
->>>>>>> harris:src/CodeGenerator.java
 
     //Default constructor
     public CodeGenerator(IInterRep IR, IOptions options, String filename) {
@@ -60,15 +58,12 @@ public class CodeGenerator implements ICodeGenerator {
     private void generateListing(String pathname, String[] lstContent) {
         // Create listing.lst output file
         try {
-<<<<<<< HEAD:src/main/java/CodeGenerator.java
+
             //Obtain the destination path
             String path = new File(pathname+"listing.lst").getAbsolutePath();
 
             //Create empty file at destination path
             FileOutputStream fs = new FileOutputStream(path);
-=======
-            FileOutputStream fs = new FileOutputStream(fileName.concat(".lst"));
->>>>>>> harris:src/CodeGenerator.java
 
             // Write to listing.lst file
             for(String l : lstContent) {
@@ -142,28 +137,22 @@ public class CodeGenerator implements ICodeGenerator {
         }
     }
 
-    //Generate an executable file
-<<<<<<< HEAD:src/main/java/CodeGenerator.java
-    private void generateExec(String c) {
+    //Generate an executable
+    public void generateExec(String c) {
         try {
             //Obtain the destination path
             String path = new File(pathname +"binaryOutput.bin").getAbsolutePath();
 
-            //Create output stream and empty file at destination path
-            BufferedOutputStream bufOS = new BufferedOutputStream(new FileOutputStream(path));
-=======
-    public void generateExec(String c) {
-        try {
             //Create output stream and empty file
             BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(fileName.concat(".bin")));
->>>>>>> harris:src/CodeGenerator.java
+
 
             //Write to file
             byte[] contentB = c.getBytes();
             for(byte b: contentB)
-                bufOS.write(b);
+                bfos.write(b);
 
-            bufOS.close();
+            bfos.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

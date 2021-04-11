@@ -1,17 +1,12 @@
 package main.java;
-
-import main.interfaces.ILabelTable;
-
+import main.interfaces.*;
 import java.util.HashMap;
+
 
 //Used to store seen labels, to be referred to on second pass for offset or addr location (depending on how we want to implement it)
 public class LabelTable implements ILabelTable {
-<<<<<<< HEAD:src/main/java/LabelTable.java
-    private final HashMap<String, Integer> labelTable;
-=======
     private Offset offset;
     private final HashMap<String, Offset> labelTable;
->>>>>>> harris:src/LabelTable.java
 
     //Default constructor
     public LabelTable() {
@@ -27,21 +22,21 @@ public class LabelTable implements ILabelTable {
 
     //Set Label start address
     public void setLabelStart(String label, int addr) {
-        //get Offset object
+        //get main.java.Offset object
         offset = labelTable.getOrDefault(label, new Offset());
-        //update Offset object
+        //update main.java.Offset object
         offset.setAddrStart(addr);
-        //put updated Offset object back in labelTable
+        //put updated main.java.Offset object back in labelTable
         labelTable.put(label, offset);
     }
 
     //Set Label end address
     public void setLabelEnd(String label, int addr) {
-        //get Offset object
+        //get main.java.Offset object
         offset = labelTable.getOrDefault(label, new Offset());
-        //update Offset object
+        //update main.java.Offset object
         offset.setAddrEnd(addr);
-        //put updated Offset object back in labelTable
+        //put updated main.java.Offset object back in labelTable
         labelTable.put(label, offset);
     }
 
@@ -63,7 +58,7 @@ public class LabelTable implements ILabelTable {
     public void printLabelTable() {
         for(String label:labelTable.keySet()) {
             //int offset = labelTable.getAddr() - labelTable.get(label)[0];
-            System.out.println("Label: " + label + ", Offset: " + offset);
+            System.out.println("Label: " + label + ", main.java.Offset: " + offset);
         }
     }
 }

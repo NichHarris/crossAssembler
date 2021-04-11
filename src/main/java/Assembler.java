@@ -1,39 +1,5 @@
-<<<<<<< HEAD:src/main/java/Assembler.java
 package main.java;
-
 import main.interfaces.*;
-
-//Main class for the VM Cross Assembler
-public class Assembler {
-    //Entrypoint of program execution
-    public static void main(String[] args) throws Exception {
-
-        try {
-            //Set options from CL
-            IOptions options = new Options(args);
-
-            //Get file name
-            String fileName = options.getFile(); //throw exception if file not found
-
-            //Create Reader object
-            IReader reader = new Reader(fileName);
-            reader.readFile();
-
-            //Create SymbolTable
-            ISymbolTable symbolTable = new SymbolTable();
-
-            //Create error reporter
-            IErrorReporter errorReporter = new ErrorReporter(fileName);
-
-            //Create scanner object, this is to be passed to Parse
-            IScanner scanner = new Scanner(symbolTable, errorReporter);
-
-            //Instantiate the Parser
-            IParser parser = new Parser(reader.getLineNum() + 1, symbolTable, errorReporter, scanner, reader);
-            //We then want Parser to request a token from scanner, from there, scanner will produce a token for parser
-            //and then do its thing on that token, adding it to the interRep
-            parser.parseToken();
-=======
 import java.util.ArrayList;
 
 //Cross Assembler Class
@@ -73,30 +39,19 @@ public class Assembler implements IAssembler{
 
         //Create scanner object, this is to be passed to Parser
         IScanner scanner = new Scanner(symbolTable, errorReporter);
->>>>>>> harris:src/Assembler.java
 
             //Run a second pass through the IR to update the machine code
-            IInterRep interRep = parser.getInterRep();
+            IInterRep interRep = Parser.getInterRep();
             secondPass(interRep);
 
             //Report any errors found by the cross assembler
             errorReporter.report();
 
-<<<<<<< HEAD:src/main/java/Assembler.java
-            //Generate listing file
-            ICodeGenerator generator = new CodeGenerator(interRep, options);
-
-        }catch(Exception e){
-
-            System.out.println(e.getMessage());
-        }
-=======
         //Generate listing file
         ICodeGenerator generator = new CodeGenerator(interRep, options, fileName);
 
         //Report any errors found by the cross assembler
         errorReporter.report();
->>>>>>> harris:src/Assembler.java
     }
 
     //Set the address of each LineStatement in IR

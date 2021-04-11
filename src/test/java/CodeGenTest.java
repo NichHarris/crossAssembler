@@ -1,10 +1,7 @@
 package test.java;
-
 import main.interfaces.*;
 import main.java.*;
-
 import java.io.File;
-
 import java.security.*;
 import java.io.*;
 import java.nio.file.*;
@@ -15,12 +12,12 @@ public class CodeGenTest {
 
     public static void main(String[] args) throws Exception {
         //Making the Text file in the proper location
-        TextFileGenerator.textFileGenerator("CodeGenTest.txt");
+        TextFileGenerator.textFileGenerator("main.java.CodeGenTest.txt");
 
         //Creating Options
         String[] options = {"-v", "-l", "TestImmediate.asm"};
 
-        Assembler.main(options);
+        Main.main(options);
         /*
         //Creating an InterRepresentation
         InterRep IR = new InterRep(1);

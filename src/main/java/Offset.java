@@ -1,5 +1,9 @@
+package main.java;
+
+import main.interfaces.IOffset;
+
 //Class for label offsets
-public class Offset implements IOffset{
+public class Offset implements IOffset {
     private int addrStart, addrEnd, numTimes;
 
     //Default constructor

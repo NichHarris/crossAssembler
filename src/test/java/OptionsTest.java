@@ -31,17 +31,15 @@ public class OptionsTest {
         testOptions("Test -Options Class- isListing()", "true", "" + CorrectOption.isListing());
 
         //Enable Listing and Help
-        //testing display help itself is not possible considering use of aunit in testing
         String[] opArray3 = {"-l", "-h", "sample.asm"};
         IOptions CorrectOption2 = new Options(opArray3);
         testOptions("Test -Options Class- isListing()", "true", "" + CorrectOption2.isListing());
-//        testOptions("Test -Options Class- displayHelp()", "true", "" + displayHelp());
+        testOptions("Test -Options Class- isHelp()", "true", "" + CorrectOption2.isHelp());
 
         //Enable Verbose and Help
-        //testing display help itself is not possible considering use of aunit in testing
         String[] opArray4 = {"-v", "-h", "sample.asm"};
         IOptions CorrectOption3 = new Options(opArray2);
-//        testOptions("Test -Options Class- displayHelp()", "true", "" + displayHelp());
+        testOptions("Test -Options Class- isHelp()", "true", "" + CorrectOption2.isHelp());
 
         //Enable Invalid Option
         //Outputs error message, does not follow aunit convention
@@ -70,7 +68,9 @@ public class OptionsTest {
         System.out.println("Error: No Options");
 
         //Enable Banner
-
+        String[] banner= {"-b", "sample.asm"};
+        IOptions ban = new Options(banner);
+        testOptions("Test -Options Class- isBanner()", "true", "" + CorrectOption2.isBanner());
     }
 
     public static void testOptions(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

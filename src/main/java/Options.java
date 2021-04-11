@@ -9,14 +9,10 @@ public class Options implements IOptions {
     private String file;
 
     //Default constructor - Initialize listing and verbose flags
-<<<<<<< HEAD:src/main/java/Options.java
+
     public Options(String[] options) {
-        //Initialize listing and verbose flags
-=======
-    public Options() {
         //Initialize options flags
         help = false;
->>>>>>> harris:src/Options.java
         listing = false;
         verbose = false;
         banner = false;

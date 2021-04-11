@@ -1,5 +1,5 @@
 package main.interfaces;
-
+import main.java.Offset;
 public interface ILabelTable {
 
     //Create new entry into labelTable

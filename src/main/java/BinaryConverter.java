@@ -1,5 +1,4 @@
 package main.java;
-
 import main.interfaces.IBinaryConverter;
 
 public class BinaryConverter implements IBinaryConverter {

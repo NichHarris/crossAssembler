@@ -15,7 +15,7 @@
             "scr/main/java/" is for the base class
             "scr/test/java/" is for test class
     
-    Main Refactoring Update:
+    main.java.Main Refactoring Update:
 
     - Many setters are now deprecated.
     - addLine(int,String,IInstruction,String) is now deprecated.
@@ -36,7 +36,7 @@ For the testing team:
             left-click -> Run 'myClassTest.main()'
        
     - I've noticed that some tests are not actual testing, but "re-implementation" of the class methods.
-            Eg. CodeGenTest.java
+            Eg. main.java.CodeGenTest.java
       This doesn't actually test much, so we need to reimplement those test correctly using the base class methods.
 
     - Suggestion to accomplish the testing:

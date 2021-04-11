@@ -76,8 +76,8 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 75   0046 B2 FF                       stv.u8        255                               
 76   0048                                                                             
 77   0048                                                         ; rela02.asm        
-78   0048 E0 00         Main          br.i8         Main                              
-79   004A E0 FE                       br.i8         Main          ; Backward branching
+78   0048 E0 00         main.java.Main          br.i8         main.java.Main
+79   004A E0 FE                       br.i8         main.java.Main          ; Backward branching
 80   004C E0 02                       br.i8         End           ; Forward branching 
 81   004E E0 00         End           br.i8         End                               
 82   0050                                                                             

@@ -1,6 +1,6 @@
 package test.java;
+import main.java.Main;
 
-import main.java.Assembler;
 
 public class AssemblerTest {
 
@@ -10,7 +10,7 @@ public class AssemblerTest {
         args = new String[]{"-v","-l","testfile.asm"};
 
         try{
-            Assembler.main(args);
+            Main.main(args);
         }catch(Exception e){
             System.out.println(e.getMessage());
         }

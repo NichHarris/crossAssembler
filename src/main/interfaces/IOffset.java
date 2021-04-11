@@ -1,4 +1,6 @@
-//Interface for Offset class
+package main.interfaces;
+
+//Interface for main.java.Offset class
 public interface IOffset {
 
     //Set start address and increment numTimes
