@@ -1,3 +1,6 @@
+package main.java;
+import main.interfaces.*;
+
 import java.io.FileOutputStream;
 import java.io.BufferedOutputStream;
 
@@ -81,7 +84,6 @@ public class CodeGenerator implements ICodeGenerator {
                     int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
 
                     //Relative addressing
-                    // Replaced by labeltable ----------------
                     if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() >= 0xE0) {
                         for (int j = 0; j < interRep.getLength(); j++) {
                             if (interRep.getLine(j) != null) {
@@ -109,7 +111,6 @@ public class CodeGenerator implements ICodeGenerator {
                             }
                         }
                     }
-                    // Replaced by labeltable ----------------
                 } else {
                     if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() == -1) {
                         mCode[i] = "";

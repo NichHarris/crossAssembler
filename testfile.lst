@@ -113,12 +113,11 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 112  0073                                                         ; rela02.asm        
 113  0073 E0 00         Main          br.i8         Main                              
 114  0075 E0 FE                       br.i8         Main          ; Backward branching
-115  0077 E0 02                       br.i8         End           ; Forward branching
-116  0079 E0 00         End           br.i8         End
-117  007B
-118  007B                                                         ; rela03.asm
-119  007B B1 00                       ldv.u8        0
-120  007D B1 FF                       ldv.u8        255
-121  007F B2 00                       stv.u8        0
-122  0081 B2 FF                       stv.u8        255
-123  0083
+115  0077 E0 02                       br.i8         End           ; Forward branching 
+116  0079 E0 00         End           br.i8         End                               
+117  007B                                                                             
+118  007B                                                         ; rela03.asm        
+119  007B B1 00                       ldv.u8        0                                 
+120  007D B1 FF                       ldv.u8        255                               
+121  007F B2 00                       stv.u8        0                                 
+122  0081 B2 FF                       stv.u8        255                               

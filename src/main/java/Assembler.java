@@ -1,6 +1,5 @@
 package main.java;
 import main.interfaces.*;
-import java.util.ArrayList;
 
 //Cross Assembler Class
 public class Assembler implements IAssembler{
@@ -39,12 +38,14 @@ public class Assembler implements IAssembler{
         //Create scanner object, this is to be passed to Parser
         IScanner scanner = new Scanner(symbolTable, errorReporter);
 
-            //Run a second pass through the IR to update the machine code
-            IInterRep interRep = Parser.getInterRep();
-            secondPass(interRep);
+        //Instantiate the Parser
+        IParser parser = new Parser(reader.getLineNum() + 1, symbolTable, errorReporter, scanner, reader);
+        parser.parseToken();
 
-            //Report any errors found by the cross assembler
-            errorReporter.report();
+
+        //Run a second pass through the IR to update the machine code
+        IInterRep interRep = parser.getInterRep();
+        secondPass(interRep);
 
         //Generate listing file
         ICodeGenerator generator = new CodeGenerator(interRep, options, fileName, labelTable);
@@ -83,6 +84,7 @@ public class Assembler implements IAssembler{
         //Update label table
         for (int i = 0; i < interRep.getLength(); i++) {
             //Add label in label field to label table
+            System.out.println(interRep.getLine(i).toString());
             if (!interRep.getLine(i).getLabel().equals("")) {
                 String label = interRep.getLine(i).getLabel();
                 //Create entry in table

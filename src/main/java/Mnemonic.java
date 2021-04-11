@@ -1,3 +1,7 @@
+package main.java;
+
+import main.interfaces.IMnemonic;
+
 // Class which represents the Mnemonic
 public class Mnemonic implements IMnemonic {
     public String mnemonic;

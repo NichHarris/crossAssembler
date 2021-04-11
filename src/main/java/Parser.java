@@ -4,7 +4,7 @@ import main.interfaces.*;
 
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
 public class Parser implements IParser {
-    private final IInterRep interRep;
+    private static IInterRep interRep;
     private ILineStatement line;
 
     private final IBinaryConverter bnConv;

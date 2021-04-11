@@ -1,3 +1,5 @@
+package main.interfaces;
+
 //Interface for Mnemonic class
 public interface IMnemonic {
 
