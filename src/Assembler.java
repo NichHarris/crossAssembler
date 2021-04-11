@@ -81,24 +81,27 @@ public class Assembler implements IAssembler{
                 }
             }
         }
-//
-//        //Update label table
-//        for (int i = 0; i < interRep.getLength(); i++) {
-//            //Add label in label field to label table
-//            if (interRep.getLine(i).getLabel() != "") {
-//                String label = interRep.getLine(i).getLabel();
-//                //Create entry in table
-//                if(!labelTable.hasStartLabel(label))
-//                    labelTable.newEntry(label);
-//
-//                labelTable.setLabelEnd(label, interRep.getAddr(i));
-//            }
-//            if (interRep.getLine(i).getInstruction().getOperand().getOp() != "" && !interRep.getLine(i).getInstruction().getOperand().isNumeric()){
-//                String label = interRep.getLine(i).getInstruction().getOperand().getOp();
-//
-///Create entry in table
-//                                /
-//            }
-//        }
+
+        //Update label table
+        for (int i = 0; i < interRep.getLength(); i++) {
+            //Add label in label field to label table
+            if (interRep.getLine(i).getLabel().equals("")) {
+                String label = interRep.getLine(i).getLabel();
+                //Create entry in table
+                if(!labelTable.hasStartLabel(label))
+                    labelTable.newEntry(label);
+
+                labelTable.setLabelEnd(label, interRep.getAddr(i));
+            }
+            if (interRep.getLine(i).getInstruction().getOperand().getOp() != "" && !interRep.getLine(i).getInstruction().getOperand().isNumeric()){
+                String label = interRep.getLine(i).getInstruction().getOperand().getOp();
+
+                //Create entry in table
+                if(!labelTable.hasStartLabel(label))
+                    labelTable.newEntry(label);
+
+                labelTable.setLabelStart(label, interRep.getAddr(i));
+            }
+        }
     }
 }

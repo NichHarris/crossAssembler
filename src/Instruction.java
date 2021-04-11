@@ -66,7 +66,6 @@ public class Instruction implements IInstruction {
             }
             //Relative addressing
             else if (initOpcode >= 0xB0 && initOpcode <= 0xFF) {
-                String operand = this.getOperand().getOp();
                 //Get substring of mnemonic
                 String mne = this.getMnemonic().getMne();
                 String subMne = mne.substring(mne.indexOf('.') + 1);
@@ -76,16 +75,14 @@ public class Instruction implements IInstruction {
                 int size = Integer.parseInt(subMne.substring(subMne.indexOf(isSigned ? 'i' : 'u') + 1));
                 return (1 + size/8);
                 /*
+                //String operand = this.getOperand().getOp();
                 if (!this.getOperand().isNumeric() && !operand.equals("")) {
                     return 3;
                 } else {
                     return 2;
                 }
-
                  */
             }
-
-            //8, 16, 32 - 1 , 2, 3, 4
         }
         return 0;
     }
