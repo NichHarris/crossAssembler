@@ -1,7 +1,7 @@
 Line Addr Code          Label         Mnemonic      Operand       Comments            
-1    0000 D5            ABC           lda.i16                     ; lda - load address
-2    0001                                                                             
-3    0001               "ABC"                                     ; "ABC" has 4 bytes 
-4    0001               "A0"                                      ; "A0"  has 3 bytes 
-5    0001                                                                             
-6    0001                                                                             
+1    0000 D5 0003                     lda.i16       ABC           ; lda - load address
+2    0003                                                                             
+3    0003 41 42 43 00   ABC           .cstring      "ABC"         ; "ABC" has 4 bytes 
+4    0007 41 30 00      A0            .cstring      "A0"          ; "A0"  has 3 bytes 
+5    000A                                                                             
+6    000A                                                                             

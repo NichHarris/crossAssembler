@@ -119,7 +119,7 @@ public class CodeGenerator implements ICodeGenerator {
                 }
 
             } else {
-                mCode[i] = " ";
+                mCode[i] = "";
             }
         }
     }

@@ -101,3 +101,22 @@ lda.i16 ABC ; lda - load address
 ABC .cstring "ABC" ; "ABC" has 4 bytes
 
 A0 .cstring "A0" ; "A0"  has 3 bytes
+
+; rela01.asm
+      lda.i16     Msg1
+      ldc.i8      12
+      lda.i16     Msg2
+Msg1  .cstring    "A1"     ; OK. Code generated -> 41 31 00
+Msg2  .cstring    "B23"    ; Only ASCII printable characters are allowed.
+
+; rela02.asm
+Main  br.i8       Main
+      br.i8       Main       ; Backward branching
+      br.i8       End        ; Forward branching
+End   br.i8       End
+
+; rela03.asm
+      ldv.u8      0
+      ldv.u8      255
+      stv.u8      0
+      stv.u8      255
