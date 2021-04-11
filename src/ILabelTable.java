@@ -1,7 +1,7 @@
 public interface ILabelTable {
 
     //Create new entry into labelTable
-    void newEntry(String label, Offset newOffset);
+    void newEntry(String label);
 
     //Set Label start address
     void setLabelStart(String label, int addr);
@@ -17,4 +17,7 @@ public interface ILabelTable {
 
     //See if a label is present in the LabelTable
     boolean hasStartLabel(String label);
+
+    //Prints label tale
+    void toConsole();
 }

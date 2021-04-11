@@ -1,0 +1,10 @@
+Line Addr Code          Label         Mnemonic      Operand       Comments            
+1    0000                                                         ; Branching.lst     
+2    0000                                                                             
+3    0000 04            Start         ret                                             
+4    0001                                                                             
+5    0001 E0 04                       br.i8         Label                             
+6    0003                                                                             
+7    0003 E0 FD                       br.i8         Start                             
+8    0005                                                                             
+9    0005 00            Label         halt                                            

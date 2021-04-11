@@ -28,7 +28,7 @@ public class CodeGenTest {
         IR.addLine(0, ls);
 
         // initializing code generator object
-        CodeGenerator codeGen = new CodeGenerator(IR,op2, "testfile.asm");
+//        CodeGenerator codeGen = new CodeGenerator(IR, op2, "testfile.asm");
 
         // Reading content of listing.lst
         FileInputStream file = new FileInputStream("listing.lst");

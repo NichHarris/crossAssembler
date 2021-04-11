@@ -13,6 +13,9 @@ public interface IMnemonic {
     //Set the mnemonic name as a string
     void setMnemonic(String mne);
 
+    //Get the mnemonic size
+    int getMneSize();
+
     //toString method
     String toString();
 }

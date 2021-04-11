@@ -3,7 +3,7 @@ import java.util.HashMap;
 //Used to store seen labels, to be referred to on second pass for offset or addr location (depending on how we want to implement it)
 public class LabelTable implements ILabelTable {
     private Offset offset;
-    private final HashMap<String, Offset> labelTable;
+    private HashMap<String, Offset> labelTable;
 
     //Default constructor
     public LabelTable() {
@@ -12,7 +12,7 @@ public class LabelTable implements ILabelTable {
     }
 
     //Create new entry into labelTable
-    public void newEntry(String label, Offset newOffset) {
+    public void newEntry(String label) {
         offset = new Offset();
         labelTable.put(label, offset);
     }
@@ -25,6 +25,8 @@ public class LabelTable implements ILabelTable {
         offset.setAddrStart(addr);
         //put updated Offset object back in labelTable
         labelTable.put(label, offset);
+
+        //System.out.println("Label: " + label + ", Start Addr: " + addr);
     }
 
     //Set Label end address
@@ -35,9 +37,11 @@ public class LabelTable implements ILabelTable {
         offset.setAddrEnd(addr);
         //put updated Offset object back in labelTable
         labelTable.put(label, offset);
+
+        //System.out.println("Label: " + label + ", End Addr: " + addr);
     }
 
-    //Get Label Address Code
+//Get Label Address Code
     public Offset getAddr(String label) {
         return labelTable.getOrDefault(label, new Offset());
     }
@@ -52,10 +56,16 @@ public class LabelTable implements ILabelTable {
         return labelTable.containsKey(label);
     }
 
-    public void printLabelTable() {
-        for(String label:labelTable.keySet()) {
-            //int offset = labelTable.getAddr() - labelTable.get(label)[0];
-            System.out.println("Label: " + label + ", Offset: " + offset);
+    //Print Label Table
+    public void toConsole() {
+        for(String label : labelTable.keySet()) {
+            int start = labelTable.get(label).getStartAddr();
+            int end = labelTable.get(label).getEndAddr();
+            int offset = start - end;
+
+
+
+            System.out.println("Label: " + label + ", Addr 1: " + start + ", Addr 2: " + end + ", Offset: " + offset);
         }
     }
 }

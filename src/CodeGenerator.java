@@ -9,29 +9,28 @@ public class CodeGenerator implements ICodeGenerator {
     //Array of machine codes for each LineStatement
     private String[] mCode;
     private String fileName;
+    private ILabelTable labelTable;
 
     //Default constructor
-    public CodeGenerator(IInterRep IR, IOptions options, String filename) {
+    public CodeGenerator(IInterRep IR, IOptions options, String filename, ILabelTable labelTable) {
         interRep = IR;
         mCode = new String[interRep.getLength()];
         fileName = filename.substring(0, filename.indexOf("."));
         generateMachineCode();
 
-        //Generate listing file with label table
-        //Options not yet in use
-        if (options.isVerbose()){
-            //TODO: Need to implement extra functionality for verbose option
+        //Get the label table
+        this.labelTable = labelTable;
+
+        //Generate listing file with or without label table
+        if (options.isVerbose() || options.isListing()) {
+            //Generate listing file
             IListing listing = new Listing(IR, mCode);
             String [] lstContent = listing.getListing();
             generateListing(lstContent);
 
-            //Need to print label table also
-        }
-        //Generate listing file
-        else if (options.isListing()){
-            IListing listing = new Listing(IR, mCode);
-            String [] lstContent = listing.getListing();
-            generateListing(lstContent);
+            //Print the label table to console
+            if(options.isVerbose())
+                labelTable.toConsole();
         }
 
         //Formatting mCode to String for executable output
@@ -70,19 +69,19 @@ public class CodeGenerator implements ICodeGenerator {
             mCode[i] = "";
             //Get the opcode and operand of the line statement
             if(interRep.hasInstruction(i) || interRep.hasDirective(i)) {
-
                 String operand = interRep.getLine(i).getInstruction().getOperand().getOp();
 
                 //Directive
                 if (interRep.hasDirective(i)) {
                     mCode[i] = interRep.getLine(i).getDirective().getCode();
-                }
+
                 //If operand is a label or string
-                else if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && !operand.equals("")) {
+                } else if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && !operand.equals("")) {
                     String label = interRep.getLine(i).getInstruction().getOperand().getOp();
                     int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
 
                     //Relative addressing
+                    // Replaced by labeltable ----------------
                     if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() >= 0xE0) {
                         for (int j = 0; j < interRep.getLength(); j++) {
                             if (interRep.getLine(j) != null) {
@@ -110,6 +109,7 @@ public class CodeGenerator implements ICodeGenerator {
                             }
                         }
                     }
+                    // Replaced by labeltable ----------------
                 } else {
                     if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() == -1) {
                         mCode[i] = "";
@@ -130,7 +130,7 @@ public class CodeGenerator implements ICodeGenerator {
     public void generateExec(String c) {
         try {
             //Create output stream and empty file
-            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(fileName.concat(".bin")));
+            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(fileName.concat(".exe")));
 
             //Write to file
             byte[] contentB = c.getBytes();

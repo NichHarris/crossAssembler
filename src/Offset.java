@@ -21,6 +21,14 @@ public class Offset implements IOffset{
         numTimes++;
     }
 
+    public int getStartAddr() {
+        return addrStart;
+    }
+
+    public int getEndAddr() {
+        return addrEnd;
+    }
+
     //Get number of times label has been encountered
     public int getNumTimes() {
         return numTimes;

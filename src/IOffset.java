@@ -7,7 +7,10 @@ public interface IOffset {
     //Set end address and increment numTimes
     void setAddrEnd(int e);
 
+    //Get address start and end
+    int getStartAddr();
+    int getEndAddr();
+
     //Get number of times label has been encountered
     int getNumTimes();
-
 }

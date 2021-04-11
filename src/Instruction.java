@@ -51,37 +51,16 @@ public class Instruction implements IInstruction {
             //Get the original opcode before making modifications
             int initOpcode = this.getMnemonic().getOpcode();
 
-            //Stack/Inherent addressing
-            if (initOpcode >= 0x00 && initOpcode <= 0x1F) {
+            //Stack/Inherent || Immediate addressing
+            if (initOpcode >= 0x00 && initOpcode <= 0xAF)
                 return 1;
-            }
-            //Immediate addressing
-            else if (initOpcode >= 0x30 && initOpcode <= 0xAF) {
-                String operand = this.getOperand().getOp();
-                //if (!this.getOperand().isNumeric() && !operand.equals("")) {
-                //    return 3;
-                //} else {
-                return 1;
-                //}
-            }
             //Relative addressing
             else if (initOpcode >= 0xB0 && initOpcode <= 0xFF) {
                 //Get substring of mnemonic
-                String mne = this.getMnemonic().getMne();
-                String subMne = mne.substring(mne.indexOf('.') + 1);
+                int size = this.getMnemonic().getMneSize();
 
-                //Get signed or unsigned and size
-                boolean isSigned = subMne.contains("i");
-                int size = Integer.parseInt(subMne.substring(subMne.indexOf(isSigned ? 'i' : 'u') + 1));
-                return (1 + size/8);
-                /*
-                //String operand = this.getOperand().getOp();
-                if (!this.getOperand().isNumeric() && !operand.equals("")) {
-                    return 3;
-                } else {
-                    return 2;
-                }
-                 */
+                //Mnemonic + Opcode
+                return 1 + size;
             }
         }
         return 0;
