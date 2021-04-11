@@ -1,3 +1,0 @@
-Test Token
-[halt(1,2)=Mnemonic][pop(2,4)=Mnemonic][dup(3,6)=Mnemonic]
-[halt(1,2)=Mnemonic][pop(2,4)=Mnemonic][dup(3,6)=Mnemonic]

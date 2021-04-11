@@ -1,6 +1,0 @@
-Test getChar()
-h
-h
-Test getLineNum()
-106
-106
