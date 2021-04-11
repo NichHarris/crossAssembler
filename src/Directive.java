@@ -37,7 +37,7 @@ public class Directive implements IDirective {
         String code = "";
         for(char c : cString.toCharArray())
             if(c != '\'' && c != '\"')
-                code += Integer.toHexString((int) c) + " ";
+                code += Integer.toHexString(c) + " ";
 
         return code + "00";
     }
