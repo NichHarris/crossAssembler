@@ -93,10 +93,13 @@ public class CodeGenerator implements ICodeGenerator {
                         }
                     }
                 } else {
-                    if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() == -1)
+                    if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() == -1) {
                         mCode[i] = "";
-                    else
+                    } else if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() >= 0xB0) {
+                        mCode[i] = String.format("%02X %02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode(), Integer.parseInt(interRep.getLine(i).getInstruction().getOperand().getOp()));
+                    } else {
                         mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
+                    }
                 }
             } else
                 mCode[i] = "";

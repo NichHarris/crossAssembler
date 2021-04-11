@@ -14,4 +14,7 @@ public interface ILabelTable {
 
     //Have encountered label 2 times
     boolean hasAddr(String label);
+
+    //See if a label is present in the LabelTable
+    boolean hasStartLabel(String label);
 }

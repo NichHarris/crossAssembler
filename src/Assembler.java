@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //Cross Assembler Class
 public class Assembler implements IAssembler{
 
@@ -5,6 +7,7 @@ public class Assembler implements IAssembler{
     private IOptions options;
     private ISymbolTable symbolTable;
     private IErrorReporter errorReporter;
+    private ILabelTable labelTable;
 
     //Default constructor
     public Assembler(String filename, IOptions options) throws Exception {
@@ -19,6 +22,9 @@ public class Assembler implements IAssembler{
 
         //Create ErrorReporter
         errorReporter = new ErrorReporter(fileName);
+
+        //Create SymbolTable
+        symbolTable = new SymbolTable();
     }
 
     //Principle action of the Cross Assembler. Generates an intermediate representation of the assembly code and
@@ -68,12 +74,17 @@ public class Assembler implements IAssembler{
                 if (interRep.hasDirective(j - 1)) {
                     int dirSize = interRep.getDirective(j - 1).getCString().substring(1, interRep.getDirective(j - 1).getCString().length() - 1).length() + 1;
                     interRep.setAddr(j, interRep.getAddr(j - 1) + dirSize);
-                //If its an instruction
+                    //If its an instruction
                 } else {
                     int instrSize = interRep.getLine(j - 1).getInstruction().getSize();
                     interRep.setAddr(j, interRep.getAddr(j - 1) + instrSize);
                 }
             }
+        }
+
+        //Update label table
+        for (int i = 0; i < interRep.getLength(); i++) {
+
         }
     }
 }

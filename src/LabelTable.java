@@ -47,6 +47,11 @@ public class LabelTable implements ILabelTable {
         return labelTable.get(label).getNumTimes() != 2;
     }
 
+    //See if a label is present in the LabelTable
+    public boolean hasStartLabel(String label) {
+        return labelTable.containsKey(label);
+    }
+
     /*
     for(String label: labelTable.keySet()) {
         int offset = labelTable.get(label)[1] - labelTable.get(label)[0];

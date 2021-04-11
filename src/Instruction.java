@@ -70,7 +70,7 @@ public class Instruction implements IInstruction {
                 if (!this.getOperand().isNumeric() && !operand.equals("")) {
                     return 3;
                 } else {
-                    return 1;
+                    return 2;
                 }
             }
         }
