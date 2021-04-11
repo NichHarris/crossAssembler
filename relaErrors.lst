@@ -1,11 +1,11 @@
 Line Addr Code          Label         Mnemonic      Operand       Comments            
 1    0000                                                         ; relaErrors.asm - Possible errors in relative instructions.
 2    0000                                                                             
-3    0000 null                        lda.i16       Msg1          ; Error: Msg1 label not found (or defined).
+3    0000                             lda.i16       Msg1          ; Error: Msg1 label not found (or defined).
 4    0003 D9 80                       ldc.i8        128           ; Error: Operand number not in an i8 range [-128..+127].
 5    0005 D5 00                       lda.i16       0             ; Error: Operand must refer to a label.
 6    0008 E0 01                       br.i8         1             ; Error: Operand must refer to a label.
-7    000A null                        br.i8         Msg1          ; Error: Msg1 label not found (or defined).
+7    000A                             br.i8         Msg1          ; Error: Msg1 label not found (or defined).
 8    000C D5 0012                     lda.i16       Msg2          ; OK.               
 9    000F 41 31 00      Msg2          .cstring      "A1"          ; OK.               
 10   0012 42 32 33 00   Msg2          .cstring      "B23"         ; Error: Msg2 label already defined.

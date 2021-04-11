@@ -12,7 +12,6 @@ public class CodeGenerator implements ICodeGenerator {
 
     //Default constructor
     public CodeGenerator(IInterRep IR, IOptions options, String filename) {
-
         interRep = IR;
         mCode = new String[interRep.getLength()];
         fileName = filename.substring(0, filename.indexOf("."));
@@ -40,7 +39,7 @@ public class CodeGenerator implements ICodeGenerator {
         for(String s: mCode)
             if(!s.equals(""))
                 str += s + " ";
-        System.out.println(str);
+
         //Return bin
         generateExec(str);
     }
@@ -68,6 +67,7 @@ public class CodeGenerator implements ICodeGenerator {
     public void generateMachineCode() {
         //Set the machine code of each line statement
         for (int i = 0; i < interRep.getLength(); i++) {
+            mCode[i] = "";
             //Get the opcode and operand of the line statement
             if(interRep.hasInstruction(i) || interRep.hasDirective(i)) {
 
@@ -82,6 +82,7 @@ public class CodeGenerator implements ICodeGenerator {
                     String label = interRep.getLine(i).getInstruction().getOperand().getOp();
                     int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
 
+                    //Relative addressing
                     if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() >= 0xE0) {
                         for (int j = 0; j < interRep.getLength(); j++) {
                             if (interRep.getLine(j) != null) {
@@ -90,9 +91,10 @@ public class CodeGenerator implements ICodeGenerator {
                                 if (currLabel.equals(label)) {
                                     int startAddress = interRep.getAddr(i);
                                     int address = currAddr - startAddress;
-                                    if (address < 0) {
+                                    // for backwards addressing
+                                    if (address < 0)
                                         address += 256;
-                                    }
+
                                     mCode[i] = String.format("%02X %02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode(), address);
                                 }
                             }

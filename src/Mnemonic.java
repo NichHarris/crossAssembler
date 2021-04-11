@@ -27,6 +27,18 @@ public class Mnemonic implements IMnemonic {
     //Set the mnemonic name as a string
     public void setMnemonic(String mne) { mnemonic = mne; }
 
+    /*
+    //Get the mnemonic size
+    public int getMneSize(String mne) {
+        String subMne = mne.substring(mne.indexOf('.') + 1);
+
+        //Get signed or unsignesize
+        boolean isSigned = subMne.contains("i");
+        int size = Integer.parseInt(subMne.substring(subMne.indexOf(isSigned ? 'i' : 'u') + 1))/;
+    }
+
+     */
+
     //toString method
     public String toString() {
         return "\"" + mnemonic + ": " + Integer.toString(opcode) + "\"";
