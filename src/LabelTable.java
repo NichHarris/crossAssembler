@@ -52,10 +52,10 @@ public class LabelTable implements ILabelTable {
         return labelTable.containsKey(label);
     }
 
-    /*
-    for(String label: labelTable.keySet()) {
-        int offset = labelTable.get(label)[1] - labelTable.get(label)[0];
-        System.out.println("Label: " + label + ", Offset: " + offset);
+    public void printLabelTable() {
+        for(String label:labelTable.keySet()) {
+            //int offset = labelTable.getAddr() - labelTable.get(label)[0];
+            System.out.println("Label: " + label + ", Offset: " + offset);
+        }
     }
-     */
 }

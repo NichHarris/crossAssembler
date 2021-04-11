@@ -74,20 +74,35 @@ public class CodeGenerator implements ICodeGenerator {
                 //If operand is a label or string
                 if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && !operand.equals("")) {
                     //Directive
-                    if (interRep.hasDirective(i))
+                    if (interRep.hasDirective(i)) {
                         mCode[i] = interRep.getLine(i).getDirective().getCode();
-                    //If operand is a label, set the machine code to the instruction's opcode + label
-                    else {
+                    } else {
                         String label = interRep.getLine(i).getInstruction().getOperand().getOp();
                         int code = interRep.getLine(i).getInstruction().getMnemonic().getOpcode();
 
-                        //Find the address where the label is declared
-                        for (int j = i + 1; j < interRep.getLength(); j++) {
-                            if (interRep.getLine(j) != null) {
-                                String currLabel = interRep.getLine(j).getLabel();
-                                if (currLabel.equals(label)) {
-                                    int address = interRep.getAddr(j);
-                                    mCode[i] = String.format("%s %s", Integer.toHexString(code).toUpperCase(), String.format("%1$04X", address));
+                        if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() >= 0xE0) {
+                            for (int j = 0; j< interRep.getLength(); j++){
+                                if (interRep.getLine(j) != null){
+                                    String currLabel = interRep.getLine(j).getLabel();
+                                    int currAddr = interRep.getAddr(j);
+                                    if (currLabel.equals(label)){
+                                        int startAddress = interRep.getAddr(i);
+                                        int address = currAddr - startAddress;
+                                        if (address < 0){
+                                            address += 256;
+                                        }
+                                        mCode[i] = String.format("%02X %02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode(), address);
+                                    }
+                                }
+                            }
+                        } else {    //Find the address where the label is declared
+                            for (int j = i + 1; j < interRep.getLength(); j++) {
+                                if (interRep.getLine(j) != null) {
+                                    String currLabel = interRep.getLine(j).getLabel();
+                                    if (currLabel.equals(label)) {
+                                        int address = interRep.getAddr(j);
+                                        mCode[i] = String.format("%s %s", Integer.toHexString(code).toUpperCase(), String.format("%1$04X", address));
+                                    }
                                 }
                             }
                         }

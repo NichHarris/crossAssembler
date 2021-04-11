@@ -3,11 +3,11 @@ import java.util.ArrayList;
 //Cross Assembler Class
 public class Assembler implements IAssembler{
 
+    private ILabelTable labelTable;
     private String fileName;
     private IOptions options;
     private ISymbolTable symbolTable;
     private IErrorReporter errorReporter;
-    private ILabelTable labelTable;
 
     //Default constructor
     public Assembler(String filename, IOptions options) throws Exception {
@@ -23,8 +23,8 @@ public class Assembler implements IAssembler{
         //Create ErrorReporter
         errorReporter = new ErrorReporter(fileName);
 
-        //Create SymbolTable
-        symbolTable = new SymbolTable();
+        //Create labelTable
+        labelTable = new LabelTable();
     }
 
     //Principle action of the Cross Assembler. Generates an intermediate representation of the assembly code and
@@ -67,24 +67,38 @@ public class Assembler implements IAssembler{
             //Check if previous line is empty and current line is not
             //If so, increment the current line's address by one
             //Otherwise set current line's address to the addition of the previous line's address and its size
-            if (prevLine.isEmpty() && !currLine.isEmpty()){
+            if (prevLine.isEmpty() && !currLine.isEmpty()) {
                 interRep.setAddr(j, interRep.getAddr(j - 1) + 1);
             } else {
                 //If its a directive
                 if (interRep.hasDirective(j - 1)) {
                     int dirSize = interRep.getDirective(j - 1).getCString().substring(1, interRep.getDirective(j - 1).getCString().length() - 1).length() + 1;
                     interRep.setAddr(j, interRep.getAddr(j - 1) + dirSize);
-                    //If its an instruction
+                //If its an instruction
                 } else {
                     int instrSize = interRep.getLine(j - 1).getInstruction().getSize();
                     interRep.setAddr(j, interRep.getAddr(j - 1) + instrSize);
                 }
             }
         }
-
-        //Update label table
-        for (int i = 0; i < interRep.getLength(); i++) {
-
-        }
+//
+//        //Update label table
+//        for (int i = 0; i < interRep.getLength(); i++) {
+//            //Add label in label field to label table
+//            if (interRep.getLine(i).getLabel() != "") {
+//                String label = interRep.getLine(i).getLabel();
+//                //Create entry in table
+//                if(!labelTable.hasStartLabel(label))
+//                    labelTable.newEntry(label);
+//
+//                labelTable.setLabelEnd(label, interRep.getAddr(i));
+//            }
+//            if (interRep.getLine(i).getInstruction().getOperand().getOp() != "" && !interRep.getLine(i).getInstruction().getOperand().isNumeric()){
+//                String label = interRep.getLine(i).getInstruction().getOperand().getOp();
+//
+///Create entry in table
+//                                /
+//            }
+//        }
     }
 }
