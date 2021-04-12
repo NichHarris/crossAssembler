@@ -122,3 +122,5 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 121  007F B2 00                       stv.u8        0                                 
 122  0081 B2 FF                       stv.u8        255                               
 123  0083                                                                             
+124  0083                                                                             
+125  0083                                                                             

@@ -24,7 +24,7 @@ public class CodeGenerator implements ICodeGenerator {
         //Get the label table
         this.labelTable = labelTable;
 
-        //Generate listing file with or without label table
+        //Generate listing file and label table based on options enabled
         if (options.isVerbose() || options.isListing()) {
             //Generate listing file
             IListing listing = new Listing(IR, mCode);
