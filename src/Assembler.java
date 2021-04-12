@@ -82,7 +82,7 @@ public class Assembler implements IAssembler{
         }
 
         //Update label table
-        for (int i = 0; i < interRep.getLength(); i++) {
+        for (int i = 0; i < interRep.getLength() - 1; i++) {
             //Add label in label field to label table
             if (!interRep.getLine(i).getLabel().equals("")) {
                 String label = interRep.getLine(i).getLabel();
