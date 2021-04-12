@@ -16,7 +16,6 @@ public class Offset implements IOffset {
     //Set start address and increment numTimes
     public void setAddrStart(int s) {
         addrStart = s;
-        numTimes++;
     }
 
     //Set end address and increment numTimes

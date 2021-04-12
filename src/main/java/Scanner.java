@@ -134,7 +134,6 @@ public class Scanner implements IScanner {
 
         //Check if directive
         boolean isDirective = name.equals(".cstring");
-
         //Check if mnemonic
         if (code != -1 || isDirective)
             return TokenType.Mnemonic;
@@ -165,7 +164,7 @@ public class Scanner implements IScanner {
             //Check if character is outside number range
             if (c < 48 || c > 57)
                 //Check if negative number (-)
-                if(i == 0 || c == 45)
+                if(i == 0 && c == 45)
                     continue;
                 else
                     return false;

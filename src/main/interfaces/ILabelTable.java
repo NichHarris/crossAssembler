@@ -1,5 +1,8 @@
 package main.interfaces;
 import main.java.Offset;
+
+import java.util.Map;
+
 public interface ILabelTable {
 
     //Create new entry into labelTable
@@ -22,4 +25,6 @@ public interface ILabelTable {
 
     //Prints label tale
     void toConsole();
+
+    Map<String, Offset> getMap();
 }
