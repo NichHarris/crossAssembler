@@ -16,21 +16,14 @@ public class Reader implements IReader {
     private String fileName;
 
     //Path to source directory (input files directory)
-    protected String pathname = "src/io/in/";
+    protected String pathname = "src/files/input/";
 
     //Parametrized constructor
     public Reader(String filename) {
-        try {
-            //Open the source file
-            fileName = filename;
-            String path = new File(pathname + fileName).getAbsolutePath();
-            srcFile = new File(path);
-
-            if (!srcFile.canRead())
-                throw new Exception("Error: Unable to open source file \"" + fileName + "\"");
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+        //Open the source file
+        fileName = filename;
+        String path = new File(pathname + fileName).getAbsolutePath();
+        srcFile = new File(path);
     }
 
     //Read source file using FileInputStream

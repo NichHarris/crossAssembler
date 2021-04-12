@@ -77,7 +77,6 @@ public class CodeGenerator implements ICodeGenerator {
                 //Directive
                 if (interRep.hasDirective(i)) {
                     mCode[i] = interRep.getLine(i).getDirective().getCode();
-
                 //If operand is a label or string
                 } else if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && !operand.equals("")) {
                     String label = interRep.getLine(i).getInstruction().getOperand().getOp();
