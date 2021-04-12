@@ -1,6 +1,7 @@
 package main.java;
 import main.interfaces.ILabelTable;
 import java.util.HashMap;
+import java.util.Map;
 
 //Used to store seen labels, to be referred to on second pass for offset or addr location (depending on how we want to implement it)
 public class LabelTable implements ILabelTable {
@@ -39,7 +40,7 @@ public class LabelTable implements ILabelTable {
         labelTable.put(label, offset);
     }
 
-//Get Label Address Code
+    //Get Label Address Code
     public Offset getAddr(String label) {
         return labelTable.getOrDefault(label, new Offset());
     }
@@ -56,11 +57,21 @@ public class LabelTable implements ILabelTable {
 
     //Print Label Table
     public void toConsole() {
+        System.out.printf("%s %12s %10s %10s", "Label", "Start Addr", "End Addr", "Offset");
+        System.out.println();
+
         for(String label : labelTable.keySet()) {
             int start = labelTable.get(label).getStartAddr();
             int end = labelTable.get(label).getEndAddr();
             int offset = start - end;
-            System.out.println("Label: " + label + ", Addr 1: " + start + ", Addr 2: " + end + ", Offset: " + offset);
+            System.out.printf("%5s %12s %10s %10s", label, start, end, end != -1 && start != -1 ? offset : "");
+            System.out.println();
         }
+
+        System.out.println();
+    }
+
+    public Map<String, Offset> getMap() {
+        return labelTable;
     }
 }

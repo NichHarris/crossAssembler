@@ -68,7 +68,7 @@ public class Listing implements IListing {
                     //Set comment from line statement
                     comment = (intRep.getLine(i).getComment() == null) ? "" : intRep.getLine(i).getComment().getCmt();
                 }
-            } catch(Exception e){
+            } catch(Exception e) {
                 System.out.println(e.getMessage());
             }
 

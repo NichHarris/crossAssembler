@@ -14,6 +14,8 @@ public class CodeGenerator implements ICodeGenerator {
     private String fileName;
     private ILabelTable labelTable;
 
+    protected String pathName = "src/files/output/";
+
     //Default constructor
     public CodeGenerator(IInterRep IR, IOptions options, String filename, ILabelTable labelTable) {
         interRep = IR;
@@ -24,7 +26,7 @@ public class CodeGenerator implements ICodeGenerator {
         //Get the label table
         this.labelTable = labelTable;
 
-        //Generate listing file with or without label table
+        //Generate listing file and label table based on options enabled
         if (options.isVerbose() || options.isListing()) {
             //Generate listing file
             IListing listing = new Listing(IR, mCode);
@@ -50,7 +52,7 @@ public class CodeGenerator implements ICodeGenerator {
     public void generateListing(String[] lstContent) {
         // Create listing.lst output file
         try {
-            FileOutputStream fs = new FileOutputStream(fileName.concat(".lst"));
+            FileOutputStream fs = new FileOutputStream(pathName + fileName.concat(".lst"));
 
             // Write to listing.lst file
             for(String l : lstContent) {
@@ -77,7 +79,6 @@ public class CodeGenerator implements ICodeGenerator {
                 //Directive
                 if (interRep.hasDirective(i)) {
                     mCode[i] = interRep.getLine(i).getDirective().getCode();
-
                 //If operand is a label or string
                 } else if (!interRep.getLine(i).getInstruction().getOperand().isNumeric() && !operand.equals("")) {
                     String label = interRep.getLine(i).getInstruction().getOperand().getOp();
@@ -132,7 +133,7 @@ public class CodeGenerator implements ICodeGenerator {
     public void generateExec(String c) {
         try {
             //Create output stream and empty file
-            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(fileName.concat(".exe")));
+            BufferedOutputStream bfos = new BufferedOutputStream(new FileOutputStream(pathName + fileName.concat(".exe")));
 
             //Write to file
             byte[] contentB = c.getBytes();
@@ -140,6 +141,6 @@ public class CodeGenerator implements ICodeGenerator {
                 bfos.write(b);
 
             bfos.close();
-        } catch (Exception e) { e.getMessage(); }
+        } catch (Exception e) { System.out.println(e.getMessage()); }
     }
 }

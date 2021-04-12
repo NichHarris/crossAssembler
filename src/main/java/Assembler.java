@@ -88,20 +88,33 @@ public class Assembler implements IAssembler{
             if (!interRep.getLine(i).getLabel().equals("")) {
                 String label = interRep.getLine(i).getLabel();
                 //Create entry in table
-                if(!labelTable.hasStartLabel(label))
+                if (!labelTable.hasStartLabel(label))
                     labelTable.newEntry(label);
 
-                labelTable.setLabelEnd(label, interRep.getAddr(i));
+                labelTable.setLabelEnd(label, i);
+
+                if (labelTable.getAddr(label).getNumTimes() > 1) {
+                    errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i + 1, 0)));
+                }
             }
-            if (!interRep.getLine(i).getInstruction().getOperand().getOp().equals("") && !interRep.getLine(i).getInstruction().getOperand().isNumeric()){
+            if (!interRep.getLine(i).getInstruction().getOperand().getOp().equals("") && !interRep.getLine(i).getInstruction().getOperand().isNumeric()) {
                 String label = interRep.getLine(i).getInstruction().getOperand().getOp();
 
                 //Create entry in table
-                if(!labelTable.hasStartLabel(label))
+                if (!labelTable.hasStartLabel(label))
                     labelTable.newEntry(label);
 
-                labelTable.setLabelStart(label, interRep.getAddr(i));
+                labelTable.setLabelStart(label, i);
+
+                if (labelTable.getAddr(label).getNumTimes() > 1)
+                    errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i + 1, 0)));
             }
+        }
+
+        for(String l : labelTable.getMap().keySet()) {
+            if(labelTable.getMap().get(l).getNumTimes() < 1)
+                errorReporter.record(new ErrorMsg(l + " is not found (or defined).", new Position(labelTable.getMap().get(l).getStartAddr() + 1, 0)));
+
         }
     }
 }
