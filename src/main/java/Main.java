@@ -7,10 +7,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
         //Set options from CL
         IOptions options = new Options(args);
-        options.isBanner();
 
         //Don't run if help or banner option is enabled
-        if(!options.isBanner() && !options.isHelp() ) {
+        if(!options.isHelp()) {
             //Get file name
             String fileName = options.getFile();
 

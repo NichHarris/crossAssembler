@@ -26,7 +26,7 @@ public class Options implements IOptions {
 
         try {
             //Check if there's too many CLI arguments
-            if (options.length > 4)
+            if (options.length > 5)
                 throw new Exception("Error: Too Many Arguments in CL");
 
             //Iterate through command line arguments
