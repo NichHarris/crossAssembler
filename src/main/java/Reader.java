@@ -16,13 +16,13 @@ public class Reader implements IReader {
     private String fileName;
 
     //Path to source directory (input files directory)
-    protected String pathname = "src/files/input/";
+    protected String pathName = "src/files/input/";
 
     //Parametrized constructor
     public Reader(String filename) {
         //Open the source file
         fileName = filename;
-        String path = new File(pathname + fileName).getAbsolutePath();
+        String path = new File(pathName + fileName).getAbsolutePath();
         srcFile = new File(path);
     }
 

@@ -1,4 +1,4 @@
-ine Addr Code          Label         Mnemonic      Operand       Comments
+Line Addr Code          Label         Mnemonic      Operand       Comments            
 1    0000                                                         ; relaErrors.asm - Possible errors in relative instructions.
 2    0000                                                                             
 3    0000                             lda.i16       Msg1          ; Error: Msg1 label not found (or defined).

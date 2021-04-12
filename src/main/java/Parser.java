@@ -101,11 +101,16 @@ public class Parser implements IParser {
                             parseOperandBound(token, opCode);
                         }
                     //Relative mode addressing
-                    } else if (opCode >= 0xB0){
+                    } else if (opCode >= 0xB0) {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
+                        //Check operand size
+                        if (token.getCode() == TokenType.Operand && bnConv.isOverflow(Integer.parseInt(token.getName()), line.getInstruction().getMnemonic().getMneSize(), line.getInstruction().getMnemonic().getMne().contains(".i"))) {
+                            //double range = Math.pow(2, line.getInstruction().getMnemonic().getMneSize() - 1);
+                            errorReporter.record(new ErrorMsg("Instruction in relative addressing mode exceeds its range. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
+                        }
                     //Inherent mode addressing error
                     } else {
-                        errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
+                        errorReporter.record(new ErrorMsg("Instructions with inherent addressing mode do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
                     }
                 }
                 break;
@@ -125,6 +130,7 @@ public class Parser implements IParser {
 
     //Parses Operand Bounds
     private void parseOperandBound(IToken token, int opCode) {
+        /*
         //Get substring of mnemonic
         String mne = line.getInstruction().getMnemonic().getMne();
         String subMne = mne.substring(mne.indexOf('.') + 1);
@@ -135,7 +141,8 @@ public class Parser implements IParser {
         int shift = Integer.parseInt(token.getName());
 
         //Get Overflow Method in Binary Converter
-        if (!bnConv.isOverflow(shift, size, isSigned)) {
+        if (!bnConv.isOverflow(shift, size, isSigned)) { */
+        if(!bnConv.isOverflow(Integer.parseInt(token.getName(), , )))
             //Converts signed values for shift
             if(isSigned) {
                 String binStr = bnConv.toBinary(shift, size);
