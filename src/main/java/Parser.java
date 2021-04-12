@@ -100,9 +100,10 @@ public class Parser implements IParser {
                         if (token.getCode() == TokenType.Operand) {
                             parseOperandBound(token, opCode);
                         }
-                    //Inherent Mode Addressing Error
-                    } else if (opCode > 0xB0){
+                    //Relative mode addressing
+                    } else if (opCode >= 0xB0){
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
+                    //Inherent mode addressing error
                     } else {
                         errorReporter.record(new ErrorMsg("Instructions with inherent mode addressing do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
                     }

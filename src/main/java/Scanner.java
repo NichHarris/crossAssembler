@@ -93,9 +93,6 @@ public class Scanner implements IScanner {
                 currPos = i;
                 isComment = false;
                 return token;
-            } else if ( eolCounter >= 2) {
-                tokenType = this.getTokenType(buffer, colNum);
-
             //If 2 or more EOL characters in a row
             } else if (eolCounter >= 1) {
                 tokenType = getTokenType(buffer, colNum);
