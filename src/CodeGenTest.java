@@ -1,6 +1,6 @@
 //import main.interfaces.ISymbolTable;
 //import main.java.*;
-//import main.interfaces.*
+//import main.interfaces.*;
 //import java.io.FileInputStream;
 //import java.util.ArrayList;
 //
