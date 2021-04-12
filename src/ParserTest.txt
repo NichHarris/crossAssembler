@@ -1,6 +1,0 @@
-Test -Parser Class- getInterRep() number of lines
-71
-71
-Test -Parser Class- getInterRep() inner contents
-' '": -1" ' '
-' '": -1" ' '

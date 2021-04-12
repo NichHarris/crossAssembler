@@ -1,9 +1,0 @@
-Test -Comment Class- Default constructor and getter method
-
-
-Test -Comment Class- Parameterized constructor and getter method
-comment
-comment
-Test -Comment Class- setter and getter method
-New Comment
-New Comment
