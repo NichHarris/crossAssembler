@@ -94,7 +94,7 @@ public class Assembler implements IAssembler{
                 labelTable.setLabelEnd(label, i);
 
                 if (labelTable.getAddr(label).getNumTimes() > 1) {
-                    errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i, 0)));
+                    errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i + 1, 0)));
                 }
             }
             if (!interRep.getLine(i).getInstruction().getOperand().getOp().equals("") && !interRep.getLine(i).getInstruction().getOperand().isNumeric()) {
@@ -107,13 +107,13 @@ public class Assembler implements IAssembler{
                 labelTable.setLabelStart(label, i);
 
                 if (labelTable.getAddr(label).getNumTimes() > 1)
-                    errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i, 0)));
+                    errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i + 1, 0)));
             }
         }
 
         for(String l : labelTable.getMap().keySet()) {
             if(labelTable.getMap().get(l).getNumTimes() < 1)
-                errorReporter.record(new ErrorMsg(l + " is not found (or defined).", new Position(labelTable.getMap().get(l).getStartAddr(), 0)));
+                errorReporter.record(new ErrorMsg(l + " is not found (or defined).", new Position(labelTable.getMap().get(l).getStartAddr() + 1, 0)));
 
         }
     }

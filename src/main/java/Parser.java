@@ -59,7 +59,7 @@ public class Parser implements IParser {
         if(currLine < lineN) {
             //Missing operand
             if(line.getInstruction().getMnemonic().getOpcode() > 0x1F && line.getInstruction().getOperand().getOp().equals(""))
-                errorReporter.record(new ErrorMsg("Instructions with immediate mode addressing needs to have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
+                errorReporter.record(new ErrorMsg("Instructions with immediate mode addressing needs to have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
 
             interRep.addLine(currLine++, line);
             line = new LineStatement();
@@ -81,7 +81,7 @@ public class Parser implements IParser {
                 else if (symbolTable.getCode(token.getName()) != -1)
                     line.setInstruction(new Instruction(new Mnemonic(token.getName(), code), new Operand()));
                 else
-                    errorReporter.record(new ErrorMsg("Not a valid mnemonic or directive. [" + token.getName() + "]", new Position(currLine, colN)));
+                    errorReporter.record(new ErrorMsg("Not a valid mnemonic or directive. [" + token.getName() + "]", new Position(currLine + 1, colN)));
                 break;
             //Add Operand/Label to Line
             case Operand:
@@ -90,7 +90,7 @@ public class Parser implements IParser {
                     line.getDirective().setCString(token.getName());
                     //Check quotation marks
                     if(!line.getDirective().getCString().startsWith("\"") || !line.getDirective().getCString().endsWith("\""))
-                        errorReporter.record(new ErrorMsg("Directives need to be declared with opening and closing quotation marks. [" + line.getDirective().getCString() + "]", new Position(currLine, colN)));
+                        errorReporter.record(new ErrorMsg("Directives need to be declared with opening and closing quotation marks. [" + line.getDirective().getCString() + "]", new Position(currLine + 1, colN)));
                 } else {
                     int opCode = line.getInstruction().getMnemonic().getOpcode();
                     //Check mnemonic is immediate or relative
@@ -106,7 +106,7 @@ public class Parser implements IParser {
 
                         //Check operand size
                         if (token.getCode() == TokenType.Operand && bnConv.isOverflow(Integer.parseInt(token.getName()), 8*line.getInstruction().getMnemonic().getMneSize(),line.getInstruction().getMnemonic().getMne().contains(".i"))) {
-                            errorReporter.record(new ErrorMsg("Instruction in relative addressing mode exceeds its range. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
+                            errorReporter.record(new ErrorMsg("Instruction in relative addressing mode exceeds its range. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
                         }
                         //Check if operand is a label not a number
                         switch (opCode) {
@@ -116,17 +116,17 @@ public class Parser implements IParser {
                             case (0xE1):
                             case (0xE3):
                                 if(token.getCode() == TokenType.Operand)
-                                    errorReporter.record(new ErrorMsg("Operand must refer to a Label.", new Position(currLine, colN)));
+                                    errorReporter.record(new ErrorMsg("Operand must refer to a Label.", new Position(currLine + 1, colN)));
                                 break;
                             //Expecting operand - Check if label
                             default:
                                 if(token.getCode() == TokenType.LabelOperand && !line.getInstruction().getOperand().isNumeric())
-                                    errorReporter.record(new ErrorMsg("Label must refer to a Operand.", new Position(currLine, colN)));
+                                    errorReporter.record(new ErrorMsg("Label must refer to a Operand.", new Position(currLine + 1, colN)));
                         }
                         //
                     //Inherent mode addressing error
                     } else {
-                        errorReporter.record(new ErrorMsg("Instructions with inherent addressing mode do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
+                        errorReporter.record(new ErrorMsg("Instructions with inherent addressing mode do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
                     }
                 }
                 break;
