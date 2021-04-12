@@ -64,10 +64,11 @@ public class LabelTable implements ILabelTable {
             int start = labelTable.get(label).getStartAddr();
             int end = labelTable.get(label).getEndAddr();
             int offset = start - end;
-            System.out.printf("%s %12s %10s %10s", label, start, end, end != -1 && start != -1 ? offset : "");
+            System.out.printf("%5s %12s %10s %10s", label, start, end, end != -1 && start != -1 ? offset : "");
             System.out.println();
-            //System.out.println("Label: " + label + ", Addr 1: " + start + ", Addr 2: " + end + ", Offset: " + offset);
         }
+
+        System.out.println();
     }
 
     public Map<String, Offset> getMap() {

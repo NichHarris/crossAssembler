@@ -103,12 +103,27 @@ public class Parser implements IParser {
                     //Relative mode addressing
                     } else if (opCode >= 0xB0) {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
+
                         //Check operand size
-                        if (token.getCode() == TokenType.Operand && bnConv.isOverflow(Integer.parseInt(token.getName()), 8*line.getInstruction().getMnemonic().getMneSize(),line.getInstruction().getMnemonic().getMne().contains(".i"))){
+                        if (token.getCode() == TokenType.Operand && bnConv.isOverflow(Integer.parseInt(token.getName()), 8*line.getInstruction().getMnemonic().getMneSize(),line.getInstruction().getMnemonic().getMne().contains(".i"))) {
                             errorReporter.record(new ErrorMsg("Instruction in relative addressing mode exceeds its range. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
-                        } else if (token.getCode() == TokenType.Operand && line.getInstruction().getOperand().isNumeric()) {
-                            errorReporter.record(new ErrorMsg("Operand must refer to a label.", new Position(currLine, colN)));
                         }
+                        //Check if operand is a label not a number
+                        switch (opCode) {
+                            //Expecting label - Check if operand
+                            case (0xD5):
+                            case (0xE0):
+                            case (0xE1):
+                            case (0xE3):
+                                if(token.getCode() == TokenType.Operand)
+                                    errorReporter.record(new ErrorMsg("Operand must refer to a Label.", new Position(currLine, colN)));
+                                break;
+                            //Expecting operand - Check if label
+                            default:
+                                if(token.getCode() == TokenType.LabelOperand && !line.getInstruction().getOperand().isNumeric())
+                                    errorReporter.record(new ErrorMsg("Label must refer to a Operand.", new Position(currLine, colN)));
+                        }
+                        //
                     //Inherent mode addressing error
                     } else {
                         errorReporter.record(new ErrorMsg("Instructions with inherent addressing mode do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
