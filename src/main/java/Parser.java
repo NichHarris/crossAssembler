@@ -51,7 +51,7 @@ public class Parser implements IParser {
 
 
     //Parses to IR
-    public void parseToIR(IToken token) {
+    private void parseToIR(IToken token) {
         //Get line number from token
         int lineN = token.getPosition().getLineNumber();
 

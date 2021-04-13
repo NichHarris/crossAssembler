@@ -1,17 +1,10 @@
 package test.java;
 
-import main.interfaces.IErrorReporter;
-import main.interfaces.IReader;
-import main.interfaces.IScanner;
-import main.interfaces.ISymbolTable;
-import main.java.ErrorReporter;
-import main.java.Reader;
-import main.java.Scanner;
-import main.java.SymbolTable;
+import main.interfaces.*;
+import main.java.*;
 
 public class ScannerTest {
     public static void main(String[] args) throws Exception {
-
         TextFileGenerator.textFileGenerator("ScannerTest.txt");
 
         IReader test = new Reader("TestImmediate.asm");
@@ -20,10 +13,18 @@ public class ScannerTest {
         IErrorReporter er = new ErrorReporter("TestImmediate.asm");
         IScanner scn= new Scanner(symT,er);
 
+        //used for testing invalid cases
+        IErrorReporter er2 = new ErrorReporter("scannerTests.asm");
+        IScanner scn2= new Scanner(symT,er2);
+
+        //used for testing .cstring
+        IErrorReporter er3 = new ErrorReporter("cstring_scannerTest.asm");
+        IScanner scn3= new Scanner(symT,er3);
+
         //Testing scanFile()
         testScanner("scanFile()","; TestImmediate.asm - Test immediate instructions.",scn.scanFile(test).getName());
 
-        //Testing getTokenType()
+        //Testing getTokenType() - Generate Correct Token Type
         testScanner("getTokenType()","LabelOperand",scn.getTokenType("ADD", 2).name());
 
         //Testing isNumeric()
@@ -32,19 +33,22 @@ public class ScannerTest {
         //Testing getCurrPos()
         testScanner("getCurrPos()", "50", Integer.toString(scn.getCurrPos()));
 
-        //Testing setCurrPos()
-        scn.setCurrPos(6);
-        testScanner("setCurrPos()", "6", Integer.toString(scn.getCurrPos()));
-
         scn.getErrors().report();
 
         // Multiple Spaces and Tabs in Front, In Between Tokens, End of Line
-        // No Spaces in Front and End of Line
-        // Empty Lines with and without spaces
-        // Invalid Characters
-        // Closing .cstring quotation marks
-        // Generate Correct Token Type
+        testScanner("Multiple Spaces or Tabs found", "None", scn2.getTokenType("",3).name());
 
+        // No Spaces in Front and End of Line
+        testScanner("No Spaces in Front and End of Line", "None", scn2.getTokenType("",4).name());
+
+        // Empty Lines with and without spaces
+        testScanner("Empty Lines with and without spaces", "None", scn2.getTokenType("",5).name());
+
+        // Invalid Characters
+        testScanner("Invalid Characters", "None", scn2.getTokenType("",3).name());
+
+        // Closing .cstring quotation marks "ABC
+        testScanner("Closing .cstring quotation marks \"ABC", "false",(TokenType.None == scn3.getTokenType("",3))?"false":"true" );
     }
 
     public static void testScanner(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

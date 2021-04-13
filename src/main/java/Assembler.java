@@ -3,11 +3,11 @@ import main.interfaces.*;
 
 //Cross Assembler Class
 public class Assembler implements IAssembler{
-    private ILabelTable labelTable;
-    private String fileName;
-    private IOptions options;
-    private ISymbolTable symbolTable;
-    private IErrorReporter errorReporter;
+    private final ILabelTable labelTable;
+    private final String fileName;
+    private final IOptions options;
+    private final ISymbolTable symbolTable;
+    private final IErrorReporter errorReporter;
 
     //Default constructor
     public Assembler(String filename, IOptions options) throws Exception {
@@ -41,7 +41,6 @@ public class Assembler implements IAssembler{
         //Instantiate the Parser
         IParser parser = new Parser(reader.getLineNum() + 1, symbolTable, errorReporter, scanner, reader);
         parser.parseToken();
-
 
         //Run a second pass through the IR to update the machine code
         IInterRep interRep = parser.getInterRep();

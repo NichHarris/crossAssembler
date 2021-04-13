@@ -62,11 +62,13 @@ public class InterRep implements IInterRep {
     }
 
     //Returns a string representable of an interRep object
+    /*
     public String toString() {
         String IR = "";
         for(int i = 0; i < getLength(); i++)
             IR = IR.concat(String.format("Line %s: %s", i, lines[i].toString() + "\n"));
 
         return IR;
-    }
+    }//Todo throw NullPointerException when testing
+     */
 }

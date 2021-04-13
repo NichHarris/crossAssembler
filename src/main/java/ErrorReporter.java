@@ -71,4 +71,8 @@ public class ErrorReporter implements IErrorReporter {
         return !invalidChars.contains((int) c);
     }
 
+    public ErrorMsg getErrorMsg(int i){
+        return (ErrorMsg)recordedErrors.get(i);
+    }
+
 }

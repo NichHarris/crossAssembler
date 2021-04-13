@@ -4,15 +4,13 @@ import main.interfaces.*;
 
 //Scanner - Performs Lexical Analysis on the assembly unit
 public class Scanner implements IScanner {
-    private IToken token;
-    private TokenType tokenType;
 
     private final ISymbolTable symbolTable;
 
     private String buffer;
     private int lineNum, colNum;
     private int currPos, eolCounter;
-    private boolean isSpace, isEOL, isComment = false;
+    private boolean isComment = false;
 
     private final IErrorReporter errorReporter;
 
@@ -48,8 +46,8 @@ public class Scanner implements IScanner {
             //Adds character by character to token
             char c = file.getChar(i);
 
-            isEOL = c == '\r' || c == '\n';
-            isSpace = c == ' ' || c == '\t';
+            boolean isEOL = c == '\r' || c == '\n';
+            boolean isSpace = c == ' ' || c == '\t';
 
             //Check if character is valid or not, and report error if not
             if (!errorReporter.isValid(c)) {
@@ -70,6 +68,8 @@ public class Scanner implements IScanner {
             eolCounter = c == '\n' ? eolCounter + 1 : 0;
 
             //If at last line of file
+            IToken token;
+            TokenType tokenType;
             if (i == fileContent.length() - 1) {
                 if ((!isSpace || isComment) && !isEOL)
                     buffer += c;

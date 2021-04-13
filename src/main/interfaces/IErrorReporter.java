@@ -12,4 +12,5 @@ public interface IErrorReporter {
     void report();
 
     boolean isValid(char c);
+
 }
