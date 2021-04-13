@@ -1,12 +1,27 @@
+/*
+    SOEN 341 - Cm Cross-Assembler Version 1.4 - Developed by Team 3.
+
+    Nicholas Kawwas - 40124338
+    Matthew Sklivas - 40095150
+    Nicholas Harris - 40111093
+    Georgia Bardaklis - 40096586
+    Karine Chatta - 27894392
+    Lina Tran - 40130446
+    Vincent Beaulieu - 40062386
+    Philippe Lee - 40131559
+    Malek Jerbi - 40130983
+
+ */
+
+
+//Import necessary files and packages
 package main.java;
 import main.interfaces.*;
-
 import java.io.FileOutputStream;
 import java.io.BufferedOutputStream;
 
 //Generates executable file and listing file
 public class CodeGenerator implements ICodeGenerator {
-
     //Instance of the IR
     private IInterRep interRep;
     //Array of machine codes for each LineStatement
@@ -29,17 +44,16 @@ public class CodeGenerator implements ICodeGenerator {
         //Get the label table
         this.labelTable = labelTable;
 
-        //Generate listing file and label table based on options enabled
+        //Generate listing file
         if (options.isVerbose() || options.isListing()) {
-            //Generate listing file
             IListing listing = new Listing(IR, mCode);
             String [] lstContent = listing.getListing();
             generateListing(lstContent);
-
-            //Print the label table to console
-            if(options.isVerbose())
-                labelTable.toConsole();
         }
+
+        //Print the label table to console
+        if(options.isVerbose())
+            labelTable.toConsole();
 
         //Formatting mCode to String for executable output
         String str = "";
@@ -94,11 +108,17 @@ public class CodeGenerator implements ICodeGenerator {
                                 String currLabel = interRep.getLine(j).getLabel();
                                 int currAddr = interRep.getAddr(j);
                                 if (currLabel.equals(label)) {
+                                    //Forward addressing
                                     int startAddress = interRep.getAddr(i);
                                     int address = currAddr - startAddress;
-                                    // for backwards addressing
-                                    if (address < 0)
-                                        address += 256;
+
+                                    //Fix for backwards addressing
+                                    if (address < 0) {
+                                        boolean isSigned = interRep.getLine(i).getInstruction().getMnemonic().getMne().contains(".i");
+                                        int opSize = interRep.getLine(i).getInstruction().getMnemonic().getMneSize();
+
+                                        address += Math.pow(2, 8 * opSize);
+                                    }
 
                                     mCode[i] = String.format("%02X %02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode(), address);
                                 }
@@ -116,6 +136,7 @@ public class CodeGenerator implements ICodeGenerator {
                             }
                         }
                     }
+                    //Check if label was set, if not label is not found
                     if (mCode[i].equals(""))
                         errorReporter.record(new ErrorMsg(label + " label not found (or defined)", new Position(i + 1, 0)));
                 } else {
@@ -127,7 +148,6 @@ public class CodeGenerator implements ICodeGenerator {
                         mCode[i] = String.format("%02X", interRep.getLine(i).getInstruction().getMnemonic().getOpcode());
                     }
                 }
-
             } else {
                 mCode[i] = "";
             }

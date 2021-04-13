@@ -1,3 +1,20 @@
+/*
+    SOEN 341 - Cm Cross-Assembler Version 1.4 - Developed by Team 3.
+
+    Nicholas Kawwas - 40124338
+    Matthew Sklivas - 40095150
+    Nicholas Harris - 40111093
+    Georgia Bardaklis - 40096586
+    Karine Chatta - 27894392
+    Lina Tran - 40130446
+    Vincent Beaulieu - 40062386
+    Philippe Lee - 40131559
+    Malek Jerbi - 40130983
+
+ */
+
+
+//Import necessary files and packages
 package main.java;
 import main.interfaces.*;
 
@@ -68,11 +85,11 @@ public class Assembler implements IAssembler{
             if (prevLine.isEmpty() && !currLine.isEmpty()) {
                 interRep.setAddr(j, interRep.getAddr(j - 1) + 1);
             } else {
-                //If its a directive
+                //Set address for directive
                 if (interRep.hasDirective(j - 1)) {
                     int dirSize = interRep.getDirective(j - 1).getCString().substring(1, interRep.getDirective(j - 1).getCString().length() - 1).length() + 1;
                     interRep.setAddr(j, interRep.getAddr(j - 1) + dirSize);
-                //If its an instruction
+                //Set address for instruction
                 } else {
                     int instrSize = interRep.getLine(j - 1).getInstruction().getSize();
                     interRep.setAddr(j, interRep.getAddr(j - 1) + instrSize);
@@ -95,6 +112,8 @@ public class Assembler implements IAssembler{
                     errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i + 1, 0)));
                 }
             }
+
+
             if (!interRep.getLine(i).getInstruction().getOperand().getOp().equals("") && !interRep.getLine(i).getInstruction().getOperand().isNumeric()) {
                 String label = interRep.getLine(i).getInstruction().getOperand().getOp();
 

@@ -31,7 +31,7 @@
           enter.u5  28       ; OK, number <u5> [0..31].
           enter.u5  29       ; OK, number <u5> [0..31].
           enter.u5  30       ; OK, number <u5> [0..31].
-          enter.u5  31       ; OK, number <u5> [0..31].
+Start     enter.u5  31       ; OK, number <u5> [0..31].
 
             ldc.i3  0        ; OK, number <i3> [-4..3].
             ldc.i3  1        ; OK, number <i3> [-4..3].
@@ -75,8 +75,8 @@
           stv.u8      255
 
 ; rela02.asm
-Start br.i8       Start
-      br.i8       Start      ; Backward branching
+      br.i16       Start
+      br.i16       Start      ; Backward branching
       br.i8       End        ; Forward branching
 End   br.i8       End
 

@@ -1,5 +1,21 @@
-package main.java;
+/*
+    SOEN 341 - Cm Cross-Assembler Version 1.4 - Developed by Team 3.
 
+    Nicholas Kawwas - 40124338
+    Matthew Sklivas - 40095150
+    Nicholas Harris - 40111093
+    Georgia Bardaklis - 40096586
+    Karine Chatta - 27894392
+    Lina Tran - 40130446
+    Vincent Beaulieu - 40062386
+    Philippe Lee - 40131559
+    Malek Jerbi - 40130983
+
+ */
+
+
+//Import necessary files and packages
+package main.java;
 import main.interfaces.IInterRep;
 import main.interfaces.IListing;
 
@@ -48,11 +64,14 @@ public class Listing implements IListing {
                     //Get the value (if there is one), Set to empty if it is not present, Set value from LineStatement label = (IR.getLine(i).getLabel() == null) ? "" : IR.getLine(i).getLabel();
                     mne = (intRep.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : intRep.getLine(i).getInstruction().getMnemonic().getMne();
                     operand = (intRep.getLine(i).getInstruction().getMnemonic().getMne() == null) ? "" : intRep.getLine(i).getInstruction().getOperand().getOp();//Check If Directive Exists
+
                 //Check if directive exists
                 } else if(intRep.hasDirective(i)) {
                     code = intRep.getLine(i).getDirective().getCode();
                     mne = intRep.getLine(i).getDirective().getDir();
                     operand = intRep.getLine(i).getDirective().getCString();
+
+                //No mnemonic or directive present
                 } else {
                     mne = "";
                     operand = "";
