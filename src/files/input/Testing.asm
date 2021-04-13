@@ -59,6 +59,7 @@
             ldv.u3  5        ; OK, number <u3> [0..7].
             ldv.u3  6        ; OK, number <u3> [0..7].
             ldv.u3  7        ; OK, number <u3> [0..7].
+            ldv.u3  8        ; OK, number lbv.u3 [0..7].
 
             stv.u3  0        ; OK, number <u3> [0..7].
             stv.u3  1        ; OK, number <u3> [0..7].
@@ -79,3 +80,6 @@
             Msg2  .cstring    "B23"    ; Only ASCII printable characters are allowed.
 
             halt 5
+
+            MsgX enter.u5  5        ; OK, number <u5> [0..31].
+            MsgX enter.u5  6        ; OK, number <u5> [0..31].

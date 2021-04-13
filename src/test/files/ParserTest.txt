@@ -1,6 +1,6 @@
 Test -Parser Class- getInterRep() number of lines
 70
-82
+86
 Test -Parser Class- getInterRep() inner contents 
 ' '"enter.u5: 132" 4' ; OK, number <u5> [0..31].'
 ' '"enter.u5: 132" 4' ; OK, number <u5> [0..31].'
@@ -9,7 +9,7 @@ Test -Parser Class- getInterRep() Invalid Token
 'thisIsAnInvalidToken '": -1" ' '
 Test -Parser Class- getInterRep()  Adding Operand with Stack
 Error: Line 81, Column 0: Instructions with inherent addressing mode do not have an operand field. [halt]
-Error: Line 81, Column 0: Instructions with inherent addressing mode do not have an operand field. [halt]
+Error: Line 61, Column 1: The immediate instruction 'ldv.u3' must have a 3-bit unsigned operand number ranging from 0 to 7.
 
 Test -Parser Class- getInterRep() Forgetting Operand with Immediate value
 Error: Line 43, Column 2: Instructions with immediate mode addressing needs to have an operand field. [ldc.i3]
@@ -19,3 +19,12 @@ Test -Parser Class- getInterRep() Operand Size Exceeds Bounds
 Error: Line 32, Column 1: The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.
 Error: Line 32, Column 1: The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.
 
+Test -Parser Class- Successful Parsing of File - Immediate
+' '": -1" ' ; TestImmediate.asm - Test immediate instructions.'
+' '": -1" ' ; TestImmediate.asm - Test immediate instructions.'
+Test -Parser Class- Successful Parsing of File - Immediate
+' '"halt: 0" ' '
+' '"halt: 0" ' '
+Test -Parser Class- getInterRep() Operand cannot be a mnemonic
+' '": -1" ' '
+' '": -1" ' '

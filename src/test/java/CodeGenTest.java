@@ -12,7 +12,7 @@ public class CodeGenTest {
 
     public static void main(String[] args) throws Exception {
         //Making the Text file in the proper location
-        TextFileGenerator.textFileGenerator("main.java.CodeGenTest.txt");
+        TextFileGenerator.textFileGenerator("CodeGenTest.txt");
 
         //Creating Options
         String[] options = {"-v", "-l", "TestImmediate.asm"};
