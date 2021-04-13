@@ -48,7 +48,7 @@ public class Assembler implements IAssembler{
 
 
         //Generate listing file
-        ICodeGenerator generator = new CodeGenerator(interRep, options, fileName, labelTable);
+        ICodeGenerator generator = new CodeGenerator(interRep, options, fileName, labelTable, errorReporter);
 
         //Report any errors found by the cross assembler
         errorReporter.report();
@@ -108,12 +108,6 @@ public class Assembler implements IAssembler{
                 if (labelTable.getAddr(label).getNumTimes() > 1)
                     errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i + 1, 0)));
             }
-        }
-
-        for(String l : labelTable.getMap().keySet()) {
-            if(labelTable.getMap().get(l).getNumTimes() < 1)
-                errorReporter.record(new ErrorMsg(l + " is not found (or defined).", new Position(labelTable.getMap().get(l).getStartAddr() + 1, 0)));
-
         }
     }
 }

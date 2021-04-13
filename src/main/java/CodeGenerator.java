@@ -14,10 +14,13 @@ public class CodeGenerator implements ICodeGenerator {
     private String fileName;
     private ILabelTable labelTable;
 
+    private IErrorReporter errorReporter;
+
     protected String pathName = "src/files/output/";
 
     //Default constructor
-    public CodeGenerator(IInterRep IR, IOptions options, String filename, ILabelTable labelTable) {
+    public CodeGenerator(IInterRep IR, IOptions options, String filename, ILabelTable labelTable, IErrorReporter errorReporting) {
+        errorReporter = errorReporting;
         interRep = IR;
         mCode = new String[interRep.getLength()];
         fileName = filename.substring(0, filename.indexOf("."));
@@ -113,6 +116,8 @@ public class CodeGenerator implements ICodeGenerator {
                             }
                         }
                     }
+                    if (mCode[i].equals(""))
+                        errorReporter.record(new ErrorMsg(label + " label not found (or defined)", new Position(i + 1, 0)));
                 } else {
                     if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() == -1) {
                         mCode[i] = "";
