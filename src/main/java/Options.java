@@ -16,7 +16,7 @@ public class Options implements IOptions {
         listing = false;
         verbose = false;
         banner = false;
-        file = "";
+        file = null;
         setOptions(options);
     }
 
@@ -54,15 +54,18 @@ public class Options implements IOptions {
                         break;
                     //Invalid options
                     default:
+                        //Check if argument is an option
+                        if (options[i].startsWith("-")) {
+                            displayHelp();
+                            throw new Exception("\n Error: Invalid Option\n" );
+                        }
+
+                        //Check if argument is a file
                         if (options[i].endsWith(".asm"))
                             if(i != len - 1)
                                 throw new Exception("Error: File Must Be Last Option");
                             else
                                 break;
-
-                        file = options[len - 1];
-                        displayHelp();
-                        throw new Exception("\n Error: Invalid Option\n" );
                 }
             }
 
@@ -73,11 +76,11 @@ public class Options implements IOptions {
                 displayHelp();
 
             //Check if assembly file is included as last argument
-            if (len < 1 || (!options[len - 1].endsWith(".asm") && !banner && !help))
-                throw new Exception("Error: Missing Assembly file");
-
-            //Set file
-            file = options[len - 1];
+            if (len < 1 || (!options[len - 1].endsWith(".asm") && !help)) {
+                throw new Exception("Error: Missing Assembly file ");
+            } else
+                //Set file
+                file = options[len - 1];
         } catch (Exception e) {
             System.out.print(e.getMessage());
         }

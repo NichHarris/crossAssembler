@@ -30,7 +30,6 @@ public class Assembler implements IAssembler{
     //Principle action of the Cross Assembler. Generates an intermediate representation of the assembly code and
     //generates the executable + listing output file.
     public void assemble() throws Exception {
-
         //Create Reader object
         IReader reader = new Reader(fileName);
         reader.readFile();

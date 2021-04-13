@@ -75,8 +75,8 @@
           stv.u8      255
 
 ; rela02.asm
-main.java.Main  br.i8       main.java.Main
-      br.i8       main.java.Main       ; Backward branching
+Start br.i8       Start
+      br.i8       Start      ; Backward branching
       br.i8       End        ; Forward branching
 End   br.i8       End
 

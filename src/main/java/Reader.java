@@ -53,8 +53,9 @@ public class Reader implements IReader {
                 file.close();
             }
         }
-        catch (Exception e){
+        catch (Exception e) {
             System.out.println(e.getMessage());
+            System.exit(1);
         }
     }
 

@@ -10,14 +10,16 @@ public class Main {
 
         //Don't run if help or banner option is enabled
         if(!options.isHelp()) {
+
             //Get file name
             String fileName = options.getFile();
+            if (fileName != null) {
+                //Create instance of Assembler
+                Assembler assembler = new Assembler(fileName, options);
 
-            //Create instance of Assembler
-            Assembler assembler = new Assembler(fileName, options);
-
-            //Execute assembler
-            assembler.assemble();
+                //Execute assembler
+                assembler.assemble();
+            }
         }
     }
 }
