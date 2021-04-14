@@ -27,24 +27,20 @@ public class InstructionTest {
         //Testing the Constructor of the class with getOperand() and getMnemonic()
         testInstruction("Test -Instruction Class- Mnemonic and Operand Constructor", "addv.u3 3", instruction1.getMnemonic().getMne()+" "+instruction1.getOperand().getOp());
 
-        //Testing setMnemonic(IMnemonic m), getMnemonic()
+        //Testing getMnemonic()
         code = symbolTable.getCode("not");
         m = new Mnemonic("not", code);
-        //instruction1.setMnemonic(m);
-        testInstruction("Test -Instruction Class- setMnemonic", "not", instruction1.getMnemonic().getMne());
+        testInstruction("Test -Instruction Class- setMnemonic", "addv.u3", instruction1.getMnemonic().getMne());
 
-        //Testing setOperand(IOperand o) and getOperand()
+        //Testing getOperand()
         op = new Operand("4");
-        //instruction1.setOperand(op);
-        testInstruction("Test -Instruction Class- setOperand", "4", instruction1.getOperand().getOp());
-
+        testInstruction("Test -Instruction Class- getOperand", "3", instruction1.getOperand().getOp());
 
         //Testing the function toString() from Instruction Class
-        testInstruction("Test -Instruction Class- toString", "'\"not: 12\" 4'", instruction1.toString());
+        testInstruction("Test -Instruction Class- toString", "'\"addv.u3: 152\" 3'", instruction1.toString());
 
         //Testing the function getSize() from Instruction Class
         testInstruction("Test -Instruction Class- getSize", "1", Integer.toString(instruction1.getSize()));
-
     }
 
     public static void testInstruction(String testCaseName, String expectedOutput, String methodOutput) throws Exception {

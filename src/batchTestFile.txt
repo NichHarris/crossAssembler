@@ -1,3 +1,6 @@
+Test -CodeGenerator Class-
+true
+true
 Test isOverflow with a signed binary number
 true
 true
@@ -13,18 +16,18 @@ Test toBinary()
 Test getTwosComplement()
 101
 101
-Test -CodeGenerator Class- File creation
-1    0000 98            Fct           addv.u3       3
-1    0000 98            Fct           addv.u3       3
+Test -CodeGenerator Class-
+true
+true
 Test -Comment Class- Default constructor and getter method
 
 
 Test -Comment Class- Parameterized constructor and getter method
-comment
-comment
-Test -Comment Class- setter and getter method
-New Comment
-New Comment
+Hello World
+Hello World
+Test -Comment Class- Parameterized constructor and getter method
+This Test Will Fail
+Hello World
 Test Default Constructor
 
 
@@ -53,53 +56,35 @@ Test -Instruction Class- Mnemonic and Operand Constructor
 addv.u3 3
 addv.u3 3
 Test -Instruction Class- setMnemonic
-not
-not
-Test -Instruction Class- setOperand
-4
-4
+addv.u3
+addv.u3
+Test -Instruction Class- getOperand
+3
+3
 Test -Instruction Class- toString
-'"not: 12" 4'
-'"not: 12" 4'
+'"addv.u3: 152" 3'
+'"addv.u3: 152" 3'
 Test -Instruction Class- getSize
 1
 1
 Test -InterRep Class- addLine with just a line statement object
 'Fct '"addv.u3: 152" 3' '
 'Fct '"addv.u3: 152" 3' '
-Test -InterRep Class- addLine with Line Statement components label, instruction and comment
-'jmp '"addv.u3: 152" 3' ; Test Comment 2'
-'jmp '"addv.u3: 152" 3' ; Test Comment 2'
 Test -InterRep Class- getLine()
-'jmp '"addv.u3: 152" 3' ; Test Comment 2'
-'jmp '"addv.u3: 152" 3' ; Test Comment 2'
+'Fct '"addv.u3: 152" 3' '
+'Fct '"addv.u3: 152" 3' '
 Test -InterRep Class- getLength()
 1
 1
 Test -InterRep Class- empty LineStatement passed to InterRep object
 ' '": -1" ' '
 ' '": -1" ' '
-Test -InterRep Class- Integration
-'jmp '"addv.u3: 152" 3' ; This is a comment'
-'jmp '"addv.u3: 152" 3' ; This is a comment'
-Test -InterRep Class- setLabel()
-ADD
-ADD
-Test -InterRep Class- setComment()
-; this is a new comment from the setter
-; this is a new comment from the setter
 Test -InterRep- setInstruction() and hasInstruction()
-true
-true
+false
+false
 Test -InterRep- setAddr() and getAddr()
 100
 100
-Test -InterRep- updateCode()
-ADD
-ADD
-Test -InterRep Class- toString()
-Line 0: ' '": -1" ' '
-Line 0: ' '": -1" ' '
 Test -LineStatement Class- Default Constructor
  '": -1" '
  '": -1" '
@@ -124,12 +109,9 @@ Test -Listing Class- getListing()
 Test -Mnemonic Class- Default Constructor
  -1
  -1
-Test -Mnemonic Class- Parametrized Constructor
+Test -Mnemonic Class- Parametrized Constructor and getMnemonic
 ADD 45
 ADD 45
-Test -Mnemonic Class- setMnemonic and getMnemonic
-JMP
-JMP
 Test -Mnemonic Class- set Opcode and getOpCode
 12
 12
@@ -148,22 +130,64 @@ true
 Test -Operand Class- isNumeric
 false
 false
-Test -Options Class- Incorrect Options
+Test -Options Class- Invalid Option
 Error: Invalid Option
 Error: Invalid Option
 Test -Options Class- Too Many Options
-Error: Too Many Arguments in CL
-Error: Too Many Arguments in CL
+Error: Too Many Options
+Error: Too Many Options
+Test -Options Class- No File
+Error: No File
+Error: No File
+Test -Options Class- No Options
+Error: No Options
+Error: No Options
 Test -Options Class- isVerbose()
 true
 true
 Test -Options Class- isListing()
 true
 true
+Test -Options Class- isListing()
+true
+true
+Test -Options Class- isHelp()
+true
+true
+Test -Options Class- isVerbose()
+false
+false
+Test -Options Class- isHelp()
+true
+true
+Test -Options Class- isBanner()
+false
+false
 Test -Parser Class- getInterRep() number of lines
-71
-71
+86
+86
 Test -Parser Class- getInterRep() inner contents
+' '"enter.u5: 132" 4' ; OK, number <u5> [0..31].'
+' '"enter.u5: 132" 4' ; OK, number <u5> [0..31].'
+Test -Parser Class- getInterRep() Invalid Token
+'thisIsAnInvalidToken '": -1" ' '
+'thisIsAnInvalidToken '": -1" ' '
+Test -Parser Class- getInterRep()  Adding Operand with Stack
+Error: Line 82, Column 0: Instructions with inherent addressing mode do not have an operand field. [halt]
+Error: Line 82, Column 0: Instructions with inherent addressing mode do not have an operand field. [halt]
+Test -Parser Class- getInterRep() Forgetting Operand with Immediate value
+Error: Line 43, Column 2: Instructions with immediate mode addressing needs to have an operand field. [ldc.i3]
+Error: Line 43, Column 2: Instructions with immediate mode addressing needs to have an operand field. [ldc.i3]
+Test -Parser Class- getInterRep() Operand Size Exceeds Bounds
+Error: Line 32, Column 1: The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.
+Error: Line 32, Column 1: The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.
+Test -Parser Class- Successful Parsing of File - Immediate
+' '": -1" ' ; TestImmediate.asm - Test immediate instructions.'
+' '": -1" ' ; TestImmediate.asm - Test immediate instructions.'
+Test -Parser Class- Successful Parsing of File - Immediate
+' '"halt: 0" ' '
+' '"halt: 0" ' '
+Test -Parser Class- getInterRep() Operand cannot be a mnemonic
 ' '": -1" ' '
 ' '": -1" ' '
 Test Position
@@ -173,8 +197,8 @@ Test getChar()
 h
 h
 Test getLineNum()
-106
-106
+123
+123
 Test scanFile()
 ; TestImmediate.asm - Test immediate instructions.
 ; TestImmediate.asm - Test immediate instructions.
@@ -187,9 +211,21 @@ true
 Test getCurrPos()
 50
 50
-Test setCurrPos()
-6
-6
+Test Multiple Spaces or Tabs found
+None
+None
+Test No Spaces in Front and End of Line
+None
+None
+Test Empty Lines with and without spaces
+None
+None
+Test Invalid Characters
+None
+None
+Test Closing .cstring quotation marks "ABC
+false
+false
 Test -SymbolTable Class- Invalid Key
 -1
 -1

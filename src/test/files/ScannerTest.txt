@@ -1,0 +1,27 @@
+Test scanFile()
+; TestImmediate.asm - Test immediate instructions.
+; TestImmediate.asm - Test immediate instructions.
+Test getTokenType()
+LabelOperand
+LabelOperand
+Test isNumeric()
+true
+true
+Test getCurrPos()
+50
+50
+Test Multiple Spaces or Tabs found
+None
+None
+Test No Spaces in Front and End of Line
+None
+None
+Test Empty Lines with and without spaces
+None
+None
+Test Invalid Characters
+None
+None
+Test Closing .cstring quotation marks "ABC
+false
+false

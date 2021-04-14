@@ -30,7 +30,7 @@ public class ParserTest {
         testParser("getInterRep() Invalid Token ", "'thisIsAnInvalidToken '\": -1\" ' '", p.getInterRep().getLine(1).toString());
 
         // Error: Adding Operand with Stack
-        testParser("getInterRep()  Adding Operand with Stack","Error: Line 81, Column 0: Instructions with inherent addressing mode do not have an operand field. [halt]",er.getErrorMsg(2).getErrorMsg());
+        testParser("getInterRep() Adding Operand with Stack","Error: Line 82, Column 0: Instructions with inherent addressing mode do not have an operand field. [halt]",er.getErrorMsg(3).getErrorMsg());
 
         // Error: Forgetting Operand with Immediate value
         testParser("getInterRep() Forgetting Operand with Immediate value","Error: Line 43, Column 2: Instructions with immediate mode addressing needs to have an operand field. [ldc.i3]" , er.getErrorMsg(1).getErrorMsg() );
@@ -67,7 +67,7 @@ public class ParserTest {
         // Token uses keyword - Label cannot be a mnemonic for example
         testParser("getInterRep() Operand cannot be a mnemonic", "' '\": -1\" ' '", rep2.getLine(61).toString());
         // Label must not be created twice
-        //testParser("getInterRep() Label must not be created twice ", "", p.getInterRep().getLine(0).toString());
+        //testParser("getInterRep() Label must not be created twice ", "", p.getInterRep().getLine(84).toString());
 
     }
     public static void testParser(String caseName, String expectedOutput, String methodOutput) throws Exception {

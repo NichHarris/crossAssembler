@@ -4,9 +4,9 @@ import main.interfaces.IPosition;
 import main.interfaces.IToken;
 
 public class Token implements IToken {
-    private IPosition  pos;
-    private TokenType code;
-    private String    name;
+    private final IPosition  pos;
+    private final TokenType code;
+    private final String    name;
 
     public Token(IPosition p, String n, TokenType c) {
         pos = p;

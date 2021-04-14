@@ -1,0 +1,18 @@
+Test -Instruction Class- Default Constructor
+ 
+ 
+Test -Instruction Class- Mnemonic and Operand Constructor
+addv.u3 3
+addv.u3 3
+Test -Instruction Class- setMnemonic
+addv.u3
+addv.u3
+Test -Instruction Class- getOperand
+3
+3
+Test -Instruction Class- toString
+'"addv.u3: 152" 3'
+'"addv.u3: 152" 3'
+Test -Instruction Class- getSize
+1
+1

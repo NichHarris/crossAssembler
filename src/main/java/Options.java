@@ -62,7 +62,7 @@ public class Options implements IOptions {
 
                         file = options[len - 1];
                         displayHelp();
-                        throw new Exception("\n Error: Invalid Option\n" );
+                        throw new Exception("\nError: Invalid Option\n" );
                 }
             }
 

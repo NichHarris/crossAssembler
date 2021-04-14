@@ -8,11 +8,10 @@ import java.io.BufferedOutputStream;
 public class CodeGenerator implements ICodeGenerator {
 
     //Instance of the IR
-    private IInterRep interRep;
+    private final IInterRep interRep;
     //Array of machine codes for each LineStatement
-    private String[] mCode;
-    private String fileName;
-    private ILabelTable labelTable;
+    private final String[] mCode;
+    private final String fileName;
 
     protected String pathName = "src/files/output/";
 
@@ -24,7 +23,6 @@ public class CodeGenerator implements ICodeGenerator {
         generateMachineCode();
 
         //Get the label table
-        this.labelTable = labelTable;
 
         //Generate listing file and label table based on options enabled
         if (options.isVerbose() || options.isListing()) {
@@ -35,7 +33,8 @@ public class CodeGenerator implements ICodeGenerator {
 
             //Print the label table to console
             if(options.isVerbose())
-                labelTable.toConsole();
+                 labelTable.toConsole();
+
         }
 
         //Formatting mCode to String for executable output

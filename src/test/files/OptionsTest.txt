@@ -1,5 +1,15 @@
-Test -Options Class- Incorrect Options
-Error: Invalid OptionError: Invalid Option
+Test -Options Class- Invalid Option
+Error: Invalid Option
+Error: Invalid Option
+Test -Options Class- Too Many Options
+Error: Too Many Options
+Error: Too Many Options
+Test -Options Class- No File
+Error: No File
+Error: No File
+Test -Options Class- No Options
+Error: No Options
+Error: No Options
 Test -Options Class- isVerbose()
 true
 true
@@ -8,20 +18,22 @@ true
 true
 Usage: crossAssembler [options] <src file>
 Options:
-   -h, --help      Displays Cross Assembler Usage and Valid Options
-   -l, --listing   Generates Source Listing File Alongside Executable File
-   -v, --verbose   Generates Source Listing File and Label Table Alongside Executable File
+   -h, -help      Displays Cross Assembler Usage and Valid Options
+   -b, -banner    Displays Cross Assembler Banner
+   -l, -listing   Generates Source Listing File Alongside Executable File
+   -v, -verbose   Generates Source Listing File and Label Table Alongside Executable File
 Test -Options Class- isListing()
+true
+true
+Test -Options Class- isHelp()
 true
 true
 Test -Options Class- isVerbose()
 true
+false
+Test -Options Class- isHelp()
 true
-Test -Options Class- Invalid Options
-Error: Invalid OptionError: Invalid Option
-Test -Options Class- Too Many Options
-Error: Too Many Arguments in CLError: Too Many Options
-Test -Options Class- No Options
-Error: Invalid OptionError: File Missing
-Test -Options Class- No Options
-Error: Invalid OptionError: No Options
+true
+Test -Options Class- isBanner()
+false
+false

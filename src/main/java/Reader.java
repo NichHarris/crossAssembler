@@ -8,12 +8,12 @@ import java.io.FileInputStream;
 //Reads file and creates an array of strings, each string representing a line from the source file
 public class Reader implements IReader {
     //Assembly unit comprised of unparsed line statements from source file
-    private File srcFile;
+    private final File srcFile;
     private final static int EOF = -1;
 
     private int lineNum;
     private String fileContent = "";
-    private String fileName;
+    private final String fileName;
 
     //Path to source directory (input files directory)
     protected String pathName = "src/files/input/";

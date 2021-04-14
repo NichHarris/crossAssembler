@@ -16,7 +16,7 @@ public class ReaderTest {
         testReader("getChar()", "h", test.getChar(1).toString());
 
         //testing getLineNum
-        testReader("getLineNum()", "106", Integer.toString(test.getLineNum()));
+        testReader("getLineNum()", "123", Integer.toString(test.getLineNum()));
 
         //testing file content
         //aunit will not allow us to test the entire file content, only 2 lines will work

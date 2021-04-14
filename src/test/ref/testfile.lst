@@ -102,7 +102,24 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 101  005D 41 42 43 00   ABC           .cstring      "ABC"         ; "ABC" has 4 bytes 
 102  0061 41 30 00      A0            .cstring      "A0"          ; "A0"  has 3 bytes 
 103  0064                                                                             
-104  0064                                                                             
-105  0064                                                                             
-106  0064                                                                             
-107  0064                                                                             
+104  0064                                                         ; rela01.asm        
+105  0064 D5 006C                     lda.i16       Msg1                              
+106  0067 D9 0C                       ldc.i8        12                                
+107  0069 D5 006F                     lda.i16       Msg2                              
+108  006C 41 31 00      Msg1          .cstring      "A1"          ; OK. Code generated -> 41 31 00
+109  006F 42 32 33 00   Msg2          .cstring      "B23"         ; Only ASCII printable characters are allowed.
+110  0073                                                                             
+111  0073                                                         ; rela02.asm        
+112  0073 E0 00         Main          br.i8         Main                              
+113  0075 E0 FE                       br.i8         Main          ; Backward branching
+114  0077 E0 02                       br.i8         End           ; Forward branching 
+115  0079 E0 00         End           br.i8         End                               
+116  007B                                                                             
+117  007B                                                         ; rela03.asm        
+118  007B B1 00                       ldv.u8        0                                 
+119  007D B1 FF                       ldv.u8        255                               
+120  007F B2 00                       stv.u8        0                                 
+121  0081 B2 FF                       stv.u8        255                               
+122  0083                                                                             
+123  0083                                                                             
+124  0083                                                                             

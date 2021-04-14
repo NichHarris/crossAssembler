@@ -1,0 +1,18 @@
+Test -InterRep Class- addLine with just a line statement object
+'Fct '"addv.u3: 152" 3' '
+'Fct '"addv.u3: 152" 3' '
+Test -InterRep Class- getLine()
+'Fct '"addv.u3: 152" 3' '
+'Fct '"addv.u3: 152" 3' '
+Test -InterRep Class- getLength()
+1
+1
+Test -InterRep Class- empty LineStatement passed to InterRep object
+' '": -1" ' '
+' '": -1" ' '
+Test -InterRep- setInstruction() and hasInstruction()
+false
+false
+Test -InterRep- setAddr() and getAddr()
+100
+100

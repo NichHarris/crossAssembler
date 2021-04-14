@@ -6,7 +6,7 @@ import java.util.Map;
 //Used to store seen labels, to be referred to on second pass for offset or addr location (depending on how we want to implement it)
 public class LabelTable implements ILabelTable {
     private Offset offset;
-    private HashMap<String, Offset> labelTable;
+    private final HashMap<String, Offset> labelTable;
 
     //Default constructor
     public LabelTable() {

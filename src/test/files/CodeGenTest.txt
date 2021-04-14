@@ -1,8 +1,3 @@
-Label   Start Addr   End Addr     Offset
-main.java.Main           78         77          1
- Msg1           84         87         -3
- Msg2           86         88         -2
-  End           80         80          0
-
-C:\Users\plee1\IdeaProjects\crossAssembler3\src\io\out\listing.lst
-C:\Users\plee1\IdeaProjects\crossAssembler3\src\test\ref\listing.lst
+Test -CodeGenerator Class-
+true
+true
