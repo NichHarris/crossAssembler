@@ -35,7 +35,7 @@ public class Token implements IToken {
     //Getters - position, name and code
     public IPosition getPosition() { return pos; }
     public String getName() { return name; }
-    public TokenType getCode() { return code; }
+    public TokenType getTokenType() { return code; }
 
     //Output as string
     public String toString() { return "[" + getName() + pos + "=" + code + "]"; }

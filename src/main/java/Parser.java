@@ -85,7 +85,7 @@ public class Parser implements IParser {
         int code = symbolTable.getCode(token.getName());
 
         //Adds to LineStatement
-        switch(token.getCode()) {
+        switch(token.getTokenType()) {
             //Add Label to Line
             case Label:
                 line.setLabel(token.getName());
@@ -113,7 +113,7 @@ public class Parser implements IParser {
                     if (opCode > 0x1F && opCode < 0xB0) {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
                         //Update opcode - Parse operand size and state
-                        if (token.getCode() == TokenType.Operand) {
+                        if (token.getTokenType() == TokenType.Operand) {
                             parseOperandBound(token, opCode);
                         }
                     //Relative mode addressing
@@ -121,7 +121,7 @@ public class Parser implements IParser {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
 
                         //Check operand size
-                        if (token.getCode() == TokenType.Operand && bnConv.isOverflow(Integer.parseInt(token.getName()), 8*line.getInstruction().getMnemonic().getMneSize(),line.getInstruction().getMnemonic().getMne().contains(".i"))) {
+                        if (token.getTokenType() == TokenType.Operand && bnConv.isOverflow(Integer.parseInt(token.getName()), 8*line.getInstruction().getMnemonic().getMneSize(),line.getInstruction().getMnemonic().getMne().contains(".i"))) {
                             errorReporter.record(new ErrorMsg("Instruction in relative addressing mode exceeds its range. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
                         }
                         //Check if operand is a label not a number
@@ -131,12 +131,12 @@ public class Parser implements IParser {
                             case (0xE0):
                             case (0xE1):
                             case (0xE3):
-                                if(token.getCode() == TokenType.Operand)
+                                if(token.getTokenType() == TokenType.Operand)
                                     errorReporter.record(new ErrorMsg("Operand must refer to a Label.", new Position(currLine + 1, colN)));
                                 break;
                             //Expecting operand - Check if label
                             default:
-                                if(token.getCode() == TokenType.LabelOperand && !line.getInstruction().getOperand().isNumeric())
+                                if(token.getTokenType() == TokenType.LabelOperand && !line.getInstruction().getOperand().isNumeric())
                                     errorReporter.record(new ErrorMsg("Label must refer to a Operand.", new Position(currLine + 1, colN)));
                         }
 
