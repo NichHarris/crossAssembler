@@ -31,6 +31,7 @@ public class Assembler implements IAssembler{
         //Get input file name
         fileName = filename;
 
+        //TODO: Don't need this anymore
         //Get instance of options for CodeGenerator
         this.options = options;
 
@@ -112,7 +113,6 @@ public class Assembler implements IAssembler{
                     errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i + 1, 0)));
                 }
             }
-
 
             if (!interRep.getLine(i).getInstruction().getOperand().getOp().equals("") && !interRep.getLine(i).getInstruction().getOperand().isNumeric()) {
                 String label = interRep.getLine(i).getInstruction().getOperand().getOp();

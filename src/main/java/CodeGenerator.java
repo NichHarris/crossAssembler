@@ -61,6 +61,8 @@ public class CodeGenerator implements ICodeGenerator {
             if(!s.equals(""))
                 str += s + " ";
 
+        //Prints .exe contents
+        System.out.println(str);
         //Return bin
         generateExec(str);
     }

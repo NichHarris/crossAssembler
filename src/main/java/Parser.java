@@ -61,7 +61,7 @@ public class Parser implements IParser {
             tk = scanner.scanFile(reader);
             parseToIR(tk);
         }
-
+        //Add final LineStatement to IR
         interRep.addLine(currLine, line);
     }
 
@@ -77,7 +77,9 @@ public class Parser implements IParser {
             if(line.getInstruction().getMnemonic().getOpcode() > 0x1F && line.getInstruction().getOperand().getOp().equals(""))
                 errorReporter.record(new ErrorMsg("Instructions with immediate mode addressing needs to have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
 
+            //Add current LineStatement to IR
             interRep.addLine(currLine++, line);
+            //Create new LineStatement
             line = new LineStatement();
         }
 
