@@ -1,0 +1,168 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch aunit",
+            "request": "launch",
+            "mainClass": "aunit",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "main.java.Main",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch AssemblerTest",
+            "request": "launch",
+            "mainClass": "test.java.AssemblerTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch BinaryConverterTest",
+            "request": "launch",
+            "mainClass": "test.java.BinaryConverterTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch CodeGenTest",
+            "request": "launch",
+            "mainClass": "test.java.CodeGenTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch CommentTest",
+            "request": "launch",
+            "mainClass": "test.java.CommentTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch DirectiveTest",
+            "request": "launch",
+            "mainClass": "test.java.DirectiveTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch ErrorMsgTest",
+            "request": "launch",
+            "mainClass": "test.java.ErrorMsgTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch ErrorReporterTest",
+            "request": "launch",
+            "mainClass": "test.java.ErrorReporterTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch InstructionTest",
+            "request": "launch",
+            "mainClass": "test.java.InstructionTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch InterRepTest",
+            "request": "launch",
+            "mainClass": "test.java.InterRepTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch LineStatementTest",
+            "request": "launch",
+            "mainClass": "test.java.LineStatementTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch ListingTest",
+            "request": "launch",
+            "mainClass": "test.java.ListingTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch MnemonicTest",
+            "request": "launch",
+            "mainClass": "test.java.MnemonicTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch OperandTest",
+            "request": "launch",
+            "mainClass": "test.java.OperandTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch OptionsTest",
+            "request": "launch",
+            "mainClass": "test.java.OptionsTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch ParserTest",
+            "request": "launch",
+            "mainClass": "test.java.ParserTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch PositionTest",
+            "request": "launch",
+            "mainClass": "test.java.PositionTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch ReaderTest",
+            "request": "launch",
+            "mainClass": "test.java.ReaderTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch ScannerTest",
+            "request": "launch",
+            "mainClass": "test.java.ScannerTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch SymbolTableTest",
+            "request": "launch",
+            "mainClass": "test.java.SymbolTableTest",
+            "projectName": "crossAssembler_4cbb7091"
+        },
+        {
+            "type": "java",
+            "name": "Launch TokenTest",
+            "request": "launch",
+            "mainClass": "test.java.TokenTest",
+            "projectName": "crossAssembler_4cbb7091"
+        }
+    ]
+}

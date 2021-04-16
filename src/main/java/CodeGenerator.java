@@ -138,7 +138,7 @@ public class CodeGenerator implements ICodeGenerator {
                     }
                     //Check if label was set, if not label is not found
                     if (mCode[i].equals(""))
-                        errorReporter.record(new ErrorMsg(label + " label not found (or defined)", new Position(i + 1, 0)));
+                        errorReporter.record(new ErrorMsg(label + " label not found (or defined)", new Position(i, 0)));
                 } else {
                     if (interRep.getLine(i).getInstruction().getMnemonic().getOpcode() == -1) {
                         mCode[i] = "";

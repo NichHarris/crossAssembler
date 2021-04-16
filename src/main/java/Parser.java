@@ -29,7 +29,7 @@ public class Parser implements IParser {
     private final IScanner scanner;
     private final IReader reader;
 
-    private int currLine, colN;
+    private int currLine;
 
     //Parser constructor initializes IR using number of lines from Reader
     public Parser(int len, ISymbolTable symTable, IErrorReporter errRep, IScanner scnr, IReader rdr) {
@@ -50,7 +50,6 @@ public class Parser implements IParser {
         //Create an instance of LineStatement
         line = new LineStatement();
         currLine = 0;
-        colN = 0;
     }
 
     //Parse a token received from Scanner
@@ -70,12 +69,12 @@ public class Parser implements IParser {
     private void parseToIR(IToken token) {
         //Get line number from token
         int lineN = token.getPosition().getLineNumber();
-
+        int colN = token.getPosition().getColumnNumber();
         //Add to InterRep completed line and create empty line
         if(currLine < lineN) {
             //Missing operand
             if(line.getInstruction().getMnemonic().getOpcode() > 0x1F && line.getInstruction().getOperand().getOp().equals(""))
-                errorReporter.record(new ErrorMsg("Instructions with immediate mode addressing needs to have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
+                errorReporter.record(new ErrorMsg("Instructions with immediate mode addressing needs to have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
 
             //Add current LineStatement to IR
             interRep.addLine(currLine++, line);
@@ -99,7 +98,7 @@ public class Parser implements IParser {
                 else if (symbolTable.getCode(token.getName()) != -1)
                     line.setInstruction(new Instruction(new Mnemonic(token.getName(), code), new Operand()));
                 else
-                    errorReporter.record(new ErrorMsg("Not a valid mnemonic or directive. [" + token.getName() + "]", new Position(currLine + 1, colN)));
+                    errorReporter.record(new ErrorMsg("Not a valid mnemonic or directive. [" + token.getName() + "]", new Position(currLine, colN)));
                 break;
             //Add Operand/Label to Line
             case Operand:
@@ -108,7 +107,7 @@ public class Parser implements IParser {
                     line.getDirective().setCString(token.getName());
                     //Check quotation marks
                     if(!line.getDirective().getCString().startsWith("\"") || !line.getDirective().getCString().endsWith("\""))
-                        errorReporter.record(new ErrorMsg("Directives need to be declared with opening and closing quotation marks. [" + line.getDirective().getCString() + "]", new Position(currLine + 1, colN)));
+                        errorReporter.record(new ErrorMsg("Directives need to be declared with opening and closing quotation marks. [" + line.getDirective().getCString() + "]", new Position(currLine, colN)));
                 } else {
                     int opCode = line.getInstruction().getMnemonic().getOpcode();
                     //Check mnemonic is immediate or relative
@@ -124,7 +123,7 @@ public class Parser implements IParser {
 
                         //Check operand size
                         if (token.getTokenType() == TokenType.Operand && bnConv.isOverflow(Integer.parseInt(token.getName()), 8*line.getInstruction().getMnemonic().getMneSize(),line.getInstruction().getMnemonic().getMne().contains(".i"))) {
-                            errorReporter.record(new ErrorMsg("Instruction in relative addressing mode exceeds its range. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
+                            errorReporter.record(new ErrorMsg("Instruction in relative addressing mode exceeds its range. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
                         }
                         //Check if operand is a label not a number
                         switch (opCode) {
@@ -134,17 +133,17 @@ public class Parser implements IParser {
                             case (0xE1):
                             case (0xE3):
                                 if(token.getTokenType() == TokenType.Operand)
-                                    errorReporter.record(new ErrorMsg("Operand must refer to a Label.", new Position(currLine + 1, colN)));
+                                    errorReporter.record(new ErrorMsg("Operand must refer to a Label.", new Position(currLine, colN)));
                                 break;
                             //Expecting operand - Check if label
                             default:
                                 if(token.getTokenType() == TokenType.LabelOperand && !line.getInstruction().getOperand().isNumeric())
-                                    errorReporter.record(new ErrorMsg("Label must refer to a Operand.", new Position(currLine + 1, colN)));
+                                    errorReporter.record(new ErrorMsg("Label must refer to a Operand.", new Position(currLine, colN)));
                         }
 
                     //Inherent mode addressing error
                     } else {
-                        errorReporter.record(new ErrorMsg("Instructions with inherent addressing mode do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
+                        errorReporter.record(new ErrorMsg("Instructions with inherent addressing mode do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
                     }
                 }
                 break;
@@ -157,9 +156,6 @@ public class Parser implements IParser {
                 if(!token.getName().equals(""))
                     errorReporter.record(new ErrorMsg("Invalid Token.", new Position(currLine, colN)));
         }
-
-        //Update column number
-        colN = token.getPosition().getColumnNumber();
     }
 
     //Parses Operand Bounds

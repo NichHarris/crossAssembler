@@ -100,32 +100,30 @@ public class Assembler implements IAssembler{
 
         //Update label table
         for (int i = 0; i < interRep.getLength() - 1; i++) {
-            //Add label in label field to label table
+            String label = "";
+            //Add label in label field to LabelTable
             if (!interRep.getLine(i).getLabel().equals("")) {
-                String label = interRep.getLine(i).getLabel();
+                label = interRep.getLine(i).getLabel();
+
                 //Create entry in table
                 if (!labelTable.hasStartLabel(label))
                     labelTable.newEntry(label);
 
                 labelTable.setLabelEnd(label, i);
-
-                if (labelTable.getAddr(label).getNumTimes() > 1) {
-                    errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i + 1, 0)));
-                }
             }
-
+            //Add label in operand field to LabelTable
             if (!interRep.getLine(i).getInstruction().getOperand().getOp().equals("") && !interRep.getLine(i).getInstruction().getOperand().isNumeric()) {
-                String label = interRep.getLine(i).getInstruction().getOperand().getOp();
+                label = interRep.getLine(i).getInstruction().getOperand().getOp();
 
                 //Create entry in table
                 if (!labelTable.hasStartLabel(label))
                     labelTable.newEntry(label);
 
                 labelTable.setLabelStart(label, i);
-
-                if (labelTable.getAddr(label).getNumTimes() > 1)
-                    errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i + 1, 0)));
             }
+            //Generate label error
+            if (labelTable.getAddr(label).getNumTimes() > 1)
+                errorReporter.record(new ErrorMsg(label + " is already defined.", new Position(i, 0)));
         }
     }
 }
