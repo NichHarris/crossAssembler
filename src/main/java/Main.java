@@ -30,14 +30,14 @@ public class Main {
 
             //Get file name
             String fileName = options.getFile();
-            //if (fileName != null) {
+            if (fileName != null) {
 
                 //Create instance of Assembler
                 Assembler assembler = new Assembler(fileName, options);
 
                 //Execute assembler
                 assembler.assemble();
-            //}
+            }
         }
     }
 }
