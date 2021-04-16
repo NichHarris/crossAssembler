@@ -9,5 +9,5 @@ import main.java.TokenType;
 public interface IToken {
     IPosition getPosition();
     String    getName();
-    TokenType getCode();
+    TokenType getTokenType();
 }

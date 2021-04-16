@@ -1,5 +1,21 @@
-package main.java;
+/*
+    SOEN 341 - Cm Cross-Assembler Version 1.4 - Developed by Team 3.
 
+    Nicholas Kawwas - 40124338
+    Matthew Sklivas - 40095150
+    Nicholas Harris - 40111093
+    Georgia Bardaklis - 40096586
+    Karine Chatta - 27894392
+    Lina Tran - 40130446
+    Vincent Beaulieu - 40062386
+    Philippe Lee - 40131559
+    Malek Jerbi - 40130983
+
+ */
+
+
+//Import necessary files and packages
+package main.java;
 import main.interfaces.IOptions;
 
 //Options class - Determine and check validity of options provided by the developer from the command line
@@ -16,7 +32,7 @@ public class Options implements IOptions {
         listing = false;
         verbose = false;
         banner = false;
-        file = "";
+        file = null;
         setOptions(options);
     }
 
@@ -54,15 +70,18 @@ public class Options implements IOptions {
                         break;
                     //Invalid options
                     default:
+                        //Check if argument is an option
+                        if (options[i].startsWith("-")) {
+                            displayHelp();
+                            throw new Exception("\n Error: Invalid Option\n" );
+                        }
+
+                        //Check if argument is a file
                         if (options[i].endsWith(".asm"))
                             if(i != len - 1)
                                 throw new Exception("Error: File Must Be Last Option");
                             else
                                 break;
-
-                        file = options[len - 1];
-                        displayHelp();
-                        throw new Exception("\nError: Invalid Option\n" );
                 }
             }
 
@@ -73,8 +92,8 @@ public class Options implements IOptions {
                 displayHelp();
 
             //Check if assembly file is included as last argument
-            if (len < 1 || (!options[len - 1].endsWith(".asm") && !banner && !help))
-                throw new Exception("Error: Missing Assembly file");
+            if (len < 1 || (!options[len - 1].endsWith(".asm") && !help))
+                throw new Exception("Error: Missing Assembly file ");
 
             //Set file
             file = options[len - 1];

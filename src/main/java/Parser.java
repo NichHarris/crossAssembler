@@ -1,5 +1,21 @@
-package main.java;
+/*
+    SOEN 341 - Cm Cross-Assembler Version 1.4 - Developed by Team 3.
 
+    Nicholas Kawwas - 40124338
+    Matthew Sklivas - 40095150
+    Nicholas Harris - 40111093
+    Georgia Bardaklis - 40096586
+    Karine Chatta - 27894392
+    Lina Tran - 40130446
+    Vincent Beaulieu - 40062386
+    Philippe Lee - 40131559
+    Malek Jerbi - 40130983
+
+ */
+
+
+//Import necessary files and packages
+package main.java;
 import main.interfaces.*;
 
 //Parser - Performs analysis the syntax of tokens and generates the correct IR
@@ -45,7 +61,7 @@ public class Parser implements IParser {
             tk = scanner.scanFile(reader);
             parseToIR(tk);
         }
-
+        //Add final LineStatement to IR
         interRep.addLine(currLine, line);
     }
 
@@ -61,7 +77,9 @@ public class Parser implements IParser {
             if(line.getInstruction().getMnemonic().getOpcode() > 0x1F && line.getInstruction().getOperand().getOp().equals(""))
                 errorReporter.record(new ErrorMsg("Instructions with immediate mode addressing needs to have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
 
+            //Add current LineStatement to IR
             interRep.addLine(currLine++, line);
+            //Create new LineStatement
             line = new LineStatement();
         }
 
@@ -69,7 +87,7 @@ public class Parser implements IParser {
         int code = symbolTable.getCode(token.getName());
 
         //Adds to LineStatement
-        switch(token.getCode()) {
+        switch(token.getTokenType()) {
             //Add Label to Line
             case Label:
                 line.setLabel(token.getName());
@@ -97,7 +115,7 @@ public class Parser implements IParser {
                     if (opCode > 0x1F && opCode < 0xB0) {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
                         //Update opcode - Parse operand size and state
-                        if (token.getCode() == TokenType.Operand) {
+                        if (token.getTokenType() == TokenType.Operand) {
                             parseOperandBound(token, opCode);
                         }
                     //Relative mode addressing
@@ -105,7 +123,7 @@ public class Parser implements IParser {
                         line.setInstruction(new Instruction(line.getInstruction().getMnemonic(), new Operand(token.getName())));
 
                         //Check operand size
-                        if (token.getCode() == TokenType.Operand && bnConv.isOverflow(Integer.parseInt(token.getName()), 8*line.getInstruction().getMnemonic().getMneSize(),line.getInstruction().getMnemonic().getMne().contains(".i"))) {
+                        if (token.getTokenType() == TokenType.Operand && bnConv.isOverflow(Integer.parseInt(token.getName()), 8*line.getInstruction().getMnemonic().getMneSize(),line.getInstruction().getMnemonic().getMne().contains(".i"))) {
                             errorReporter.record(new ErrorMsg("Instruction in relative addressing mode exceeds its range. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
                         }
                         //Check if operand is a label not a number
@@ -115,15 +133,15 @@ public class Parser implements IParser {
                             case (0xE0):
                             case (0xE1):
                             case (0xE3):
-                                if(token.getCode() == TokenType.Operand)
+                                if(token.getTokenType() == TokenType.Operand)
                                     errorReporter.record(new ErrorMsg("Operand must refer to a Label.", new Position(currLine + 1, colN)));
                                 break;
                             //Expecting operand - Check if label
                             default:
-                                if(token.getCode() == TokenType.LabelOperand && !line.getInstruction().getOperand().isNumeric())
+                                if(token.getTokenType() == TokenType.LabelOperand && !line.getInstruction().getOperand().isNumeric())
                                     errorReporter.record(new ErrorMsg("Label must refer to a Operand.", new Position(currLine + 1, colN)));
                         }
-                        //
+
                     //Inherent mode addressing error
                     } else {
                         errorReporter.record(new ErrorMsg("Instructions with inherent addressing mode do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine + 1, colN)));
