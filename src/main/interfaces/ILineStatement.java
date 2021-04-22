@@ -3,7 +3,6 @@ package main.interfaces;
 //Interface for LineStatement class
 public interface ILineStatement {
 
-    //Todo: remove setters
     //Setter for label
     void setLabel(String l);
 
