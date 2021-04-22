@@ -34,7 +34,7 @@ public class OptionsTest {
         //Enables Listing and Verbose
         String[] opArray2 = {"-v", "-l", "sample.asm"};
         IOptions CorrectOption = new Options(opArray2);
-        testOptions("Test -Options Class- isVerbose()", "false", "" + CorrectOption.isVerbose());
+        testOptions("Test -Options Class- isVerbose()", "true", "" + CorrectOption.isVerbose());
         testOptions("Test -Options Class- isListing()", "true", "" + CorrectOption.isListing());
 
         //Enable Listing and Help

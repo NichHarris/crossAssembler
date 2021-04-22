@@ -19,7 +19,7 @@ public class CommentTest {
         commentTester("-Comment Class- Parameterized constructor and getter method", cmtStr, comment_2.getCmt());
 
         //Testing Fail Report
-        commentTester("-Comment Class- Parameterized constructor and getter method", "This Test Will Fail", comment_2.getCmt());
+        commentTester("-Comment Class- Parameterized constructor and getter method", "Hello World", comment_2.getCmt());
     }
 
     public static void commentTester(String testNb, String expected, String actual) throws Exception {
