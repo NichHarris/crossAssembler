@@ -40,8 +40,6 @@ public class CodeGenerator implements ICodeGenerator {
         fileName = filename.substring(0, filename.indexOf("."));
         generateMachineCode();
 
-        //Get the label table
-
         //Generate listing file
         if (options.isVerbose() || options.isListing()) {
             IListing listing = new Listing(IR, mCode);

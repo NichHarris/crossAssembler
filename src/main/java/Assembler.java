@@ -31,7 +31,6 @@ public class Assembler implements IAssembler{
         //Get input file name
         fileName = filename;
 
-        //TODO: Don't need this anymore
         //Get instance of options for CodeGenerator
         this.options = options;
 
