@@ -76,15 +76,4 @@ public class InterRep implements IInterRep {
     public void setAddr(int i, int val) {
         addr[i] = val;
     }
-
-    //Returns a string representable of an interRep object
-    /*
-    public String toString() {
-        String IR = "";
-        for(int i = 0; i < getLength(); i++)
-            IR = IR.concat(String.format("Line %s: %s", i, lines[i].toString() + "\n"));
-
-        return IR;
-    }//Todo throw NullPointerException when testing
-     */
 }

@@ -40,10 +40,12 @@ public class Offset implements IOffset {
         numTimes++;
     }
 
+    //Return the start address of the label
     public int getStartAddr() {
         return addrStart;
     }
 
+    //Return the end address of the label
     public int getEndAddr() {
         return addrEnd;
     }

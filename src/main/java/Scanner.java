@@ -133,6 +133,7 @@ public class Scanner implements IScanner {
         return null;
     }
 
+    //Called when a newline is detected
     public void newLine(){
         //Increment line number and reset column number
         lineNum++;
