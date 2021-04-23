@@ -140,7 +140,6 @@ public class Parser implements IParser {
                                 if(token.getTokenType() == TokenType.LabelOperand && !line.getInstruction().getOperand().isNumeric())
                                     errorReporter.record(new ErrorMsg("Label must refer to a Operand.", new Position(currLine, colN)));
                         }
-
                     //Inherent mode addressing error
                     } else {
                         errorReporter.record(new ErrorMsg("Instructions with inherent addressing mode do not have an operand field. [" + line.getInstruction().getMnemonic().getMne() + "]", new Position(currLine, colN)));
@@ -187,7 +186,6 @@ public class Parser implements IParser {
         }
         //Operand Exceeds Limit
         else {
-            //errorReporter.record(new ErrorMsg("The immediate instruction " + token.getName() + " must have a " + size + "-bit " + isSigned ? "signed" : "unsigned" + "operand number ranging from " + range + ".", token.getPosition()));
             //enter.u5 operand check
             if (opCode == 0x70)
                 errorReporter.record(new ErrorMsg("The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31.", token.getPosition()));
@@ -197,8 +195,6 @@ public class Parser implements IParser {
             //ldc.i3 operand check
             else if(opCode == 0x90)
                 errorReporter.record(new ErrorMsg("The immediate instruction 'ldc.i3' must have a 3-bit signed operand number ranging from -4 to 3.", token.getPosition()));
-            else
-                System.out.println("Future Sprint Case");
         }
     }
 

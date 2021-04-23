@@ -4,7 +4,4 @@ public interface IComment {
 
     //Return a comment
     String getCmt();
-
-
-
 }
