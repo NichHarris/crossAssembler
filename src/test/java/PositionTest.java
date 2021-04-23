@@ -8,7 +8,6 @@ public class PositionTest {
 
         TextFileGenerator.textFileGenerator("PositionTest.txt");
 
-
         IPosition p1 = new Position(1, 2);   // (line, col)
         IPosition p2 = new Position(2, 4);
         IPosition p3 = new Position(3, 6);

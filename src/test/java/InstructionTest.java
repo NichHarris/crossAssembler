@@ -51,5 +51,4 @@ public class InstructionTest {
         // actual output
         System.out.println(methodOutput);
     }
-
 }

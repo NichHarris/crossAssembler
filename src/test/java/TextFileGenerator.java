@@ -8,7 +8,6 @@ public class TextFileGenerator {
     public static void textFileGenerator(String name){
 
         try {
-
             //Obtain the destination path
             String path = new File(pathname+name).getAbsolutePath();
 
@@ -18,8 +17,5 @@ public class TextFileGenerator {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
-
 }

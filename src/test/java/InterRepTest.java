@@ -42,12 +42,8 @@ public class InterRepTest {
         //Set Addr and get Addr
         IR.setAddr(0,100);
         TestInterRep("Test -InterRep- setAddr() and getAddr()","100",Integer.toString(IR.getAddr(0)));
-
-        // **Testing toString() having problem with testing toString as aunit will only test in pairs but toString will print out the entire asm file (26 lines) so
-        //to go around this problem we are printing just the first line**
-        //TestInterRep("Test -InterRep Class- toString()", "Line 0: ' '\": -1\" ' '", IR.toString());
-
     }
+
     public static void TestInterRep(String testCaseName, String expectedOutput, String methodOutput) throws Exception{
         System.out.println(testCaseName);
         // expected value
@@ -55,5 +51,4 @@ public class InterRepTest {
         // actual output
         System.out.println(methodOutput);
     }
-
 }

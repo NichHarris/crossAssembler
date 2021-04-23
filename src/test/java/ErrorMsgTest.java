@@ -10,7 +10,6 @@ public class ErrorMsgTest {
         IErrorMsg message = new ErrorMsg("Error 1", new Position(1,2));
         IErrorMsg message2 = new ErrorMsg("Error 2",3,4);
 
-
         errorMsgTester("Parameterized Constructor with position object","Error: Line 1, Column 2: Error 1",message.getErrorMsg());
 
         errorMsgTester("Parameterized Constructor without position object","Error: Line 3, Column 4: Error 2",message2.getErrorMsg());

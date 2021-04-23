@@ -38,7 +38,6 @@ public class ParserTest {
         // Error: Operand Size Exceeds Bounds
         testParser("getInterRep() Operand Size Exceeds Bounds","Error: Line 32, Column 1: The immediate instruction 'enter.u5' must have a 5-bit unsigned operand number ranging from 0 to 31." , er.getErrorMsg(0).getErrorMsg() );
 
-
         //Creating an Interrep with just Immediate
         IReader rdr2 = new Reader("TestImmediate.asm");
         rdr2.readFile();
@@ -50,7 +49,6 @@ public class ParserTest {
         IInterRep rep2  = p2.getInterRep();
         // Successful Parsing of File - Immediate
         testParser("Successful Parsing of File - Immediate", "' '\": -1\" ' ; TestImmediate.asm - Test immediate instructions.'", rep2.getLine(0).toString());
-
 
         //Creating an Interrep with just Immediate
         IReader rdr3 = new Reader("Testing3.asm");
@@ -68,8 +66,8 @@ public class ParserTest {
         testParser("getInterRep() Operand cannot be a mnemonic", "' '\": -1\" ' '", rep2.getLine(61).toString());
         // Label must not be created twice
         //testParser("getInterRep() Label must not be created twice ", "", p.getInterRep().getLine(84).toString());
-
     }
+
     public static void testParser(String caseName, String expectedOutput, String methodOutput) throws Exception {
         System.out.println("Test -Parser Class- " + caseName);
         // expected value
@@ -78,4 +76,3 @@ public class ParserTest {
         System.out.println(methodOutput);
     }
 }
-

@@ -27,8 +27,6 @@ public class AssemblerTest {
 
         // testing code generator file creation
         TestAssembler("Test -Assembler Class-", "true",Boolean.toString(Compare(path1,path2)));
-
-
     }
 
     public static void TestAssembler(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
@@ -40,6 +38,7 @@ public class AssemblerTest {
     }
 
     private static boolean Compare(String file1, String file2)throws Exception {
+
         byte[] file1byte = Files.readAllBytes(Paths.get(file1));
 
         byte[] file2byte = Files.readAllBytes(Paths.get(file2));
@@ -50,8 +49,5 @@ public class AssemblerTest {
             }
         }
         return true;
-
     }
-
-
 }

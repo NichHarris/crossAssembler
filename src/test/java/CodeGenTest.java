@@ -20,7 +20,6 @@ public class CodeGenTest {
 
         Main.main(options);
 
-
         String pathname = "src/files/output/";
         String path1 = new File(pathname + "listing.lst").getAbsolutePath();
         File file = new File(path1);
@@ -29,20 +28,8 @@ public class CodeGenTest {
         String path2 = new File(pathname2 + "listing.lst").getAbsolutePath();
         File file2 = new File(path2);
 
-        //compare(path1,path2);
-        //System.out.println(Paths.get(path1));
-        //long a = Files.mismatch(Paths.get(path1), Paths.get(path2));
-
-        //System.out.println(Paths.get(path2));
-
-
-
-
-
         // testing code generator file creation
          TestCodeGenerator("Test -CodeGenerator Class-", "true",Boolean.toString(Compare(path1,path2)));
-
-
     }
 
     public static void TestCodeGenerator(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
@@ -64,9 +51,5 @@ public class CodeGenTest {
             }
         }
         return true;
-
     }
-
 }
-
-

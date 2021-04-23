@@ -14,11 +14,9 @@ public class TokenTest {
         IPosition p2 = new Position(2, 4);
         IPosition p3 = new Position(3, 6);
 
-
         IToken t1 = new Token(p1, "halt", TokenType.Mnemonic);
         IToken t2 = new Token(p2, "pop",  TokenType.Mnemonic);
         IToken t3 = new Token(p3, "dup",  TokenType.Mnemonic);
-
 
         System.out.println("Test Token");
         System.out.println("[halt(1,2)=Mnemonic][pop(2,4)=Mnemonic][dup(3,6)=Mnemonic]");
@@ -27,7 +25,5 @@ public class TokenTest {
         System.out.print(t2);
         System.out.print(t3);
         System.out.println();
-
-
     }
 }

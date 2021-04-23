@@ -60,6 +60,4 @@ public class OptionsTest {
         System.out.println(expectedOutput);
         System.out.println(methodOutput);
     }
-
 }
-
