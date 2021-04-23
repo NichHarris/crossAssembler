@@ -27,6 +27,7 @@ Line Addr Code          Label         Mnemonic      Operand       Comments
 26   0019 00                          halt                                            
 27   001A                                                                             
 28   001A                                                         ; TestImmediate.asm - Test immediate instructions.
+    d
 29   001A                                                                             
 30   001A 80                          enter.u5      0                                 
 31   001B 81                          enter.u5      1             ; OK, number <u5> [0..31].

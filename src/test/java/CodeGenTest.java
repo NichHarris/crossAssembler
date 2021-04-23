@@ -29,7 +29,7 @@ public class CodeGenTest {
         File file2 = new File(path2);
 
         // testing code generator file creation
-         TestCodeGenerator("Test -CodeGenerator Class-", "true",Boolean.toString(Compare(path1,path2)));
+         TestCodeGenerator("Test -CodeGenerator Class-", "true",Boolean.toString(areFilesEqual(file,file2)));
     }
 
     public static void TestCodeGenerator(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
@@ -40,16 +40,38 @@ public class CodeGenTest {
         System.out.println(methodOutput);
     }
 
-    private static boolean Compare(String file1, String file2)throws Exception {
-        byte[] file1byte = Files.readAllBytes(Paths.get(file1));
+    private static boolean areFilesEqual(File expectedFile, File actualFile) {
+        try {
+            BufferedInputStream expFIS = new BufferedInputStream(new FileInputStream(expectedFile));
+            BufferedInputStream actFIS = new BufferedInputStream(new FileInputStream(actualFile));
 
-        byte[] file2byte = Files.readAllBytes(Paths.get(file2));
+            int currCharExp = expFIS.read();
+            int currCharAct = actFIS.read();
 
-        for (int i = 0; i < file1byte.length; i++) {
-            if (file1byte[i] != file2byte[i]) {
-                return false;
+            //Traverse through files and compare them until EOF
+            while (currCharAct != -1 && currCharExp != -1) {
+
+                if (currCharAct != currCharExp){
+                    //Files Created On Different OS with Different EOLs
+                    if (currCharAct == 13){
+                        actFIS.read();
+                    } else if (currCharExp == 13) {
+                        expFIS.read();
+                    } else {
+                        return false;
+                    }
+                }
+
+                //Read Next Characters
+                currCharExp = expFIS.read();
+                currCharAct = actFIS.read();
             }
+            return currCharAct == currCharExp;
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return true;
+
+        return false;
     }
 }
