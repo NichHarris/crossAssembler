@@ -40,7 +40,7 @@ public class CodeGenTest {
 
 
         // testing code generator file creation
-         TestCodeGenerator("Test -CodeGenerator Class-", "true",Boolean.toString(path,path2));
+         TestCodeGenerator("Test -CodeGenerator Class-", "true",Boolean.toString(Compare(path1,path2));
 
 
     }
@@ -53,7 +53,7 @@ public class CodeGenTest {
         System.out.println(methodOutput);
     }
 
-    private static boolean isEqual(String file1, String file2)throws Exception {
+    private static boolean Compare(String file1, String file2)throws Exception {
         byte[] file1byte = Files.readAllBytes(Paths.get(file1));
 
         byte[] file2byte = Files.readAllBytes(Paths.get(file2));
