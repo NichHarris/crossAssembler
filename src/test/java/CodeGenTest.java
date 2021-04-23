@@ -12,7 +12,7 @@ public class CodeGenTest {
 
 
     public static void main(String[] args) throws Exception {
-        //Making the Text file in the proper location
+        //Making the Text expectedFile in the proper location
         TextFileGenerator.textFileGenerator("CodeGenTest.txt");
 
         //Creating Options
@@ -20,16 +20,16 @@ public class CodeGenTest {
 
         Main.main(options);
 
-        String pathname = "src/files/output/";
-        String path1 = new File(pathname + "listing.lst").getAbsolutePath();
-        File file = new File(path1);
+        String exptPath = "src/files/output/";
+        String expectedPath = new File(exptPath + "listing.lst").getAbsolutePath();
+        File expectedFile = new File(expectedPath);
 
-        String pathname2 = "src/test/ref/";
-        String path2 = new File(pathname2 + "listing.lst").getAbsolutePath();
-        File file2 = new File(path2);
+        String actPath = "src/test/ref/";
+        String actualPath = new File(actPath + "listing.lst").getAbsolutePath();
+        File actualFile = new File(actualPath);
 
-        // testing code generator file creation
-         TestCodeGenerator("Test -CodeGenerator Class-", "true",Boolean.toString(areFilesEqual(file,file2)));
+        // testing code generator expectedFile creation
+         TestCodeGenerator("Test -CodeGenerator Class-", "true",Boolean.toString(areFilesEqual(expectedFile,actualFile)));
     }
 
     public static void TestCodeGenerator(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
@@ -41,9 +41,10 @@ public class CodeGenTest {
     }
 
     private static boolean areFilesEqual(File expectedFile, File actualFile) {
-        try {
-            BufferedInputStream expFIS = new BufferedInputStream(new FileInputStream(expectedFile));
-            BufferedInputStream actFIS = new BufferedInputStream(new FileInputStream(actualFile));
+
+        try{
+            FileInputStream expFIS = new FileInputStream(expectedFile);
+            FileInputStream actFIS = new FileInputStream(actualFile);
 
             int currCharExp = expFIS.read();
             int currCharAct = actFIS.read();
@@ -71,7 +72,6 @@ public class CodeGenTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return false;
     }
 }

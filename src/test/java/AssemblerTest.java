@@ -1,9 +1,7 @@
 package test.java;
 import main.java.Main;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,16 +15,16 @@ public class AssemblerTest {
 
         args = new String[]{"-l","testfile.asm"};
 
-        String pathname = "src/files/output/";
-        String path1 = new File(pathname + "testfile.lst").getAbsolutePath();
-        File file = new File(path1);
+        String exptPath = "src/files/output/";
+        String expectedPath = new File(exptPath + "testfile.lst").getAbsolutePath();
+        File expectedFile = new File(expectedPath);
 
-        String pathname2 = "src/test/ref/";
-        String path2 = new File(pathname2 + "testfile.lst").getAbsolutePath();
-        File file2 = new File(path2);
+        String actPath = "src/test/ref/";
+        String actualPath = new File(actPath + "testfile.lst").getAbsolutePath();
+        File actualFile = new File(actualPath);
 
-        // testing code generator file creation
-        TestAssembler("Test -Assembler Class-", "true",Boolean.toString(Compare(path1,path2)));
+        // testing code generator expectedFile creation
+        TestAssembler("Test -Assembler Class-", "true",Boolean.toString(areFilesEqual(expectedFile,actualFile)));
     }
 
     public static void TestAssembler(String testCaseName, String expectedOutput, String methodOutput) throws Exception {
@@ -37,17 +35,38 @@ public class AssemblerTest {
         System.out.println(methodOutput);
     }
 
-    private static boolean Compare(String file1, String file2)throws Exception {
+    private static boolean areFilesEqual(File expectedFile, File actualFile) {
 
-        byte[] file1byte = Files.readAllBytes(Paths.get(file1));
+        try{
+            FileInputStream expFIS = new FileInputStream(expectedFile);
+            FileInputStream actFIS = new FileInputStream(actualFile);
 
-        byte[] file2byte = Files.readAllBytes(Paths.get(file2));
+            int currCharExp = expFIS.read();
+            int currCharAct = actFIS.read();
 
-        for (int i = 0; i < file1byte.length; i++) {
-            if (file1byte[i] != file2byte[i]) {
-                return false;
+            //Traverse through files and compare them until EOF
+            while (currCharAct != -1 && currCharExp != -1) {
+
+                if (currCharAct != currCharExp){
+                    //Files Created On Different OS with Different EOLs
+                    if (currCharAct == 13){
+                        actFIS.read();
+                    } else if (currCharExp == 13) {
+                        expFIS.read();
+                    } else {
+                        return false;
+                    }
+                }
+
+                //Read Next Characters
+                currCharExp = expFIS.read();
+                currCharAct = actFIS.read();
             }
+            return currCharAct == currCharExp;
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-        return true;
+        return false;
     }
 }
