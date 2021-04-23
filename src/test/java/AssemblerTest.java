@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 
@@ -25,7 +26,7 @@ public class AssemblerTest {
         File file2 = new File(path2);
 
         // testing code generator file creation
-        TestAssembler("Test -Assembler Class-", "true",Boolean.toString(isEqual(file.toPath(),file2.toPath())));
+        TestAssembler("Test -Assembler Class-", "true",Boolean.toString(isEqual(path1,path2)));
 
 
     }
@@ -38,40 +39,19 @@ public class AssemblerTest {
         System.out.println(methodOutput);
     }
 
-    private static boolean isEqual(Path firstFile, Path secondFile)
-    {
-        try {
-            long size = Files.size(firstFile);
-            /*
-            if (size != Files.size(secondFile)) {
+    private static boolean isEqual(String file1, String file2)throws Exception {
+        byte[] file1byte = Files.readAllBytes(Paths.get(file1));
+
+        byte[] file2byte = Files.readAllBytes(Paths.get(file2));
+
+        for (int i = 0; i < file1byte.length; i++) {
+            if (file1byte[i] != file2byte[i]) {
                 return false;
             }
-
-
-             */
-            if (size < 2048)
-            {
-                return Arrays.equals(Files.readAllBytes(firstFile),
-                        Files.readAllBytes(secondFile));
-            }
-
-            // Compare character-by-character
-            try (BufferedReader bf1 = Files.newBufferedReader(firstFile);
-                 BufferedReader bf2 = Files.newBufferedReader(secondFile))
-            {
-                int ch;
-                while ((ch = bf1.read()) != -1)
-                {
-                    if (ch != bf2.read()) {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
         }
-        return false;
+        return true;
+
     }
+
+
 }
