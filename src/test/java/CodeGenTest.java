@@ -40,7 +40,7 @@ public class CodeGenTest {
 
 
         // testing code generator file creation
-         TestCodeGenerator("Test -CodeGenerator Class-", "true",Boolean.toString(Compare(path1,path2));
+         TestCodeGenerator("Test -CodeGenerator Class-", "true",Boolean.toString(Compare(path1,path2)));
 
 
     }
