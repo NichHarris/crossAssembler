@@ -8,9 +8,6 @@ Running Tests:
 2. Run Test File and Redirect Output into .txt: java TestX > TestX.txt
 3. Run Unit Test Using AUnit: java aunit TestX.txt
 
-## Test Cases:
-...
-
 ## Scrum Team:
 Nicholas Kawwas [nickawwas](https://github.com/nickawwas) \
 Nicholas Harris [NichHarris](https://github.com/NichHarris) \
