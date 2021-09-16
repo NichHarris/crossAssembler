@@ -22,7 +22,7 @@ import main.interfaces.*;
 public class Parser implements IParser {
     private static IInterRep interRep;
     private ILineStatement line;
-
+//temp
     private final IBinaryConverter bnConv;
     private final ISymbolTable symbolTable;
     private final IErrorReporter errorReporter;
