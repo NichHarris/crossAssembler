@@ -1,46 +1,75 @@
 # Assembler Project
-Implementing a Cm Assembler for Virtual Machines in Java
 
-## Unit Testing Documentation
+Designed Architecture and Implemented a Cm Assembler for Virtual Machines in Java
 
-Running Tests:
-1. Compile Test File: javac TestX.java
-2. Run Test File and Redirect Output into .txt: java TestX > TestX.txt
-3. Run Unit Test Using AUnit: java aunit TestX.txt
+- Built to Be Cross Platform
+  - Compatible with Windows, MacOs, and Linux
+- Focused on Software Processes
+  - Scrum w/ Bi Weekly Sprints/Releases
+  - TDD for Unit and Integration Testing
+  - Refactoring to Improve Architecture Based on PO's Advice
+  - CI/CD using Github
 
-## Scrum Team:
-Nicholas Kawwas [nickawwas](https://github.com/nickawwas) \
-Nicholas Harris [NichHarris](https://github.com/NichHarris) \
-Matthew Sklivas [mattsklivas](https://github.com/mattsklivas) \
-Vincent Beaulieu [vincbeaulieu](https://github.com/vincbeaulieu) \
-Philippe Lee [Lee-Phil](https://github.com/Lee-Phil) \
-Karine Chatta [karinechatta](https://github.com/karinechatta) \
-Georgia Bardaklis [gbardaklis](https://github.com/gbardaklis) \
-Lina Tran [linatran1](https://github.com/linatran1) \
-Malek Jerbi [oguzgezginci](https://github.com/oguzgezginci)
+## Architecture Design
+
+### Key Concept Model
+
+![key-concept](./res/xAssemblerKeyConceptModel.png)
+
+### Use Case Diagram
+
+![use-case](./res/xAssemblerUseCaseDiagram.png)
+
+### Class Diagram
+
+![class-diagram](./res/xAssemblerClassDiagram.png)
+
+### Sequence Diagram
+
+![sequence](./res/xAssemblerSequenceDiagram.png)
+
+### Package Diagram
+
+![package](./res/xAssemblerPackageDiagram.png)
 
 ## Code Structure
-Assembly Unit
--> LineStatement + EOF
 
-LineStatement
--> Label + Instruction + Comment + EOL
+Assembly Unit -> LineStatement + EOF
 
-Label
--> String
+LineStatement -> Label + Instruction + Comment + EOL
 
-Instruction
--> Mnemonic + Operand
+Label -> String
 
-Operand
--> Label (String) or main.java.Offset (Binary)
+Instruction -> Mnemonic + Operand
+
+Operand -> Label (String) or main.java.Offset (Binary)
 
 Directive: .cstring (String)
 
 Comment (;)
-If ; detected, ignore the rest of the line until you reach EOL character  ("\n" | "\r" | "\r\n")
+If ; detected, ignore the rest of the line until you reach EOL character ("\n" | "\r" | "\r\n")
 Remove useless whitespace
 
 Assembler ends when EOF is detected (<control-Z>)
 
 Generate pgm.exe for target and complete listing file pgm.lst with label table
+
+## Testing Documentation
+
+Running Tests:
+
+1. Compile Test File: javac TestX.java
+2. Run Test File and Redirect Output into .txt: java TestX > TestX.txt
+3. Run Unit Test Using AUnit: java aunit TestX.txt
+
+## Scrum Team:
+
+[Nicholas Kawwas](https://github.com/nickawwas) \
+[Nicholas Harris](https://github.com/NichHarris) \
+[Matthew Sklivas](https://github.com/mattsklivas) \
+[Vincent Beaulieu](https://github.com/vincbeaulieu) \
+[Philippe Lee](https://github.com/Lee-Phil) \
+[Karine Chatta](https://github.com/karinechatta) \
+[Georgia Bardaklis](https://github.com/gbardaklis) \
+[Lina Tran](https://github.com/linatran1) \
+[Malek Jerbi](https://github.com/oguzgezginci)
